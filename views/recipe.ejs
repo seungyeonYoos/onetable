@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
+
+    <title>Document</title>
+    <style>
+        ul {
+            list-style: none;
+        }
+        
+        #recipe {
+            margin: 50px 250px 10px 250px;
+            flex-direction: column;
+        }
+        /* 카테고리 */
+        
+        #recipeCategory {
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            margin-top: 20px;
+            /* 임시 */
+        }
+        
+        .category_list>li {
+            width: 80px;
+            height: 80px;
+            border: 1px solid gainsboro;
+        }
+        /* 상품 */
+        
+        #recipeList {
+            margin-left: 30px;
+        }
+        
+        .recipe_list,
+        .category_list {
+            display: flex;
+            align-content: center;
+            flex-wrap: wrap;
+            margin-left: 30px;
+        }
+        
+        .recipe_list>li {
+            width: 250px;
+            height: 350px;
+            margin: 10px 15px;
+            background-color: aliceblue;
+        }
+        
+        .recipe_list>li>img {
+            width: 250px;
+            height: 250px;
+            /* 임시 */
+            background-color: royalblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="recipe">
+        <div id="recipeCategory">
+            <ul class="category_list">
+                <% for (var i = 0 ; i < 20 ; i++) { %>
+                    <li></li>
+                    <% } %>
+            </ul>
+        </div>
+        <br>
+        <div id="recipeList">
+            <ul class="recipe_list">
+                <% for (var i = 0 ; i < 20 ; i++) { %>
+                    <li>
+                        <img src="" alt="">
+                    </li>
+                    <% } %>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
