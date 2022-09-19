@@ -1,0 +1,16 @@
+{
+  "development": {
+    "host": "localhost",
+    "database": "kdt_test",
+    "username": "user",
+    "password": "",
+    "dialect": "mysql"
+  },
+  "product": {
+    "host": "",
+    "database": "",
+    "username": "",
+    "password": "",
+    "dialect": "mysql"
+  }
+}
