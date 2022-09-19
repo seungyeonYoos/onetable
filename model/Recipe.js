@@ -1,6 +1,6 @@
-const User = (Sequelize, DataTypes) => {
-    const modelUser = Sequelize.define(
-        "user", //테이블명
+const Recipe = (Sequelize, DataTypes) => {
+    const modelRecipe = Sequelize.define(
+        "recipe", //테이블명
         {
             //테이블 정의 field를 적어둔다.
             id: {
@@ -24,12 +24,12 @@ const User = (Sequelize, DataTypes) => {
         },
         {
             // database 모델 정의 부분. mysql은 db 생성 시 적용함.
-            tableName: "user",
+            tableName: "recipe",
             freezeTableName: true,
             timestamps: false,
         }
     );
-    return modelUser;
+    return modelRecipe;
 };
 
-module.exports = User;
+module.exports = Recipe;
