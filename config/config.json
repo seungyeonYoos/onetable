@@ -1,9 +1,9 @@
 {
   "development": {
     "host": "localhost",
-    "database": "kdt_test",
-    "username": "user",
-    "password": "",
+    "database": "onetable",
+    "username": "user2",
+    "password": "oneTable1234!",
     "dialect": "mysql"
   },
   "product": {
