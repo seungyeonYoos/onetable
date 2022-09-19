@@ -8,9 +8,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const globalRouter = require("./routes/globalRouter");
+const recipeRouter = require("./routes/recipeRouter");
 const userRouter = require("./routes/userRouter");
 
 app.use("/", globalRouter);
+app.use("/recipe", recipeRouter);
 app.use("/user", userRouter);
 
 app.listen(port, () => {
