@@ -15,6 +15,10 @@ app.use("/", globalRouter);
 app.use("/recipe", recipeRouter);
 app.use("/user", userRouter);
 
+app.get("/", (req, res) => {
+    res.render("index");
+  });
+
 app.listen(port, () => {
     console.log("Server Port : ", port);
 });
