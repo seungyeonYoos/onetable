@@ -14,9 +14,11 @@ const Recipe = (Sequelize, DataTypes) => {
       },
       photo: {
         type: DataTypes.STRING(50),
+        allowNull: false,
       },
       intro: {
-        type: DataTypes.TEXT("medium"),
+        type: DataTypes.STRING(100),
+        allowNull: false,
       },
     },
     {
