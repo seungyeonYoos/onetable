@@ -26,17 +26,17 @@ db.Measurement = require("./Measurement")(sequelize, Sequelize);
 db.RecipeIngredient = require("./RecipeIngredient")(sequelize, Sequelize);
 
 db.Recipe.hasMany(db.Step, {
-    foreignKey: "recipe_id",
-    sourceKey: "id",
-    onDelete: "cascade",
-    onUpdate: "cascade",
+  foreignKey: "recipe_id",
+  sourceKey: "id",
+  onDelete: "cascade",
+  onUpdate: "cascade",
 });
 
 db.Step.belongsTo(db.Recipe, {
-    foreignKey: "recipe_id",
-    sourceKey: "id",
-    onDelete: "cascade",
-    onUpdate: "cascade",
+  foreignKey: "recipe_id",
+  sourceKey: "id",
+  onDelete: "cascade",
+  onUpdate: "cascade",
 });
 
 db.Recipe.hasMany(db.RecipeIngredient, {
