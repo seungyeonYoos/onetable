@@ -1,0 +1,38 @@
+#carouselExampleIndicators {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* first-floor */
+.main-first-floor-contents {
+    display: flex;
+}
+.main-first-floor-contents > div {
+    width: 100px;
+    height: 100px;
+    background-color: antiquewhite;
+    margin: 10px;
+}
+
+/* second-floor */
+.main-second-floor {
+    display: flex;
+}
+.main-second-floor > div {
+    width: 100px;
+    height: 100px;
+    background-color: antiquewhite;
+    margin: 10px;
+}
+
+/* third-floor */
+.main-third-floor-contents {
+    display: flex;
+}
+.main-third-floor-contents > div {
+    width: 100px;
+    height: 100px;
+    background-color: antiquewhite;
+    margin: 10px;
+}
+/* fourth-floor */

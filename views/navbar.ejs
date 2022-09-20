@@ -1,69 +1,33 @@
-<head>
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
-        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js" integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
-    <style>
-        .navbar {
-            display: flex;
-            text-align: center;
-            border-bottom: 1px solid gray;
-        }
-        .nav {
-            list-style: none;
-            display: flex;
-        }
-        .nav > li {
-            margin: 10px;
-        }
-        .nav > li > a {
-            display: inline-block;
-            text-decoration: none;
-            color: black;
-        }
-        .nav-first-floor {
-            display: flex;
-        }
-        .nav-second-floor {
-        display: flex;
-        }
-    </style>
-
-</head>
-<body>
-    <div class="navbar">
-        <div class="nav-first-floor">
-            <div><a class="sign-up" href="#">회원가입</a></div>
-            <div><a class="login" href="#">로그인</a></div>
-            <div><a class="customer-center" href="#">고객센터</a></div>
-        </div>
-        <div class="nav-second-floor">
-            <div>ONE TABLE</div>
-            <form>
-                <input>
-                <button>
-                    검색
-                </button>
-            </form>
-            <div><a class="sign-up" href="#">좋아요목록</a></div>
-            <div><a class="login" href="#">장바구니</a></div>
-            <ul class="nav">
-                <li class="nav-item">
-                <a class="nav-link" href="#">레시피</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="#">키친가이드</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="#">요리클래스</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="#">커뮤니티</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">이벤트</a>
-                </li>
-            </ul>
-        </div>
+<div class="navbar">
+    <div class="nav-first-floor">
+        <div><a class="sign-up" href="#">회원가입</a></div>
+        <div><a class="login" href="#">로그인</a></div>
+        <div><a class="customer-center" href="#">고객센터</a></div>
     </div>
-</body>
+    <div class="nav-second-floor">
+        <div><a href="#">ONE TABLE</a></div>
+        <div><a class="search" href="#"><i class="fa-solid fa-magnifying-glass"></i></a></div>
+        <div><a class="good" href="#"><i class="fa-regular fa-heart"></i></a></div>
+        <div><a class="shopping-basket" href="#"><i class="fa-solid fa-cart-shopping"></i></a></div>  
+        <div><a class="user" href="#"><i class="fa-solid fa-user"></i></a></div>  
+    </div>
+    <div class="nav-third-floor">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#">레시피</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">키친가이드</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">요리클래스</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">커뮤니티</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">이벤트</a>
+            </li>
+         </ul>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 const RecipeIngredients = (Sequelize, DataTypes) => {
   const model = Sequelize.define(
-    "recipeIngredients", //테이블명
+    "recipeIngredient", //테이블명
     {
       //테이블 정의 field를 적어둔다.
       id: {
