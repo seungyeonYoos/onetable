@@ -20,8 +20,65 @@ db.Favorite = require("./Favorite")(sequelize, Sequelize);
 db.Category = require("./Category")(sequelize, Sequelize);
 db.Level = require("./Level")(sequelize, Sequelize);
 db.Review = require("./Review")(sequelize, Sequelize);
+db.Step = require("./Step")(sequelize, Sequelize);
+db.Ingredient = require("./Ingredient")(sequelize, Sequelize);
+db.Measurement = require("./Measurement")(sequelize, Sequelize);
 
-// <table 여러 개 일 때 primary key foreign key 연결>
+db.Recipe.hasMany(db.Step, {
+    foreignKey: "recipe_id",
+    sourceKey: "id",
+    onDelete: "cascade",
+    onUpdate: "cascade",
+});
+
+db.Step.belongsTo(db.Recipe, {
+    foreignKey: "recipe_id",
+    sourceKey: "id",
+    onDelete: "cascade",
+    onUpdate: "cascade",
+});
+
+db.Recipe.hasMany(db.RecipeIngredients, {
+    foreignKey: "recipe_id",
+    sourceKey: "id",
+    onDelete: "cascade",
+    onUpdate: "cascade",
+});
+
+db.RecipeIngredients.belongsTo(db.Recipe, {
+    foreignKey: "recipe_id",
+    sourceKey: "id",
+    onDelete: "cascade",
+    onUpdate: "cascade",
+});
+
+db.Ingredient.hasMany(db.RecipeIngredients, {
+    foreignKey: "ingredient_id",
+    sourceKey: "id",
+    onDelete: "cascade",
+    onUpdate: "cascade",
+});
+
+db.RecipeIngredients.belongsTo(db.Ingredient, {
+    foreignKey: "ingredient_id",
+    sourceKey: "id",
+    onDelete: "cascade",
+    onUpdate: "cascade",
+});
+
+db.Measurement.hasMany(db.RecipeIngredients, {
+    foreignKey: "measurement_id",
+    sourceKey: "id",
+    onDelete: "cascade",
+    onUpdate: "cascade",
+});
+
+db.RecipeIngredients.belongsTo(db.Measurement, {
+    foreignKey: "measurement_id",
+    sourceKey: "id",
+    onDelete: "cascade",
+    onUpdate: "cascade",
+});
 
 // Category와 Recipe 관계
 db.Category.hasMany(db.Recipe, {
