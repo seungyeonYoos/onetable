@@ -1,6 +1,6 @@
-const Recipe = (Sequelize, DataTypes) => {
+const Category = (Sequelize, DataTypes) => {
   const model = Sequelize.define(
-    "recipe",
+    "category",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -8,20 +8,14 @@ const Recipe = (Sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      title: {
-        type: DataTypes.STRING(30),
+      cg: {
+        type: DataTypes.STRING(20),
         allowNull: false,
-      },
-      photo: {
-        type: DataTypes.STRING(50),
-      },
-      intro: {
-        type: DataTypes.TEXT("medium"),
       },
     },
     {
       // database 모델 정의 부분. mysql은 db 생성 시 적용함.
-      tableName: "recipe",
+      tableName: "category",
       freezeTableName: true,
       timestamps: false,
     }
@@ -29,4 +23,4 @@ const Recipe = (Sequelize, DataTypes) => {
   return model;
 };
 
-module.exports = Recipe;
+module.exports = Category;
