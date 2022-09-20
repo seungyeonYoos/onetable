@@ -1,0 +1,64 @@
+.navbar {
+    text-align: center;
+    border-bottom: 1px solid gray;
+}
+.nav-first-floor {
+    width: 90%;
+    display: flex;
+    justify-content: flex-end;
+}
+.nav-first-floor > div {
+    margin: 0px 10px;
+}
+.nav-first-floor > div > a {
+    text-decoration: none;
+    color: black;
+    font-size: 12px;
+}
+.nav {
+    list-style: none;
+    display: flex;
+}
+.nav > li {
+    margin: 5px 20px;
+}
+.nav > li > a {
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+}
+.nav {
+    padding-left: 0px;
+}
+
+.nav-second-floor {
+    width: 90%;
+    display: flex;
+    margin: 0 auto;
+    text-align: center;
+    justify-content: center;
+}
+.nav-second-floor > div {
+    margin: 10px 15px;
+}
+.nav-second-floor > div:first-child {
+    margin-right: 550px;
+}
+.nav-second-floor > div > a {
+    text-decoration: none;
+    color: black;
+}
+.nav-third-floor {
+    display: flex;
+    width: 90%;
+    justify-content: center;
+    margin: 0 auto;
+    text-align: center;
+}
+#search {
+    position: relative;
+}
+
+body a:hover {
+    color: brown;
+}
