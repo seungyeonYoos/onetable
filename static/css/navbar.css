@@ -1,11 +1,13 @@
 .navbar {
     text-align: center;
     border-bottom: 1px solid gray;
+    position: fixed;
 }
 .nav-first-floor {
-    width: 90%;
+    width: 80%;
     display: flex;
     justify-content: flex-end;
+    margin: 0 auto;
 }
 .nav-first-floor > div {
     margin: 0px 10px;
@@ -32,17 +34,17 @@
 }
 
 .nav-second-floor {
-    width: 90%;
+    width: 80%;
     display: flex;
     margin: 0 auto;
     text-align: center;
-    justify-content: center;
+    justify-content: flex-end;
 }
 .nav-second-floor > div {
-    margin: 10px 15px;
+    margin: 20px 15px;
 }
 .nav-second-floor > div:first-child {
-    margin-right: 550px;
+    margin-right: 70%;
 }
 .nav-second-floor > div > a {
     text-decoration: none;
@@ -50,7 +52,7 @@
 }
 .nav-third-floor {
     display: flex;
-    width: 90%;
+    width: 80%;
     justify-content: center;
     margin: 0 auto;
     text-align: center;
