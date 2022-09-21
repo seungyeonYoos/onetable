@@ -4,6 +4,8 @@ const port = 8000;
 
 app.set("view engine", "ejs");
 app.use("/static", express.static("static"));
+app.use("/uploads", express.static("uploads"));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -14,12 +16,6 @@ const userRouter = require("./routes/userRouter");
 app.use("/", globalRouter);
 app.use("/recipe", recipeRouter);
 app.use("/user", userRouter);
-
-
-app.get("/recipe", function(req, res) {
-    res.render("recipe");
-});
-
 
 app.listen(port, () => {
     console.log("Server Port : ", port);
