@@ -1,6 +1,6 @@
 .navbar {
     text-align: center;
-    border-bottom: 1px solid gray;
+    border-bottom: 2px solid rgb(236, 236, 236);
     position: fixed;
 }
 .nav-first-floor {
