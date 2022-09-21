@@ -20,16 +20,9 @@
         
         h1 {
             text-align: center;
+            margin-right: 10px;
         }
         /* form */
-        
-        .name {
-            padding-left: 40px;
-        }
-        
-        .id {
-            padding-left: 30px;
-        }
         
         #signUpForm {
             /* 사용 */
@@ -45,19 +38,24 @@
             border-radius: 30px;
             margin-top: 100px;
             padding: 30px;
-            height: 650px;
-            width: 500px;
+            height: 800px;
+            width: 400px;
         }
         /* 프로필 */
         
         .upload-box {
-            width: calc(50% - 15px);
+            width: calc(100%);
             box-sizing: border-box;
-            padding-left: 230px;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            flex-direction: row;
+            justify-content: space-around;
             align-items: center;
+        }
+        
+        #img {
+            width: 150px;
+            height: 150px;
+            display: none;
         }
         
         .upload-box .drag-file {
@@ -87,50 +85,79 @@
         .profileUp {
             margin: 0px 20px;
         }
+        /* 프로필 업로드 */
+        
+        .file-label {
+            background-color: #4E342E;
+            color: #fff;
+            text-align: center;
+            padding: 5px;
+            width: 40%;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 120px;
+            margin-left: 20px;
+        }
+        
+        .file {
+            display: none;
+        }
         /* 가입 */
         
-        #signUpForm div {
-            margin: 20px;
+        label {
+            margin-top: 20px;
             font-weight: bold;
         }
         
-        .name>input,
-        .id>input,
-        .pw>input {
+        #signForm {
+            margin-top: 20px;
+            padding: 0 30px;
+        }
+        
+        .name,
+        .id,
+        .pw {
             height: 50px;
             width: 300px;
             border: 0;
             border-radius: 15px;
-            padding-left: 10px;
+            padding-left: 20px;
+            margin: 20px 0;
             background-color: #EFEBE9;
         }
         /* pw*/
         
-        .pw {
+        .eye {
             position: relative;
         }
         
         i {
             position: absolute;
-            right: 20%;
-            top: 27px;
-            width: 20px;
-            height: 20px;
+            bottom: -100;
+            right: 20px;
+            margin-top: 45px;
+            width: 30px;
+            height: 40px;
             color: brown;
         }
         
         .alert {
             text-align: center;
+            font-weight: bold;
             font-size: 10px;
-            padding: 0 0 10px 10px;
+            padding: 0;
             margin: 0;
+            width: 400px;
+            height: 40px;
+            color: red;
         }
         /* 버튼 */
         
         .button {
             display: flex;
             justify-content: center;
-            padding-top: 30px;
+            margin-top: 30px;
+            margin-left: 20px;
         }
         
         .button button {
@@ -157,23 +184,38 @@
             <h1>SignUp</h1>
             <div class="upload-box">
                 <div id="drop-file" class="drag-file">
+                    <img id="img" src="" alt="">
                     <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image">
                     <p class="message">Drag files to upload</p>
                 </div>
+                <label id="imgFile" class="file-label" for="chooseFile">Choose File</label>
+                <input class="file" id="chooseFile" type="file" onclick="imgChange()">
             </div>
-            <div class="name">이름 : <input type="text" name="name" placeholder="이름을 입력하세요" required></div>
-            <div class="id">Email : <input type="email" name="id" placeholder="이메일을 입력하세요" required></div>
-            <div class="pw">
-                Password : <input type="password" name="pw" placeholder="비밀번호를 입력하세요" required>
-                <i class="fa fa-eye fa-lg"></i>
+            <div id="signForm">
+                <label for="name" class="label">이름</label><br>
+                <input type="text" class="name" name="name" placeholder="이름을 입력하세요" required>
+                <br>
+                <label for="id" class="label">이메일</label><br>
+                <input type="email" class="id" name="id" placeholder="이메일을 입력하세요" required>
+                <br>
+                <label for="pw" class="label">비밀번호</label><br>
+                <div class="eye">
+                    <input type="password" class="pw" name="pw" placeholder="비밀번호를 입력하세요" required>
+                    <i class="fa fa-eye fa-lg"></i>
+                </div>
             </div>
             <div class="alert"></div>
-            <div class="button"> <button type="submit" onClick="location.href='login'">가입하기</button></div>
+            <div class="button"> <button type="submit" onClick="signUp()">가입하기</button></div>
         </form>
     </div>
     <!-- script -->
     <script>
-        // 업로드 
+        // drag file
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
         const dropArea = document.getElementById("drop-file");
 
         function highlight(e) {
@@ -189,10 +231,52 @@
         dropArea.addEventListener("dragenter", highlight, false);
         dropArea.addEventListener("dragover", highlight, false);
         dropArea.addEventListener("dragleave", unhighlight, false);
+        // 업로드
+        function handleDrop(e) {
+            unhighlight(e);
+            let dt = e.dataTransfer;
+            let files = dt.files;
 
+            console.log(files);
+
+            // FileList
+            $(".image").hide();
+            $(".message").hide();
+            $("#img").show();
+
+        }
+
+        function readImage(input) {
+
+            if (input.files && input.files[0]) {
+                // 이미지 파일인지 검사 (생략)
+                // FileReader 인스턴스 생성
+                const reader = new FileReader()
+                    // 이미지가 로드가 된 경우
+                reader.onload = e => {
+                        const previewImage = document.getElementById("img")
+                        previewImage.src = e.target.result
+                    }
+                    // reader가 이미지 읽도록 하기
+                reader.readAsDataURL(input.files[0])
+            }
+        }
+
+        // input file에 change 이벤트 부여
+        const imgUpload = document.getElementById("chooseFile")
+        imgUpload.addEventListener("change", e => {
+            readImage(e.target)
+        });
+
+        function imgChange() {
+            $(".image").hide();
+            $(".message").hide();
+            $("#img").show();
+
+        }
         // 비밀번호 show/hide
         $(document).ready(function() {
-            $('.pw i').on('click', function() {
+            $('.eye i').on('click', function() {
                 $('input').toggleClass('active');
                 if ($('input').hasClass('active')) {
                     $(this).attr('class', "fa fa-eye-slash fa-lg")
@@ -211,7 +295,7 @@
         function checkPassword(pw, id) {
 
             if (!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(pw)) {
-                $(".alert").val('숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.');
+                $(".alert").html('<div>숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.</div>');
 
                 $('.pw').val('').focus();
                 return false;
@@ -219,34 +303,39 @@
             var checkNumber = pw.search(/[0-9]/g);
             var checkEnglish = pw.search(/[a-z]/ig);
             if (checkNumber < 0 || checkEnglish < 0) {
-                $(".alert").val("숫자와 영문자를 혼용하여야 합니다.");
+                $(".alert").html("<div>숫자와 영문자를 혼용하여야 합니다.</div>");
                 $('.pw').val('').focus();
                 return false;
             }
             if (/(\w)\1\1\1/.test(pw)) {
-                $(".alert").val('같은 문자를 4번 이상 사용하실 수 없습니다.');
+                $(".alert").html('<div>같은 문자를 4번 이상 사용하실 수 없습니다.</div>');
                 $('.pw').val('').focus();
                 return false;
             }
 
             if (password.search(id) > -1) {
-                $(".alert").val("비밀번호에 아이디가 포함되었습니다.");
+                $(".alert").html("<div>비밀번호에 아이디가 포함되었습니다.</div>");
                 $('.pw').val('').focus();
                 return false;
             }
             return true;
         }
         // 가입하기
-        form.addEventListener("submit", function(e) {
-            var infor = {
-                name: $(".name").val(),
-                id: $(".id").val(),
-                pw: $(".pw").val(),
+        function signUp() {
+            var form = document.fm;
+            if (!form.name.value) {
+                form.name.focus();
+                return;
             }
-            if (infor.value.length == 0) {
-                e.preventDefaults();
+            if (!form.id.value) {
+                form.id.focus();
+                return;
             }
-        })
+            if (!form.pw.value) {
+                form.pw.focus();
+                return;
+            }
+        }
     </script>
 </body>
 
