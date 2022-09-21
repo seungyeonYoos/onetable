@@ -35,11 +35,6 @@
         
         h1 {
             text-align: center;
-            padding: 20px 0;
-        }
-        
-        .id {
-            padding-left: 30px;
         }
         
         #loginForm {
@@ -50,6 +45,11 @@
             margin: 50px 20px;
         }
         
+        #loginInput {
+            margin: 10px 10px 10px 30px;
+            padding: 10px;
+        }
+        
         input {
             background-color: #EFEBE9;
             height: 50px;
@@ -57,7 +57,8 @@
             border: 0;
             border-radius: 15px;
             font-size: 15px;
-            padding-left: 10px;
+            padding-left: 30px;
+            margin: 20px;
         }
         
         #loginForm>form {
@@ -67,27 +68,36 @@
             border-radius: 30px;
             margin-top: 100px;
             padding: 30px;
-            height: 400px;
-            width: 500px;
+            height: 500px;
+            width: 470px;
         }
         
-        #loginForm div {
+        #loginForm label {
             margin: 30px;
             font-weight: bold;
         }
+        
+        label {
+            margin: 20px 0;
+        }
         /* pw icon */
         
-        .pw {
+        .eye {
             position: relative;
         }
         
         i {
             position: absolute;
-            left: 80%;
-            top: 27px;
-            width: 20px;
-            height: 20px;
+            bottom: -100;
+            right: 80px;
+            margin-top: 45px;
             color: brown;
+        }
+        /* alert */
+        
+        .idAlert,
+        .pwAlert {
+            color: red;
         }
         /* button */
         
@@ -115,19 +125,25 @@
     </style>
 </head>
 
+
 <body>
+
 
     <div id="loginForm">
         <form name="fm" action="">
             <h1>Login</h1>
-            <div class="id">Email : <input name="id" type="email" placeholder="이메일을 입력해하세요." required></div>
-            <div class="pw">
-                Password : <input name="pw" type="password" placeholder="비밀번호를 입력하세요." required>
-                <i class="fa fa-eye fa-lg"></i>
+            <div id="loginInput">
+                <label for="id" class="label">이메일</label><span class="idAlert"></span><br>
+                <input name="id" type="email" placeholder="이메일을 입력해하세요." required><span class="pwAlert"></span><br>
+                <label for="pw" class="label">비밀번호</label>
+                <div class="eye">
+                    <input name="pw" type="password" placeholder="비밀번호를 입력하세요." required>
+                    <i class="fa fa-eye fa-lg"></i>
+                </div>
             </div>
             <div class="button">
-                <button type="submit" onClick="location.href='signup'">회원가입</button>
-                <button type="submit">로그인</button>
+                <button type="submit" onclick="location.href='signup'">회원가입</button>
+                <button type="submit" onclick="login()">로그인</button>
             </div>
         </form>
     </div>
@@ -136,7 +152,7 @@
     <script>
         // // 비밀번호 show/hide
         $(document).ready(function() {
-            $('.pw i').on('click', function() {
+            $('.eye i').on('click', function() {
                 $('input').toggleClass('active');
                 if ($('input').hasClass('active')) {
                     $(this).attr('class', "fa fa-eye-slash fa-lg")
@@ -147,7 +163,27 @@
                 }
             });
         });
-        //
+        //로그인
+        function login() {
+            var form = document.fm;
+            if (!form.id.value) {
+                form.id.focus();
+                return;
+            }
+            if (!form.pw.value) {
+                form.pw.focus();
+                return;
+            }
+            axios({
+                method: 'post',
+                url: 'http://localhost:8000/user/login',
+                data: user = {
+                    email: form.id.value,
+                    pw: form.pw.value
+                }
+            })
+
+        }
     </script>
 </body>
 

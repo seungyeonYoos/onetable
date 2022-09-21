@@ -1,38 +1,175 @@
+:root {
+    --main-font-size: calc(0.75em + 4vw);
+    --midium-font-size: calc(0.75em + 3vw);
+    --main-font-family: 'Chosunilbo_myungjo';
+}
+
+@font-face {
+    font-family: 'Chosunilbo_myungjo';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+/* 플로어별 간격 주기 */
+.king {
+    width: 80vw;
+}
+
 #carouselExampleIndicators {
     width: 80%;
     margin: 0 auto;
 }
 
 /* first-floor */
-.main-first-floor-contents {
-    display: flex;
+.main-first-floor {
+    margin: 50px auto;
+    position: relative;
 }
-.main-first-floor-contents > div {
-    width: 100px;
-    height: 100px;
+.main-first-floor-contents {
+    width: 80vw;
+    overflow: hidden;
+}
+.prev {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: -30px;
+    top: 250px;
+    font-size: 20px;
+    border-radius: 40px;
+    border: 1px solid #999999;
+    background-color: white;
+}
+.next {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    right: -30px;
+    top: 250px;
+    font-size: 20px;
+    border-radius: 50%;
+    border: 1px solid #999999;
+    background-color: white;
+    }
+.first-slide {
+    width: 2500px;
+    transition: left 0.5s ease-out;
+    padding: 0;
+}
+
+.first-slide li:not(:last-child) {
+    float: left;
+}
+.first-slide li {
+    float: left;
+    margin: 0px 5px;
+}
+.first-slide > li > a > img {
+    width: 240px;
+    height: 240px;
+}
+.main-first-floor-contents li {
+    list-style: none; 
+}
+
+.main-first-floor-contents li a {
+    width: 25%;
+    height: 250px;
     background-color: antiquewhite;
-    margin: 10px;
+}
+.main-best-recipe {
+    font-family: 'Chosunilbo_myungjo';
+    text-align: center;
+    font-size: var(--main-font-size);
+}
+.main-best-recipe-more {
+    text-align: right;
+    margin: 15px 0px;
+}
+.main-best-recipe-more > a {
+    text-decoration: none;
+    color: black;
 }
 
 /* second-floor */
 .main-second-floor {
     display: flex;
+    margin: 50px auto;
 }
-.main-second-floor > div {
-    width: 100px;
-    height: 100px;
-    background-color: antiquewhite;
+#main-best-class-a {
+    text-decoration: none;
+    color: black;
+}
+.main-second-floor > div , .main-second-floor > a {
+    width: 25%;
+    height: 250px;
     margin: 10px;
+}
+.main-second-floor > a:nth-child(2) , .main-second-floor > a:nth-child(3) , .main-second-floor > a:nth-child(4)  {
+    background-color: rgb(255, 173, 72);
+    margin: 10px;
+}
+.main-best-class {
+    font-family: var(--main-font-family);
+    font-size: var(--midium-font-size);
+    margin-top: 8%;
+}
+.main-best-class-more {
+    margin-top: 10px;
 }
 
 /* third-floor */
+.main-third-floor {
+    margin: 50px auto;
+}
 .main-third-floor-contents {
     display: flex;
 }
-.main-third-floor-contents > div {
-    width: 100px;
-    height: 100px;
+.main-third-floor-contents > a {
+    width: 25%;
+    height: 250px;
     background-color: antiquewhite;
     margin: 10px;
 }
+.main-kitchen-guide {
+    font-family: 'Chosunilbo_myungjo';
+    text-align: center;
+    font-size: var(--main-font-size);
+}
+.main-kitchen-guide-more {
+    text-align: right;
+    margin: 15px 0px;
+}
+.main-kitchen-guide-more > a {
+    text-decoration: none;
+    color: black;
+}
 /* fourth-floor */
+
+.main-fourth-floor {
+    display: flex;
+    margin: 50px auto;
+}
+.main-fourth-floor > a , .main-fourth-floor> div {
+    width: 25%;
+    height: 250px;
+    margin: 10px;
+}
+.main-event {
+    font-family: var(--main-font-family);
+    font-size: var(--midium-font-size);
+    margin-top: 8%;
+}
+#main-event-a {
+    text-decoration: none;
+    color: black;
+}
+.main-event-more {
+    margin-top: 10px;
+}
+
+.main-fourth-floor > a:nth-child(2) , .main-fourth-floor > a:nth-child(3) , .main-fourth-floor > a:nth-child(4)  {
+    border-radius: 60%;
+    background-color: rgb(146, 206, 152);
+    margin: 10px;
+}
