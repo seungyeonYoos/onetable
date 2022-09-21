@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <title>회원가입</title>
+    <script>
+    </script>
+    <style>
+        body {
+            /* 임시 */
+            background-color: #795548;
+            /* 사용 */
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        /* form */
+        
+        .name {
+            padding-left: 40px;
+        }
+        
+        .id {
+            padding-left: 30px;
+        }
+        
+        #signUpForm {
+            /* 사용 */
+            display: flex;
+            justify-content: center;
+        }
+        
+        #signUpForm>form {
+            /* 임시 */
+            background-color: #fff;
+            border: 0;
+            /* 사용 */
+            border-radius: 30px;
+            margin-top: 100px;
+            padding: 30px;
+            height: 650px;
+            width: 500px;
+        }
+        /* 프로필 */
+        
+        .upload-box {
+            width: calc(50% - 15px);
+            box-sizing: border-box;
+            padding-left: 230px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .upload-box .drag-file {
+            width: 150px;
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 3px dashed #dbdbdb;
+        }
+        
+        .upload-box .drag-file.highlight {
+            border: 3px dashed red;
+        }
+        
+        .upload-box .drag-file .image {
+            width: 40px;
+        }
+        
+        .upload-box .drag-file .message {
+            margin-bottom: 0;
+            font-size: 10px;
+            text-align: center;
+        }
+        
+        .profileUp {
+            margin: 0px 20px;
+        }
+        /* 가입 */
+        
+        #signUpForm div {
+            margin: 20px;
+            font-weight: bold;
+        }
+        
+        .name>input,
+        .id>input,
+        .pw>input {
+            height: 50px;
+            width: 300px;
+            border: 0;
+            border-radius: 15px;
+            padding-left: 10px;
+            background-color: #EFEBE9;
+        }
+        /* pw*/
+        
+        .pw {
+            position: relative;
+        }
+        
+        i {
+            position: absolute;
+            right: 20%;
+            top: 27px;
+            width: 20px;
+            height: 20px;
+            color: brown;
+        }
+        
+        .alert {
+            text-align: center;
+            font-size: 10px;
+            padding: 0 0 10px 10px;
+            margin: 0;
+        }
+        /* 버튼 */
+        
+        .button {
+            display: flex;
+            justify-content: center;
+            padding-top: 30px;
+        }
+        
+        .button button {
+            border: 1px solid #A1887F;
+            color: #3E2723;
+            font-weight: bold;
+            background-color: #ffff;
+            justify-content: end;
+            padding: 20px 40px;
+            margin-right: 15px;
+            border-radius: 10px;
+        }
+        
+        button:hover {
+            color: #EFEBE9;
+            background-color: #4E342E;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="signUpForm">
+        <form action="">
+            <h1>SignUp</h1>
+            <div class="upload-box">
+                <div id="drop-file" class="drag-file">
+                    <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image">
+                    <p class="message">Drag files to upload</p>
+                </div>
+            </div>
+            <div class="name">이름 : <input type="text" name="name" placeholder="이름을 입력하세요" required></div>
+            <div class="id">Email : <input type="email" name="id" placeholder="이메일을 입력하세요" required></div>
+            <div class="pw">
+                Password : <input type="password" name="pw" placeholder="비밀번호를 입력하세요" required>
+                <i class="fa fa-eye fa-lg"></i>
+            </div>
+            <div class="alert"></div>
+            <div class="button"> <button type="submit" onClick="location.href='login'">가입하기</button></div>
+        </form>
+    </div>
+    <!-- script -->
+    <script>
+        // 업로드 
+        const dropArea = document.getElementById("drop-file");
+
+        function highlight(e) {
+            preventDefaults(e);
+            dropArea.classList.add("highlight");
+        }
+
+        function unhighlight(e) {
+            preventDefaults(e);
+            dropArea.classList.remove("highlight");
+        }
+
+        dropArea.addEventListener("dragenter", highlight, false);
+        dropArea.addEventListener("dragover", highlight, false);
+        dropArea.addEventListener("dragleave", unhighlight, false);
+
+        // 비밀번호 show/hide
+        $(document).ready(function() {
+            $('.pw i').on('click', function() {
+                $('input').toggleClass('active');
+                if ($('input').hasClass('active')) {
+                    $(this).attr('class', "fa fa-eye-slash fa-lg")
+                        .prev('input').attr('type', "text");
+                } else {
+                    $(this).attr('class', "fa fa-eye fa-lg")
+                        .prev('input').attr('type', 'password');
+                }
+            });
+        });
+        // 비빌번호 유효성 검사
+        $(".pw").change(function() {
+            checkPassword($('.pw').val(), $('.id').val());
+        });
+
+        function checkPassword(pw, id) {
+
+            if (!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(pw)) {
+                $(".alert").val('숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.');
+
+                $('.pw').val('').focus();
+                return false;
+            }
+            var checkNumber = pw.search(/[0-9]/g);
+            var checkEnglish = pw.search(/[a-z]/ig);
+            if (checkNumber < 0 || checkEnglish < 0) {
+                $(".alert").val("숫자와 영문자를 혼용하여야 합니다.");
+                $('.pw').val('').focus();
+                return false;
+            }
+            if (/(\w)\1\1\1/.test(pw)) {
+                $(".alert").val('같은 문자를 4번 이상 사용하실 수 없습니다.');
+                $('.pw').val('').focus();
+                return false;
+            }
+
+            if (password.search(id) > -1) {
+                $(".alert").val("비밀번호에 아이디가 포함되었습니다.");
+                $('.pw').val('').focus();
+                return false;
+            }
+            return true;
+        }
+        // 가입하기
+        form.addEventListener("submit", function(e) {
+            var infor = {
+                name: $(".name").val(),
+                id: $(".id").val(),
+                pw: $(".pw").val(),
+            }
+            if (infor.value.length == 0) {
+                e.preventDefaults();
+            }
+        })
+    </script>
+</body>
+
+</html>
