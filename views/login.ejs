@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <title>로그인</title>
+    <script>
+        // id 가 빈칸일 경우
+        if (id.value == "") {
+            fm.id.focus();
+            return false;
+        }
+        //pw 가 빈칸일 경우
+        if (pw.value == "") {
+            fm.pw.focus();
+            return false;
+        } else {
+
+            fm.submit();
+        }
+    </script>
+    <style>
+        body {
+            /* 임시 */
+            background-color: #795548;
+            /*  */
+        }
+        /* 로그인 form  */
+        
+        h1 {
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        .id {
+            padding-left: 30px;
+        }
+        
+        #loginForm {
+            /*  */
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            margin: 50px 20px;
+        }
+        
+        input {
+            background-color: #EFEBE9;
+            height: 50px;
+            width: 300px;
+            border: 0;
+            border-radius: 15px;
+            font-size: 15px;
+            padding-left: 10px;
+        }
+        
+        #loginForm>form {
+            /* 임시 */
+            background-color: white;
+            /*  */
+            border-radius: 30px;
+            margin-top: 100px;
+            padding: 30px;
+            height: 400px;
+            width: 500px;
+        }
+        
+        #loginForm div {
+            margin: 30px;
+            font-weight: bold;
+        }
+        /* pw icon */
+        
+        .pw {
+            position: relative;
+        }
+        
+        i {
+            position: absolute;
+            left: 80%;
+            top: 27px;
+            width: 20px;
+            height: 20px;
+            color: brown;
+        }
+        /* button */
+        
+        .button {
+            display: flex;
+            justify-content: center;
+            padding-top: 30px;
+        }
+        
+        .button button {
+            border: 1px solid #A1887F;
+            color: #3E2723;
+            font-weight: bold;
+            background-color: #ffff;
+            justify-content: end;
+            padding: 20px 40px;
+            margin-right: 15px;
+            border-radius: 10px;
+        }
+        
+        button:hover {
+            color: #EFEBE9;
+            background-color: #4E342E;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="loginForm">
+        <form name="fm" action="">
+            <h1>Login</h1>
+            <div class="id">Email : <input name="id" type="email" placeholder="이메일을 입력해하세요." required></div>
+            <div class="pw">
+                Password : <input name="pw" type="password" placeholder="비밀번호를 입력하세요." required>
+                <i class="fa fa-eye fa-lg"></i>
+            </div>
+            <div class="button">
+                <button type="submit" onClick="location.href='signup'">회원가입</button>
+                <button type="submit">로그인</button>
+            </div>
+        </form>
+    </div>
+
+
+    <script>
+        // // 비밀번호 show/hide
+        $(document).ready(function() {
+            $('.pw i').on('click', function() {
+                $('input').toggleClass('active');
+                if ($('input').hasClass('active')) {
+                    $(this).attr('class', "fa fa-eye-slash fa-lg")
+                        .prev('input').attr('type', "text");
+                } else {
+                    $(this).attr('class', "fa fa-eye fa-lg")
+                        .prev('input').attr('type', 'password');
+                }
+            });
+        });
+        //
+    </script>
+</body>
+
+</html>
