@@ -1,63 +1,30 @@
-@font-face {
-    font-family: 'PyeongChangPeace-Light';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/PyeongChangPeace-Light.woff2') format('woff2');
-    font-weight: 300;
-    font-style: normal;
+.footer-all {
+    border-top: 2px solid #e6e6e6;
+    font-size: 13px;
+    padding: 15px 10px;
 }
-
-
 .footer {
-    display: flex;
-    position: relative;
-    width: 100%;
-    height: auto;
-    padding: 10px 0px;
-    background-color: rgb(239, 239, 239);
-    justify-content: center;
-    align-items: center;
-    color: gray;
+    width: 80vw;
+    margin: 10px auto;
+}
+.footer-customer-center {
+    font-size: 15px;
+    font-weight: bold;
+    margin: 10px 0px;
 }
 
-/* 푸터 텍스트 수직정렬 */
-.footer > div {
-    align-items: center;
-    line-height: 30px;
+#customer-center {
+    width: 180px;
+    height: 50px;
+    background-color: white;
+    border: 1px solid #999999;
+    transition: 0.5s;
 }
-.footer-logo {
-    font-size: 22px;
-    font-family: 'PyeongChangPeace-Light';
-    margin-right: 500px;
-    
+#customer-center:hover {
+    background-color: #aa8a72;
+    color: white;
 }
-.sns > span {
-    margin-right: 13px;
-}
-.footerLinks:link, .footerLinks:visited, .footerLinks:hover{
-    color: gray!important; 
-    text-decoration: none;
-}
-.footerLinks{
-    transition: all 0.7s ease-in-out;
-}
-.footerLinks:hover{ 
-    font-size: 1.3rem;
-}
-
-/* a:hover {
-    animation: fontBigger 1.4s ease-in-out infinite;
-}
-@keyframes fontBigger {
-    0% {
-        font-size: 1rem;
-    }
-    50% {
-        font-size: 1.2rem;
-    }
-    100% {
-        font-size: 1rem;
-    }
-} */
-.linkCss {
-    color: gray;
-    text-decoration: none;
+.team-name {
+    font-weight: bold;
+    margin-top: 15px;
 }

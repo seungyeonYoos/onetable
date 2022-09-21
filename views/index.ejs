@@ -50,51 +50,70 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
-
-      <div class="main-first-floor">
-        <div>BEST RECIPE</div>
-        <div>더보기<i class="fa-solid fa-arrow-right"></i></div>
+      
+      <!-- BEST RECIPE -->
+      <div class="main-first-floor king">
+        <div class="main-best-recipe">BEST RECIPE</div>
+        <div class="main-best-recipe-more"><a href="#">더보기 <i class="fa-solid fa-arrow-right"></i></a></div>
         <div class="main-first-floor-contents">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+            <ul class="first-slide">
+              <li><a href="#"><img src="../static/img/a.jpg"></a></li>
+              <li><a href="#"><img src="../static/img/a.jpg"></a></li>
+              <li><a href="#"><img src="../static/img/a.jpg"></a></li>
+              <li><a href="#"><img src="../static/img/a.jpg"></a></li>
+              <li><a href="#"><img src="../static/img/b.jpg"></a></li>
+              <li><a href="#"><img src="../static/img/b.jpg"></a></li>
+              <li><a href="#"><img src="../static/img/b.jpg"></a></li>
+              <li><a href="#"><img src="../static/img/b.jpg"></a></li>
+              <li><a href="#"><img src="../static/img/a.jpg"></a></li>
+              <li><a href="#"><img src="../static/img/a.jpg"></a></li>
+            </ul>
         </div>
+        <button type="button" class="prev" onclick="mainFirstSlide();"><i class="fa-solid fa-chevron-left"></i></button>
+        <button type="button" class="next"><i class="fa-solid fa-chevron-right"></i></button>
       </div>
-      <div class="main-second-floor">
-        <div><div>BEST<br>CALSS</div>
-             <div>바로가기<i class="fa-solid fa-arrow-right"></i></div>
+      <div class="main-second-floor king">
+        <div>
+            <a href="#" id="main-best-class-a">
+                <div class="main-best-class">BEST<br>CALSS</div>
+                <div class="main-best-class-more">바로가기 <i class="fa-solid fa-arrow-right"></i></div>
+            </a>
         </div>
-        
-        <div></div>
-        <div></div>
-        <div></div>
+        <a href="#"></a>
+        <a href="#"></a>
+        <a href="#"></a>
+
       </div>
-      <div class="main-third-floor">
-        <div>KITCHEN GUIDE</div>
-        <div>더보기<i class="fa-solid fa-arrow-right"></i></div>
+      <div class="main-third-floor king">
+        <div class="main-kitchen-guide">KITCHEN GUIDE</div>
+        <div class="main-kitchen-guide-more"><a href="#">더보기 <i class="fa-solid fa-arrow-right"></i></a></div>
         <div class="main-third-floor-contents">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+            <a href="#"></a>
+            <a href="#"></a>
+            <a href="#"></a>
+            <a href="#"></a>
+            
         </div>
       </div>
-      <div class="main-fourth-floor">
-        <div><div>EVENT</div>
-             <div></div>
+      <div class="main-fourth-floor king">
+        <div>
+            <a href="#" id="main-event-a">
+                <div class="main-event">EVENT</div>
+                <div class="main-event-more">~57% 이벤트 어쩌구<br>저쩌구어쩌구저쩌</div>
+            </a>
         </div>
-        
-        <div></div>
-        <div></div>
-        <div></div>
+        <a href="#" id="main-event-img"></a>
+        <a href="#" id="main-event-img"></a>
+        <a href="#" id="main-event-img"></a>
       </div>
 
     <%-include("footer.ejs")%>
     
     
     <script>
-
+      function mainFirstSlide(){
+        
+      }
     </script>
 </body>
 </html>
