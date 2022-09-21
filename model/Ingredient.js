@@ -12,7 +12,7 @@ const Ingredient = (Sequelize, DataTypes) => {
                 // comment: "hahahah"
                 // validate: 유효성 검사하는 속성
             },
-            description: {
+            list: {
                 type: DataTypes.STRING(20),
                 allowNull: false,
             },

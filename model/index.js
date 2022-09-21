@@ -22,21 +22,21 @@ db.Level = require("./Level")(sequelize, Sequelize);
 db.Review = require("./Review")(sequelize, Sequelize);
 db.Step = require("./Step")(sequelize, Sequelize);
 db.Ingredient = require("./Ingredient")(sequelize, Sequelize);
-db.Measurement = require("./Measurement")(sequelize, Sequelize);
+db.Unit = require("./Unit")(sequelize, Sequelize);
 db.RecipeIngredient = require("./RecipeIngredient")(sequelize, Sequelize);
 
 db.Recipe.hasMany(db.Step, {
-  foreignKey: "recipe_id",
-  sourceKey: "id",
-  onDelete: "cascade",
-  onUpdate: "cascade",
+    foreignKey: "recipe_id",
+    sourceKey: "id",
+    onDelete: "cascade",
+    onUpdate: "cascade",
 });
 
 db.Step.belongsTo(db.Recipe, {
-  foreignKey: "recipe_id",
-  sourceKey: "id",
-  onDelete: "cascade",
-  onUpdate: "cascade",
+    foreignKey: "recipe_id",
+    sourceKey: "id",
+    onDelete: "cascade",
+    onUpdate: "cascade",
 });
 
 db.Recipe.hasMany(db.RecipeIngredient, {
@@ -67,15 +67,15 @@ db.RecipeIngredient.belongsTo(db.Ingredient, {
     onUpdate: "cascade",
 });
 
-db.Measurement.hasMany(db.RecipeIngredient, {
-    foreignKey: "measurement_id",
+db.Unit.hasMany(db.RecipeIngredient, {
+    foreignKey: "unit_id",
     sourceKey: "id",
     onDelete: "cascade",
     onUpdate: "cascade",
 });
 
-db.RecipeIngredient.belongsTo(db.Measurement, {
-    foreignKey: "measurement_id",
+db.RecipeIngredient.belongsTo(db.Unit, {
+    foreignKey: "unit_id",
     sourceKey: "id",
     onDelete: "cascade",
     onUpdate: "cascade",
