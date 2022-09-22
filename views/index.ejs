@@ -55,7 +55,7 @@
         </button>
       </div>
 
-      <!-- BEST RECIPE -->
+      <!-- 1.BEST RECIPE -->
       <div class="main-first-floor king">
         <div class="main-best-recipe">BEST RECIPE</div>
         <div class="main-best-recipe-more"><a href="#">더보기 <i class="fa-solid fa-arrow-right"></i></a></div>
@@ -73,6 +73,7 @@
       </div>
       </div>
 
+      <!-- 2BEST CLASS -->
       <div class="main-second-floor king">
         <div class="main-second-floor-text">
             <a href="#" id="main-best-class-a">
@@ -92,27 +93,43 @@
           </div>
         </div>
       </div>
+
+      <!-- 3.BEST CLASS -->
       <div class="main-third-floor king">
         <div class="main-kitchen-guide">KITCHEN GUIDE</div>
         <div class="main-kitchen-guide-more"><a href="#">더보기 <i class="fa-solid fa-arrow-right"></i></a></div>
-        <div class="main-third-floor-contents">
-            <a href="#"></a>
-            <a href="#"></a>
-            <a href="#"></a>
-            <a href="#"></a>
-            
+        <div class="post-slider">
+          <div class="post-wrapper">
+            <div class="post"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="post"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="post"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="post"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="post"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="post"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="post"><a href="#"><img src="../static/img/a.jpg"></a></div>
+          </div>
         </div>
       </div>
+
+      <!-- 4.EVENT -->
       <div class="main-fourth-floor king">
         <div>
             <a href="#" id="main-event-a">
                 <div class="main-event">EVENT</div>
-                <div class="main-event-more">~57% 이벤트 어쩌구<br>저쩌구어쩌구저쩌</div>
+                <div class="main-event-more">~57% 이벤트 어쩌구<br>저쩌구어쩌구저쩌구</div>
             </a>
         </div>
-        <a href="#" id="main-event-img"></a>
-        <a href="#" id="main-event-img"></a>
-        <a href="#" id="main-event-img"></a>
+        <div class="second-slider">
+          <div class="second-wrapper">
+            <div class="second"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="second"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="second"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="second"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="second"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="second"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="second"><a href="#"><img src="../static/img/a.jpg"></a></div>
+          </div>
+        </div>
       </div>
 
     <%-include("footer.ejs")%>
@@ -161,19 +178,12 @@
           {
             breakpoint: 970,
             settings: {
-              slidesToShow: 3,
-              slidesToScroll: 3,
-            }
-          },
-          {
-            breakpoint: 560,
-            settings: {
               slidesToShow: 2,
               slidesToScroll: 2,
             }
           },
           {
-            breakpoint: 370,
+            breakpoint: 560,
             settings: {
               slidesToShow: 1,
               slidesToScroll: 1,
