@@ -32,19 +32,20 @@
 .nav {
     padding-left: 0px;
 }
-
+.logo {
+    width: 100px;
+}
+.empty {
+    width: 70%;
+}
 .nav-second-floor {
     width: 80%;
     display: flex;
     margin: 0 auto;
     text-align: center;
-    justify-content: flex-end;
 }
 .nav-second-floor > div {
     margin: 20px 15px;
-}
-.nav-second-floor > div:first-child {
-    margin-right: 70%;
 }
 .nav-second-floor > div > a {
     text-decoration: none;
@@ -57,10 +58,16 @@
     margin: 0 auto;
     text-align: center;
 }
-#search {
-    position: relative;
+.nav-link {
+    font-size: calc(0.26em + 1vw);
 }
-
 body a:hover {
     color: brown;
+}
+
+@media (max-width: 790px) { 
+    .nav > li {
+        margin: 0px;
+    }
+
 }

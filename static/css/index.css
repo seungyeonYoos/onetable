@@ -44,6 +44,7 @@
   .post > a , .post > a > img {
     width: 100%;
     height: 100%;
+    padding: 4px;
   }
   
   /* first floor slide button */
@@ -95,9 +96,6 @@
     /* flex-grow: 1; */
     /* overflow: hidden; */
   }
-  .second-slider .second-wrapper{
-    /* margin: 0px auto; */
-  }
   .second-slider .second-wrapper .second {
     /* width:300px; */
     /* height:350px; */
@@ -106,6 +104,9 @@
   .second > a , .second > a > img {
     width: 100%;
     height: 100%;
+  }
+  .second > a > img {
+    padding: 4px;
   }
 /* .main-second-floor > div , {
     width: 25%;
@@ -150,19 +151,17 @@
     top: 40%;
   }
 
-/* third-floor */
+/* 3.third-floor */
 .main-third-floor {
     margin: 50px auto;
 }
-.main-third-floor-contents {
+/* .main-third-floor-contents {
     display: flex;
 }
 .main-third-floor-contents > a {
     width: 25%;
     height: 250px;
-    background-color: antiquewhite;
-    margin: 10px;
-}
+} */
 .main-kitchen-guide {
     font-family: 'Chosunilbo_myungjo';
     text-align: center;
@@ -175,19 +174,21 @@
 .main-kitchen-guide-more > a {
     text-decoration: none;
     color: black;
-}
+} 
+
 /* fourth-floor */
 
 .main-fourth-floor {
     display: flex;
     margin: 50px auto;
 }
-.main-fourth-floor > a , .main-fourth-floor> div {
+/* .main-fourth-floor > a , .main-fourth-floor> div {
     width: 25%;
     height: 250px;
     margin: 10px;
-}
+} */
 .main-event {
+    width: 20vw;
     font-family: var(--main-font-family);
     font-size: var(--midium-font-size);
     margin-top: 8%;
@@ -205,4 +206,13 @@
     background-color: rgb(146, 206, 152);
     margin: 10px;
 }
-
+@media (max-width: 970px) { 
+  #carouselExampleIndicators {
+    width: 100%;
+  }
+}
+@media (max-width: 605px) { 
+  .main-second-floor {
+    display: block;
+}
+}
