@@ -43,7 +43,9 @@ exports.login_post = (req, res) => {
     },
   }).then((result) => {
     console.log("findOne:", result);
-    if (result) res.send(true);
-    else res.send(false);
+    if (result) {
+      res.send(true);
+      req.session.user_id = result.id;
+    } else res.send(false);
   });
 };
