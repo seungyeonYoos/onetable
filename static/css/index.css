@@ -19,64 +19,53 @@
     width: 80%;
     margin: 0 auto;
 }
+/* 슬라이드 height값 지정해서 overflow hidden */
+.slick-list {
+    height: 250px;
+    /* width: 100%;
+    overflow: hidden; */
+}
 
 /* first-floor */
 .main-first-floor {
     margin: 50px auto;
+}
+.post-slider{
     position: relative;
-}
-.main-first-floor-contents {
-    width: 80vw;
-    overflow: hidden;
-}
-.prev {
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    left: -30px;
-    top: 250px;
-    font-size: 20px;
-    border-radius: 40px;
-    border: 1px solid #999999;
+  }
+  .post-slider .post-wrapper{
+    margin:0px auto;
+  }
+  .post-slider .post-wrapper .post{
+    /* width:300px; */
+    /* height:350px; */
+    display:inline-block;
+  }
+  .post > a , .post > a > img {
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* first floor slide button */
+  .slick-prev , .slick-next {
+    border: 0px;
     background-color: white;
-}
-.next {
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    right: -30px;
-    top: 250px;
-    font-size: 20px;
-    border-radius: 50%;
-    border: 1px solid #999999;
+  }
+  #prev-button , #next-button {
+    font-size: 25px;
     background-color: white;
-    }
-.first-slide {
-    width: 2500px;
-    transition: left 0.5s ease-out;
-    padding: 0;
-}
-
-.first-slide li:not(:last-child) {
-    float: left;
-}
-.first-slide li {
-    float: left;
-    margin: 0px 5px;
-}
-.first-slide > li > a > img {
-    width: 240px;
-    height: 240px;
-}
-.main-first-floor-contents li {
-    list-style: none; 
-}
-
-.main-first-floor-contents li a {
-    width: 25%;
-    height: 250px;
-    background-color: antiquewhite;
-}
+    border: 0px;
+  }
+  .slick-prev {
+    position: absolute;
+    left: -50px;
+    top: 45%;
+  }
+  .slick-next {
+    position: absolute;
+    right: -50px;
+    top: 45%;
+  }
 .main-best-recipe {
     font-family: 'Chosunilbo_myungjo';
     text-align: center;
@@ -89,27 +78,46 @@
 .main-best-recipe-more > a {
     text-decoration: none;
     color: black;
-}
+} 
 
 /* second-floor */
 .main-second-floor {
-    display: flex;
     margin: 50px auto;
+    display: flex;
 }
 #main-best-class-a {
     text-decoration: none;
     color: black;
 }
-.main-second-floor > div , .main-second-floor > a {
+.second-slider{
+    width: 80%;
+    /* position: relative; */
+    /* flex-grow: 1; */
+    /* overflow: hidden; */
+  }
+  .second-slider .second-wrapper{
+    /* margin: 0px auto; */
+  }
+  .second-slider .second-wrapper .second {
+    /* width:300px; */
+    /* height:350px; */
+    display: inline-block;
+  }
+  .second > a , .second > a > img {
+    width: 100%;
+    height: 100%;
+  }
+/* .main-second-floor > div , {
     width: 25%;
     height: 250px;
     margin: 10px;
-}
-.main-second-floor > a:nth-child(2) , .main-second-floor > a:nth-child(3) , .main-second-floor > a:nth-child(4)  {
+} */
+/* .main-second-floor > a:nth-child(2) , .main-second-floor > a:nth-child(3) , .main-second-floor > a:nth-child(4)  {
     background-color: rgb(255, 173, 72);
     margin: 10px;
-}
+} */
 .main-best-class {
+    width: 20vw;
     font-family: var(--main-font-family);
     font-size: var(--midium-font-size);
     margin-top: 8%;
@@ -117,6 +125,30 @@
 .main-best-class-more {
     margin-top: 10px;
 }
+/* second floor slide button */
+.second-wrapper .slick-prev , .second-wrapper .slick-next {
+    border: 0px;
+    background-color: white;
+  }
+  #second-prev-button , #second-next-button {
+    font-size: 25px;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #999;
+    border-radius: 50%;
+  }
+  .second-wrapper .slick-prev {
+    position: absolute;
+    left: -20px;
+    border: 1px solid #999;
+    top: 40%;
+    z-index: 10;
+  }
+  .second-wrapper .slick-next {
+    position: absolute;
+    right: -20px;
+    top: 40%;
+  }
 
 /* third-floor */
 .main-third-floor {
@@ -173,3 +205,4 @@
     background-color: rgb(146, 206, 152);
     margin: 10px;
 }
+
