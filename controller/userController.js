@@ -1,6 +1,4 @@
 const { User } = require("../model");
-const { UserLikes } = require("../model");
-const { UserWishList } = require("../model");
 
 // exports.get_visitors = (req, res) => {
 //   //sql문: SELECT * FROM visitor;

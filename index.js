@@ -12,11 +12,13 @@ app.use(express.json());
 const globalRouter = require("./routes/globalRouter");
 const recipeRouter = require("./routes/recipeRouter");
 const userRouter = require("./routes/userRouter");
+const courseRouter = require("./routes/courseRouter");
 
 app.use("/", globalRouter);
 app.use("/recipe", recipeRouter);
 app.use("/user", userRouter);
+app.use("/course", courseRouter);
 
 app.listen(port, () => {
-    console.log("Server Port : ", port);
+  console.log("Server Port : ", port);
 });
