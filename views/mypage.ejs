@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel="stylesheet" href="/static/css/navbar.css">
+    <title>마이페이지</title>
+
+
+    <style>
+        @font-face {
+            font-family: 'Chosunilbo_myungjo';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        * {
+            font-family: 'Chosunilbo_myungjo';
+        }
+        
+        h1 {
+            text-align: center;
+            color: brown;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        hr {
+            border: 1px solid gray;
+        }
+        
+        #top {
+            position: fixed;
+        }
+    </style>
+</head>
+
+<body>
+    <iframe src="./navbar.ejs"></iframe>
+    <div id="mypage">
+        <h1>myPage</h1>
+        <div id="profile">
+            <div class="profileImg">
+                <img src="" alt="">
+            </div class="user">
+            <div>
+                <label for="name">이름</label>
+                <input type="text" name="name">
+                <label for="id">email</label>
+                <input type="text" name="id" readonly>
+                <!-- 비밀번호 변경 가능 -->
+                <label for="pw">비밀번호</label>
+                <input type="text" name="pw">
+                <button type="button">수정</button>
+            </div>
+            <hr>
+            <div class="userLikes">
+
+                <!-- 1 -->
+                <a href="">더보기 <i class="fi fi-rs-arrow-alt-right"></i></a>
+                <ul>
+                    <!-- n은 임시 지정 name -->
+                    <% for( var i = 0 ; i < n.length ; i++) { %>
+                        <li>
+                            <span id="id"></span>
+                            <span id="recipeName"></span>
+                            <span id="score"></span>
+                            <span id="comment"></span>
+                        </li>
+                        <% } %>
+                </ul>
+                <!-- 2 -->
+                <a href=""><button type="button">더보기<i class="fi fi-rr-caret-down"></i></button></a>
+            </div>
+            <hr>
+            <div class="likeClass">
+
+                <ul>
+                    <% for( var i = 0 ; i < n.length ; i++) { %>
+                        <li>
+                            <div class="recipeImg">
+                                <img src="" alt="">
+                            </div>
+                            <div class="recipeName">
+                                <a href="">recipeName</a>
+                            </div><br>
+                            <div class="cookName">
+                                <a href=""><img src="" alt="">cookName</a>
+                            </div>
+                        </li>
+                        <% } %>
+                </ul>
+
+            </div>
+            <hr>
+            <div class="review">
+
+            </div>
+            <hr>
+            <div class="myrecipe">
+
+            </div>
+            <hr>
+            <div class="myClass">
+
+            </div>
+            <hr>
+            <div class="appClass">
+
+            </div>
+
+        </div>
+    </div>
+    <a id="top" href="#mypage"><i class="fi fi-rr-chevron-double-up"></i></a>
+
+
+    <script>
+        $(window).on('load', function() {
+            load('#js-load', '4');
+            $("#js-btn-wrap .button").on("click", function() {
+                load('#js-load', '4', '#js-btn-wrap');
+            })
+        });
+
+        function load(id, cnt, btn) {
+            var girls_list = id + " .js-load:not(.active)";
+            var girls_length = $(girls_list).length;
+            var girls_total_cnt;
+            if (cnt < girls_length) {
+                girls_total_cnt = cnt;
+            } else {
+                girls_total_cnt = girls_length;
+                $('.button').hide()
+            }
+            $(girls_list + ":lt(" + girls_total_cnt + ")").addClass("active");
+        }
+    </script>
+</body>
+
+</html>
