@@ -16,6 +16,7 @@ const router = express.Router();
 // }
 
 router.get("/", userController.main);
+router.get("/mypage", userController.getMyPage);
 
 router.get("/signup", userController.signup);
 router.post("/signup", userController.signup_post);

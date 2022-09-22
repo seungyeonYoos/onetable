@@ -9,10 +9,24 @@
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
     <title>회원가입</title>
     <script>
     </script>
     <style>
+        @font-face {
+            font-family: 'Chosunilbo_myungjo';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        * {
+            font-family: 'Chosunilbo_myungjo';
+        }
+        
         body {
             /* 임시 */
             background-color: #795548;
@@ -352,10 +366,13 @@
             }).then((rep) => {
                 return true;
             }).then((data) => {
-                alert("회원가입 성공");
                 document.location.href = "/user/login";
             }).catch((error) => {
-                alert("회원가입 실패");
+                Swal.fire({
+                    icon: 'error',
+                    title: '회원가입 실패',
+                    text: '모든 칸을 정확히 입력하세요.'
+                });
             });
 
         }
