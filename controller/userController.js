@@ -39,14 +39,16 @@ exports.login = (req, res) => {
 };
 
 exports.login_post = (req, res) => {
-    User.findOne({
-        where: {
-            email: req.body.email,
-            pw: req.body.pw,
-        },
-    }).then((result) => {
-        console.log("findOne:", result);
-        if (result) res.send(true);
-        else res.send(false);
-    });
+  User.findOne({
+    where: {
+      email: req.body.email,
+      pw: req.body.pw,
+    },
+  }).then((result) => {
+    console.log("findOne:", result);
+    if (result) {
+      res.send(true);
+      req.session.user_id = result.id;
+    } else res.send(false);
+  });
 };

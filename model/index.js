@@ -1,5 +1,4 @@
 const Sequelize = require("sequelize");
-// const { SequelizeMethod } = require("sequelize/types/utils");
 const config = require("../config/config.json")["development"];
 
 const db = {};
