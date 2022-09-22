@@ -10,29 +10,32 @@ const { User } = require("../model");
 // };
 
 exports.main = (req, res) => {
-  res.render("");
+    res.render("");
 };
 
+exports.getMyPage = (req, res) => {
+    res.render("mypage");
+};
 // 회원가입 페이지
 exports.signup = (req, res) => {
-  res.render("signup");
+    res.render("signup");
 };
 exports.signup_post = (req, res) => {
-  let data = {
-    email: req.body.email,
-    pw: req.body.pw,
-    name: req.body.name,
-    photo: req.body.photo,
-  };
-  User.create(data).then((result) => {
-    console.log("create:", result);
-    res.send(true);
-  });
+    let data = {
+        email: req.body.email,
+        pw: req.body.pw,
+        name: req.body.name,
+        photo: req.body.photo,
+    };
+    User.create(data).then((result) => {
+        console.log("create:", result);
+        res.send(true);
+    });
 };
 
 // 로그인 페이지
 exports.login = (req, res) => {
-  res.render("login");
+    res.render("login");
 };
 
 exports.login_post = (req, res) => {

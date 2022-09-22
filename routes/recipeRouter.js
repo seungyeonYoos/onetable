@@ -2,6 +2,7 @@ const express = require("express");
 const recipeController = require("../controller/recipeController");
 const router = express.Router();
 const multer = require("multer");
+const { application } = require("express");
 
 const upload = multer({
     storage: multer.diskStorage({
@@ -16,9 +17,18 @@ const upload = multer({
     limits: { fileSize: 5 * 1024 * 1024 },
 });
 
-router.get("/", recipeController.main);
-router.get(
+function is_login(req, res, next) {
+    if (req.session.user) {
+        next();
+    } else {
+        res.redirect("/login");
+    }
+}
+
+router.get("/", recipeController.getRecipe);
+router.post(
     "/register",
+    // is_login,
     upload.single("userfile"),
     recipeController.recipeRegister
 );
