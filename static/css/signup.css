@@ -1,0 +1,186 @@
+@font-face {
+    font-family: 'Chosunilbo_myungjo';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Chosunilbo_myungjo';
+}
+
+body {
+    /* 임시 */
+    background-color: #795548;
+    /* 사용 */
+}
+
+h1 {
+    text-align: center;
+    margin-right: 10px;
+}
+
+
+/* form */
+
+#signUpForm {
+    /* 사용 */
+    display: flex;
+    justify-content: center;
+}
+
+#signUpForm>form {
+    /* 임시 */
+    background-color: #fff;
+    border: 0;
+    /* 사용 */
+    border-radius: 30px;
+    margin-top: 100px;
+    padding: 30px;
+    height: 800px;
+    width: 400px;
+}
+
+
+/* 프로필 */
+
+.upload-box {
+    width: calc(100%);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#img {
+    width: 150px;
+    height: 150px;
+    display: none;
+}
+
+.upload-box .drag-file {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 3px dashed #dbdbdb;
+}
+
+.upload-box .drag-file.highlight {
+    border: 3px dashed red;
+}
+
+.upload-box .drag-file .image {
+    width: 40px;
+}
+
+.upload-box .drag-file .message {
+    margin-bottom: 0;
+    font-size: 10px;
+    text-align: center;
+}
+
+.profileUp {
+    margin: 0px 20px;
+}
+
+
+/* 프로필 업로드 */
+
+.file-label {
+    background-color: #4E342E;
+    color: #fff;
+    text-align: center;
+    padding: 5px;
+    width: 40%;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 120px;
+    margin-left: 20px;
+}
+
+.file {
+    display: none;
+}
+
+
+/* 가입 */
+
+label {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#signForm {
+    margin-top: 20px;
+    padding: 0 30px;
+}
+
+.name,
+.id,
+.pw {
+    height: 50px;
+    width: 300px;
+    border: 0;
+    border-radius: 15px;
+    padding-left: 20px;
+    margin: 20px 0;
+    background-color: #EFEBE9;
+}
+
+
+/* pw*/
+
+.eye {
+    position: relative;
+}
+
+i {
+    position: absolute;
+    bottom: -100;
+    right: 20px;
+    margin-top: 45px;
+    width: 30px;
+    height: 40px;
+    color: brown;
+}
+
+.alert {
+    text-align: center;
+    font-weight: bold;
+    font-size: 10px;
+    padding: 0;
+    margin: 0;
+    width: 400px;
+    height: 40px;
+    color: red;
+}
+
+
+/* 버튼 */
+
+.button {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-left: 20px;
+}
+
+.button button {
+    border: 1px solid #A1887F;
+    color: #3E2723;
+    font-weight: bold;
+    background-color: #ffff;
+    justify-content: end;
+    padding: 20px 40px;
+    margin-right: 15px;
+    border-radius: 10px;
+}
+
+button:hover {
+    color: #EFEBE9;
+    background-color: #4E342E;
+}
