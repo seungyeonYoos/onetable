@@ -156,27 +156,40 @@
      }
 
      //////////////////////////////////////////////////////////
-     let data = {
-         email: form.id.value,
-         pw: form.pw.value,
-         name: form.name.value,
-         poto: form.img.value
-     };
+     const formData = new FormData();
+     const file = document.getElementById("chooseFile");
+     formData.append("myImage", file.files[0]);
+     formData.append("email", form.id.value);
+     formData.append("pw", form.pw.value);
+     formData.append("name", form.name.value);
+     // formData.append("photo", "01234");
+
+     // let data = {
+     //   email: form.id.value,
+     //   pw: form.pw.value,
+     //   name: form.name.value,
+     //   poto: form.img.value,
+     // };
      axios({
-         method: 'post',
-         url: 'http://localhost:8000/user/signup',
-         data: data
-     }).then((rep) => {
-         return true;
-     }).then((data) => {
-         document.location.href = "/user/login";
-     }).catch((error) => {
-         Swal.fire({
-             icon: 'error',
-             title: '회원가입 실패',
-             text: '모든 칸을 정확히 입력하세요.'
+             headers: {
+                 "Content-Type": "multipart/form-data",
+             },
+             method: "post",
+             url: "http://localhost:8000/user/signup",
+             data: formData,
+         })
+         .then((rep) => {
+             return true;
+         })
+         .then((data) => {
+             document.location.href = "/user/login";
+         })
+         .catch((error) => {
+             Swal.fire({
+                 icon: "error",
+                 title: "회원가입 실패",
+                 text: "모든 칸을 정확히 입력하세요.",
+             });
          });
-         return false;
-     });
 
  }
