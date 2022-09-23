@@ -43,45 +43,86 @@ const data = {
   ],
 };
 
+exports.getRecipe = (req, res) => {
+    console.log(req.params);
+    const { id } = req.params;
+    res.send(true);
+};
+exports.getAllRecipe = async (req, res) => {
+    const { count, rows } = await Recipe.findAndCountAll({
+        raw: true,
+        attributes: { exclude: ["category_id", "level_id", "user_id"] },
+        include: [
+            {
+                model: User,
+                attributes: { exclude: ["pw", "id"] },
+            },
+            {
+                model: Level,
+                attributes: { exclude: ["id"] },
+            },
+            {
+                model: Category,
+                attributes: { exclude: ["id"] },
+            },
+        ],
+    });
+
+    if (rows) {
+        // res.render("recipe");
+        console.log(rows, count);
+        res.send(rows);
+    } else {
+        console.log("레시피 찾아지지 않았습니다.");
+        res.send(false);
+    }
+};
+
 exports.recipeRegister = async (req, res) => {
   // const data = req.body; 프론트 전달 받을 데이터.
   // req.session.key (req.session.user) 유저 정보를 가져올 방법.
 
-  //Recipe 생성 부분
-  const selectCategory = await Category.findOne({
-    attributes: ["id"],
-    where: { list: data.category },
-  });
-  const selectLevel = await Level.findOne({
-    attirbutes: ["id"],
-    where: { list: data.lv },
-  });
-  const selectUser = await User.findOne({
-    attirbutes: ["id", "email", "name"],
-    where: { email: data.email },
-    //req.session.user.email? 이런식으로 받아올 것.
-  });
-
-  if (selectCategory && selectLevel && selectUser) {
-    //select가 다 성공하면 recipe insert하기
-    console.log("success");
-    const insertRecipe = await Recipe.create({
-      title: data.title,
-      image: data.image,
-      intro: data.intro,
-      level_id: selectLevel.id,
-      category_id: selectCategory.id,
-      user_id: selectUser.id,
+    //Recipe 생성 부분
+    const selectCategory = await Category.findOne({
+        attributes: ["id"],
+        where: { list: data.category },
     });
-  } else {
-    console.log("failed", selectCategory, selectLevel, selectUser);
-    res.send("fail to find category & level & user");
-  }
+    const selectLevel = await Level.findOne({
+        attirbutes: ["id"],
+        where: { list: data.lv },
+    });
+    const selectUser = await User.findOne({
+        attirbutes: ["id", "email", "name"],
+        where: { email: data.email },
+        //req.session.user.email? 이런식으로 받아올 것.
+    });
 
-  //RecipeIngredient 생성부분
-  const selectRecipe = await Recipe.findOne({
-    attributes: ["id"],
-    where: { title: data.title },
+    if (selectCategory && selectLevel && selectUser) {
+        //select가 다 성공하면 recipe insert하기
+        console.log("success");
+        const insertRecipe = await Recipe.create({
+            title: data.title,
+            image: data.image,
+            intro: data.intro,
+            level_id: selectLevel.id,
+            category_id: selectCategory.id,
+            user_id: selectUser.id,
+        });
+        console.log("insertRecipe: ", insertRecipe);
+        //💖💖💖💖💖💖 여기서 insertRecipe 확인하고, 해당 내용의 id를 가져올 수 있다면, 아래 selectRecipe부분을 문제없이 처리할 수 있다.
+    } else {
+        console.log("failed", selectCategory, selectLevel, selectUser);
+        res.send("fail to find category & level & user");
+    }
+
+    //RecipeIngredient 생성부분
+    const selectRecipe = await Recipe.findOne({
+        attributes: ["id"],
+        where: {
+            // user_id: selectUser.id,
+            title: data.title,
+        },
+
   });
 
   let ingredient, unit;
@@ -131,9 +172,5 @@ exports.recipeRegister = async (req, res) => {
       stepNumber: data.steps[i].stepNumber,
     });
   }
-  res.render("recipe");
-};
-
-exports.getRecipe = (req, res) => {
   res.render("recipe");
 };

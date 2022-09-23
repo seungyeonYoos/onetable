@@ -25,12 +25,13 @@ function is_login(req, res, next) {
     }
 }
 
-router.get("/", recipeController.getRecipe);
+router.get("/", recipeController.getAllRecipe);
 router.post(
     "/register",
     // is_login,
     upload.single("userfile"),
     recipeController.recipeRegister
 );
+router.get("/:id(\\d+)", recipeController.getRecipe);
 
 module.exports = router;
