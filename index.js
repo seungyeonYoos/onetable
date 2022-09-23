@@ -16,8 +16,8 @@ app.use(express.json());
 
 
 // cookie & session 관련
-const cookieParser = require("cookie-parser");
-app.use(cookieParser()); // module 사용할 때 이렇게 연결 지어줘야 함
+// const cookieParser = require("cookie-parser");
+// app.use(cookieParser()); // module 사용할 때 이렇게 연결 지어줘야 함
 
 const session = require("express-session");
 // const FileStore = require("session-file-store")(session);
