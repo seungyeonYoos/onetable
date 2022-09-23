@@ -68,7 +68,6 @@ exports.course_apply = (req, res) => {
 };
 
 //* 내가 신청한 course
-let courseId;
 exports.course_show_myApply = (req, res) => {
   Application.findAll({
     attributes: ["course_id"],
