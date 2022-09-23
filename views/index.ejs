@@ -18,7 +18,11 @@
     <!-- 부트스트랩 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-</head>
+    <!-- 슬라이드 라이브러리 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+  </head>
 
 
 <body>
@@ -50,70 +54,147 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
-      
-      <!-- BEST RECIPE -->
+
+      <!-- 1.BEST RECIPE -->
       <div class="main-first-floor king">
         <div class="main-best-recipe">BEST RECIPE</div>
         <div class="main-best-recipe-more"><a href="#">더보기 <i class="fa-solid fa-arrow-right"></i></a></div>
-        <div class="main-first-floor-contents">
-            <ul class="first-slide">
-              <li><a href="#"><img src="../static/img/a.jpg"></a></li>
-              <li><a href="#"><img src="../static/img/a.jpg"></a></li>
-              <li><a href="#"><img src="../static/img/a.jpg"></a></li>
-              <li><a href="#"><img src="../static/img/a.jpg"></a></li>
-              <li><a href="#"><img src="../static/img/b.jpg"></a></li>
-              <li><a href="#"><img src="../static/img/b.jpg"></a></li>
-              <li><a href="#"><img src="../static/img/b.jpg"></a></li>
-              <li><a href="#"><img src="../static/img/b.jpg"></a></li>
-              <li><a href="#"><img src="../static/img/a.jpg"></a></li>
-              <li><a href="#"><img src="../static/img/a.jpg"></a></li>
-            </ul>
+        <div class="post-slider">
+          <div class="post-wrapper">
+            <div class="post"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="post"><a href="#"><img src="../static/img/b.jpg"></a></div>
+            <div class="post"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="post"><a href="#"><img src="../static/img/b.jpg"></a></div>
+            <div class="post"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="post"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="post"><a href="#"><img src="../static/img/a.jpg"></a></div>
+          </div>
         </div>
-        <button type="button" class="prev" onclick="mainFirstSlide();"><i class="fa-solid fa-chevron-left"></i></button>
-        <button type="button" class="next"><i class="fa-solid fa-chevron-right"></i></button>
       </div>
+      </div>
+
+      <!-- 2BEST CLASS -->
       <div class="main-second-floor king">
-        <div>
+        <div class="main-second-floor-text">
             <a href="#" id="main-best-class-a">
-                <div class="main-best-class">BEST<br>CALSS</div>
+                <div class="main-best-class">BEST<br>CLASS</div>
                 <div class="main-best-class-more">바로가기 <i class="fa-solid fa-arrow-right"></i></div>
             </a>
         </div>
-        <a href="#"></a>
-        <a href="#"></a>
-        <a href="#"></a>
-
+        <div class="second-slider">
+          <div class="second-wrapper">
+            <div class="second"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="second"><a href="#"><img src="../static/img/b.jpg"></a></div>
+            <div class="second"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="second"><a href="#"><img src="../static/img/b.jpg"></a></div>
+            <div class="second"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="second"><a href="#"><img src="../static/img/b.jpg"></a></div>
+            <div class="second"><a href="#"><img src="../static/img/a.jpg"></a></div>
+          </div>
+        </div>
       </div>
+
+      <!-- 3.BEST CLASS -->
       <div class="main-third-floor king">
         <div class="main-kitchen-guide">KITCHEN GUIDE</div>
         <div class="main-kitchen-guide-more"><a href="#">더보기 <i class="fa-solid fa-arrow-right"></i></a></div>
-        <div class="main-third-floor-contents">
-            <a href="#"></a>
-            <a href="#"></a>
-            <a href="#"></a>
-            <a href="#"></a>
-            
+        <div class="post-slider">
+          <div class="post-wrapper">
+            <div class="post"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="post"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="post"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="post"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="post"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="post"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="post"><a href="#"><img src="../static/img/a.jpg"></a></div>
+          </div>
         </div>
       </div>
+
+      <!-- 4.EVENT -->
       <div class="main-fourth-floor king">
         <div>
             <a href="#" id="main-event-a">
                 <div class="main-event">EVENT</div>
-                <div class="main-event-more">~57% 이벤트 어쩌구<br>저쩌구어쩌구저쩌</div>
+                <div class="main-event-more">~57% 이벤트 어쩌구<br>저쩌구어쩌구저쩌구</div>
             </a>
         </div>
-        <a href="#" id="main-event-img"></a>
-        <a href="#" id="main-event-img"></a>
-        <a href="#" id="main-event-img"></a>
+        <div class="second-slider">
+          <div class="second-wrapper">
+            <div class="second"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="second"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="second"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="second"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="second"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="second"><a href="#"><img src="../static/img/a.jpg"></a></div>
+            <div class="second"><a href="#"><img src="../static/img/a.jpg"></a></div>
+          </div>
+        </div>
       </div>
 
     <%-include("footer.ejs")%>
     
     
     <script>
-      function mainFirstSlide(){
-        
-      }
+      
+      $('.post-wrapper').slick({
+        infinite: true,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        prevArrow : "<button type='button' class='slick-prev' id='prev-button'><i class='fa-solid fa-chevron-left'></i></button>",		// 이전 화살표 모양 설정
+				nextArrow : "<button type='button' class='slick-next' id='prev-button'><i class='fa-solid fa-chevron-right'></i></button>",	
+        responsive: [
+          {
+            breakpoint: 970,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+            }
+          },
+          {
+            breakpoint: 560,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            }
+          },
+          {
+            breakpoint: 370,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+            }
+          }
+        ]
+      });
+
+      $('.second-wrapper').slick({
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        prevArrow : "<button type='button' class='slick-prev' id='second-prev-button'><i class='fa-solid fa-chevron-left'></i></button>",		// 이전 화살표 모양 설정
+				nextArrow : "<button type='button' class='slick-next' id='second-prev-button'><i class='fa-solid fa-chevron-right'></i></button>",
+        responsive: [
+          {
+            breakpoint: 970,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            }
+          },
+          {
+            breakpoint: 560,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+            }
+          }
+        ]
+      });
+
+      
+
+      
     </script>
 </body>
 </html>

@@ -2,18 +2,40 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
     <title>로그인</title>
-    <script>
-    </script>
+    <script></script>
     <style>
+        body {
+            /* 임시 */
+            background-color: #795548;
+            /*  */
+        }
+        /* 로그인 form  */
+        
+        h1 {
+            text-align: center;
+        }
+        
+        @font-face {
+            font-family: 'Chosunilbo_myungjo';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        * {
+            font-family: 'Chosunilbo_myungjo';
+        }
+        
         body {
             /* 임시 */
             background-color: #795548;
@@ -113,29 +135,34 @@
     </style>
 </head>
 
-
 <body>
-
-
     <div id="loginForm">
         <form name="fm" id="form" action="/user/login_post" method="post">
             <h1>Login</h1>
             <div id="loginInput">
-                <label for="id" class="label">이메일</label><span class="idAlert"></span><br>
-                <input id="id" name="id" type="email" placeholder="이메일을 입력해하세요." required><span class="pwAlert"></span><br>
-                <label for="pw" class="label">비밀번호</label>
+                <label for="id" class="label">이메일</label
+          ><span class="idAlert"></span><br />
+          <input
+            id="id"
+            name="id"
+            type="email"
+            placeholder="이메일을 입력해하세요."
+            required
+          /><span class="pwAlert"></span><br />
+          <label for="pw" class="label">비밀번호</label>
                 <div class="eye">
-                    <input id="pw" name="pw" type="password" placeholder="비밀번호를 입력하세요." required>
+                    <input id="pw" name="pw" type="password" placeholder="비밀번호를 입력하세요." required />
                     <i class="fa fa-eye fa-lg"></i>
                 </div>
             </div>
             <div class="button">
-                <button type="button" onclick="location.href='signup'">회원가입</button>
+                <button type="button" onclick="location.href='signup'">
+            회원가입
+          </button>
                 <button type="button" onclick="login()">로그인</button>
             </div>
         </form>
     </div>
-
 
     <script>
         // id 가 빈칸일 경우
@@ -146,20 +173,22 @@
         if (pw.value == "") {
             fm.pw.focus();
         } else {
-
             fm.submit();
         }
 
         // // 비밀번호 show/hide
         $(document).ready(function() {
-            $('.eye i').on('click', function() {
-                $('input').toggleClass('active');
-                if ($('input').hasClass('active')) {
-                    $(this).attr('class', "fa fa-eye-slash fa-lg")
-                        .prev('input').attr('type', "text");
+            $(".eye i").on("click", function() {
+                $("input").toggleClass("active");
+                if ($("input").hasClass("active")) {
+                    $(this)
+                        .attr("class", "fa fa-eye-slash fa-lg")
+                        .prev("input")
+                        .attr("type", "text");
                 } else {
-                    $(this).attr('class', "fa fa-eye fa-lg")
-                        .prev('input').attr('type', 'password');
+                    $(this).attr("class", "fa fa-eye fa-lg")
+                        .prev("input")
+                        .attr("type", "password");
                 }
             });
         });
@@ -174,6 +203,7 @@
                 form.pw.focus();
                 return false;
             }
+
             let user = {
                 email: form.id.value,
                 pw: form.pw.value
@@ -187,17 +217,20 @@
 
             }).then((data) => {
                 if (data == true) {
-                    alert("로그인 성공!");
-                    document.location.href = "/user/";
+                    document.location.href = "/";
                     return true;
 
                 } else {
-                    alert("로그인 실패...");
+                    Swal.fire({
+                        icon: 'error',
+                        title: '로그인 실패',
+                        text: 'email과 password를 정확히 입력하세요.',
+                    });
                     form.reset();
                     return false;
                 }
-            })
 
+            });
         }
     </script>
 </body>

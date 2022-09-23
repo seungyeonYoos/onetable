@@ -9,6 +9,18 @@ const { User } = require("../model");
 //   });
 // };
 
+// exports.is_login = (req, res, next) => {
+//   console.log(req.session);
+//   console.log(req.session.id, req.session.user);
+//   if (req.session.user) {
+//     console.log("YES LOGIN");
+//     next();
+//   } else {
+//     console.log("NO LOGIN");
+//     res.redirect("/user/login");
+//   }
+// };
+
 exports.main = (req, res) => {
     res.render("");
 };
@@ -18,7 +30,9 @@ exports.getMyPage = (req, res) => {
 };
 // 회원가입 페이지
 exports.signup = (req, res) => {
-    res.render("signup");
+
+  console.log(req.session);
+  res.render("signup");
 };
 exports.signup_post = (req, res) => {
     let data = {
@@ -35,7 +49,8 @@ exports.signup_post = (req, res) => {
 
 // 로그인 페이지
 exports.login = (req, res) => {
-    res.render("login");
+  console.log(req.session.user);
+  res.render("login");
 };
 
 exports.login_post = (req, res) => {
@@ -48,7 +63,10 @@ exports.login_post = (req, res) => {
     console.log("findOne:", result);
     if (result) {
       res.send(true);
-      req.session.user_id = result.id;
+      req.session.user = result.id;
+      // res.redirect("/");
+      console.log(req.session);
+      console.log(req.session.id, req.session.user);
     } else res.send(false);
   });
 };

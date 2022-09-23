@@ -9,10 +9,24 @@
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
     <title>회원가입</title>
     <script>
     </script>
     <style>
+        @font-face {
+            font-family: 'Chosunilbo_myungjo';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        * {
+            font-family: 'Chosunilbo_myungjo';
+        }
+        
         body {
             /* 임시 */
             background-color: #795548;
@@ -289,41 +303,40 @@
                 }
             });
         });
-        // 비빌번호 유효성 검사
-        $(".pw").change(function() {
-            checkPassword($('.pw').val(), $('.id').val());
-        });
 
-        function checkPassword(pw, id) {
 
-            if (!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(pw)) {
-                $(".alert").html('<div>숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.</div>');
+        // function checkPassword(pw) {
 
-                $('.pw').val('').focus();
-                return false;
-            }
-            var checkNumber = pw.search(/[0-9]/g);
-            var checkEnglish = pw.search(/[a-z]/ig);
-            if (checkNumber < 0 || checkEnglish < 0) {
-                $(".alert").html("<div>숫자와 영문자를 혼용하여야 합니다.</div>");
-                $('.pw').val('').focus();
-                return false;
-            }
-            if (/(\w)\1\1\1/.test(pw)) {
-                $(".alert").html('<div>같은 문자를 4번 이상 사용하실 수 없습니다.</div>');
-                $('.pw').val('').focus();
-                return false;
-            }
+        //     if (!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(pw)) {
+        //         $(".alert").html('<div>숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.</div>');
 
-            if (pw.search(id) > -1) {
-                $(".alert").html("<div>비밀번호에 아이디가 포함되었습니다.</div>");
-                $('.pw').val('').focus();
-                return false;
-            }
-            return true;
-        }
+        //         $('.pw').val('').focus();
+        //         return false;
+        //     }
+        //     var checkNumber = pw.search(/[0-9]/g);
+        //     var checkEnglish = pw.search(/[a-z]/ig);
+        //     if (checkNumber < 0 || checkEnglish < 0) {
+        //         $(".alert").html("<div>숫자와 영문자를 혼용하여야 합니다.</div>");
+        //         $('.pw').val('').focus();
+        //         return false;
+        //     }
+        //     if (/(\w)\1\1\1/.test(pw)) {
+        //         $(".alert").html('<div>같은 문자를 4번 이상 사용하실 수 없습니다.</div>');
+        //         $('.pw').val('').focus();
+        //         return false;
+        //     }
+
+        //     if (pw.search(id) > -1) {
+        //         $(".alert").html("<div>비밀번호에 아이디가 포함되었습니다.</div>");
+        //         $('.pw').val('').focus();
+        //         return false;
+        //     }
+        //     return true;
+        // }
+
+
         // 가입하기
-        function signUp() {
+        function signUp(pw) {
             var form = document.fm;
             if (!form.name.value) {
                 form.name.focus();
@@ -336,6 +349,38 @@
             if (!form.pw.value) {
                 form.pw.focus();
                 return;
+            }
+            // 비빌번호 유효성 검사
+            $(".pw").change(function() {
+                checkPassword($('.pw').val());
+            });
+            // 유효성 검사
+            function checkPassword(pw) {
+                if (!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(pw)) {
+                    $(".alert").html('<div>숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.</div>');
+
+                    $('.pw').val('').focus();
+                    return false;
+                }
+                var checkNumber = pw.search(/[0-9]/g);
+                var checkEnglish = pw.search(/[a-z]/ig);
+                if (checkNumber < 0 || checkEnglish < 0) {
+                    $(".alert").html("<div>숫자와 영문자를 혼용하여야 합니다.</div>");
+                    $('.pw').val('').focus();
+                    return false;
+                }
+                if (/(\w)\1\1\1/.test(pw)) {
+                    $(".alert").html('<div>같은 문자를 4번 이상 사용하실 수 없습니다.</div>');
+                    $('.pw').val('').focus();
+                    return false;
+                }
+
+                if (pw.search(id) > -1) {
+                    $(".alert").html("<div>비밀번호에 아이디가 포함되었습니다.</div>");
+                    $('.pw').val('').focus();
+                    return false;
+                }
+                return true;
             }
 
             //////////////////////////////////////////////////////////
@@ -352,10 +397,13 @@
             }).then((rep) => {
                 return true;
             }).then((data) => {
-                alert("회원가입 성공");
                 document.location.href = "/user/login";
             }).catch((error) => {
-                alert("회원가입 실패");
+                Swal.fire({
+                    icon: 'error',
+                    title: '회원가입 실패',
+                    text: '모든 칸을 정확히 입력하세요.'
+                });
             });
 
         }
