@@ -20,7 +20,34 @@
      readImage(e.target)
  });
 
+ function edit() {
+     const formData = new FormData();
+     const file = document.getElementById("chooseFile");
+     formData.append("myImage", file.files[0]);
+     formData.append("email", form.id.value);
+     formData.append("pw", form.pw.value);
+     formData.append("name", form.name.value);
+     axios({
+         headers: {
+             "Content-Type": "multipart/form-data",
+         },
+         method: "post",
+         url: "http://localhost:8000/user/mypage/edit",
+         data: formData,
 
+     }).then((rep) => {
+         return true;
+     }).then((data) => {
+         Swal.fire('나의 정보가 수정되었습니다 :)')
+     }).catch((error) => {
+         Swal.fire({
+             icon: 'error',
+             title: '수정 실패',
+             text: '모든 칸을 정확히 입력하세요.'
+         });
+         return false;
+     });
+ }
 
  function imgChange() {
      var form = document.getElementById("form");
@@ -33,9 +60,10 @@
      $(".message").hide();
      $("#img").show();
      ////////////////////////////////////////////////////////////////////////////////////
+
      axios({
          method: 'post',
-         url: 'http://localhost:8000/user/edit',
+         url: 'http://localhost:8000/user/mypage/edit',
          data: user = {
              id: form.id.value,
              pw: form.pw.value,
@@ -46,13 +74,13 @@
          return rep.data;
      }).then((data) => {
          return true;
-         alert("수정 성공");
      }).catch((error) => {
          Swal.fire({
              icon: 'error',
-             title: '수정 실패',
-             text: '모든 칸을 정확히 입력하세요.'
+             title: '프로필 사진 업로드 실패 :(',
+             text: '이미지 파일을 정확하게 선택해주세요'
          });
          return false;
      });
+
  }

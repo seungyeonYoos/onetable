@@ -1,21 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script
-      src="https://code.jquery.com/jquery-3.6.0.min.js"
-      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
-      integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0="
-      crossorigin="anonymous"
-    ></script>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
+    <!-- axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <!-- signup css -->
     <link rel="stylesheet" type="text/css" href="/static/css/signup.css">
@@ -23,119 +18,44 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
     <title>회원가입</title>
-    <script>
-    </script>
+</head>
 
- 
-   
-  </head>
-
-  <body>
+<body>
     <div id="signUpForm">
-      <form name="fm">
-        <h1>SignUp</h1>
-        <div class="upload-box">
-          <div id="drop-file" class="drag-file">
-            <img id="img" src="" alt="사진로드중" name="img" />
-            <img
-              src="https://img.icons8.com/pastel-glyph/2x/image-file.png"
-              alt="파일 아이콘"
-              class="image"
-            />
-            <p class="message">Drag files to upload</p>
-          </div>
-          <label id="imgFile" class="file-label" for="chooseFile"
-            >Choose File</label
-          >
-          <input
-            class="file"
-            name="myImage"
-            id="chooseFile"
-            type="file"
-            onclick="imgChange()"
-          />
-        </div>
-        <div id="signForm">
-          <label for="name" class="label">이름</label><br />
-          <input
-            type="text"
-            class="name"
-            name="name"
-            placeholder="이름을 입력하세요"
-            required
-          />
-          <br />
-          <label for="id" class="label">이메일</label><br />
-          <input
-            type="email"
-            class="id"
-            name="id"
-            placeholder="이메일을 입력하세요"
-            required
-          />
-          <br />
-          <label for="pw" class="label">비밀번호</label><br />
-          <div class="eye">
-            <input
-              type="password"
-              class="pw"
-              name="pw"
-              placeholder="비밀번호를 입력하세요"
-              required
-            />
-            <i class="fa fa-eye fa-lg"></i>
-          </div>
-        </div>
-        <div class="alert"></div>
-        <div class="button">
-          <button type="button" onClick="signUp()">가입하기</button>
-        </div>
-      </form>
+        <form name="fm">
+            <h1>SignUp</h1>
+            <div class="upload-box">
+                <div id="drop-file" class="drag-file">
+                    <img id="img" src="" alt="사진로드중" name="img" />
+                    <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" />
+                    <p class="message">Drag files to upload</p>
+                </div>
+                <label id="imgFile" class="file-label" for="chooseFile">Choose File</label>
+                <input class="file" name="myImage" id="chooseFile" type="file" onclick="imgChange()">
+            </div>
+            <div id="signForm">
+                <label for="name" class="label">이름</label><br />
+                <input type="text" class="name" name="name" placeholder="이름을 입력하세요" required />
+                <br />
+                <label for="id" class="label">이메일</label><br />
+                <input type="email" class="id" name="id" placeholder="이메일을 입력하세요" required />
+                <br />
+                <label for="pw" class="label">비밀번호</label><br />
+                <div class="eye">
+                    <input type="password" class="pw" name="pw" placeholder="비밀번호를 입력하세요" required />
+                    <i class="fa fa-eye fa-lg"></i>
+                </div>
+            </div>
+            <div class="alert"></div>
+            <div class="button">
+                <button type="button" onClick="signUp()">가입하기</button>
+            </div>
+        </form>
     </div>
     <!-- script -->
 
     <script src="/static/js/signup.js">
     </script>
+</body>
 
-
-<script>
-        //////////////////////////////////////////////////////////
-        const formData = new FormData();
-        const file = document.getElementById("chooseFile");
-        formData.append("myImage", file.files[0]);
-        formData.append("email", form.id.value);
-        formData.append("pw", form.pw.value);
-        formData.append("name", form.name.value);
-        // formData.append("photo", "01234");
-
-        // let data = {
-        //   email: form.id.value,
-        //   pw: form.pw.value,
-        //   name: form.name.value,
-        //   poto: form.img.value,
-        // };
-        axios({
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          method: "post",
-          url: "http://localhost:8000/user/signup",
-          data: formData,
-        })
-          .then((rep) => {
-            return true;
-          })
-          .then((data) => {
-            document.location.href = "/user/login";
-          })
-          .catch((error) => {
-            Swal.fire({
-              icon: "error",
-              title: "회원가입 실패",
-              text: "모든 칸을 정확히 입력하세요.",
-            });
-          });
-      }
-    </script>
-  </body>
 </html>
