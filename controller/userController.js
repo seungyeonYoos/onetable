@@ -13,9 +13,6 @@ exports.main = (req, res) => {
   res.render("");
 };
 
-exports.getMyPage = (req, res) => {
-  res.render("mypage");
-};
 // 회원가입 페이지
 exports.signup = (req, res) => {
   res.render("signup");
@@ -46,7 +43,7 @@ exports.login_post = (req, res) => {
       pw: req.body.pw,
     },
   }).then((result) => {
-    console.log("findOne:", result);
+    console.log("Login_findOne:", result);
     if (result) {
       req.session.userId = result.id;
       // res.redirect("/");
@@ -55,3 +52,36 @@ exports.login_post = (req, res) => {
     } else res.send(false);
   });
 };
+
+// 마이페이지
+exports.myPage = (req, res) => {
+  User.findOne({
+    where: { id: req.session.userId },
+  }).then((result) => {
+    console.log("Mypage_findOne:", result);
+    res.render("mypage", { myInfo: result });
+  });
+};
+
+exports.myPage_edit = (req, res) => {
+  let data1 = {
+    email: req.body.email,
+    pw: req.body.pw,
+    name: req.body.name,
+    // image: req.file.filename,
+  };
+  User.update(data1, {
+    where: { id: req.body.userId },
+  }).then((result) => {
+    console.log("update:", result);
+    res.send("회원정보 수정 성공!");
+  });
+};
+
+// exports.myPage_delete = (req, res) => {
+//   User.destroy({
+//     where: { id: req.session.userId },
+//   }).then(() => {
+//     res.redirect("/");
+//   });
+// };
