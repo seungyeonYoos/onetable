@@ -44,11 +44,37 @@ const data = {
     ],
 };
 
-exports.getRecipe = (req, res) => {
-    console.log(req.params);
+exports.getRecipe = async (req, res) => {
     const { id } = req.params;
+    // 해당 타겟 레시피의 연관 정보를 검색.
+    const selectTargetRecipe = await Recipe.findOne({
+        where: { id },
+        raw: true,
+        attributes: { exclude: ["category_id", "level_id", "user_id"] },
+        include: [
+            {
+                model: User,
+                attributes: { exclude: ["pw", "id"] },
+            },
+            {
+                model: Level,
+                attributes: { exclude: ["id"] },
+            },
+            {
+                model: Category,
+                attributes: { exclude: ["id"] },
+            },
+        ],
+    });
 
-    res.send(true);
+    // 해당 레시피의 요리 단계(step)을 검색.
+    const selectSteps = await Step.findAll({
+        raw: true,
+        where: { recipe_id: id },
+    });
+    // console.log("✅selectTargetRecipe:", selectTargetRecipe);
+    // console.log("✅selectSteps:", selectSteps);
+    res.send({ selectTargetRecipe, selectSteps });
 };
 exports.getAllRecipe = async (req, res) => {
     const { count, rows } = await Recipe.findAndCountAll({
