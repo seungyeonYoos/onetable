@@ -1,51 +1,53 @@
 const {
-  Recipe,
-  User,
-  Level,
-  Category,
-  Ingredient,
-  Unit,
-  RecipeIngredient,
-  Step,
+    Recipe,
+    User,
+    Level,
+    Category,
+    Ingredient,
+    Unit,
+    RecipeIngredient,
+    Step,
 } = require("../model");
 
 //프론트에서 전달 받아야되는 데이터. 예외) email은 추후 session을 통해 데이터 전달 받을 예정
 const data = {
-  title: "내가 만든 쿠키",
-  image: "asldjf.jpg",
-  intro: "소개글",
-  lv: "초급",
-  category: "구움과자",
-  email: "ddd@gmail.com",
-  //session에서 로그인 정보를 가져와서 해야한다.
-  amount: 20,
-  ingredient: [
-    {
-      ingredient_list: "고춧가루1",
-      unit_list: "g",
-    },
-    {
-      ingredient_list: "고춧가루2",
-      unit_list: "g",
-    },
-  ],
-  steps: [
-    {
-      instruction: "첫번째로 고춧가루를 용기에 담아줍니다.",
-      image: "pour.jpg",
-      stepNumber: 1,
-    },
-    {
-      instruction: "그다음 식초와 물을 부어서 30분간 냉장보관합니다.",
-      image: "pour2.jpg",
-      stepNumber: 2,
-    },
-  ],
+    title: "내가 만든 쿠키",
+    image: "asldjf.jpg",
+    //image는 axios form 전송으로 진행되어 req.files에 담겨짐.
+    intro: "소개글",
+    lv: "초급",
+    category: "구움과자",
+    email: "ddd@gmail.com",
+    //session에서 로그인 정보를 가져와서 해야한다.
+    amount: 20,
+    ingredient: [
+        {
+            ingredient_list: "고춧가루1",
+            unit_list: "g",
+        },
+        {
+            ingredient_list: "고춧가루2",
+            unit_list: "g",
+        },
+    ],
+    steps: [
+        {
+            instruction: "첫번째로 고춧가루를 용기에 담아줍니다.",
+            image: "pour.jpg",
+            stepNumber: 1,
+        },
+        {
+            instruction: "그다음 식초와 물을 부어서 30분간 냉장보관합니다.",
+            image: "pour2.jpg",
+            stepNumber: 2,
+        },
+    ],
 };
 
 exports.getRecipe = (req, res) => {
     console.log(req.params);
     const { id } = req.params;
+
     res.send(true);
 };
 exports.getAllRecipe = async (req, res) => {
@@ -69,9 +71,8 @@ exports.getAllRecipe = async (req, res) => {
     });
 
     if (rows) {
-        // res.render("recipe");
-        console.log(rows, count);
-        res.send(rows);
+        // console.log(rows, count);
+        res.send({ data: rows, count });
     } else {
         console.log("레시피 찾아지지 않았습니다.");
         res.send(false);
@@ -79,8 +80,9 @@ exports.getAllRecipe = async (req, res) => {
 };
 
 exports.recipeRegister = async (req, res) => {
-  // const data = req.body; 프론트 전달 받을 데이터.
-  // req.session.key (req.session.user) 유저 정보를 가져올 방법.
+    // const data = req.body; 프론트 전달 받을 데이터.
+    // req.session.key (req.session.user) 유저 정보를 가져올 방법.
+    // req.files에 이미지 담긴다. 추후 이미지 경로를 db에 저장하는 것으로 변경 필요.
 
     //Recipe 생성 부분
     const selectCategory = await Category.findOne({
@@ -122,55 +124,54 @@ exports.recipeRegister = async (req, res) => {
             // user_id: selectUser.id,
             title: data.title,
         },
-
-  });
-
-  let ingredient, unit;
-
-  for (let i = 0; i < data.ingredient.length; i++) {
-    ingredient = await Ingredient.findOne({
-      attributes: ["id"],
-      where: { list: data.ingredient[i].ingredient_list },
     });
-    if (!ingredient) {
-      ingredient = await Ingredient.create({
-        list: data.ingredient[i].ingredient_list,
-      });
+
+    let ingredient, unit;
+
+    for (let i = 0; i < data.ingredient.length; i++) {
+        ingredient = await Ingredient.findOne({
+            attributes: ["id"],
+            where: { list: data.ingredient[i].ingredient_list },
+        });
+        if (!ingredient) {
+            ingredient = await Ingredient.create({
+                list: data.ingredient[i].ingredient_list,
+            });
+        }
+        unit = await Unit.findOne({
+            attributes: ["id"],
+            where: { list: data.ingredient[i].unit_list },
+        });
+        if (!unit) {
+            unit = await Unit.create({
+                list: data.ingredient[i].unit_list,
+            });
+        }
+        if (ingredient && unit && selectRecipe) {
+            const insertRecipeIngredient = await RecipeIngredient.create({
+                recipe_id: selectRecipe.id,
+                amount: data.amount,
+                ingredient_id: ingredient.id,
+                unit_id: unit.id,
+            });
+            console.log();
+        } else {
+            console.log(
+                "ingredient & measurment & selectRecipe sql 찾기 또는 입력 오류가 있음."
+            );
+            res.send("fail to find ingredient & unit & selectRecipe");
+            break;
+        }
     }
-    unit = await Unit.findOne({
-      attributes: ["id"],
-      where: { list: data.ingredient[i].unit_list },
-    });
-    if (!unit) {
-      unit = await Unit.create({
-        list: data.ingredient[i].unit_list,
-      });
+    //Step insert part for문으로 입력된 insert
+    //Step 생성 부분
+    for (let i = 0; i < data.steps.length; i++) {
+        const insertStep = await Step.create({
+            recipe_id: selectRecipe.id,
+            instruction: data.steps[i].instruction,
+            image: data.steps[i].image,
+            stepNumber: data.steps[i].stepNumber,
+        });
     }
-    if (ingredient && unit && selectRecipe) {
-      const insertRecipeIngredient = await RecipeIngredient.create({
-        recipe_id: selectRecipe.id,
-        amount: data.amount,
-        ingredient_id: ingredient.id,
-        unit_id: unit.id,
-      });
-      console.log();
-    } else {
-      console.log(
-        "ingredient & measurment & selectRecipe sql 찾기 또는 입력 오류가 있음."
-      );
-      res.send("fail to find ingredient & unit & selectRecipe");
-      break;
-    }
-  }
-  //Step insert part for문으로 입력된 insert
-  //Step 생성 부분
-  for (let i = 0; i < data.steps.length; i++) {
-    const insertStep = await Step.create({
-      recipe_id: selectRecipe.id,
-      instruction: data.steps[i].instruction,
-      image: data.steps[i].image,
-      stepNumber: data.steps[i].stepNumber,
-    });
-  }
-  res.render("recipe");
+    res.render("recipe");
 };
