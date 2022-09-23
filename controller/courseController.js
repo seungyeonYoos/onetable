@@ -76,9 +76,14 @@ exports.course_show_myApply = (req, res) => {
     // req.session.userId
   }).then((result) => {
     console.log("findAll", result);
-    console.log("findAll", result[0].course_id);
-    courseId = result;
+    console.log(result[0].course_id);
+    Course.findAll({
+      where: { id: result[0].course_id },
+    }).then((result) => {
+      console.log("course:", result);
+    });
   });
+  // console.log("담겼니", result1);
   // Course.findAll({
   //   where: { course_id: courseId[0].course_id },
   // }).then((result1) => {
