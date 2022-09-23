@@ -44,8 +44,7 @@ function already_login(req, res, next) {
 
 router.get("/", userController.main);
 
-router.get("/mypage", is_login, userController.getMyPage);
-
+// 회원가입
 router.get("/signup", already_login, userController.signup);
 router.post("/signup", upload.single("myImage"), userController.signup_post);
 router.post("/signup/image", upload.single("myImage"), (req, res) => {
@@ -53,7 +52,13 @@ router.post("/signup/image", upload.single("myImage"), (req, res) => {
   res.send("업로드");
 });
 
+// 로그인
 router.get("/login", already_login, userController.login);
 router.post("/login", userController.login_post);
+
+// 마이페이지
+router.get("/mypage", is_login, userController.myPage);
+router.post("/mypage/edit", userController.myPage_edit);
+// router.delete("/mypage/delete", userController.myPage_delete);
 
 module.exports = router;
