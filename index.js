@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
-const axios = require("axios");
-const cors = require("cors");
+// const axios = require("axios");
+// const cors = require("cors");
 const port = 8000;
 
 app.set("view engine", "ejs");
@@ -13,21 +13,7 @@ app.use("/uploads", express.static("uploads"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// import axios from "axios";
-axios.default.withCredentials = true;
-app.use(
-    cors({
-        origin: [
-            "http://target.service.com",
-            "https://lahuman.github.io",
-            "http://localhost:8080",
-        ],
-        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-        preflightContinue: false,
-        optionsSuccessStatus: 204,
-        credentials: true,
-    })
-);
+
 
 // cookie & session 관련
 const cookieParser = require("cookie-parser");
