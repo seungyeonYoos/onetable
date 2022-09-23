@@ -7,7 +7,7 @@ const {
 } = require("../model");
 
 exports.main = (req, res) => {
-  res.render("");
+  res.render("course");
 };
 
 //* 보여주는 부분
@@ -27,7 +27,7 @@ exports.course_register = (req, res) => {
     price: req.body.price,
     hour: req.body.hour,
     date: req.body.date,
-    user_id: req.body.userId,
+    user_id: req.session.userId,
     //? 여기서 id는 작성자(user_id) id를 나타냄. 질문하자
   };
   // req.session.userId를 할거면 애초에 findOne 할 필요 없음
@@ -93,3 +93,5 @@ exports.course_show_myApply = (req, res) => {
   //? 일단 application에서 user_id를 통해 course_id를 찾은 다음에
   //? course에서 course_id를 통해서 찾아야 하는데 방법을 모르겠음
 };
+
+//* 메인페이지에 인기순으로 보여지는
