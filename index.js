@@ -21,8 +21,8 @@ app.use(
     session({
         secret: "onetable", // 암호화할 때 사용할 문자열(cookie는 선택 session은 암호화 기본)
         resave: false, // 요청이 들어올 때마다 session에 저장을 할 건지 말 건지
-        saveUninitialized: true, // session이 필요하기 전까지는 구동하지 않는다. resave랑 이거는 그냥 외우자
-        store: new FileStore(),
+        saveUninitialized: true // session이 필요하기 전까지는 구동하지 않는다. resave랑 이거는 그냥 외우자
+        // store: new FileStore(),
         //         // secure: true, // https 보안서버에서만 동작하겠다는 의미
         //         // cookie: {
         //         //   maxAge: 60000,
