@@ -7,6 +7,7 @@ router.get("/", courseController.main);
 // 강좌페이지
 
 // 강좌 등록
+router.get("/register", courseController.course_registerPage);
 router.post("/register", courseController.course_register);
 
 // 강좌 신청

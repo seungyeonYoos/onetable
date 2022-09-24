@@ -19,6 +19,9 @@ exports.course_show = (req, res) => {
 };
 
 //* 등록부분
+exports.course_registerPage = (req, res) => {
+  res.render("courseForm");
+};
 exports.course_register = (req, res) => {
   const data = {
     name: req.body.name,
