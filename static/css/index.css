@@ -1,15 +1,4 @@
-:root {
-    --main-font-size: calc(0.75em + 4vw);
-    --midium-font-size: calc(0.75em + 3vw);
-    --main-font-family: 'Chosunilbo_myungjo';
-}
 
-@font-face {
-    font-family: 'Chosunilbo_myungjo';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
 /* 플로어별 간격 주기 */
 .king {
     width: 80vw;

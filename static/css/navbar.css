@@ -1,3 +1,19 @@
+@font-face {
+    font-family: 'Chosunilbo_myungjo';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+
+:root {
+    --main-font-size: calc(0.75em + 4vw);
+    --midium-font-size: calc(0.75em + 3vw);
+    --main-font-family: 'Chosunilbo_myungjo';
+    --sub-font-family: 'Noto Sans KR';
+}
+
 .navbar {
     text-align: center;
     border-bottom: 2px solid rgb(236, 236, 236);

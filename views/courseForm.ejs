@@ -21,8 +21,16 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <style>
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+        body {
+            font-family: var(--sub-font-family);
+        }
+        .course-inform-all > div {
+            margin-top: 30px;
+        }
         .course-all{
-            border: 1px dotted blue;
+            /* border: 1px dotted blue; */
             width: 80vw;
             margin: 0 auto;
         }
@@ -31,14 +39,14 @@
         }
         .course-inform {
             width: 70%;
-            border: 1px dotted red;
+            /* border: 1px dotted red; */
             margin: 0 auto;
         }
         .course-inform-child {
             width: 100%;
             display: flex;
             border: 1px solid rgb(214, 214, 214);
-
+            margin: 10px 0px;
         }
         .course-inform-child > img {
             width: 150px;
@@ -49,25 +57,69 @@
             display: flex;
             align-items: center;
         }
+
+        .course-inform-title , .orderer-inform-title , .payment-inform-title {
+            font-size: 22px;
+            padding: 10px;
+        }
         /* 주문자정보 */
         .orderer-inform {
             width: 70%;
-            border: 1px dotted pink;
-            margin: 0 auto; 
+            /* border: 1px dotted pink; */
+            margin: 20px auto; 
+        }
+        .orderer-inform-child {
+            margin: 10px 0px;
+        }
+        .orderer-inform-child > span{
+            padding: 10px;
+        }
+        #orderer-input {
+            border-radius: 10px;
+            border: 1px solid rgb(201, 201, 201);
+            width: 400px;
+            height: 33px;
         }
         /* 결제방식 */
         .payment-method {
             width: 70%;
-            border: 1px dotted green;
+            /* border: 1px dotted green; */
             margin: 0 auto; 
         }
         .payment-button {
-            width: 160px;
+            width: 250px;
             height: 50px;
-            margin: auto;
+            background-color: brown;
+            border: 0px;
+            border-radius: 10px;
+            color: white;
+            margin: 30px 0px;
         }
-        input[type="button"] {
-            font-family: FontAwesome;
+        .payment-method > div {
+            text-align: center;
+        }
+        .choose-not-button {
+            background-color: white;
+            border: 1px solid #999;
+            border-radius: 10px;
+            width: 220px;
+            height: 60px;
+            margin: 10px 10px;
+        }
+        /* 버튼 선택시 add class */
+        .choose-button {
+            background-color: rgb(229, 238, 255);
+            border: 3px solid blue;
+            border-radius: 10px;
+            width: 220px;
+            height: 60px;
+            margin: 10px 10px;
+        }
+        .payment {
+            text-align: center;
+        }
+        .payment-method-title {
+            margin: 10px 0px;
         }
 
     </style>
@@ -80,31 +132,46 @@
         <h3>클래스신청</h3>
         <hr>
         <div class="course-inform-all">
-            <div class="course-inform">클래스 정보
+            <div class="course-inform">
+                <span class="course-inform-title">클래스 정보</span>
                 <div class="course-inform-child">
                     <img src="../static/img/a.jpg" class="course-inform-img">
                     <div class="course-inform-text">감각적인 나만의 디저트! 빵선생의 홈베이킹 클래스 [딸기생크림케이크]</div>
                 </div>
             </div>
-            <div class="orderer-inform">주문자 정보
-                <div>
-                    ID<input type="text">
+            <div class="orderer-inform">
+                <span class="orderer-inform-title">주문자 정보</span><hr>
+                <div class="orderer-inform-child">
+                    <span>ID</span><input type="text" id="orderer-input">
                 </div>
             </div>
-            <div class="payment-method">결제방식
+            <div class="payment-method">
+                <span class="payment-inform-title">결제방식</span><hr>
                 <div>
-                    <input type="button" value="&#xf09d; 신용카드" />
-                    <input type="button" value="&#xf51e; 계좌이체" />
+                    <!-- <input type="button" value="&#xf09d; 신용카드" />
+                    <input type="button" value="&#xf51e; 계좌이체" /> -->
+                    <button type="button" class="choose-button" value="creditcard" onclick="pay(this);"><i class="fa-regular fa-credit-card"></i> 신용카드</button>
+                    <button type="button" class="choose-not-button" value="money" onclick="pay(this);"><i class="fa-solid fa-coins"></i> 계좌이체</button>
                 </div>
             </div>
+            <div class="payment"><button type="button" class="payment-button">결제하기</button></div>
         </div> 
-           <button type="button" class="payment-button">결제하기</button>
     </div>
 
     <%-include("footer.ejs")%>
 
     <script>
 
+        function pay (button){
+            var choose = $(button).attr('class');
+            if( choose != "choose-button"){
+                $(button).addClass('choose-button');
+                $(".choose-button").removeClass('choose-not-button');
+            }
+            else {
+                console.log("맞음");
+            }
+        }
     </script>
   </body>
   </html>
