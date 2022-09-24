@@ -85,3 +85,5 @@ exports.myPage_edit = (req, res) => {
 //     res.redirect("/");
 //   });
 // };
+
+//* 마이페이지 (보여주는 부분)

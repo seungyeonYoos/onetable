@@ -6,21 +6,17 @@ const {
   ClassReview,
 } = require("../model");
 
+//* course main페이지
 exports.main = (req, res) => {
-  res.render("course");
-};
-
-//* 보여주는 부분
-exports.course_show = (req, res) => {
   Course.findAll({}).then((result) => {
     console.log("findAll:", result);
-    res.render("class", { courseData: result });
+    res.render("course", { courseData: result });
   });
 };
 
 //* 등록부분
 exports.course_registerPage = (req, res) => {
-  res.render("courseForm");
+  res.render("courseRegister");
 };
 exports.course_register = (req, res) => {
   const data = {
@@ -31,22 +27,29 @@ exports.course_register = (req, res) => {
     hour: req.body.hour,
     date: req.body.date,
     user_id: req.session.userId,
-    //? 여기서 id는 작성자(user_id) id를 나타냄. 질문하자
   };
-  // req.session.userId를 할거면 애초에 findOne 할 필요 없음
-  // User.findOne({
-  //   where: { email: "miso6495@gmail.com" },
-  //   // 여기에 원래 user_id: req.session.userId 들어가져야 함
-  // }).then((result) => {
-  //   console.log("findOne:", result.id);
-  // });
   Course.create(data).then((result) => {
     console.log("create:", result);
     res.send(true);
   });
 };
 
-//* 내가 올린 course
+//* 신청페이지
+exports.course_applyPage = (req, res) => {
+  res.render("courseApply");
+};
+exports.course_apply = (req, res) => {
+  const data1 = {
+    user_id: req.body.userId,
+    // req.session.userId
+    course_id: req.body.courseId,
+  };
+  Application.create(data1).then((result) => {
+    console.log("course_apply:", result);
+  });
+};
+
+//* 내가 올린 course(이건 마이페이지 같은데)
 exports.course_show_myRegister = (req, res) => {
   Course.findAll({
     where: { user_id: req.query.userId },
@@ -57,20 +60,7 @@ exports.course_show_myRegister = (req, res) => {
   });
 };
 
-//* 신청
-exports.course_apply = (req, res) => {
-  const data1 = {
-    user_id: req.body.userId,
-    // req.session.userId
-    course_id: req.body.courseId,
-    // 왜 숫자 2를 넣는데 1이 들어가는 걸까...
-  };
-  Application.create(data1).then((result) => {
-    console.log("create:", result);
-  });
-};
-
-//* 내가 신청한 course
+//* 내가 신청한 course(이것도 마이페이지)
 exports.course_show_myApply = (req, res) => {
   Application.findAll({
     attributes: ["course_id"],
