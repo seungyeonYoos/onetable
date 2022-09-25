@@ -13,12 +13,12 @@ const upload = multer({
         filename(req, file, done) {
             const ext = path.extname(file.originalname);
             //ext 는 확장자를 담는 변수다.
-            // req.session.id를 파일명에 추가하면 구별이 가능하겠다.
             done(
                 null,
-                "recipe" +
-                    path.basename(file.originalname, ext) +
+                path.basename(file.originalname, ext) +
                     Date.now() +
+                    // req.session.user_id +
+                    // req.session.user_id를 파일명에 추가하면 구별이 가능하겠다. 정확한 이름은 추후 확인 후 기입.
                     ext
             );
         },
