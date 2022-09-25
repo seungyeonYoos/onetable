@@ -14,7 +14,7 @@ router.get("/apply", courseController.course_applyPage);
 router.post("/apply", courseController.course_apply);
 
 // 강좌 보여주려면 결국 findAll
-router.get("/show", courseController.course_show);
+// router.get("/show", courseController.course_show);
 router.get("/show/myRegister", courseController.course_show_myRegister);
 router.get("/show/myApply", courseController.course_show_myApply);
 
