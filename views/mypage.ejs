@@ -92,10 +92,14 @@
                     <h6>좋아요한 레시피</h6>
                     <div id="userLikes_load">
                         <ul class="item likeRecipeList">
-                            <% for (var i = 0; i < 20 ; i++ ) { %>
-                                <li class="itemList userLikesItem"></li>
-
-                                <% } %>
+                            <% for (var i = 0; i < favRecipes.length ; i++ ) { %>
+                                <li class="itemList userLikesItem">
+                                    <a href='/recipe/<%=favRecipes[i].recipe_id%>'>
+                                        <img src='/uploads/recipe/<%=favRecipes[i]["recipe.image"]%>' alt="">
+                                        <span><%= favRecipes[i]['recipe.title'] %></span>  
+                                    </a>
+                                </li>
+                            <% } %>
                         </ul>
                     </div>
 
@@ -107,11 +111,13 @@
                 <div class="likeClass">
                     <h6>좋아요한 클래스</h6>
                     <div id="likeClass_load">
+                        
                         <ul class="item likeClassList">
                             <% for (var i = 0; i < 20 ; i++ ) { %>
-                                <li class="itemList likeClassItem"></li>
+                                <li class="itemList userLikesItem"></li>
 
                                 <% } %>
+                            
                         </ul>
                     </div>
 
@@ -124,10 +130,16 @@
                     <h6>나의 레시피</h6>
                     <div id="myrecipe_load">
                         <ul class="item myRecipeList">
-                            <% for (var i = 0; i < 20 ; i++ ) { %>
-                                <li class="itemList myrecipeItem"></li>
-
-                                <% } %>
+                            
+                                <!-- { id: 7, title: '원숭이 요리 시작', image: 'onesoongyi.png' }  -->
+                            <% for(let i =0; i < myRecipes.length; i++){%>
+                                <li class="itemList myrecipeItem">
+                                    <a href="/recipe/<%= myRecipes[i].id%>">
+                                        <img src="/uploads/recipe/<%=myRecipes[i].image%>" height='100px' alt="">
+                                        <span><%=myRecipes[i].title%></span>
+                                    </a>
+                                </li>
+                            <%}%>
                         </ul>
                     </div>
 
@@ -170,10 +182,9 @@
             </div>
 
         </div>
-        <%-include ('top.ejs')%>
-            <br>
-            <%-include ('footer.ejs')%>
-                <script type="text/javascript" src="/static/js/mypage.js"></script>
+        <br>
+        <%-include ('footer.ejs')%>
+            <script type="text/javascript" src="/static/js/mypage.js"></script>
 
 </body>
 
