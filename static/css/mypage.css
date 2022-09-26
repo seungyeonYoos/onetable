@@ -45,7 +45,7 @@ hr {
     flex-direction: column;
 }
 
-#user {
+#form {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -103,7 +103,7 @@ hr {
 
 /* user */
 
-#form {
+.userInfor {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -111,7 +111,7 @@ hr {
     width: 200px;
 }
 
-#form>input {
+.userInfor>input {
     background-color: #EFEBE9;
     border: 0;
     padding-left: 10px;
