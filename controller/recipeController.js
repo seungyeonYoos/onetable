@@ -10,7 +10,8 @@ const {
 } = require("../model");
 
 //프론트에서 전달 받아야되는 데이터. 예외) email은 추후 session을 통해 데이터 전달 받을 예정
-const data = {
+
+/*const data = {
 	title: "내가 만든 쿠키",
 	image: "asldjf.jpg",
 	//image는 axios form 전송으로 진행되어 req.files에 담겨짐.
@@ -43,6 +44,7 @@ const data = {
 		},
 	],
 };
+*/
 
 exports.getRecipe = async (req, res) => {
 	const { id } = req.params;
@@ -105,10 +107,10 @@ exports.getAllRecipe = async (req, res) => {
 	});
 
 	if (rows) {
-		// console.log(rows, count);
-		res.send({ data: rows, count });
+		// console.log(typeof rows, typeof count);
+		res.render("recipe", { data: rows, count });
 	} else {
-		console.log("레시피 찾아지지 않았습니다.");
+		console.log("레시피가 찾아지지 않았습니다.");
 		res.send(false);
 	}
 };
@@ -135,7 +137,6 @@ exports.recipeRegister = async (req, res) => {
 
 	if (selectCategory && selectLevel && selectUser) {
 		//select가 다 성공하면 recipe insert하기
-		console.log("success");
 		const insertRecipe = await Recipe.create({
 			title: data.title,
 			image: data.image,
@@ -144,7 +145,7 @@ exports.recipeRegister = async (req, res) => {
 			category_id: selectCategory.id,
 			user_id: selectUser.id,
 		});
-		console.log("insertRecipe: ", insertRecipe);
+		// console.log("insertRecipe: ", insertRecipe);
 		//💖💖💖💖💖💖 여기서 insertRecipe 확인하고, 해당 내용의 id를 가져올 수 있다면, 아래 selectRecipe부분을 문제없이 처리할 수 있다.
 	} else {
 		console.log("failed", selectCategory, selectLevel, selectUser);
@@ -188,7 +189,6 @@ exports.recipeRegister = async (req, res) => {
 				ingredient_id: ingredient.id,
 				unit_id: unit.id,
 			});
-			console.log();
 		} else {
 			console.log(
 				"ingredient & measurment & selectRecipe sql 찾기 또는 입력 오류가 있음."
