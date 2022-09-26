@@ -21,16 +21,16 @@ exports.course_registerPage = (req, res) => {
 exports.course_register = (req, res) => {
   const data = {
     name: req.body.name,
-    image: req.body.image,
+    image: req.file.filename,
     intro: req.body.intro,
     price: req.body.price,
     hour: req.body.hour,
     date: req.body.date,
     totalNumber: req.body.totalNumber,
-    user_id: req.body.userId,
+    user_id: req.session.userId,
   };
   Course.create(data).then((result) => {
-    console.log("create:", result);
+    console.log("course_register:", result);
     res.send(true);
   });
 };
