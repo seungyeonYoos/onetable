@@ -1,6 +1,7 @@
 const { sequelize, Favorite, User, Recipe } = require("../model");
 
-exports.main = async (req, res) => {
+//좋아요 수가 높은 10개의 레시피들을 가져오는 함수.
+async function getBestRecipes() {
 	// raw 쿼리문:
 	// const [results] = await Favorite.sequelize.query(
 	// 	"select recipe.id, recipe.title, recipe.image, count(favorite.recipe_id) as favCount from favorite left join recipe on favorite.recipe_id = recipe.id group by favorite.recipe_id limit 10;"
@@ -13,7 +14,6 @@ exports.main = async (req, res) => {
 		],
 		group: ["recipe_id"],
 		order: [["favCount", "DESC"]],
-		// sequelize.literal("favorite.recipe_id DESC"),
 		include: [
 			{
 				model: Recipe,
@@ -24,7 +24,12 @@ exports.main = async (req, res) => {
 		limit: 10,
 	});
 
-	console.log(bestRecipes);
+	return bestRecipes;
+}
 
-	res.render("index", { bestRecipes });
+exports.main = async (req, res) => {
+	const bestRecipe = await getBestRecipes();
+	console.log("bestRecipe:", bestRecipe);
+
+	res.render("index", { bestRecipe });
 };
