@@ -15,16 +15,140 @@
     <link rel="stylesheet" type="text/css" href="/static/css/navbar.css">
     <!-- footer css -->
     <link rel="stylesheet" type="text/css" href="/static/css/footer.css">
+    <!-- recipein css -->
+    <link rel="stylesheet" type="text/css" href="/static/css/recipein.css">
     <!-- 네브바 fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <!-- 부트스트랩 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!-- 더보기 -->
+    <script src="/static/js/view.js"></script>
+    <!-- alert -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+    <!-- png link -->
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+
     <title>Document</title>
 </head>
+<!-- 빈 하트  : <i class="fi fi-rr-heart"></i>-->
+<!-- 채워진 하트 : <i class="fi fi-sr-heart"></i> -->
 
 <body>
+    <%-include('navbar.ejs')%>
+        <div id="recipeItem" class="container">
+            <div class="navItem">
+                <button type="button" class="good" name="good"> <i class="fi fi-rr-heart"></i></button>
+                <a href="#userComment" class="comment" name="comment"><i class="fi fi-rr-comment"></i></a>
+            </div>
+            <div id="catTag">
+                <div>
+                    <a href="">카테고리</a>
+                </div>
+                <div>
+                    <a href=""><img src="" alt="">태그</a>
+                </div>
+            </div>
+            <hr>
+            <div id="recipeImg">
+                <img id="dessertImg" class="dessert_img" src="" alt="" onerror="this.onerror=null; this.src='/static/img/hat-chef.png';">
+            </div>
+            <hr>
+            <div id="recipeInfor">
 
+                <div class="recipe">
+                    <h4>Dessert Name</h4>
+                    <p>Dessert Introduce</p>
+                </div><br>
+                <div class="cookLevel">
+                    <div>
+                        <i class="fi fi-rr-user"></i>
+                        <div class="person" name="person">인원</div>
+                    </div><br>
+                    <div>
+                        <!-- <i class="fi fi-rr-time-forward"></i> -->
+                        <i class="fi fi-rr-alarm-clock"></i>
+                        <div class="time" name="time">시간</div>
+                    </div><br>
+                    <div>
+                        <i class="fi fi-rr-star"></i>
+                        <div id="level" class="level" name="level">난이도</div>
+                    </div><br>
+                </div>
+            </div>
+            <hr>
+            <div id="profile">
+                <div class="userImg"><img src="" alt="" onerror="this.onerror=null; this.src='/static/img/hat-chef.png';"></div>
+                <div class="name">User Name</div>
+                <div class="news"><button type="button">소식받기</button></div>
+            </div>
+            <hr>
+            <h3>재료</h3>
+            <div id="ready">
+                <div class="matter">
+                    <div>
+                        <h6>&#124; 재료 &#124;</h6>
+                        <ul class="stuff">
+                            <% for (var i = 1; i < 6 ; i++ ) { %>
+                                <li>
+                                    <%=i%>
+                                </li>
+                                <% } %>
+                        </ul>
+                    </div>
+                    <hr class="vertical">
+                    <div>
+                        <h6>&#124; 계량 &#124;</h6>
+                        <ul class="mass">
+                            <% for (var i = 1; i < 6 ; i++ ) { %>
+                                <li>
+                                    <%=i%>g
+                                </li>
+                                <% } %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <h3>조리 순서</h3>
+            <div id="order">
+                <div class="order_item">
+                    <% for (var i = 1; i < 6 ; i++ ) { %>
+
+                        <div>
+                            <ul>
+                                <%=i%>.
+                                    <li class="ex">
+                                        조리하는 순서
+                                    </li>
+                            </ul>
+
+                            <ul>
+                                <li class="exImg"><img src="" alt="" onerror="this.onerror=null; this.src='/static/img/hat-chef.png';"></li>
+                            </ul>
+                        </div>
+                        <hr>
+                        <% } %>
+                </div>
+            </div>
+            <hr>
+            <h3>댓글</h3>
+            <div id="userComment">
+                <div>
+                    <ul class="uc">
+                        <% for (var i = 1; i < 6 ; i++ ) { %>
+                            <li class="name">username</li>
+                            <li class="comment">very delicious</li>
+                            <hr>
+                            <% } %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <br>
+        <a id="top" href="#recipeItem"><i class="fi fi-rr-chevron-double-up"></i></a>
+        <%-include('footer.ejs')%>
 </body>
 
 </html>

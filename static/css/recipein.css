@@ -1,0 +1,316 @@
+@font-face {
+    font-family: 'Chosunilbo_myungjo';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Chosunilbo_myungjo';
+}
+
+div>h3 {
+    margin: 5px 10px;
+    font-weight: bold;
+}
+
+div>h4 {
+    font-weight: bold;
+}
+
+div h6 {
+    font-weight: bold;
+    padding-left: 20px;
+}
+
+.news>button:hover {
+    background-color: #3E2723;
+    color: #D7CCC8;
+}
+
+ul {
+    list-style: none;
+}
+
+hr {
+    border: 1px solid #3E2723;
+}
+
+.vertical {
+    width: 1px;
+    border-left: thick solid #3E2723;
+}
+
+i+div {
+    font-weight: bold;
+}
+
+div>a {
+    text-decoration: none;
+    color: #3E2723;
+}
+
+
+/* side div */
+
+#recipeItem {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.navItem {
+    /* 임시 */
+    height: 100px;
+    /*  */
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+
+/* 좋아요 & 댓글(바로가기) 버튼 */
+
+.navItem>.good,
+.navItem>.comment {
+    /* 임시 */
+    width: 30px;
+    height: 30px;
+    /*  */
+    background-color: white;
+    padding-top: 5px;
+    margin-right: 15px;
+    padding: 5px;
+    text-align: center;
+    font-size: 25px;
+    color: #3E2723;
+}
+
+.good {
+    border: 0;
+}
+
+.comment {
+    text-decoration: none;
+}
+
+
+/* 카테고리 catTag */
+
+#catTag {
+    /* 임시 */
+    height: 50px;
+    /*  */
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+#catTag>div {
+    /* 임시 */
+    background-color: #EFEBE9;
+    /*  */
+    text-align: center;
+    width: 100px;
+    height: 25px;
+    border-radius: 10px;
+    margin-right: 10px;
+    flex-wrap: wrap;
+}
+
+
+/* recipe  (recipe img, info)*/
+
+#recipeImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dessert_img {
+    /* 임시 */
+    background-color: #EFEBE9;
+    text-align: center;
+    /*  */
+    width: 400px;
+    height: 300px;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+
+/* infor */
+
+.recipe {
+    /* 임시 */
+    margin: 10px 0;
+    /*  */
+    padding: 0 20px;
+}
+
+.cookLevel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.cookLevel div {
+    display: flex;
+    margin-left: 5px;
+    width: 100px;
+}
+
+
+/* cook의 정보  (profile)*/
+
+#profile {
+    /* 임시 */
+    height: 100px;
+    /*  */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    border-radius: 10px;
+}
+
+.userImg {
+    /* 임시 */
+    background-color: #D7CCC8;
+    /*  */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border: 0;
+    border-radius: 50px;
+}
+
+.userImg>img {
+    width: 40px;
+    height: 40px;
+}
+
+.name {
+    font-weight: bold;
+}
+
+.news>button {
+    border: 0;
+    background-color: #D7CCC8;
+    padding: 5px 10px;
+    color: #3E2723;
+    border-radius: 8px;
+}
+
+
+/* 재료 관련  (ready)*/
+
+#ready {
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.matter {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.matter div {
+    padding-right: 20px;
+    width: 50%;
+}
+
+.matter li {
+    margin-top: 30px;
+}
+
+.stuff,
+.mass {
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+
+/* 조리 관련 (order)*/
+
+#order {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.order_item {
+    width: 90%;
+    margin: 20px 0;
+    padding-right: 25px;
+    flex-direction: column;
+}
+
+.order_item div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ex {
+    padding-top: 0;
+}
+
+.exImg {
+    background-color: #EFEBE9;
+    text-align: center;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.exImg>img {
+    width: 50px;
+    height: 50px;
+}
+
+
+/* 댓글 part(comment) */
+
+#userComment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#userComment div {
+    width: 95%;
+}
+
+.uc {
+    /* 임시 */
+    background-color: #EFEBE9;
+    width: 100%;
+    /*  */
+    margin-top: 10px;
+    padding: 10px 30px;
+}
+
+#top {
+    position: fixed;
+    right: 40px;
+    bottom: 30px;
+    text-decoration: none;
+    text-align: center;
+    background-color: #D7CCC8;
+    color: #3E2723;
+    width: 45px;
+    height: 15px;
+    padding: 10px 0 30px;
+    border-radius: 50px;
+}

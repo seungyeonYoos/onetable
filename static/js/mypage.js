@@ -21,12 +21,47 @@
  });
 
  function edit() {
+
+     var form = document.getElementById("form");
+     if (!form.checkValidity()) {
+         form.reportValidity();
+
+         return false;
+     }
+
+
+     axios({
+             method: 'post',
+             url: 'http://localhost:8000/user/profile/edit',
+             data: user = {
+                 email: form.id.value,
+                 pw: form.pw.value,
+                 name: form.name.value
+             }
+         }).then((rep) => {
+             return rep.data;
+         })
+         .then((data) => {
+             alert("수정 성공");
+         }).catch((error) => {
+             Swal.fire({
+                 icon: "error",
+                 title: "정보수정 실패",
+                 text: "모든 칸을 정확히 입력하세요.",
+             });
+         });
+
+
+ }
+
+ function imgChange() {
+     $(".image").hide();
+     $(".message").hide();
+     $("#img").show();
+     ////////////////////////////////////////////////////////////////////////////////////
      const formData = new FormData();
      const file = document.getElementById("chooseFile");
      formData.append("myImage", file.files[0]);
-     formData.append("email", form.id.value);
-     formData.append("pw", form.pw.value);
-     formData.append("name", form.name.value);
      axios({
          headers: {
              "Content-Type": "multipart/form-data",
@@ -38,47 +73,11 @@
      }).then((rep) => {
          return true;
      }).then((data) => {
-         Swal.fire('나의 정보가 수정되었습니다 :)')
+
      }).catch((error) => {
          Swal.fire({
              icon: 'error',
-             title: '수정 실패',
-             text: '모든 칸을 정확히 입력하세요.'
-         });
-         return false;
-     });
- }
-
- function imgChange() {
-     var form = document.getElementById("form");
-     if (!form.checkValidity()) {
-         form.reportValidity();
-
-         return false;
-     }
-     $(".image").hide();
-     $(".message").hide();
-     $("#img").show();
-     ////////////////////////////////////////////////////////////////////////////////////
-
-     axios({
-         method: 'post',
-         url: 'http://localhost:8000/user/mypage/edit',
-         data: user = {
-             id: form.id.value,
-             pw: form.pw.value,
-             name: form.name.value,
-             poto: form.img.value
-         }
-     }).then((rep) => {
-         return rep.data;
-     }).then((data) => {
-         return true;
-     }).catch((error) => {
-         Swal.fire({
-             icon: 'error',
-             title: '프로필 사진 업로드 실패 :(',
-             text: '이미지 파일을 정확하게 선택해주세요'
+             title: '업로드 실패',
          });
          return false;
      });
