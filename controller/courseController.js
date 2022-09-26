@@ -26,7 +26,8 @@ exports.course_register = (req, res) => {
     price: req.body.price,
     hour: req.body.hour,
     date: req.body.date,
-    user_id: req.session.userId,
+    totalNumber: req.body.totalNumber,
+    user_id: req.body.userId,
   };
   Course.create(data).then((result) => {
     console.log("create:", result);
