@@ -30,7 +30,7 @@
     <!-- png link -->
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 
-    <title>Document</title>
+    <title>레시피 상세페이지</title>
 </head>
 <!-- 빈 하트  : <i class="fi fi-rr-heart"></i>-->
 <!-- 채워진 하트 : <i class="fi fi-sr-heart"></i> -->
@@ -149,9 +149,11 @@
         <br>
         <a id="top" href="#recipeItem"><i class="fi fi-rr-chevron-double-up"></i></a>
         <%=JSON.stringify(selectTargetRecipe,null,4)%>
+
         <!--# or selectTargetRecipe.id 이런식으로 데이터를 다루면 될 것 같아요 ㅎ-->
         <%=JSON.stringify(selectSteps,null,4)%>
         <%-include('footer.ejs')%>
+
 </body>
 
 </html>

@@ -1,0 +1,351 @@
+    @font-face {
+        font-family: 'Chosunilbo_myungjo';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+    
+    * {
+        font-family: 'Chosunilbo_myungjo';
+    }
+    
+    hr {
+        border: 1px solid #3E2723;
+    }
+    
+    ul {
+        list-style: none;
+    }
+    
+    .main_img>label {
+        background-color: #8D6E63;
+        color: #3E2723;
+        font-weight: bold;
+        padding: 5px 10px;
+        border-radius: 10px;
+    }
+    
+    #file {
+        display: none;
+    }
+    
+    .nanugi>h6 {
+        margin-top: 10px;
+        font-weight: bold;
+    }
+    /* 전체 */
+    
+    #recipe_register {
+        /*  */
+        display: flex;
+        justify-content: center;
+    }
+    /*  register*/
+    
+    #register {
+        /* 임시 */
+        background-color: white;
+        width: 90%;
+        height: 100%;
+        /*  */
+        border-left: 2px solid #D7CCC8;
+        border-right: 2px solid #D7CCC8;
+    }
+    /* 디저트 이미지 */
+    
+    .upload-box {
+        width: 50%;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding-left: 20px;
+        /* flex-direction: column; */
+    }
+    
+    #img {
+        width: 150px;
+        height: 150px;
+        display: none;
+    }
+    
+    .upload-box .drag-file {
+        width: 300px;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 3px dashed #dbdbdb;
+    }
+    
+    .upload-box .drag-file.highlight {
+        border: 3px dashed red;
+    }
+    
+    .upload-box .drag-file .image {
+        width: 40px;
+    }
+    
+    .upload-box .drag-file .message {
+        margin-bottom: 0;
+        font-size: 10px;
+        text-align: center;
+    }
+    
+    .profileUp {
+        margin: 0px 20px;
+    }
+    /* 이미지 업로드 */
+    
+    .file-label {
+        background-color: #4E342E;
+        color: #fff;
+        text-align: center;
+        padding: 5px 10px;
+        width: 20%;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-top: 270px;
+        margin-left: 10px;
+    }
+    
+    .file {
+        display: none;
+    }
+    /* form */
+    
+    #form {
+        padding: 20px;
+        flex-direction: column;
+    }
+    
+    #form label {
+        font-weight: bold;
+    }
+    
+    #form div {
+        margin: 10px 0;
+    }
+    /* main image */
+    
+    .dessertPoto {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+    
+    .dessertPoto>img {
+        display: none;
+        width: 200px;
+        height: 200px;
+    }
+    
+    .dessertPoto>label {
+        background-color: #D7CCC8;
+        color: #3E2723;
+        font-weight: bold;
+        border-radius: 10px;
+    }
+    
+    .dessertPoto>label:hover {
+        background-color: #3E2723;
+        color: #D7CCC8;
+    }
+    /* 레시피 이름 */
+    /* 작성 버튼 */
+    
+    .buttonm,
+    .stuff_button,
+    .order_button,
+    .post_button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .post_button>button {
+        background-color: #D7CCC8;
+        color: #3E2723;
+        font-weight: bold;
+        padding: 10px 30px;
+        border: 0;
+        border-radius: 8px;
+    }
+    
+    .post_button>button:hover {
+        background-color: #3E2723;
+        color: #D7CCC8;
+    }
+    /* recipe name, infor, cat  */
+    
+    .nanugi {
+        background-color: #EFEBE9;
+        padding: 10px 30px;
+        border-radius: 5px;
+    }
+    
+    .nanugi input,
+    #infor {
+        border: 0;
+        width: 80%;
+        margin: 10px 0;
+        margin-left: 10%;
+        padding: 5px 10px;
+    }
+    
+    #recipe_name {
+        height: 50px;
+    }
+    
+    #infor {
+        height: 100px;
+    }
+    
+    #category {
+        margin-left: 10px;
+        padding: 5px 20px;
+    }
+    
+    #categpry+span {
+        margin-left: 20px;
+    }
+    /* recipe user, time, level */
+    
+    #personnel div,
+    #times div,
+    #difficulty div {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    
+    #personnel input,
+    #times input,
+    #difficulty input {
+        width: 10px;
+        margin-right: 10px;
+    }
+    /* 재료 */
+    
+    #stuff {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    
+    #stuff li {
+        font-weight: bold;
+        margin: 5px 20px;
+    }
+    /* .stuff label {
+    margin: 0px 50%;
+    padding-right: 45%;
+} */
+    
+    .stuff_itme {
+        width: 50%;
+    }
+    
+    .stuff_button>button {
+        background-color: #D7CCC8;
+        color: #3E2723;
+        font-weight: bold;
+        padding: 10px 30px;
+        border: 0;
+        border-radius: 8px;
+        justify-content: center;
+    }
+    
+    .stuff_button>button:hover {
+        background-color: #3E2723;
+        color: #D7CCC8;
+    }
+    /* 조리순서 */
+    /* #order {
+} */
+    
+    #order_item {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    
+    .order_title {
+        display: flex;
+        justify-content: space-around;
+    }
+    
+    .order_title label:nth-child(1) {
+        margin-left: 25px;
+        margin-right: 8%;
+    }
+    
+    .order_title label:nth-child(2) {
+        margin-right: 50%;
+    }
+    
+    .order_title label:nth-child(3) {
+        margin-left: 20%;
+        margin-right: 50px;
+    }
+    
+    .num {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .order_list {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    
+    #order_infor {
+        border: 0;
+        width: 650px;
+        margin: 10px 0;
+        padding: 5px 10px;
+        border-radius: 3px;
+    }
+    
+    .order_img,
+    .order_img>img {
+        /* 임시 */
+        background-color: white;
+        /* 임시 */
+        width: 100px;
+        height: 100px;
+        border-radius: 10px;
+    }
+    
+    .order_button>button {
+        background-color: #D7CCC8;
+        color: #3E2723;
+        font-weight: bold;
+        padding: 10px 30px;
+        border: 0;
+        border-radius: 8px;
+        justify-content: center;
+    }
+    
+    .order_button>button:hover {
+        background-color: #3E2723;
+        color: #D7CCC8;
+    }
+    /* top */
+    
+    #top {
+        position: fixed;
+        right: 40px;
+        bottom: 30px;
+        text-decoration: none;
+        text-align: center;
+        background-color: #D7CCC8;
+        color: #3E2723;
+        width: 45px;
+        height: 15px;
+        padding: 10px 0 30px;
+        border-radius: 50px;
+    }
