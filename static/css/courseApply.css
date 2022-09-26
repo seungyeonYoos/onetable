@@ -1,0 +1,103 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+        body {
+            font-family: var(--sub-font-family);
+            background-color: rgb(236, 236, 236) !important;
+        }
+        .course-inform-all > div {
+            margin-top: 30px;
+        }
+        .course-all{
+            /* border: 1px dotted blue; */
+            width: 80vw;
+            margin: 20px auto;
+            background-color: white;
+            padding: 10px 20px;
+        }
+        .course-all > h3 {
+            margin: 20px;
+        }
+        .course-inform {
+            width: 70%;
+            /* border: 1px dotted red; */
+            margin: 0 auto;
+        }
+        .course-inform-child {
+            width: 100%;
+            display: flex;
+            border: 1px solid rgb(214, 214, 214);
+            margin: 10px 0px;
+        }
+        .course-inform-child > img {
+            width: 150px;
+            height: 150px;
+            margin-right: 5px;
+        }
+        .course-inform-text {
+            display: flex;
+            align-items: center;
+        }
+
+        .course-inform-title , .orderer-inform-title , .payment-inform-title {
+            font-size: 22px;
+            padding: 10px;
+        }
+        /* 주문자정보 */
+        .orderer-inform {
+            width: 70%;
+            /* border: 1px dotted pink; */
+            margin: 20px auto; 
+        }
+        .orderer-inform-child {
+            margin: 10px 0px;
+        }
+        .orderer-inform-child > span{
+            padding: 10px;
+        }
+        #orderer-input {
+            border-radius: 10px;
+            border: 1px solid rgb(201, 201, 201);
+            width: 400px;
+            height: 33px;
+        }
+        /* 결제방식 */
+        .payment-method {
+            width: 70%;
+            /* border: 1px dotted green; */
+            margin: 0 auto; 
+        }
+        .payment-button {
+            width: 250px;
+            height: 50px;
+            background-color: #aa8a72;
+            border: 0px;
+            border-radius: 10px;
+            color: white;
+            margin: 30px 0px;
+        }
+        .payment-method > div {
+            text-align: center;
+        }
+        .choose-not-button {
+            background-color: white;
+            border: 1px solid #999;
+            border-radius: 10px;
+            width: 220px;
+            height: 60px;
+            margin: 10px 10px;
+        }
+        /* 버튼 선택시 add class */
+        .choose-button {
+            background-color: rgb(229, 238, 255);
+            border: 3px solid blue;
+            border-radius: 10px;
+            width: 220px;
+            height: 60px;
+            margin: 10px 10px;
+        }
+        .payment {
+            text-align: center;
+        }
+        .payment-method-title {
+            margin: 10px 0px;
+        }
