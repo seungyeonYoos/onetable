@@ -1,34 +1,35 @@
 const { sequelize, Favorite, User, Recipe } = require("../model");
 
-exports.main = async (req, res) => {
-	//group(sql문 절) + count(함수) + join
-	//SELECT a.id, COUNT(b.id) FROM TABLE_A a LEFT JOIN TABLE_B b ON a.id = b.id WHERE 1 GROUP BY a.id ORDER BY COUNT(b.id)
-	// const { count, rows } = await Favorite.findAndCountAll({
-	//     where,
-	// });
-	/*
+//좋아요 수가 높은 10개의 레시피들을 가져오는 함수.
+async function getBestRecipes() {
+	// raw 쿼리문:
+	// const [results] = await Favorite.sequelize.query(
+	// 	"select recipe.id, recipe.title, recipe.image, count(favorite.recipe_id) as favCount from favorite left join recipe on favorite.recipe_id = recipe.id group by favorite.recipe_id limit 10;"
+	// );
+
 	const bestRecipes = await Favorite.findAll({
 		raw: true,
 		attributes: [
-			"id",
-			[
-				sequelize.fn("COUNT", sequelize.col("recipe_id")),
-				"count_recipe_id",
-			],
+			[sequelize.fn("COUNT", sequelize.col("recipe_id")), "favCount"],
 		],
 		group: ["recipe_id"],
-		// [sequelize.fn('max', sequelize.col('age')), 'DESC'],sequelize.literal('max(age) DESC'),sequelize.literal('favorite.recipe_id DESC')
-		order: sequelize.literal("favorite.recipe_id DESC"),
+		order: [["favCount", "DESC"]],
 		include: [
 			{
 				model: Recipe,
-				attributes: ["id", "image"],
+				attributes: ["id", "title", "image"],
+				required: false, //left join 그냥 하면 inner join이 됨.
 			},
 		],
-		// limit: 20,
+		limit: 10,
 	});
-	// console.log(JSON.stringify(bestRecipes, null, 4));
-	console.log(bestRecipes);
-	*/
-	res.render("index");
+
+	return bestRecipes;
+}
+
+exports.main = async (req, res) => {
+	const bestRecipe = await getBestRecipes();
+	console.log("bestRecipe:", bestRecipe);
+
+	res.render("index", { bestRecipe });
 };

@@ -17,8 +17,7 @@ const upload = multer({
 				null,
 				path.basename(file.originalname, ext) +
 					Date.now() +
-					// req.session.user_id +
-					// req.session.user_id를 파일명에 추가하면 구별이 가능하겠다. 정확한 이름은 추후 확인 후 기입.
+					req.session.userId +
 					ext
 			);
 		},
@@ -40,7 +39,7 @@ function is_login(req, res, next) {
 }
 
 router.get("/", recipeController.getAllRecipe);
-router.get("/register", recipeController.getRecipeRegister);
+router.get("/register", is_login, recipeController.getRecipeRegister);
 router.post(
 	"/register",
 	is_login,

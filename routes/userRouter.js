@@ -8,7 +8,7 @@ const path = require("path");
 const upload = multer({
   storage: multer.diskStorage({
     destination(req, file, done) {
-      done(null, "uploads/");
+      done(null, "uploads/profileIMG/");
     },
     filename(req, file, done) {
       const ext = path.extname(file.originalname);
@@ -47,10 +47,6 @@ router.get("/", userController.main);
 // 회원가입
 router.get("/signup", already_login, userController.signup);
 router.post("/signup", upload.single("myImage"), userController.signup_post);
-router.post("/signup/image", upload.single("myImage"), (req, res) => {
-  console.log(req.file);
-  res.send("업로드");
-});
 
 // 로그인
 router.get("/login", already_login, userController.login);
