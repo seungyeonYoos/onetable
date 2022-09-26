@@ -15,6 +15,8 @@
     <link rel="stylesheet" type="text/css" href="/static/css/navbar.css">
     <!-- footer css -->
     <link rel="stylesheet" type="text/css" href="/static/css/footer.css">
+    <!-- recipeRegister css -->
+    <link rel="stylesheet" type="text/css" href="/static/css/recipeRegister.css">
     <!-- 네브바 fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <!-- 부트스트랩 -->
@@ -22,70 +24,138 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <title>레시피 등록</title>
     <style>
-        @font-face {
-            font-family: 'Chosunilbo_myungjo';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-        
-        * {
-            font-family: 'Chosunilbo_myungjo';
-        }
+
     </style>
 </head>
 
 <body>
     <%-include ('navbar.ejs')%>
-        <div id="recipe_register">
+        <div id="recipe_register" class="container">
             <div id="register">
                 <div>
-                    <form action="">
+                    <form id="form">
                         <div class="dessertPoto">
-                            <img src="" alt="">
+                            <div class="upload-box">
+                                <div id="drop-file" class="drag-file">
+                                    <img id="img" src="" alt="사진로드중" name="img" />
+                                    <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" />
+                                </div>
+                                <label id="imgFile" class="file-label" for="chooseFile">Choose File</label>
+                                <input class="file" name="myImage" id="chooseFile" type="file" onclick="imgChange()">
+                            </div>
                         </div>
-                        <div class="recipe_name">
-                            <label for="recipe_name">레시피 명</label>
-                            <input id="recipe_name" type="text">
+                        <hr>
+                        <div class="nanugi">
+                            <div class="recipe_name">
+                                <label for="recipe_name">&#124; 레시피 명 &#124;</label>
+                                <br>
+                                <input id="recipe_name" type="text">
+                            </div>
+                            <div>
+                                <label for="infor">&#124; 설명 &#124;</label>
+                                <br>
+                                <textarea name="" id="infor" rows="10"></textarea>
+                            </div>
+                            <div>
+                                <label for="category">&#124; 카테고리 &#124;</label>
+                                <select name="" id="category">
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                                <option value="">4</option>
+                                <option value="">5</option>
+                                <option value="">6</option>
+                                </select>
+                                <span> #선택한 카테로리 </span>
+                            </div><br>
+                            <div id="difficulty">
+                                <label for="">&#124; 난이도 &#124;</label><br>
+                                <div>
+                                    <input type="radio" value="1"> 초급
+                                    <input type="radio" value="2"> 중급
+                                    <input type="radio" value="3"> 고급
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <label for="infor">설명</label>
-                            <input id="infor" type="text">
-                        </div>
-                        <div>
-                            <label for="category">카테고리</label>
-                            <select name="" id="category">
-                        <option value=""></option>
-                        <option value=""></option>
-                        <option value=""></option>
-                        <option value=""></option>
-                        <option value=""></option>
-                        <option value=""></option>
-                    </select>
-                        </div>
-                        <div>
-                            <label for="">요리정보</label>
-                            <label for="">인원</label>
-                            <input type="radio">
-                            <input type="radio">
-                            <input type="radio">
-                            <input type="radio">
-                            <input type="radio">
-                            <input type="radio">
-                            <label for="">시간 (분)</label>
-                            <input type="radio">
-                            <input type="radio">
 
+                        <!-- 보류 
+                            <div>
+                            <div class="nanugi">
+                                 <div id="personnel">
+                                    <label for="">&#124; 인원 &#124;</label><br>
+                                    <div>
+                                        <input type="radio" value="1"> 1인
+                                        <input type="radio" value="2"> 2인
+                                        <input type="radio" value="3"> 3인
+                                        <input type="radio" value="4"> 4인
+                                        <input type="radio" value="5"> 5인
+                                        <input type="radio" value="6"> 6인 이상
+                                    </div>
+
+                                </div>
+                                <div id="times">
+                                    <label for="">&#124; 시간 &#124;</label><br>
+                                    <div>
+                                        <input type="radio" value="15"> 15분 이내
+                                        <input type="radio" value="30"> 30분 이내
+                                        <input type="radio" value="45"> 45분 이내
+                                        <input type="radio" value="60"> 60분 이내
+                                        <input type="radio" value="75"> 75분 이내
+                                        <input type="radio" value="90"> 90분 이내
+                                    </div>
+                                </div> 
+
+                            </div>
+                        </div> -->
+
+                        <div class="nanugi stuff">
+                            <h6>&#124; 재료 &#124;</h6>
+                            <ul id="stuff">
+                                <label for="stuff_itme">재료명</label>
+                                <li class="stuff_itme"><input id="stuff_itme" type="text" placeholder="ex : 소금 "></li>
+                                <label for="meterage">계량</label>
+                                <li class="meterage"><input id="meterage" type="text" placeholder="ex : 39g"></li><br>
+                            </ul>
+
+                            <div class="stuff_button">
+                                <button type="button" onclick="count_stuff()">추가 +</button>
+                            </div>
                         </div>
-                        <label for=""></label>
-                        <input type="text">
+
+                        <div class="nanugi">
+                            <h6>&#124; 순서 &#124;</h6>
+                            <ul id="order_itme">
+                                <div class="order_title">
+                                    <label for="">순서</label>
+                                    <label for="">설명</label>
+                                    <label for="">설명사진</label><br>
+                                </div>
+                                <div class="order_list">
+                                    <li class="num">1</li>
+                                    <li class="order_infor"><textarea name="" id="order_infor" rows="3"></textarea></li>
+                                    <li class="order_img"><img src="" alt=""></li>
+                                </div>
+                            </ul>
+
+                            <div class="order_button">
+                                <button type="order_button" onclick="count_order()">추가 +</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
-
+                <hr>
+                <div class="post_button">
+                    <button type="button">작 성</button>
+                </div>
+                <br>
             </div>
+
         </div>
-        <script>
-        </script>
+
+        <a id="top" href="#recipeItem"><i class="fi fi-rr-chevron-double-up"></i></a>
+        <%-include ('footer.ejs')%>
+
+            <script src="/static/js/register.js"></script>
 </body>
 
 </html>
