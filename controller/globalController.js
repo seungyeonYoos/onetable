@@ -6,6 +6,7 @@ exports.main = async (req, res) => {
 	// const { count, rows } = await Favorite.findAndCountAll({
 	//     where,
 	// });
+	/*
 	const bestRecipes = await Favorite.findAll({
 		raw: true,
 		attributes: [
@@ -26,7 +27,8 @@ exports.main = async (req, res) => {
 		],
 		// limit: 20,
 	});
-
+	// console.log(JSON.stringify(bestRecipes, null, 4));
 	console.log(bestRecipes);
+	*/
 	res.render("index");
 };

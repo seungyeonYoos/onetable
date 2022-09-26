@@ -47,10 +47,11 @@ const data = {
 exports.getRecipe = async (req, res) => {
 	const { id } = req.params;
 	// 해당 타겟 레시피의 연관 정보를 검색.
+	// join table 해서 하면 편할것 같은데... 좀더 알아보고 변경 진행할 예정
 	const selectTargetRecipe = await Recipe.findOne({
-		where: { id },
 		raw: true,
 		attributes: { exclude: ["category_id", "level_id", "user_id"] },
+		where: { id },
 		include: [
 			{
 				model: User,
@@ -72,10 +73,17 @@ exports.getRecipe = async (req, res) => {
 		raw: true,
 		where: { recipe_id: id },
 	});
-	// console.log("✅selectTargetRecipe:", selectTargetRecipe);
-	// console.log("✅selectSteps:", selectSteps);
-	res.send({ selectTargetRecipe, selectSteps });
+	console.log("✅selectTargetRecipe:", selectTargetRecipe);
+	console.log("✅selectSteps:", selectSteps);
+	// console.log(JSON.stringify(selectTargetRecipe, null, 4));
+	// console.log(JSON.stringify(selectSteps, null, 4));
+	if (selectTargetRecipe) {
+		res.render("recipein", { selectTargetRecipe, selectSteps });
+	} else {
+		res.send("recipe id is not found");
+	}
 };
+
 exports.getAllRecipe = async (req, res) => {
 	const { count, rows } = await Recipe.findAndCountAll({
 		raw: true,
@@ -200,4 +208,8 @@ exports.recipeRegister = async (req, res) => {
 		});
 	}
 	res.render("recipe");
+};
+
+exports.getRecipeRegister = (req, res) => {
+	res.render("recipeRegister");
 };
