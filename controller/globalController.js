@@ -18,7 +18,7 @@ async function getBestRecipes() {
 			{
 				model: Recipe,
 				attributes: ["id", "title", "image"],
-				required: false, //left join
+				required: false, //left join 그냥 하면 inner join이 됨.
 			},
 		],
 		limit: 10,

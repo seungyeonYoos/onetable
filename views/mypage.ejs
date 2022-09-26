@@ -73,21 +73,139 @@
                 <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image">
                 <p class="message">Drag files to upload</p>
                 </div> -->
-          <form id="form" action="">
-            <div class="upload-box">
-              <div id="drop-file" class="drag-file">
-                <img
-                  id="img"
-                  src="/uploads/profileIMG/<%=myInfo.image%>"
-                  alt="사진로드중"
-                  name="img"
-                />
-                <img
-                  src="https://img.icons8.com/pastel-glyph/2x/image-file.png"
-                  alt="파일 아이콘"
-                  class="image"
-                />
-              </div>
+                    <form id="form" action="">
+                        <div class="upload-box">
+                            <div id="drop-file" class="drag-file">
+                                <img id="img" src="<%=myInfo.image%>" alt="사진로드중" name="img">
+                                <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image">
+                            </div>
+                        </div>
+
+                        <div class="userInfor">
+                            <!-- readonly -> 변경 불가 -->
+                            <label for="name">이름 (닉네임)</label>
+                            <input type="text" name="name" value="<%=myInfo.name%>">
+                            <label for="id">email</label>
+                            <input type="email" name="id" value="<%=myInfo.email%>">
+                            <!-- 비밀번호 변경 가능 -->
+                            <label for="pw">비밀번호</label>
+                            <input type="text" name="pw" value="<%=myInfo.pw%>">
+                            <div class="button">
+                                <button type="button" onclick="edit()">정보수정</button>
+                                <label id="imgFile" class="file-label" for="chooseFile">프로필 사진</label>
+                                <input class="file" id="chooseFile" type="file" name="myImage" onclick="imgChange()">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <hr>
+                <div class="review">
+                    <h6>댓글 리뷰</h6>
+                    <div id="review_load">
+                        <ul class="item reviewList">
+                            <% for (var i = 0; i < 20 ; i++ ) { %>
+                                <li class="itemList reviewItem"></li>
+
+                                <% } %>
+                        </ul>
+                    </div>
+
+                    <div id="view">
+                        <a href="javascript:;" class="button reviewB">더보기<i class="fi fi-rr-caret-down"></i></a>
+                    </div>
+                </div>
+                <hr>
+                <div class="userLikes">
+                    <h6>좋아요한 레시피</h6>
+                    <div id="userLikes_load">
+                        <ul class="item likeRecipeList">
+                            <% for (var i = 0; i < favRecipes.length ; i++ ) { %>
+                                <li class="itemList userLikesItem">
+                                    <a href='/recipe/<%=favRecipes[i].recipe_id%>'>
+                                        <img src='/uploads/recipe/<%=favRecipes[i]["recipe.image"]%>' alt="">
+                                        <span><%= favRecipes[i]['recipe.title'] %></span>  
+                                    </a>
+                                </li>
+                            <% } %>
+                        </ul>
+                    </div>
+
+                    <div id="view">
+                        <a href="javascript:;" class="button userLikesB">더보기<i class="fi fi-rr-caret-down"></i></a>
+                    </div>
+                </div>
+                <hr>
+                <div class="likeClass">
+                    <h6>좋아요한 클래스</h6>
+                    <div id="likeClass_load">
+                        
+                        <ul class="item likeClassList">
+                            <% for (var i = 0; i < 20 ; i++ ) { %>
+                                <li class="itemList userLikesItem"></li>
+
+                                <% } %>
+                            
+                        </ul>
+                    </div>
+
+                    <div id="view">
+                        <a href="javascript:;" class="button likeClassB">더보기<i class="fi fi-rr-caret-down"></i></a>
+                    </div>
+                </div>
+                <hr>
+                <div class="myrecipe">
+                    <h6>나의 레시피</h6>
+                    <div id="myrecipe_load">
+                        <ul class="item myRecipeList">
+                            
+                                <!-- { id: 7, title: '원숭이 요리 시작', image: 'onesoongyi.png' }  -->
+                            <% for(let i =0; i < myRecipes.length; i++){%>
+                                <li class="itemList myrecipeItem">
+                                    <a href="/recipe/<%= myRecipes[i].id%>">
+                                        <img src="/uploads/recipe/<%=myRecipes[i].image%>" height='100px' alt="">
+                                        <span><%=myRecipes[i].title%></span>
+                                    </a>
+                                </li>
+                            <%}%>
+                        </ul>
+                    </div>
+
+                    <div id="view">
+                        <a href="javascript:;" class="button myrecipeB">더보기<i class="fi fi-rr-caret-down"></i></a>
+                    </div>
+                </div>
+                <hr>
+                <div class="myClass">
+                    <h6>나의 클래스</h6>
+                    <div id="myClass_load">
+                        <ul class="item myClassList">
+                            <% for (var i = 0; i < 20 ; i++ ) { %>
+                                <li class="itemList myClassItem"></li>
+
+                                <% } %>
+                        </ul>
+                    </div>
+
+                    <div id="view">
+                        <a href="javascript:;" class="button myClassB">더보기<i class="fi fi-rr-caret-down"></i></a>
+                    </div>
+                </div>
+                <hr>
+                <div class="appClass">
+                    <h6>신청한 클래스</h6>
+                    <div id="appClass_load">
+                        <ul class="item appClassList">
+                            <% for (var i = 0; i < 20 ; i++ ) { %>
+                                <li class="itemList appClassItem"></li>
+
+                                <% } %>
+                        </ul>
+                    </div>
+
+                    <div id="view">
+                        <a href="javascript:;" class="button appClassB">더보기<i class="fi fi-rr-caret-down"></i></a>
+                    </div>
+                </div>
             </div>
 
             <div class="userInfor">
@@ -115,118 +233,10 @@
             </div>
           </form>
         </div>
-        <hr />
-        <div class="review">
-          <h6>댓글 리뷰</h6>
-          <div id="review_load">
-            <ul class="item reviewList">
-              <% for (var i = 0; i < 20 ; i++ ) { %>
-              <li class="itemList reviewItem"></li>
+        <br>
+        <%-include ('footer.ejs')%>
+            <script type="text/javascript" src="/static/js/mypage.js"></script>
 
-              <% } %>
-            </ul>
-          </div>
+</body>
 
-          <div id="view">
-            <a href="javascript:;" class="button reviewB"
-              >더보기<i class="fi fi-rr-caret-down"></i
-            ></a>
-          </div>
-        </div>
-        <hr />
-        <div class="userLikes">
-          <h6>좋아요한 레시피</h6>
-          <div id="userLikes_load">
-            <ul class="item likeRecipeList">
-              <% for (var i = 0; i < 20 ; i++ ) { %>
-              <li class="itemList userLikesItem"></li>
-
-              <% } %>
-            </ul>
-          </div>
-
-          <div id="view">
-            <a href="javascript:;" class="button userLikesB"
-              >더보기<i class="fi fi-rr-caret-down"></i
-            ></a>
-          </div>
-        </div>
-        <hr />
-        <div class="likeClass">
-          <h6>좋아요한 클래스</h6>
-          <div id="likeClass_load">
-            <ul class="item likeClassList">
-              <% for (var i = 0; i < 20 ; i++ ) { %>
-              <li class="itemList likeClassItem"></li>
-
-              <% } %>
-            </ul>
-          </div>
-
-          <div id="view">
-            <a href="javascript:;" class="button likeClassB"
-              >더보기<i class="fi fi-rr-caret-down"></i
-            ></a>
-          </div>
-        </div>
-        <hr />
-        <div class="myrecipe">
-          <h6>나의 레시피</h6>
-          <div id="myrecipe_load">
-            <ul class="item myRecipeList">
-              <% for (var i = 0; i < 20 ; i++ ) { %>
-              <li class="itemList myrecipeItem"></li>
-
-              <% } %>
-            </ul>
-          </div>
-
-          <div id="view">
-            <a href="javascript:;" class="button myrecipeB"
-              >더보기<i class="fi fi-rr-caret-down"></i
-            ></a>
-          </div>
-        </div>
-        <hr />
-        <div class="myClass">
-          <h6>나의 클래스</h6>
-          <div id="myClass_load">
-            <ul class="item myClassList">
-              <% for (var i = 0; i < 20 ; i++ ) { %>
-              <li class="itemList myClassItem"></li>
-
-              <% } %>
-            </ul>
-          </div>
-
-          <div id="view">
-            <a href="javascript:;" class="button myClassB"
-              >더보기<i class="fi fi-rr-caret-down"></i
-            ></a>
-          </div>
-        </div>
-        <hr />
-        <div class="appClass">
-          <h6>신청한 클래스</h6>
-          <div id="appClass_load">
-            <ul class="item appClassList">
-              <% for (var i = 0; i < 20 ; i++ ) { %>
-              <li class="itemList appClassItem"></li>
-
-              <% } %>
-            </ul>
-          </div>
-
-          <div id="view">
-            <a href="javascript:;" class="button appClassB"
-              >더보기<i class="fi fi-rr-caret-down"></i
-            ></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br />
-    <%-include ('footer.ejs')%>
-    <script type="text/javascript" src="/static/js/mypage.js"></script>
-  </body>
 </html>
