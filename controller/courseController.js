@@ -32,6 +32,7 @@ exports.main = async (req, res) => {
   const result = await sequelize.query(query, { type: QueryTypes.SELECT });
   console.log("courseData", result);
   res.render("index", { courseData: result });
+};
 
 //* course mainpage
 exports.main = (req, res) => {
