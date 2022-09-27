@@ -73,9 +73,9 @@ hr {
 }
 
 #img {
+    position: absolute;
     width: 150px;
     height: 150px;
-    display: none;
 }
 
 .upload-box .drag-file {
@@ -158,6 +158,7 @@ hr {
     /* 임시 */
     background-color: #EFEBE9;
     /*  */
+    display: flex;
     width: 100px;
     height: 100px;
     margin-top: 20px;

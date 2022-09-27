@@ -35,6 +35,7 @@ const {
 //   res.render("index", { courseData: result });
 // };
 
+
 //* course mainpage
 exports.main = (req, res) => {
   res.render("course");
