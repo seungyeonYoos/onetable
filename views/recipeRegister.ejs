@@ -30,6 +30,7 @@
 
 <body>
     <%-include ('navbar.ejs')%>
+        <h1>Recipe Registration</h1><br>
         <div id="recipe_register" class="container">
             <div id="register">
                 <div>
@@ -59,21 +60,22 @@
                             <div>
                                 <label for="category">&#124; 카테고리 &#124;</label>
                                 <select name="" id="category">
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                                <option value="">4</option>
-                                <option value="">5</option>
-                                <option value="">6</option>
+                                <option value="식빵">식빵</option>
+                                <option value="천연발효종">천연발효종</option>
+                                <option value="건강빵">건강빵</option>
+                                <option value="페스츄리">페스츄리</option>
+                                <option value="브래드">브래드</option>
+                                <option value="구움과자">구움과자</option>
+                                <option value="케이크">케이크</option>
                                 </select>
-                                <span> #선택한 카테로리 </span>
+                                <span id="selectCat"> #선택한 카테고리 </span>
                             </div><br>
                             <div id="difficulty">
                                 <label for="">&#124; 난이도 &#124;</label><br>
                                 <div>
-                                    <input type="radio" value="1"> 초급
-                                    <input type="radio" value="2"> 중급
-                                    <input type="radio" value="3"> 고급
+                                    <input type="radio" name="level" value="1"> 초급
+                                    <input type="radio" name="level" value="2"> 중급
+                                    <input type="radio" name="level" value="3"> 고급
                                 </div>
                             </div>
                         </div>

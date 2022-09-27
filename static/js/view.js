@@ -125,7 +125,6 @@ function recipe(id, cnt, btn) {
     // 반복될 리스트 class name
     var recipe_list = id + " .recipeItem:not(.active)";
     var recipe_length = $(recipe_list).length;
-    console.log(recipe_length);
     var recipe_total_cnt;
     if (cnt < recipe_length) {
         recipe_total_cnt = cnt;

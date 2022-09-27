@@ -17,6 +17,12 @@
         list-style: none;
     }
     
+    body h1 {
+        padding-top: 30px;
+        text-align: center;
+        font-weight: bold;
+    }
+    
     .main_img>label {
         background-color: #8D6E63;
         color: #3E2723;
@@ -48,8 +54,7 @@
         width: 90%;
         height: 100%;
         /*  */
-        border-left: 2px solid #D7CCC8;
-        border-right: 2px solid #D7CCC8;
+        border: 2px solid #D7CCC8;
     }
     /* 디저트 이미지 */
     
