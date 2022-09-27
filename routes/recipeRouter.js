@@ -27,7 +27,7 @@ const upload = multer({
 });
 
 function is_login(req, res, next) {
-	if (req.session.userId) {
+	if (res.locals.isLogin) {
 		console.log("YES LOGIN");
 		next();
 	} else {

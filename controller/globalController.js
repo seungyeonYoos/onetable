@@ -46,6 +46,8 @@ async function getBestCourses() {
 }
 
 exports.main = async (req, res) => {
+	const bestRecipe = await getBestRecipes();
+	// console.log("bestRecipe:", bestRecipe);
   const bestRecipe = await getBestRecipes();
   console.log("bestRecipe:", bestRecipe);
   const bestCourse = await getBestCourses();

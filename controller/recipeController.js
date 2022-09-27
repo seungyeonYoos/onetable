@@ -47,6 +47,7 @@ const {
 };
 */
 
+//특정 아이디의 레시피를 보여준다.
 exports.getRecipe = async (req, res) => {
 	const { id } = req.params;
 	// 해당 타겟 레시피의 연관 정보를 검색.
@@ -76,10 +77,8 @@ exports.getRecipe = async (req, res) => {
 		raw: true,
 		where: { recipe_id: id },
 	});
-	console.log("✅selectTargetRecipe:", selectTargetRecipe);
-	console.log("✅selectSteps:", selectSteps);
-	// console.log(JSON.stringify(selectTargetRecipe, null, 4));
-	// console.log(JSON.stringify(selectSteps, null, 4));
+	// console.log("✅selectTargetRecipe:", selectTargetRecipe);
+	// console.log("✅selectSteps:", selectSteps);
 	if (selectTargetRecipe) {
 		res.render("recipein", { selectTargetRecipe, selectSteps });
 	} else {
@@ -87,10 +86,14 @@ exports.getRecipe = async (req, res) => {
 	}
 };
 
-exports.getAllRecipe = async (req, res) => {
+// (path: /recipe)에서 레시피들을 보내준다.
+// 좋아요 오름차순, 내림차순 설정
+
+async function get(target, order) {
 	const { count, rows } = await Recipe.findAndCountAll({
 		raw: true,
 		attributes: { exclude: ["category_id", "level_id", "user_id"] },
+		order: [[`${target}`, `${order}`]],
 		include: [
 			{
 				model: User,
@@ -106,10 +109,92 @@ exports.getAllRecipe = async (req, res) => {
 			},
 		],
 	});
+	return { count, rows };
+}
 
-	if (rows) {
+async function getTargetRecipes(target, list) {
+	//category로 선택해서 볼때.
+	if (target === "category") {
+		const { count, rows } = await Recipe.findAndCountAll({
+			raw: true,
+			attributes: { exclude: ["category_id", "level_id", "user_id"] },
+			include: [
+				{
+					model: User,
+					attributes: { exclude: ["pw", "id"] },
+				},
+				{
+					model: Level,
+					attributes: { exclude: ["id"] },
+					where: { list },
+				},
+				{
+					model: Category,
+					attributes: { exclude: ["id"] },
+				},
+			],
+		});
+		return { count, rows };
+	} else if (target === "level") {
+		// level로 선택해서 볼때
+		const { count, rows } = await Recipe.findAndCountAll({
+			raw: true,
+			attributes: { exclude: ["category_id", "level_id", "user_id"] },
+			include: [
+				{
+					model: User,
+					attributes: { exclude: ["pw", "id"] },
+				},
+				{
+					model: Level,
+					attributes: { exclude: ["id"] },
+				},
+				{
+					model: Category,
+					attributes: { exclude: ["id"] },
+					where: { list },
+				},
+			],
+		});
+		return { count, rows };
+	} else {
+		//선택값이 없을 때 전부 보여준다.
+		const { count, rows } = await Recipe.findAndCountAll({
+			raw: true,
+			attributes: { exclude: ["category_id", "level_id", "user_id"] },
+			include: [
+				{
+					model: User,
+					attributes: { exclude: ["pw", "id"] },
+				},
+				{
+					model: Level,
+					attributes: { exclude: ["id"] },
+				},
+				{
+					model: Category,
+					attributes: { exclude: ["id"] },
+				},
+			],
+		});
+		return { count, rows };
+	}
+}
+
+exports.getAllRecipe = (req, res) => {
+	// let target = req.body.target;
+	let target, list;
+	//const {target, list} = req.query;
+	let data;
+	if (target && list) {
+		data = getTargetRecipes(target, list);
+	} else {
+		data = getTargetRecipes();
+	}
+
+	if (data.rows) {
 		// console.log(typeof rows, typeof count);
-		res.render("recipe", { data: rows, count });
+		res.render("recipe", { data: data.rows, count: data.count });
 	} else {
 		console.log("레시피가 찾아지지 않았습니다.");
 		res.send(false);
@@ -147,20 +232,10 @@ exports.recipeRegister = async (req, res) => {
 			user_id: selectUser.id,
 		});
 		// console.log("insertRecipe: ", insertRecipe);
-		//💖💖💖💖💖💖 여기서 insertRecipe 확인하고, 해당 내용의 id를 가져올 수 있다면, 아래 selectRecipe부분을 문제없이 처리할 수 있다.
 	} else {
 		console.log("failed", selectCategory, selectLevel, selectUser);
 		res.send("fail to find category & level & user");
 	}
-
-	//RecipeIngredient 생성부분
-	const selectRecipe = await Recipe.findOne({
-		attributes: ["id"],
-		where: {
-			// user_id: selectUser.id,
-			title: data.title,
-		},
-	});
 
 	let ingredient, unit;
 
@@ -185,7 +260,7 @@ exports.recipeRegister = async (req, res) => {
 		}
 		if (ingredient && unit && selectRecipe) {
 			const insertRecipeIngredient = await RecipeIngredient.create({
-				recipe_id: selectRecipe.id,
+				recipe_id: insertRecipe.id, // insertRecipe의 아이디를 받아온다.
 				amount: data.amount,
 				ingredient_id: ingredient.id,
 				unit_id: unit.id,
