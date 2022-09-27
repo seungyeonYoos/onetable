@@ -31,7 +31,7 @@ exports.main = async (req, res) => {
                 LIMIT 10;`;
   const result = await sequelize.query(query, { type: QueryTypes.SELECT });
   console.log("courseData", result);
-  res.render("course", { courseData: result });
+  res.render("index", { courseData: result });
 };
 
 //* 등록부분
