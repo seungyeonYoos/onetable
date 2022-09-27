@@ -67,7 +67,11 @@ router.get("/logout", userController.logout);
 
 // 마이페이지
 router.get("/mypage", is_login, userController.myPage);
-router.post("/mypage/edit", userController.myPage_edit); //여기에도 파일 업로드 들어가야 할걸?
-// router.delete("/mypage/delete", userController.myPage_delete);
+router.post(
+  "/mypage/edit",
+  upload.single("myImage"),
+  userController.myPage_edit
+); //여기에도 파일 업로드 들어가야 할걸?
+// router.post("/mypage/delete", userController.myPage_delete);
 
 module.exports = router;
