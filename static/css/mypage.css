@@ -147,7 +147,7 @@ hr {
     color: brown;
 }
 
-
+ㅎ
 /* review */
 
 
@@ -198,10 +198,11 @@ hr {
 
 .item {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
-.item>.itemList {
+.item .itemList {
     /* 임시 */
     width: 200px;
     height: 100px;

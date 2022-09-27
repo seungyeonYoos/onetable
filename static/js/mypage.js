@@ -57,7 +57,6 @@
  function imgChange() {
      $(".image").hide();
      $(".message").hide();
-     $("#img").show();
      ////////////////////////////////////////////////////////////////////////////////////
      const formData = new FormData();
      const file = document.getElementById("chooseFile");
