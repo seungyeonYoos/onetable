@@ -30,7 +30,10 @@ function is_login(req, res, next) {
     console.log("NO LOGIN");
     // res.redirect("/user/login");
     res.send(
-      "<script>alert('로그인이 필요한 페이지입니다.');location.href='/user/login';</script>"
+      `<script>
+        alert('로그인이 필요한 페이지입니다.');
+        location.href='/user/login';
+      </script>`
     );
   }
 }
@@ -41,7 +44,10 @@ function already_login(req, res, next) {
     console.log("이미 로그인 했어");
     // res.redirect("/");
     res.send(
-      "<script>alert('이미 로그인이 되어있습니다. 로그아웃 후 이용하세요.');location.href='/';</script>"
+      `<script>
+        alert('이미 로그인이 되어있습니다. 로그아웃 후 이용하세요.');
+        location.href='/';
+      </script>`
     );
   } else {
     next();
@@ -55,6 +61,9 @@ router.post("/signup", upload.single("myImage"), userController.signup_post);
 // 로그인
 router.get("/login", already_login, userController.login);
 router.post("/login", userController.login_post);
+
+// 로그아웃
+router.get("/logout", userController.logout);
 
 // 마이페이지
 router.get("/mypage", is_login, userController.myPage);
