@@ -17,22 +17,21 @@ const {
 //   });
 // };
 
-// exports.main = async (req, res) => {
-//   const query = `SELECT
-//                   c.id,
-//                   c.name,
-//                   c.image,
-//                   COUNT(*)
-//                 FROM course AS c INNER JOIN application AS a
-//                 ON c.id = a.course_id
-//                 WHERE c.date > CURDATE()
-//                 GROUP BY c.id, c.name, c.image
-//                 ORDER BY COUNT(*) DESC
-//                 LIMIT 10;`;
-//   const result = await sequelize.query(query, { type: QueryTypes.SELECT });
-//   console.log("courseData", result);
-//   res.render("index", { courseData: result });
-// };
+exports.main = async (req, res) => {
+  const query = `SELECT 
+                  c.id,
+                  c.name,
+                  c.image,
+                  COUNT(*)
+                FROM course AS c INNER JOIN application AS a
+                ON c.id = a.course_id
+                WHERE c.date > CURDATE()
+                GROUP BY c.id, c.name, c.image
+                ORDER BY COUNT(*) DESC
+                LIMIT 10;`;
+  const result = await sequelize.query(query, { type: QueryTypes.SELECT });
+  console.log("courseData", result);
+  res.render("index", { courseData: result });
 
 //* course mainpage
 exports.main = (req, res) => {
