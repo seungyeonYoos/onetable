@@ -41,8 +41,8 @@ async function getBestCourses() {
 					GROUP BY c.id, c.name, c.image
 					ORDER BY COUNT(*) DESC
 					LIMIT 10;`;
-  const result = await sequelize.query(query, { type: QueryTypes.SELECT });
-  return result;
+  const bestCourses = await sequelize.query(query, { type: QueryTypes.SELECT });
+  return bestCourses;
 }
 
 exports.main = async (req, res) => {
