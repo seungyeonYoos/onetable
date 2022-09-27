@@ -1,4 +1,5 @@
-const { User, Recipe, Favorite, Course } = require("../model");
+const { QueryTypes } = require("sequelize");
+const { User, Recipe, Favorite, Course, sequelize } = require("../model");
 
 // 회원가입 페이지
 exports.signup = (req, res) => {
@@ -93,7 +94,7 @@ async function getFavRecipes(userId) {
   });
   return favRecipes;
 }
-// user가 작성한 클래스들 검색
+// user가 등록한 클래스들 검색
 async function getMyCourses(userId) {
   const myCourses = await Course.findAll({
     attributes: ["id", "name", "image"],
@@ -101,6 +102,33 @@ async function getMyCourses(userId) {
   });
   return myCourses;
 }
+//user가 좋아요한 클래스들 검색
+async function getFavCourses(userId) {
+  const query = `SELECT 
+                  c.id,
+                  c.name,
+                  c.image
+                FROM course AS C LEFT OUTER JOIN coursefavorite AS cf
+                ON c.id = cf.course_id
+                WHERE cf.user_id = ${userId};`;
+  const favCourses = await sequelize.query(query, { type: QueryTypes.SELECT });
+  return favCourses;
+}
+//user가 신청한 클래스들 검색
+async function getApplyCourses(userId) {
+  const query = `SELECT 
+                  c.id,
+                  c.name,
+                  c.image
+                FROM course AS C LEFT OUTER JOIN application AS a
+                ON c.id = a.course_id
+                WHERE a.user_id = ${userId};`;
+  const applyCourses = await sequelize.query(query, {
+    type: QueryTypes.SELECT,
+  });
+  return applyCourses;
+}
+
 exports.myPage = async (req, res) => {
   const myInfo = await getMyInfos(req.session.userId);
   console.log("myInfo:", myInfo);
@@ -110,7 +138,18 @@ exports.myPage = async (req, res) => {
   console.log("favRecipe:", favRecipe);
   const myCourse = await getMyCourses(req.session.userId);
   console.log("myCourse:", myCourse);
-  res.render("mypage", { myInfo, myRecipe, favRecipe, myCourse });
+  const favCourse = await getFavCourses(req.session.userId);
+  console.log("favCourse:", favCourse);
+  const applyCourse = await getApplyCourses(req.session.userId);
+  console.log("applyCourse:", applyCourse);
+  res.render("mypage", {
+    myInfo,
+    myRecipe,
+    favRecipe,
+    myCourse,
+    favCourse,
+    applyCourse,
+  });
 };
 
 // 마이페이지 내 정보 수정하기
