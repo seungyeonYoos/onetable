@@ -1,0 +1,73 @@
+    /* 전체 width */
+    .cooking-class {
+        width: 80vw;
+        margin: 0 auto;
+      }
+  
+      .post-slider {
+        position: relative;
+      }
+  
+      .post-slider .post-wrapper {
+        margin: 0px auto;
+        height: 300px;
+      }
+  
+      .post-slider .post-wrapper .post {
+        /* width:300px; */
+        /* height:350px; */
+        display: inline-block;
+      }
+  
+      .post>a,
+      .post>a>img {
+        width: 100%;
+        height: 100%;
+        padding: 4px;
+        object-fit: fill;
+      }
+  
+      /* first floor slide button */
+      .slick-prev,
+      .slick-next {
+        border: 0px;
+        background-color: white;
+      }
+  
+      #prev-button,
+      #next-button {
+        font-size: 25px;
+        background-color: white;
+        border: 0px;
+      }
+  
+      .slick-prev {
+        position: absolute;
+        left: -50px;
+        top: 45%;
+      }
+  
+      .slick-next {
+        position: absolute;
+        right: -50px;
+        top: 45%;
+      }
+  
+      .post>a {
+        position: relative;
+      }
+  
+      .post > a > div {
+        position: absolute;
+        width: 100vw;
+      }
+      .course-list {
+        border: 1px dotted red;
+      }
+      .course-list-item {
+        width: 150px;
+        height: 300px;
+      }
+      .course-list-item > a > img {
+        width: 100%;
+      }
