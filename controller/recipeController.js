@@ -47,6 +47,7 @@ const {
 };
 */
 
+//특정 아이디의 레시피를 보여준다.
 exports.getRecipe = async (req, res) => {
 	const { id } = req.params;
 	// 해당 타겟 레시피의 연관 정보를 검색.
@@ -85,10 +86,14 @@ exports.getRecipe = async (req, res) => {
 	}
 };
 
-exports.getAllRecipe = async (req, res) => {
+// (path: /recipe)에서 레시피들을 보내준다.
+// 좋아요 오름차순, 내림차순 설정
+
+async function get(target, order) {
 	const { count, rows } = await Recipe.findAndCountAll({
 		raw: true,
 		attributes: { exclude: ["category_id", "level_id", "user_id"] },
+		order: [[`${target}`, `${order}`]],
 		include: [
 			{
 				model: User,
@@ -104,6 +109,37 @@ exports.getAllRecipe = async (req, res) => {
 			},
 		],
 	});
+	return { count, rows };
+}
+
+function getTargetRecipes(target) {
+	//category로 선택해서 볼때.
+	// level로 선택해서 볼때
+}
+
+exports.getAllRecipe = async (req, res) => {
+	let target = "list";
+	let order = "ASC";
+	const { count, rows } = await Recipe.findAndCountAll({
+		raw: true,
+		attributes: { exclude: ["category_id", "level_id", "user_id"] },
+		include: [
+			{
+				model: User,
+				attributes: { exclude: ["pw", "id"] },
+			},
+			{
+				model: Level,
+				attributes: { exclude: ["id"] },
+			},
+			{
+				model: Category,
+				attributes: { exclude: ["id"] },
+				order: [[`${target}`, `${order}`]],
+			},
+		],
+	});
+	console.log(rows);
 
 	if (rows) {
 		// console.log(typeof rows, typeof count);
