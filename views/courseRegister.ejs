@@ -78,7 +78,7 @@
         padding: 10px;
       }
       .register {
-        border: 1px dotted red;
+        /* border: 1px dotted red; */
       }
       .register > h3 {
         padding: 10px;
@@ -89,9 +89,12 @@
         margin: 10px;
       }
 
-      .register-inform-child > div > div {
+      .register-inform-child > div > label {
         display: inline-block;
         margin: 10px 16px;
+      }
+      .number {
+        display: flex;
       }
       .register-inform {
         display: flex;
@@ -121,9 +124,37 @@
         width: 200px;
         height: 200px;
         border-radius: 20px;
+        margin-left: 50px;
       }
       label[for="file"] > i {
         font-size: 50px;
+      }
+      #totalNumber {
+        width: 80px;
+      }
+      #hour {
+        width: 80px;
+      }
+      .register-inform-child input {
+        width: 350px;
+        height: 29px;
+        padding: 10px;
+        border-radius: 10px;
+        border: 0px;
+        background-color: rgb(226, 226, 226);
+        margin: 0px 10px;
+        font-size: 12px;
+      }
+      #intro {
+        height: 60px !important;
+      }
+      .course-information {
+        display: flex;
+        align-items: center;
+        padding-left: 12px;
+      }
+      #inform-hour {
+        padding-left: 20px;
       }
     </style>
   </head>
@@ -138,36 +169,39 @@
         <div class="register-inform">
           <form class="register-inform-child" id="registerForm">
             <div>
-              <div>클래스 제목</div>
-              <input type="text" name="name" />
+              <label for="name" class="label">클래스 제목</label>
+              <input type="text" name="name" id="name" />
             </div>
             <div>
-              <div>클래스 설명</div>
-              <input type="text" name="intro" />
+              <label for="intro" class="label">클래스 설명</label>
+              <input type="text" name="intro" id="intro" />
             </div>
             <div>
-              <div>클래스 금액</div>
-              <input type="text" name="price" />원
+              <label for="price">클래스 금액</label>
+              <input type="text" name="price" id="price"/>원
             </div>
             <div>
-              <div>클래스 시간</div>
-              <input type="text" name="hour" />분
+              <label for="date">클래스 날짜</label>
+              <input type="date" name="date" id="date"/>
             </div>
-            <div>
-              <div>클래스 날짜</div>
-              <input type="date" name="date" />
-            </div>
-            <div>
-              <div>클래스 정원</div>
-              <input type="text" name="totalNumber" />명
+            <div class="number">
+              <label for="totalNumber">클래스 정보</label>
+              <div class="course-information">
+                <span>정원</span>
+                <input type="text" name="totalNumber" id="totalNumber" />
+                <span>명</span>
+                <span id="inform-hour">시간</span><input type="text" name="hour" id="hour" />
+                <span>분</span>
+              </div>
             </div>
           </form>
-          <form method="post" enctype="multipart/form-data">
+          <form id="image-register">
             <label class="input-file-button" for="file"
               ><i class="fa-solid fa-camera"></i> <br />
               클래스 대표사진을 <br />선택하세요.</label
             >
-            <input type="file" name="courseImage" id="file" />
+            <input type="file" name="courseImage" id="file" onchange="readURL(this);"/>
+            <img id="preview" />
           </form>
         </div>
       </div>
@@ -203,6 +237,19 @@
           console.log(response.data);
         });
       }
+
+      function readURL(input){
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function(e){
+            document.getElementById('preview').src = e.target.result;
+          };
+          reader.readAsDataURL(input.files[0]);
+        } else {
+          document.getElementById('preview').src = "";
+        }
+      }
+
     </script>
   </body>
 </html>
