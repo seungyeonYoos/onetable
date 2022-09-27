@@ -1,17 +1,37 @@
+const { QueryTypes } = require("sequelize");
 const {
   Course,
   User,
   Application,
   ClassFavorite,
   ClassReview,
+  sequelize,
 } = require("../model");
 
 //* course main페이지
-exports.main = (req, res) => {
-  Course.findAll({}).then((result) => {
-    console.log("findAll:", result);
-    res.render("course", { courseData: result });
-  });
+// 이건 다 찾아주는 거
+// exports.main = (req, res) => {
+//   Course.findAll({}).then((result) => {
+//     console.log("findAll:", result);
+//     res.render("course", { courseData: result });
+//   });
+// };
+
+exports.main = async (req, res) => {
+  const query = `SELECT 
+                  c.id,
+                  c.name,
+                  c.image,
+                  COUNT(*)
+                FROM course AS c INNER JOIN application AS a
+                ON c.id = a.course_id
+                WHERE c.date > CURDATE()
+                GROUP BY c.id, c.name, c.image
+                ORDER BY COUNT(*) DESC
+                LIMIT 10;`;
+  const result = await sequelize.query(query, { type: QueryTypes.SELECT });
+  console.log("courseData", result);
+  res.render("course", { courseData: result });
 };
 
 //* 등록부분
