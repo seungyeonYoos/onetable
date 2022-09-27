@@ -76,10 +76,8 @@ exports.getRecipe = async (req, res) => {
 		raw: true,
 		where: { recipe_id: id },
 	});
-	console.log("✅selectTargetRecipe:", selectTargetRecipe);
-	console.log("✅selectSteps:", selectSteps);
-	// console.log(JSON.stringify(selectTargetRecipe, null, 4));
-	// console.log(JSON.stringify(selectSteps, null, 4));
+	// console.log("✅selectTargetRecipe:", selectTargetRecipe);
+	// console.log("✅selectSteps:", selectSteps);
 	if (selectTargetRecipe) {
 		res.render("recipein", { selectTargetRecipe, selectSteps });
 	} else {
