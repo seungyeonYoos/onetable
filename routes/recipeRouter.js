@@ -27,9 +27,7 @@ const upload = multer({
 });
 
 function is_login(req, res, next) {
-	console.log(req.session);
-	console.log(req.session.id, req.session.user);
-	if (req.session.user) {
+	if (req.session.userId) {
 		console.log("YES LOGIN");
 		next();
 	} else {
@@ -38,7 +36,10 @@ function is_login(req, res, next) {
 	}
 }
 
+//전체 레시피 보는 부분 (path: /recipe)
 router.get("/", recipeController.getAllRecipe);
+
+//레시피 등록하는 부분 (path: /recipe/register), (method: get & post)
 router.get("/register", is_login, recipeController.getRecipeRegister);
 router.post(
 	"/register",
@@ -46,6 +47,8 @@ router.post(
 	upload.array("userfile"),
 	recipeController.recipeRegister
 );
+
+//등록된 1개의 특정 레시피를 보는 부분 (path: /recipe/'레시피 id')
 router.get("/:id(\\d+)", recipeController.getRecipe);
 
 module.exports = router;
