@@ -28,7 +28,10 @@ function is_login(req, res, next) {
     next();
   } else {
     console.log("NO LOGIN");
-    res.redirect("/user/login");
+    // res.redirect("/user/login");
+    res.send(
+      "<script>alert('로그인이 필요한 페이지입니다.');location.href='/user/login';</script>"
+    );
   }
 }
 
@@ -36,7 +39,10 @@ function is_login(req, res, next) {
 function already_login(req, res, next) {
   if (req.session.userId) {
     console.log("이미 로그인 했어");
-    res.redirect("/");
+    // res.redirect("/");
+    res.send(
+      "<script>alert('이미 로그인이 되어있습니다. 로그아웃 후 이용하세요.');location.href='/';</script>"
+    );
   } else {
     next();
   }
@@ -54,7 +60,7 @@ router.post("/login", userController.login_post);
 
 // 마이페이지
 router.get("/mypage", is_login, userController.myPage);
-router.post("/mypage/edit", userController.myPage_edit);
+router.post("/mypage/edit", userController.myPage_edit); //여기에도 파일 업로드 들어가야 할걸?
 // router.delete("/mypage/delete", userController.myPage_delete);
 
 module.exports = router;

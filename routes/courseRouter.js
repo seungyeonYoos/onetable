@@ -20,6 +20,21 @@ const upload = multer({
   limits: { fileSize: 5 * 1024 * 1024 },
 });
 
+// 미들웨어로 로그인 확인하기
+function is_login(req, res, next) {
+  console.log(req.session);
+  if (req.session.userId) {
+    console.log("YES LOGIN");
+    next();
+  } else {
+    console.log("NO LOGIN");
+    // res.redirect("/user/login");
+    res.send(
+      "<script>alert('로그인이 필요한 페이지입니다.');location.href='/user/login';</script>"
+    );
+  }
+}
+
 // 강좌 메인페이지
 router.get("/", courseController.main);
 
