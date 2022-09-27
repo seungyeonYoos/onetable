@@ -147,20 +147,10 @@ exports.recipeRegister = async (req, res) => {
 			user_id: selectUser.id,
 		});
 		// console.log("insertRecipe: ", insertRecipe);
-		//💖💖💖💖💖💖 여기서 insertRecipe 확인하고, 해당 내용의 id를 가져올 수 있다면, 아래 selectRecipe부분을 문제없이 처리할 수 있다.
 	} else {
 		console.log("failed", selectCategory, selectLevel, selectUser);
 		res.send("fail to find category & level & user");
 	}
-
-	//RecipeIngredient 생성부분
-	const selectRecipe = await Recipe.findOne({
-		attributes: ["id"],
-		where: {
-			// user_id: selectUser.id,
-			title: data.title,
-		},
-	});
 
 	let ingredient, unit;
 
@@ -185,7 +175,7 @@ exports.recipeRegister = async (req, res) => {
 		}
 		if (ingredient && unit && selectRecipe) {
 			const insertRecipeIngredient = await RecipeIngredient.create({
-				recipe_id: selectRecipe.id,
+				recipe_id: insertRecipe.id, // insertRecipe의 아이디를 받아온다.
 				amount: data.amount,
 				ingredient_id: ingredient.id,
 				unit_id: unit.id,

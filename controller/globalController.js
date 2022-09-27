@@ -29,7 +29,7 @@ async function getBestRecipes() {
 
 exports.main = async (req, res) => {
 	const bestRecipe = await getBestRecipes();
-	console.log("bestRecipe:", bestRecipe);
+	// console.log("bestRecipe:", bestRecipe);
 
 	res.render("index", { bestRecipe });
 };
