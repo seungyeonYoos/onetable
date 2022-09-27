@@ -112,38 +112,89 @@ async function get(target, order) {
 	return { count, rows };
 }
 
-function getTargetRecipes(target) {
+async function getTargetRecipes(target, list) {
 	//category로 선택해서 볼때.
-	// level로 선택해서 볼때
+	if (target === "category") {
+		const { count, rows } = await Recipe.findAndCountAll({
+			raw: true,
+			attributes: { exclude: ["category_id", "level_id", "user_id"] },
+			include: [
+				{
+					model: User,
+					attributes: { exclude: ["pw", "id"] },
+				},
+				{
+					model: Level,
+					attributes: { exclude: ["id"] },
+					where: { list },
+				},
+				{
+					model: Category,
+					attributes: { exclude: ["id"] },
+				},
+			],
+		});
+		return { count, rows };
+	} else if (target === "level") {
+		// level로 선택해서 볼때
+		const { count, rows } = await Recipe.findAndCountAll({
+			raw: true,
+			attributes: { exclude: ["category_id", "level_id", "user_id"] },
+			include: [
+				{
+					model: User,
+					attributes: { exclude: ["pw", "id"] },
+				},
+				{
+					model: Level,
+					attributes: { exclude: ["id"] },
+				},
+				{
+					model: Category,
+					attributes: { exclude: ["id"] },
+					where: { list },
+				},
+			],
+		});
+		return { count, rows };
+	} else {
+		//선택값이 없을 때 전부 보여준다.
+		const { count, rows } = await Recipe.findAndCountAll({
+			raw: true,
+			attributes: { exclude: ["category_id", "level_id", "user_id"] },
+			include: [
+				{
+					model: User,
+					attributes: { exclude: ["pw", "id"] },
+				},
+				{
+					model: Level,
+					attributes: { exclude: ["id"] },
+				},
+				{
+					model: Category,
+					attributes: { exclude: ["id"] },
+				},
+			],
+		});
+		return { count, rows };
+	}
 }
 
-exports.getAllRecipe = async (req, res) => {
-	let target = "list";
-	let order = "ASC";
-	const { count, rows } = await Recipe.findAndCountAll({
-		raw: true,
-		attributes: { exclude: ["category_id", "level_id", "user_id"] },
-		include: [
-			{
-				model: User,
-				attributes: { exclude: ["pw", "id"] },
-			},
-			{
-				model: Level,
-				attributes: { exclude: ["id"] },
-			},
-			{
-				model: Category,
-				attributes: { exclude: ["id"] },
-				order: [[`${target}`, `${order}`]],
-			},
-		],
-	});
-	console.log(rows);
+exports.getAllRecipe = (req, res) => {
+	// let target = req.body.target;
+	let target, list;
+	//const {target, list} = req.query;
+	let data;
+	if (target && list) {
+		data = getTargetRecipes(target, list);
+	} else {
+		data = getTargetRecipes();
+	}
 
-	if (rows) {
+	if (data.rows) {
 		// console.log(typeof rows, typeof count);
-		res.render("recipe", { data: rows, count });
+		res.render("recipe", { data: data.rows, count: data.count });
 	} else {
 		console.log("레시피가 찾아지지 않았습니다.");
 		res.send(false);
