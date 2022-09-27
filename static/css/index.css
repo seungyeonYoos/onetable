@@ -30,20 +30,34 @@
     /* height:350px; */
     display:inline-block;
   }
-  .post > a , .post > a > img {
-    width: 100%;
+  .post a {
     height: 100%;
+  }
+  .post a div {
+    width: 150px;
+  }
+  .post a div img {
+    width: 100%;
     padding: 4px;
   }
   
   /* first floor slide button */
+  .post-slider {
+    border: 1px dotted red;
+  }
+  .post-wrapper {
+    border: 1px dotted blue;
+  }
+  .post {
+    border: 1px dotted blueviolet;
+  }
   .slick-prev , .slick-next {
     border: 0px;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
   }
   #prev-button , #next-button {
     font-size: 25px;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     border: 0px;
   }
   .slick-prev {
@@ -70,7 +84,8 @@
     color: black;
 } 
 
-/* second-floor */
+/* second-floor 베스트 클래스 */
+
 .main-second-floor {
     margin: 50px auto;
     display: flex;

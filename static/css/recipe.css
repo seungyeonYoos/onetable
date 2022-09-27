@@ -1,0 +1,187 @@
+@font-face {
+    font-family: 'Chosunilbo_myungjo';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Chosunilbo_myungjo';
+}
+
+ul {
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+ul li {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#recipe {
+    margin: 50px 250px 10px 250px;
+    flex-direction: column;
+}
+
+#page_title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 40px;
+}
+
+#page_title h1 {
+    font-weight: bold;
+}
+
+
+/* 카테고리 */
+
+#recipeCategory {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.category_list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 80%;
+}
+
+.category_list li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid gainsboro;
+    width: 100px;
+    padding-top: 10px;
+    font-weight: bold;
+    /* 임시 */
+    background-color: white;
+}
+
+
+/* view */
+
+#view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+}
+
+#view>a {
+    font-size: 20px;
+    padding: 20px;
+    color: brown;
+}
+
+#view>a {
+    text-decoration: none;
+}
+
+.button {
+    border: 0;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+
+/* 레시피 */
+
+#recipeList {
+    margin-top: 20px;
+}
+
+.recipe_list {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.recipe_list li {
+    width: 230px;
+    height: 350px;
+    margin: 10px 0;
+    margin-right: 30px;
+    /*  */
+    background-color: #D7CCC8;
+}
+
+.recipeImg>img {
+    width: 230px;
+    height: 250px;
+}
+
+.cookName,
+.recipeName {
+    margin-top: 10px;
+    padding: 0px 10px;
+}
+
+ul a {
+    text-decoration: none;
+    color: black;
+}
+
+
+/* 레시피 cook*/
+
+.cookName {
+    text-align: end;
+}
+
+.cookName img {
+    /* 임시 */
+    background-color: #3E2723;
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    border-radius: 50px;
+}
+
+
+/* top */
+
+#top {
+    position: fixed;
+    right: 40px;
+    bottom: 30px;
+    text-decoration: none;
+    text-align: center;
+    background-color: #D7CCC8;
+    color: #3E2723;
+    width: 45px;
+    height: 15px;
+    padding: 10px 0 30px;
+    border-radius: 50px;
+}
+
+
+/* 더보기 */
+
+.recipe_list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.recipe_list>.recipeItem {
+    margin-top: 10px;
+    margin-right: 10px;
+    display: none;
+}
+
+.recipe_list::after {
+    display: none;
+}
+
+.recipe_list .active {
+    display: block;
+}

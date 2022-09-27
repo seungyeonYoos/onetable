@@ -22,7 +22,6 @@ exports.signup_post = (req, res) => {
 exports.login = (req, res) => {
   res.render("login");
 };
-
 exports.login_post = (req, res) => {
   User.findOne({
     where: {
@@ -38,6 +37,27 @@ exports.login_post = (req, res) => {
       res.send(true);
     } else res.send(false);
   });
+};
+
+//로그아웃
+exports.logout = (req, res) => {
+  if (req.session.userId) {
+    req.session.destroy(function () {
+      res.send(
+        `<script>
+          alert('로그아웃 성공');
+          location.href='/';
+        </script>`
+      );
+    });
+  } else {
+    res.send(
+      `<script>
+        alert('잘못된 접근입니다.');
+        location.href='/'
+      </script>`
+    );
+  }
 };
 
 // 마이페이지 내정보 보여주기

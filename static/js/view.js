@@ -6,6 +6,8 @@ $(window).on('load', function() {
     myrecipe('#myrecipe_load', '4');
     myClass('#myClass_load', '4');
     appClass('#appClass_load', '4');
+    // 로드될 파트 
+
 
     $("#view .reviewB").on("click", function() {
         review('#review_load', '4', '#view');
@@ -24,7 +26,11 @@ $(window).on('load', function() {
     })
     $("#view .appClassB").on("click", function() {
         appClass('#appClass_load', '4', '#view');
-    })
+    });
+    // 
+
+
+
 });
 
 function review(id, cnt, btn) {
@@ -103,4 +109,30 @@ function appClass(id, cnt, btn) {
         $('.appClassB').hide()
     }
     $(appClass_list + ":lt(" + appClass_total_cnt + ")").addClass("active");
+}
+
+$(window).on('load', function() {
+    recipe('#recipe_load', '5');
+    $("#view .recipeB").on("click", function() {
+        recipe('#recipe_load', '5', '#view');
+    });
+
+});
+
+
+
+function recipe(id, cnt, btn) {
+    // 반복될 리스트 class name
+    var recipe_list = id + " .recipeItem:not(.active)";
+    var recipe_length = $(recipe_list).length;
+    console.log(recipe_length);
+    var recipe_total_cnt;
+    if (cnt < recipe_length) {
+        recipe_total_cnt = cnt;
+    } else {
+        recipe_total_cnt = recipe_length;
+        // 더보기 버튼 클래스
+        $(".recipeB").hide();
+    }
+    $(recipe_list + ":lt(" + recipe_total_cnt + ")").addClass("active");
 }

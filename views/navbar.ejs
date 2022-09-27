@@ -1,16 +1,21 @@
 <div class="navbar">
   <div class="nav-first-floor">
+    <% if( isLogin ) { %>
+    <div><a class="logout" href="/user/logout">로그아웃</a></div>
+    <% } else {%>
     <div><a class="sign-up" href="/user/signup">회원가입</a></div>
     <div><a class="login" href="/user/login">로그인</a></div>
+    <% } %>
+    
     <div><a class="customer-center" href="#">고객센터</a></div>
   </div>
   <div class="nav-second-floor">
     <div class="logo"><a href="/">ONE TABLE</a></div>
     <div class="empty"></div>
     <div>
-      <a class="search" href="#"
-        ><i class="fa-solid fa-magnifying-glass"></i
-      ></a>
+      <a class="search" href="#">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </a>
     </div>
     <div>
       <a class="good" href="#"><i class="fa-regular fa-heart"></i></a>
@@ -46,7 +51,5 @@
 </div>
 
 <script>
-  // if(`<%=isLogin%>`){
-  //   console.log()
-  // }
+  
 </script>
