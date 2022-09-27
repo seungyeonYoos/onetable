@@ -89,6 +89,11 @@ body a:hover {
     color: brown;
 }
 
+/* 로그인 로그아웃  */
+.d-none {
+    display: none;
+}
+
 @media (max-width: 790px) { 
     .nav > li {
         margin: 0px;
