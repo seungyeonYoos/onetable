@@ -35,10 +35,44 @@ const {
 //   res.render("index", { courseData: result });
 // };
 
-
 //* course mainpage
-exports.main = (req, res) => {
-  res.render("course");
+exports.main = async (req, res) => {
+  //?질문? 이런식으로 하는 게 맞는지(월은 12개이고 그럼 경우의 수가 너무 많은데 그건 어떻게 해야할지.....ㅎㅎ notion 보면서 질문)
+  if (req.query.order == "register") {
+    let query = `SELECT * 
+                  FROM onetable.course
+                  WHERE date > CURDATE()
+                  ORDER BY id DESC;`;
+    let result = await sequelize.query(query, { type: QueryTypes.SELECT });
+    return result;
+  } else if (req.query.order == "apply") {
+    let query = `SELECT 
+                  c.id,
+                  c.name,
+                  c.image,
+                  COUNT(*)
+                FROM course AS c INNER JOIN application AS a
+                ON c.id = a.course_id
+                WHERE c.date > CURDATE()
+                GROUP BY c.id, c.name, c.image
+                ORDER BY COUNT(*) DESC;`;
+    let result = await sequelize.query(query, { type: QueryTypes.SELECT });
+    return result;
+  } else if (req.query.order == "like") {
+    let query = `SELECT 
+                  c.id,
+                  c.name,
+                  c.image,
+                  COUNT(*)
+                FROM course AS c INNER JOIN application AS a
+                ON c.id = a.course_id
+                WHERE c.date > CURDATE()
+                GROUP BY c.id, c.name, c.image
+                ORDER BY COUNT(*) DESC;`;
+    let result = await sequelize.query(query, { type: QueryTypes.SELECT });
+    return result;
+  }
+  res.render("course", { result });
 };
 
 //* 등록부분
@@ -72,6 +106,7 @@ exports.course_apply = (req, res) => {
     // req.session.userId
     course_id: req.body.courseId,
   };
+  //?질문? course_id 어떻게 받아와야 할지 생각하고 질문
   Application.create(data1).then((result) => {
     console.log("course_apply:", result);
   });
