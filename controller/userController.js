@@ -1,4 +1,4 @@
-const { User, Recipe, Favorite } = require("../model");
+const { User, Recipe, Favorite, Course } = require("../model");
 
 // 회원가입 페이지
 exports.signup = (req, res) => {
@@ -60,19 +60,29 @@ exports.logout = (req, res) => {
   }
 };
 
-// 마이페이지 내정보 보여주기
-exports.myPage = async (req, res) => {
-  //user가 작성한 레시피들 검색
+// 마이페이지 보여주기
+// 내정보
+async function getMyInfos(userId) {
+  const myInfos = await User.findOne({
+    where: { id: userId },
+  });
+  return myInfos;
+}
+//user가 작성한 레시피들 검색
+async function getMyRecipes(userId) {
   const myRecipes = await Recipe.findAll({
     raw: true,
     attributes: ["id", "title", "image"],
-    where: { user_id: req.session.userId },
+    where: { user_id: userId },
   });
-  //user가 좋아요한 레시피들 검색
+  return myRecipes;
+}
+//user가 좋아요한 레시피들 검색
+async function getFavRecipes(userId) {
   const favRecipes = await Favorite.findAll({
     raw: true,
     attributes: ["recipe_id"],
-    where: { user_id: req.session.userId },
+    where: { user_id: userId },
     include: [
       {
         model: Recipe,
@@ -81,24 +91,26 @@ exports.myPage = async (req, res) => {
       },
     ],
   });
-
-  User.findOne({
-    where: { id: req.session.userId },
-  }).then((result) => {
-    console.log("작성 및 좋아요 레시피들:", myRecipes, favRecipes);
-    console.log("Mypage_findOne:", result);
-    res.render("mypage", { myInfo: result, myRecipes, favRecipes });
-    //* To. 미경
-    //* 마이페이지 창 들어갔을 때
-    //* 콘솔창에 "Mypage_findeOne: ~~~~ " 라고 뜨는 정보를 내가
-    //* myInfo변수를 mypage.ejs로 바로 보내고 있어
-    //* <%= myInfo.email %> 이렇게 ejs 문법 사용해서 나타내면 됩니다~
-    //* 너랑 나랑 mysql db가 달라서 너가 user table에 정보가 있어야 뜰거야.
-    //* 그리고 사진은 너가 직접 회원가입창에서 사진 넣고 회원가입하면 session.id로
-    //* image value값도 저장되고(근데 여기는 이름만 저장되는거야 사진은 없어)
-    //* uploads폴더에 사진 저장돼(이름은 session.id로 똑같아)
-    //* image value값을 myInfo 변수로 받아서 uploads에 있는 폴더 경로로 받으면 될거야
+  return favRecipes;
+}
+// user가 작성한 클래스들 검색
+async function getMyCourses(userId) {
+  const myCourses = await Course.findAll({
+    attributes: ["id", "name", "image"],
+    where: { user_id: userId },
   });
+  return myCourses;
+}
+exports.myPage = async (req, res) => {
+  const myInfo = await getMyInfos(req.session.userId);
+  console.log("myInfo:", myInfo);
+  const myRecipe = await getMyRecipes(req.session.userId);
+  console.log("myRecipe:", myRecipe);
+  const favRecipe = await getFavRecipes(req.session.userId);
+  console.log("favRecipe:", favRecipe);
+  const myCourse = await getMyCourses(req.session.userId);
+  console.log("myCourse:", myCourse);
+  res.render("mypage", { myInfo, myRecipe, favRecipe, myCourse });
 };
 
 // 마이페이지 내 정보 수정하기
@@ -126,5 +138,3 @@ exports.myPage_edit = (req, res) => {
 //     res.redirect("/");
 //   });
 // };
-
-//* 마이페이지 (보여주는 부분)

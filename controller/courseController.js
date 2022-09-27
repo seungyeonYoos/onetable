@@ -17,21 +17,23 @@ const {
 //   });
 // };
 
-exports.main = async (req, res) => {
-  const query = `SELECT 
-                  c.id,
-                  c.name,
-                  c.image,
-                  COUNT(*)
-                FROM course AS c INNER JOIN application AS a
-                ON c.id = a.course_id
-                WHERE c.date > CURDATE()
-                GROUP BY c.id, c.name, c.image
-                ORDER BY COUNT(*) DESC
-                LIMIT 10;`;
-  const result = await sequelize.query(query, { type: QueryTypes.SELECT });
-  console.log("courseData", result);
-  res.render("index", { courseData: result });
+// RAW QUERY 사용하는 것
+// exports.main = async (req, res) => {
+//   const query = `SELECT
+//                   c.id,
+//                   c.name,
+//                   c.image,
+//                   COUNT(*)
+//                 FROM course AS c INNER JOIN application AS a
+//                 ON c.id = a.course_id
+//                 WHERE c.date > CURDATE()
+//                 GROUP BY c.id, c.name, c.image
+//                 ORDER BY COUNT(*) DESC
+//                 LIMIT 10;`;
+//   const result = await sequelize.query(query, { type: QueryTypes.SELECT });
+//   console.log("courseData", result);
+//   res.render("index", { courseData: result });
+// };
 
 //* course mainpage
 exports.main = (req, res) => {
@@ -73,42 +75,3 @@ exports.course_apply = (req, res) => {
     console.log("course_apply:", result);
   });
 };
-
-//* 내가 올린 course(이건 마이페이지 같은데)
-exports.course_show_myRegister = (req, res) => {
-  Course.findAll({
-    where: { user_id: req.query.userId },
-    // 이부분도 req.session.userId 들어가면 됨.
-  }).then((result) => {
-    console.log("findAll:", result);
-    res.render("class", { courseData: result });
-  });
-};
-
-//* 내가 신청한 course(이것도 마이페이지)
-exports.course_show_myApply = (req, res) => {
-  Application.findAll({
-    attributes: ["course_id"],
-    where: { user_id: req.query.userId },
-    // req.session.userId
-  }).then((result) => {
-    console.log("findAll", result);
-    console.log(result[0].course_id);
-    Course.findAll({
-      where: { id: result[0].course_id },
-    }).then((result) => {
-      console.log("course:", result);
-    });
-  });
-  // console.log("담겼니", result1);
-  // Course.findAll({
-  //   where: { course_id: courseId[0].course_id },
-  // }).then((result1) => {
-  //   console.log("findAll1", result1);
-  // });
-  //? 내가 신청한 course를 찾는 과정.
-  //? 일단 application에서 user_id를 통해 course_id를 찾은 다음에
-  //? course에서 course_id를 통해서 찾아야 하는데 방법을 모르겠음
-};
-
-//* 메인페이지에 인기순으로 보여지는

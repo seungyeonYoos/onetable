@@ -76,7 +76,7 @@
                     <form id="form" action="">
                         <div class="upload-box">
                             <div id="drop-file" class="drag-file">
-                                <img id="img" src="<%=myInfo.image%>" alt="사진로드중" name="img">
+                                <img id="img" src="uploads/profileIMG/<%=myInfo.image%>" alt="사진로드중" name="img">
                                 <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image">
                             </div>
                         </div>
@@ -119,11 +119,11 @@
                     <h6>좋아요한 레시피</h6>
                     <div id="userLikes_load">
                         <ul class="item likeRecipeList">
-                            <% for (var i = 0; i < favRecipes.length ; i++ ) { %>
+                            <% for (var i = 0; i < favRecipe.length ; i++ ) { %>
                                 <li class="itemList userLikesItem">
                                     <a href='/recipe/<%=favRecipes[i].recipe_id%>'>
                                         <img src='/uploads/recipe/<%=favRecipes[i]["recipe.image"]%>' alt="">
-                                        <span><%= favRecipes[i]['recipe.title'] %></span>  
+                                        <span><%= favRecipe[i]['recipe.title'] %></span>  
                                     </a>
                                 </li>
                             <% } %>
@@ -159,11 +159,11 @@
                         <ul class="item myRecipeList">
                             
                                 <!-- { id: 7, title: '원숭이 요리 시작', image: 'onesoongyi.png' }  -->
-                            <% for(let i =0; i < myRecipes.length; i++){%>
+                            <% for(let i =0; i < myRecipe.length; i++){%>
                                 <li class="itemList myrecipeItem">
                                     <a href="/recipe/<%= myRecipes[i].id%>">
                                         <img src="/uploads/recipe/<%=myRecipes[i].image%>" height='100px' alt="">
-                                        <span><%=myRecipes[i].title%></span>
+                                        <span><%=myRecipe[i].title%></span>
                                     </a>
                                 </li>
                             <%}%>
