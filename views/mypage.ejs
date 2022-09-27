@@ -94,8 +94,8 @@
                         <ul class="item likeRecipeList">
                             <% for (var i = 0; i < favRecipe.length ; i++ ) { %>
                                 <li class="itemList userLikesItem">
-                                    <a href='/recipe/<%=favRecipes[i].recipe_id%>'>
-                                        <img src='/uploads/recipe/<%=favRecipes[i]["recipe.image"]%>' alt="">
+                                    <a href='/recipe/<%=favRecipe[i].recipe_id%>'>
+                                        <img src='/uploads/recipe/<%=favRecipe[i]["recipe.image"]%>' alt="">
                                         <span><%= favRecipe[i]['recipe.title'] %></span>  
                                     </a>
                                 </li>
@@ -132,11 +132,11 @@
                         <ul class="item myRecipeList">
 
                             <!-- { id: 7, title: '원숭이 요리 시작', image: 'onesoongyi.png' }  -->
-                            <% for(let i =0; i < myRecipes.length; i++){%>
+                            <% for(let i =0; i < myRecipe.length; i++){%>
 
                                 <li class="itemList myrecipeItem">
-                                    <a href="/recipe/<%= myRecipes[i].id%>">
-                                        <img src="/uploads/recipe/<%=myRecipes[i].image%>" height='100px' alt="">
+                                    <a href="/recipe/<%= myRecipe[i].id%>">
+                                        <img src="/uploads/recipe/<%=myRecipe[i].image%>" height='100px' alt="">
                                         <span><%=myRecipe[i].title%></span>
                                     </a>
                                 </li>
