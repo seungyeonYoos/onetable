@@ -48,8 +48,6 @@ function already_login(req, res, next) {
   }
 }
 
-router.get("/", userController.main);
-
 // 회원가입
 router.get("/signup", already_login, userController.signup);
 router.post("/signup", upload.single("myImage"), userController.signup_post);
