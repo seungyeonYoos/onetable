@@ -141,7 +141,7 @@
                         
                         <ul class="item likeClassList">
                             <% for (var i = 0; i < 20 ; i++ ) { %>
-                                <li class="itemList userLikesItem"></li>
+                                <li class="itemList likeClassItem"></li>
 
                                 <% } %>
                             
@@ -158,7 +158,7 @@
                     <div id="myrecipe_load">
                         <ul class="item myRecipeList">
                             
-                                <!-- { id: 7, title: '원숭이 요리 시작', image: 'onesoongyi.png' }  -->
+                            <!-- { id: 7, title: '원숭이 요리 시작', image: 'onesoongyi.png' }  -->
                             <% for(let i =0; i < myRecipes.length; i++){%>
                                 <li class="itemList myrecipeItem">
                                     <a href="/recipe/<%= myRecipes[i].id%>">
