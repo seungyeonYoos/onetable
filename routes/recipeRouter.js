@@ -50,5 +50,15 @@ router.post(
 
 //등록된 1개의 특정 레시피를 보는 부분 (path: /recipe/'레시피 id')
 router.get("/:id(\\d+)", recipeController.getRecipe);
+router.post("/:id(\\d+)", recipeController.postReview); //⚠️❓되는지 잘 모르겠다. 확인 필요함.
+
+// 등록된 레시피를 작성자가 수정을 하는 부분
+router.get("/:id(\\d+)/modify", recipeController.getModifyRecipe);
+router.post(
+	"/:id(\\d+)/modify",
+	is_login,
+	upload.array("userfile"),
+	recipeController.modifyRecipe
+);
 
 module.exports = router;
