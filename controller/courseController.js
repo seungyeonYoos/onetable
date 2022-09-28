@@ -136,7 +136,7 @@ exports.course_apply = (req, res) => {
 //* 상세페이지
 exports.course_detailPage = (req, res) => {
   Course.findOne({
-    where: { id: req.query.courseId },
+    where: { id: req.query.courseID },
   }).then((result) => {
     console.log("course_detailPage:", result);
     res.render("coursein", { courseDetail: result });
