@@ -46,11 +46,11 @@ router.post(
   courseController.course_register
 );
 
-// 강좌 신청
-router.get("/apply", courseController.course_applyPage);
-router.post("/apply", courseController.course_apply);
-
 // 강좌 상세페이지
 router.get("/detail", courseController.course_detailPage);
+
+// 강좌 신청
+router.get("/apply", is_login, courseController.course_applyPage);
+router.post("/apply", courseController.course_apply);
 
 module.exports = router;

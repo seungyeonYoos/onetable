@@ -119,7 +119,21 @@ exports.course_register = (req, res) => {
 
 //* 신청페이지
 exports.course_applyPage = (req, res) => {
-  res.render("courseApply");
+  if (req.query.courseID) {
+    Course.findOne({
+      where: { id: req.query.courseID },
+    }).then((result) => {
+      console.log("course_applyPage:", result);
+      res.render("courseApply", { courseApply: result });
+    });
+  } else {
+    res.send(
+      `<script>
+        alert('잘못된 접근입니다.');
+        location.href='/'
+      </script>`
+    );
+  }
 };
 exports.course_apply = (req, res) => {
   const data1 = {
@@ -135,12 +149,21 @@ exports.course_apply = (req, res) => {
 
 //* 상세페이지
 exports.course_detailPage = (req, res) => {
-  Course.findOne({
-    where: { id: req.query.courseID },
-  }).then((result) => {
-    console.log("course_detailPage:", result);
-    res.render("coursein", { courseDetail: result });
-  });
+  if (req.query.courseID) {
+    Course.findOne({
+      where: { id: req.query.courseID },
+    }).then((result) => {
+      console.log("course_detailPage:", result);
+      res.render("coursein", { courseDetail: result });
+    });
+  } else {
+    res.send(
+      `<script>
+        alert('잘못된 접근입니다.');
+        location.href='/'
+      </script>`
+    );
+  }
 };
 
 // exports.login_post = (req, res) => {
