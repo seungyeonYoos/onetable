@@ -2,6 +2,7 @@
 // IMP.init("imp35171536"); // <-- 본인 가맹점 식별코드 삽입
 
 function requestPay() {
+  var IMP = window.IMP; // 생략가능
   IMP.init("imp35171536");
   IMP.request_pay(
     {

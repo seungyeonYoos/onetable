@@ -1,3 +1,4 @@
+const { query } = require("express");
 const { QueryTypes } = require("sequelize");
 const {
   Course,
@@ -37,42 +38,62 @@ const {
 
 //* course mainpage
 exports.main = async (req, res) => {
-  //?질문? 이런식으로 하는 게 맞는지(월은 12개이고 그럼 경우의 수가 너무 많은데 그건 어떻게 해야할지.....ㅎㅎ notion 보면서 질문)
-  if (req.query.order == "register") {
-    let query = `SELECT * 
-                  FROM onetable.course
-                  WHERE date > CURDATE()
-                  ORDER BY id DESC;`;
-    let result = await sequelize.query(query, { type: QueryTypes.SELECT });
-    return result;
-  } else if (req.query.order == "apply") {
-    let query = `SELECT 
-                  c.id,
-                  c.name,
-                  c.image,
-                  COUNT(*)
-                FROM course AS c INNER JOIN application AS a
-                ON c.id = a.course_id
-                WHERE c.date > CURDATE()
-                GROUP BY c.id, c.name, c.image
-                ORDER BY COUNT(*) DESC;`;
-    let result = await sequelize.query(query, { type: QueryTypes.SELECT });
-    return result;
-  } else if (req.query.order == "like") {
-    let query = `SELECT 
-                  c.id,
-                  c.name,
-                  c.image,
-                  COUNT(*)
-                FROM course AS c INNER JOIN application AS a
-                ON c.id = a.course_id
-                WHERE c.date > CURDATE()
-                GROUP BY c.id, c.name, c.image
-                ORDER BY COUNT(*) DESC;`;
-    let result = await sequelize.query(query, { type: QueryTypes.SELECT });
-    return result;
-  }
-  res.render("course", { result });
+  //?질문? 이런식으로 하는 게 맞는지(월은 12개이고 그럼 경우의 수가 너무 많은데 그건 어떻게 해야할지.....ㅎㅎ notion 보면서 질문)w
+  // let query = "";
+  // if (req.query.order == "register") {
+  //   query = `SELECT *
+  //                 FROM onetable.course
+  //                 WHERE date > CURDATE()
+  //                 ORDER BY id DESC;`;
+  // } else {
+  //   query = `SELECT
+  //                 c.id,
+  //                 c.name,
+  //                 c.image,
+  //                 COUNT(*)
+  //               FROM course AS c INNER JOIN ${req.query.order} AS a
+  //               ON c.id = a.course_id
+  //               WHERE c.date > CURDATE()
+  //               GROUP BY c.id, c.name, c.image
+  //               ORDER BY COUNT(*) DESC;`;
+  // }
+  // let result = await sequelize.query(query, { type: QueryTypes.SELECT });
+  // res.render("course", { result });
+  // // if (req.query.order == "register") {
+  // //   let query = `SELECT *
+  // //                 FROM onetable.course
+  // //                 WHERE date > CURDATE()
+  // //                 ORDER BY id DESC;`;
+  // //   let result = await sequelize.query(query, { type: QueryTypes.SELECT });
+  // //   return result;
+  // // } else if (req.query.order == "application") {
+  // //   let query = `SELECT
+  // //                 c.id,
+  // //                 c.name,
+  // //                 c.image,
+  // //                 COUNT(*)
+  // //               FROM course AS c INNER JOIN ${req.query.order} AS a
+  // //               ON c.id = a.course_id
+  // //               WHERE c.date > CURDATE()
+  // //               GROUP BY c.id, c.name, c.image
+  // //               ORDER BY COUNT(*) DESC;`;
+  // //   let result = await sequelize.query(query, { type: QueryTypes.SELECT });
+  // //   return result;
+  // // } else if (req.query.order == "like") {
+  // //   let query = `SELECT
+  // //                 c.id,
+  // //                 c.name,
+  // //                 c.image,
+  // //                 COUNT(*)
+  // //               FROM course AS c INNER JOIN application AS a
+  // //               ON c.id = a.course_id
+  // //               WHERE c.date > CURDATE()
+  // //               GROUP BY c.id, c.name, c.image
+  // //               ORDER BY COUNT(*) DESC;`;
+  // //   let result = await sequelize.query(query, { type: QueryTypes.SELECT });
+  // //   return result;
+  // // }
+  res.render("course");
 };
 
 //* 등록부분
