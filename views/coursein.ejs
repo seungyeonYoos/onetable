@@ -34,7 +34,7 @@
     <%-include("navbar.ejs")%>
     <div class="coursein-main">
         <div>
-            <img src="/uploads/courseIMG/<%=myInfo.image%>" alt="요리이미지">
+            <img src="/uploads/courseIMG/<%=courseDetail.image%>" alt="요리이미지">
             <div class="course-name"><%=courseDetail.name%></div>
             <div class="course-intro"><%=courseDetail.intro%></div>
             <div><%=courseDetail.price%></div>
@@ -45,7 +45,7 @@
             <span><%=courseDetail.date%></span>
             <span><i class="fa-regular fa-calendar-days"></i>수강정원</span>
             <span><%=courseDetail.totalNumber%></span>
-            <button><%=courseDetail.price%>원 신청</button>
+            <a href="/course/apply?courseID=<%=courseDetail.id%>"></a>
         </div>
         <div>
             <div>댓글</div>
