@@ -101,7 +101,7 @@
       </div>
       <div class="second-slider">
         <div class="second-wrapper">
-          <% for(let i=0; i <bestCourse.length; i++) { %>
+          <!-- <% for(let i=0; i <bestCourse.length; i++) { %>
             <div class="second">
               <a href="#">
                 <img src=`/uploads/courseIMG/<%=bestCourse[i].image%>`>
@@ -110,7 +110,19 @@
                 </p>
               </a>
             </div>
-            <% } %>
+            <% } %> -->
+            <% for(let i=0; i <bestCourse.length; i++) { %>
+              <div class="second">
+                <a href="/course?courseID=<%=bestCourse[i]['id']%>">
+                  <div>
+                    <img src="/uploads/courseIMG/<%=bestCourse[i]['image']%>">
+                  </div>
+                  <p>
+                    <%=bestCourse[i]['name']%>
+                  </p>
+                </a>
+              </div>
+              <% } %>  
         </div>
       </div>
     </div>
