@@ -197,7 +197,7 @@ exports.getAllRecipe = (req, res) => {
 		res.render("recipe", { data: data.rows, count: data.count });
 	} else {
 		console.log("레시피가 찾아지지 않았습니다.");
-		res.send(false);
+		res.render("recipe", { data: false });
 	}
 };
 
