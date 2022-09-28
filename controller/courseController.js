@@ -135,5 +135,27 @@ exports.course_apply = (req, res) => {
 
 //* 상세페이지
 exports.course_detailPage = (req, res) => {
-  res.render("coursein");
+  Course.findOne({
+    where: { id: req.query.courseId },
+  }).then((result) => {
+    console.log("course_detailPage:", result);
+    res.render("coursein", { courseDetail: result });
+  });
 };
+
+// exports.login_post = (req, res) => {
+//   User.findOne({
+//     where: {
+//       email: req.body.email,
+//       pw: req.body.pw,
+//     },
+//   }).then((result) => {
+//     console.log("Login_findOne:", result);
+//     if (result) {
+//       req.session.userId = result.id;
+//       // res.redirect("/");
+//       console.log(req.session);
+//       res.send(true);
+//     } else res.send(false);
+//   });
+// };
