@@ -71,7 +71,7 @@ router.post(
   "/mypage/edit",
   upload.single("myImage"),
   userController.myPage_edit
-); //여기에도 파일 업로드 들어가야 할걸?
+);
 // router.post("/mypage/delete", userController.myPage_delete);
 
 module.exports = router;
