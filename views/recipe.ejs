@@ -41,54 +41,50 @@
             </div>
             <div id="recipeCategory">
                 <ul class="category_list">
-                    <a href="">
+                    <form action="/recipe" method="get" id="categoryList">
                         <li>
-                            <i class="fi fi-rs-bread-slice"></i>
-                            <p class="category">식빵</p>
-                        </li>
-                    </a>
 
-                    <a href="">
-                        <li>
-                            <i class="fi fi-rr-wheat"></i>
-                            <p class="category">천연 발효종</p>
+                            <label for="breadSlice"><i class="fi fi-rs-bread-slice"></i>식빵</label>
+                            <input type="button" id="breadSlice" class="category" value="식빵" name="category">
                         </li>
-                    </a>
-                    <a href="">
+
+
                         <li>
-                            <i class="fi fi-rr-hotdog"></i>
-                            <p class="category">건강빵</p>
+                            <label for="wheat"><i class="fi fi-rr-wheat"></i>천연 발효종</label>
+                            <input type="button" id="wheat" class="category" value="천연 발효종" name="category">
+
                         </li>
-                    </a>
-                    <a href="">
                         <li>
-                            <i class="fi fi-rr-croissant"></i>
-                            <p class="category">페스츄리</p>
+                            <label for="health"> <i class="fi fi-rr-hotdog"></i>건강빵</label>
+                            <input type="button" id="health" class="category" value="건강빵" name="category">
+
                         </li>
-                    </a>
-                    <a href="">
                         <li>
-                            <i class="fi fi-rr-bread"></i>
-                            <p class="category">브래드</p>
+                            <label for="pastry"><i class="fi fi-rr-croissant"></i>페스츄리</label>
+                            <input type="button" id="pastry" class="category" value="페스츄리" name="category">
+
                         </li>
-                    </a>
-                    <a href="">
                         <li>
-                            <i class="fi fi-rr-cookie"></i>
-                            <p class="category">구움과자</p>
+                            <label for="bread"><i class="fi fi-rr-bread"></i>브레드</label>
+                            <input type="button" id="bread" class="category" value="브레드" name="category">
+
                         </li>
-                    </a>
-                    <a href="">
                         <li>
-                            <i class="fi fi-rs-cake-wedding"></i>
-                            <p class="category">케이크</p>
+                            <label for="cookie"><i class="fi fi-rr-cookie"></i>구움과자</label>
+                            <input type="button" id="cookie" class="category" value="구움과자" name="category">
+
                         </li>
-                    </a>
+                        <li>
+                            <label for="cake"><i class="fi fi-rs-cake-wedding"></i>케이크</label>
+                            <input type="button" id="cake" class="category" value="케이크" name="category">
+
+                        </li>
+
+                    </form>
                 </ul>
-                <hr>
             </div>
             <hr>
-
+            <h2 class="catName"></h2>
             <div id="recipeList">
                 <div id="recipe_load">
                     <ul class="recipe_list">
