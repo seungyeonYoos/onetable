@@ -16,6 +16,7 @@
         width: 85%;
         margin: 0 auto;
         border: 1px solid red;
+        overflow: hidden;
       }
   
       .post-slider .post-wrapper {
