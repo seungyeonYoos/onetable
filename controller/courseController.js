@@ -132,3 +132,8 @@ exports.course_apply = (req, res) => {
     console.log("course_apply:", result);
   });
 };
+
+//* 상세페이지
+exports.course_detailPage = (req, res) => {
+  res.render("coursein");
+};

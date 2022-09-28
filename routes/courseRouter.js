@@ -50,4 +50,7 @@ router.post(
 router.get("/apply", courseController.course_applyPage);
 router.post("/apply", courseController.course_apply);
 
+// 강좌 상세페이지
+router.get("/detail", courseController.course_detailPage);
+
 module.exports = router;
