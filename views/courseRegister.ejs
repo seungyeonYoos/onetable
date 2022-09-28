@@ -196,12 +196,13 @@
             </div>
           </form>
           <form id="image-register">
-            <label class="input-file-button" for="file"
-              ><i class="fa-solid fa-camera"></i> <br />
-              클래스 대표사진을 <br />선택하세요.</label
-            >
+            <label class="input-file-button" for="file">
+              <img id="preview" />
+              <i class="fa-solid fa-camera"></i> <br>
+              클래스 대표사진을 <br />선택하세요.
+            </label>
             <input type="file" name="courseImage" id="file" onchange="readURL(this);"/>
-            <img id="preview" />
+            <!-- <img id="preview" /> -->
           </form>
         </div>
       </div>
@@ -244,6 +245,7 @@
           reader.onload = function(e){
             document.getElementById('preview').src = e.target.result;
           };
+          console.log("성공");
           reader.readAsDataURL(input.files[0]);
         } else {
           document.getElementById('preview').src = "";

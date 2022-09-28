@@ -68,11 +68,13 @@
         <div class="course-inform">
           <span class="course-inform-title">클래스 정보</span>
           <div class="course-inform-child">
-            <img src="../static/img/a.jpg" class="course-inform-img" />
+            <img src="/uploads/courseIMG/<%=courseApply.image%>" class="course-inform-img" />
             <div class="course-inform-text">
               <%=courseApply.intro%>
               <br>
               <%=courseApply.name%>
+              <br>
+              <%=courseApply.price%>원
             </div>
           </div>
         </div>
@@ -91,7 +93,7 @@
                     <input type="button" value="&#xf51e; 계좌이체" /> -->
             <button
               type="button"
-              class="choose-button"
+              class="aaaa choose-button"
               value="creditcard"
               onclick="pay(this);"
             >
@@ -99,7 +101,7 @@
             </button>
             <button
               type="button"
-              class="choose-not-button"
+              class="aaaa choose-not-button"
               value="money"
               onclick="pay(this);"
             >
@@ -109,6 +111,7 @@
         </div>
         <div class="payment">
           <button type="button" onclick="requestPay()" class="payment-button">
+            <%=courseApply.price%>원 
             결제하기
           </button>
         </div>
@@ -119,13 +122,8 @@
 
     <script>
       function pay(button) {
-        var choose = $(button).attr("class");
-        if (choose != "choose-button") {
-          $(button).addClass("choose-button");
-          $(".choose-button").removeClass("choose-not-button");
-        } else {
-          console.log("맞음");
-        }
+        $(".aaaa").removeClass("choose-button").addClass("choose-not-button");
+        $(button).addClass("choose-button");
       }
 
       // 결제 API 관련 코드
