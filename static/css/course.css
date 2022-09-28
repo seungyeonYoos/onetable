@@ -1,11 +1,21 @@
     /* 전체 width */
+    body {
+      background-color: rgb(235, 235, 235) !important;
+    }
     .cooking-class {
         width: 80vw;
-        margin: 0 auto;
+        margin: 20px auto;
+        background-color: white;
+      }
+      .cooking-class-title {
+        font-size: 30px;
       }
   
       .post-slider {
         position: relative;
+        width: 85%;
+        margin: 0 auto;
+        border: 1px solid red;
       }
   
       .post-slider .post-wrapper {
@@ -18,13 +28,12 @@
         /* height:350px; */
         display: inline-block;
       }
-  
       .post>a,
       .post>a>img {
         width: 100%;
         height: 100%;
         padding: 4px;
-        object-fit: fill;
+
       }
   
       /* first floor slide button */
