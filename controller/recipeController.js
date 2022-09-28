@@ -88,33 +88,9 @@ exports.getRecipe = async (req, res) => {
 
 // (path: /recipe)에서 레시피들을 보내준다.
 // 좋아요 오름차순, 내림차순 설정
-
-async function get(target, order) {
-	const { count, rows } = await Recipe.findAndCountAll({
-		raw: true,
-		attributes: { exclude: ["category_id", "level_id", "user_id"] },
-		order: [[`${target}`, `${order}`]],
-		include: [
-			{
-				model: User,
-				attributes: { exclude: ["pw", "id"] },
-			},
-			{
-				model: Level,
-				attributes: { exclude: ["id"] },
-			},
-			{
-				model: Category,
-				attributes: { exclude: ["id"] },
-			},
-		],
-	});
-	return { count, rows };
-}
-
-async function getTargetRecipes(target, list) {
+async function getTargetRecipes(target) {
 	//category로 선택해서 볼때.
-	if (target === "category") {
+	if (target) {
 		const { count, rows } = await Recipe.findAndCountAll({
 			raw: true,
 			attributes: { exclude: ["category_id", "level_id", "user_id"] },
@@ -126,33 +102,11 @@ async function getTargetRecipes(target, list) {
 				{
 					model: Level,
 					attributes: { exclude: ["id"] },
-					where: { list },
+					where: { list: target },
 				},
 				{
 					model: Category,
 					attributes: { exclude: ["id"] },
-				},
-			],
-		});
-		return { count, rows };
-	} else if (target === "level") {
-		// level로 선택해서 볼때
-		const { count, rows } = await Recipe.findAndCountAll({
-			raw: true,
-			attributes: { exclude: ["category_id", "level_id", "user_id"] },
-			include: [
-				{
-					model: User,
-					attributes: { exclude: ["pw", "id"] },
-				},
-				{
-					model: Level,
-					attributes: { exclude: ["id"] },
-				},
-				{
-					model: Category,
-					attributes: { exclude: ["id"] },
-					where: { list },
 				},
 			],
 		});
@@ -183,11 +137,11 @@ async function getTargetRecipes(target, list) {
 
 exports.getAllRecipe = (req, res) => {
 	// let target = req.body.target;
-	let target, list;
-	//const {target, list} = req.query;
+	let target;
+	//const {target} = req.query;
 	let data;
-	if (target && list) {
-		data = getTargetRecipes(target, list);
+	if (target) {
+		data = getTargetRecipes(target);
 	} else {
 		data = getTargetRecipes();
 	}
