@@ -1,7 +1,5 @@
 const express = require("express");
 const app = express();
-// const axios = require("axios");
-// const cors = require("cors");
 const port = 8000;
 
 app.set("view engine", "ejs");
@@ -10,6 +8,10 @@ app.use("/uploads", express.static("uploads"));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// 결제 api 관련
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
 
 // cookie & session 관련
 const cookieParser = require("cookie-parser");
