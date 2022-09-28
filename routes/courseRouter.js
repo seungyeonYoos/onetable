@@ -39,7 +39,7 @@ function is_login(req, res, next) {
 router.get("/", courseController.main);
 
 // 강좌 등록
-router.get("/register", courseController.course_registerPage);
+router.get("/register", is_login, courseController.course_registerPage);
 router.post(
   "/register",
   upload.single("courseImage"),

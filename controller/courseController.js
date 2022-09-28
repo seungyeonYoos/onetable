@@ -1,3 +1,4 @@
+const e = require("express");
 const { query } = require("express");
 const { QueryTypes } = require("sequelize");
 const {
@@ -16,84 +17,91 @@ const {
 //     console.log("findAll:", result);
 //     res.render("course", { courseData: result });
 //   });
-// };
-
-// RAW QUERY 사용하는 것
-// exports.main = async (req, res) => {
-//   const query = `SELECT
-//                   c.id,
-//                   c.name,
-//                   c.image,
-//                   COUNT(*)
-//                 FROM course AS c INNER JOIN application AS a
-//                 ON c.id = a.course_id
-//                 WHERE c.date > CURDATE()
-//                 GROUP BY c.id, c.name, c.image
-//                 ORDER BY COUNT(*) DESC
-//                 LIMIT 10;`;
-//   const result = await sequelize.query(query, { type: QueryTypes.SELECT });
-//   console.log("courseData", result);
-//   res.render("index", { courseData: result });
-// };
+// }
 
 //* course mainpage
 exports.main = async (req, res) => {
-  //?질문? 이런식으로 하는 게 맞는지(월은 12개이고 그럼 경우의 수가 너무 많은데 그건 어떻게 해야할지.....ㅎㅎ notion 보면서 질문)w
-  // let query = "";
-  // if (req.query.order == "register") {
-  //   query = `SELECT *
-  //                 FROM onetable.course
-  //                 WHERE date > CURDATE()
-  //                 ORDER BY id DESC;`;
-  // } else {
-  //   query = `SELECT
-  //                 c.id,
-  //                 c.name,
-  //                 c.image,
-  //                 COUNT(*)
-  //               FROM course AS c INNER JOIN ${req.query.order} AS a
-  //               ON c.id = a.course_id
-  //               WHERE c.date > CURDATE()
-  //               GROUP BY c.id, c.name, c.image
-  //               ORDER BY COUNT(*) DESC;`;
-  // }
-  // let result = await sequelize.query(query, { type: QueryTypes.SELECT });
-  // res.render("course", { result });
-  // // if (req.query.order == "register") {
-  // //   let query = `SELECT *
-  // //                 FROM onetable.course
-  // //                 WHERE date > CURDATE()
-  // //                 ORDER BY id DESC;`;
-  // //   let result = await sequelize.query(query, { type: QueryTypes.SELECT });
-  // //   return result;
-  // // } else if (req.query.order == "application") {
-  // //   let query = `SELECT
-  // //                 c.id,
-  // //                 c.name,
-  // //                 c.image,
-  // //                 COUNT(*)
-  // //               FROM course AS c INNER JOIN ${req.query.order} AS a
-  // //               ON c.id = a.course_id
-  // //               WHERE c.date > CURDATE()
-  // //               GROUP BY c.id, c.name, c.image
-  // //               ORDER BY COUNT(*) DESC;`;
-  // //   let result = await sequelize.query(query, { type: QueryTypes.SELECT });
-  // //   return result;
-  // // } else if (req.query.order == "like") {
-  // //   let query = `SELECT
-  // //                 c.id,
-  // //                 c.name,
-  // //                 c.image,
-  // //                 COUNT(*)
-  // //               FROM course AS c INNER JOIN application AS a
-  // //               ON c.id = a.course_id
-  // //               WHERE c.date > CURDATE()
-  // //               GROUP BY c.id, c.name, c.image
-  // //               ORDER BY COUNT(*) DESC;`;
-  // //   let result = await sequelize.query(query, { type: QueryTypes.SELECT });
-  // //   return result;
-  // // }
-  res.render("course");
+  // query
+  let query = "";
+  // priceValue
+  let priceValue;
+  if (req.query.price == "low") priceValue = " < 50000 ";
+  else if (req.query.price == "middle")
+    priceValue = " BETWEEN 50000 AND 80000 ";
+  else priceValue = " > 80000 ";
+
+  if (req.query.order && req.query.month && req.query.price) {
+    query = `SELECT 
+                c.id,
+                c.name,
+                c.image,
+                c.price,
+                COUNT(*)
+              FROM course AS c INNER JOIN ${req.query.order} AS a
+              ON c.id = a.course_id
+              WHERE c.date > CURDATE()
+              AND MONTH(c.date) = '${req.query.month}'
+              AND price ${priceValue}
+              GROUP BY c.id, c.name, c.image, c.price
+              ORDER BY COUNT(*) DESC;`;
+  } else if (req.query.order && req.query.month) {
+    query = `SELECT 
+                c.id,
+                c.name,
+                c.image,
+                c.price,
+                COUNT(*)
+              FROM course AS c INNER JOIN ${req.query.order} AS a
+              ON c.id = a.course_id
+              WHERE c.date > CURDATE()
+              AND MONTH(date) = '${req.query.month}'
+              GROUP BY c.id, c.name, c.image, c.price
+              ORDER BY COUNT(*) DESC;`;
+  } else if (req.query.order && req.query.price) {
+    query = `SELECT 
+                c.id,
+                c.name,
+                c.image,
+                c.price,
+                COUNT(*)
+              FROM course AS c INNER JOIN ${req.query.order} AS a
+              ON c.id = a.course_id
+              WHERE c.date > CURDATE()
+              AND price ${priceValue};
+              GROUP BY c.id, c.name, c.image, c.price
+              ORDER BY COUNT(*) DESC;`;
+  } else if (req.query.month && req.query.price) {
+    query = `SELECT * FROM course
+              WHERE date > CURDATE()
+              AND MONTH(date) = '${req.query.month}'
+              AND price ${priceValue};`;
+  } else if (req.query.order) {
+    query = `SELECT
+                c.id,
+                c.name,
+                c.image,
+                COUNT(*)
+              FROM course AS c INNER JOIN ${req.query.order} AS a
+              ON c.id = a.course_id
+              WHERE c.date > CURDATE()
+              GROUP BY c.id, c.name, c.image
+              ORDER BY COUNT(*) DESC;`;
+  } else if (req.query.month) {
+    query = `SELECT * FROM course
+              WHERE date > CURDATE()
+              AND MONTH(date) = '${req.query.month}'`;
+  } else if (req.query.price) {
+    query = `SELECT * FROM course
+              WHERE date > CURDATE()
+              AND price ${priceValue};`;
+  } else {
+    query = `SELECT * FROM course
+              WHERE date > CURDATE()
+              ORDER BY id DESC;`;
+  }
+  let result = await sequelize.query(query, { type: QueryTypes.SELECT });
+  console.log("courseData:", result);
+  res.render("course", { courseData: result });
 };
 
 //* 등록부분
