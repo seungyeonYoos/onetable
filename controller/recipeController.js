@@ -102,11 +102,11 @@ async function getTargetRecipes(target) {
 				{
 					model: Level,
 					attributes: { exclude: ["id"] },
-					where: { list: target },
 				},
 				{
 					model: Category,
 					attributes: { exclude: ["id"] },
+					where: { list: target },
 				},
 			],
 		});
@@ -135,16 +135,19 @@ async function getTargetRecipes(target) {
 	}
 }
 
-exports.getAllRecipe = (req, res) => {
+exports.getAllRecipe = async (req, res) => {
 	// let target = req.body.target;
-	let target;
+	let target = req.query.category;
+	console.log(req.query);
+	console.log("target:", target);
 	//const {target} = req.query;
 	let data;
 	if (target) {
-		data = getTargetRecipes(target);
+		data = await getTargetRecipes(target);
 	} else {
-		data = getTargetRecipes();
+		data = await getTargetRecipes();
 	}
+	console.log(data);
 
 	if (data.rows) {
 		// console.log(typeof rows, typeof count);
