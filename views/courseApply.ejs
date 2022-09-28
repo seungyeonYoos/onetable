@@ -10,7 +10,6 @@
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"
     ></script>
-
     <!-- iamport.payment.js -->
     <script
       type="text/javascript"
@@ -128,6 +127,7 @@
         }
       }
 
+      // 결제 API 관련 코드
       function requestPay() {
         IMP.init("imp35171536");
         IMP.request_pay(
@@ -150,7 +150,6 @@
               msg += "고유ID: " + rsp.imp_uid;
               msg += "거래ID: " + rsp.merchant_uid;
               msg += "결제 금액: " + rsp.paid_amount;
-              msg += "카드 승인번호: " + rsp.apply_num;
               alert(msg);
               location.href = "/";
             } else {
