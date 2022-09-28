@@ -110,7 +110,7 @@ function appClass(id, cnt, btn) {
     }
     $(appClass_list + ":lt(" + appClass_total_cnt + ")").addClass("active");
 }
-
+// recipe 부분
 $(window).on('load', function() {
     recipe('#recipe_load', '5');
     $("#view .recipeB").on("click", function() {
@@ -134,4 +134,36 @@ function recipe(id, cnt, btn) {
         $(".recipeB").hide();
     }
     $(recipe_list + ":lt(" + recipe_total_cnt + ")").addClass("active");
+}
+
+// 댓글 부분
+
+$(window).on('load', function() {
+    comment('#comment_load', '4');
+    $("#view .commentB").on("click", function() {
+        comment('#comment_load', '2', '#view');
+    });
+
+});
+
+
+
+function comment(id, cnt, btn) {
+    // 반복될 리스트 class name
+    var comment_list = id + " .commentList:not(.active)";
+    var comment_length = $(comment_list).length;
+    console.log($(comment_list))
+    var comment_total_cnt;
+    if (cnt < comment_length) {
+        console.log("aaa");
+        comment_total_cnt = cnt;
+    } else {
+        console.log("bbb");
+        comment_total_cnt = comment_length;
+        // 더보기 버튼 클래스
+        $(".commentB").hide();
+    }
+    $(comment_list + ":lt(" + comment_total_cnt + ")").addClass("active");
+
+    console.log($(comment_list + ":lt(" + comment_total_cnt + ")"))
 }
