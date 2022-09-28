@@ -112,52 +112,65 @@
 
                         <div class="nanugi stuff">
                             <h6>&#124; 재료 &#124;</h6>
-                            <ul id="stuff">
-                                <label for="stuff_itme">재료명</label>
-                                <li class="stuff_itme"><input id="stuff_itme" type="text" placeholder="ex : 소금 "></li>
-                                <label for="meterage">계량</label>
-                                <li class="meterage"><input id="meterage" type="text" placeholder="ex : 39g"></li><br>
-                            </ul>
+                            <form action="">
+                                <ul id="stuff">
+                                    <div class="stuffItem">
+                                        <label for="stuff_itme">재료명</label>
+                                        <li class="stuff_itme"><input id="stuff_itme" type="text" placeholder="ex : 소금 "></li>
+                                    </div>
+                                    <div class="met">
+                                        <label for="meterage">계량</label>
+                                        <li class="meterage"><input id="meterage" type="text" placeholder="ex : 39g"></li><br>
+                                    </div>
+                                    <div class="meterageInfor">
+                                        <select name="meterageInfor" id="">
+                                <option value="ml">ml</option>
+                                <option value="g">g</option>
+                                <option value="oz">oz</option>
+                            </div>
+                            </select>
+                                </ul>
+                            </form>
 
                             <div class="stuff_button">
                                 <button type="button" onclick="count_stuff()">추가 +</button>
                             </div>
-                        </div>
-
-                        <div class="nanugi">
-                            <h6>&#124; 순서 &#124;</h6>
-                            <ul id="order_itme">
-                                <div class="order_title">
-                                    <label for="">순서</label>
-                                    <label for="">설명</label>
-                                    <label for="">설명사진</label><br>
-                                </div>
-                                <div class="order_list">
-                                    <li class="num">1</li>
-                                    <li class="order_infor"><textarea name="" id="order_infor" rows="3"></textarea></li>
-                                    <li class="order_img"><img src="" alt=""></li>
-                                </div>
-                            </ul>
-
-                            <div class="order_button">
-                                <button type="order_button" onclick="count_order()">추가 +</button>
                             </div>
-                        </div>
+
+                            <div class="nanugi">
+                                <h6>&#124; 순서 &#124;</h6>
+                                <ul id="order_itme">
+                                    <div class="order_title">
+                                        <label class="orderInfor" for="">설명</label>
+                                    </div>
+                                    <div class="order_list">
+                                        <li class="order_infor"><textarea name="" id="order_infor" rows="3"></textarea></li>
+                                        <li class="order_img"><img src="" alt="">
+                                            <label id="File" for="chooseFile">poto</label>
+                                            <input class="file" id="chooseFile" type="file" name="recipeImg" onclick="imginput()">
+                                        </li>
+                                    </div>
+                                </ul>
+
+                                <div class="order_button">
+                                    <button type="button" onclick="count_order()">추가 +</button>
+                                </div>
+                            </div>
                     </form>
+                    </div>
+                    <hr>
+                    <div class="post_button">
+                        <button type="button">작 성</button>
+                    </div>
+                    <br>
                 </div>
-                <hr>
-                <div class="post_button">
-                    <button type="button">작 성</button>
-                </div>
-                <br>
+
             </div>
 
-        </div>
+            <a id="top" href="#recipeItem"><i class="fi fi-rr-chevron-double-up"></i></a>
+            <%-include ('footer.ejs')%>
 
-        <a id="top" href="#recipeItem"><i class="fi fi-rr-chevron-double-up"></i></a>
-        <%-include ('footer.ejs')%>
-
-            <script src="/static/js/register.js"></script>
+                <script src="/static/js/register.js"></script>
 </body>
 
 </html>
