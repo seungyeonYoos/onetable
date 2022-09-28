@@ -235,22 +235,36 @@
     
     #stuff {
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
         align-items: center;
         flex-wrap: wrap;
+        height: 100px;
+        margin: 0;
     }
     
-    #stuff li {
+    .stuffItem,
+    .met {
         font-weight: bold;
-        margin: 5px 20px;
+        width: 40%;
+        flex: auto;
     }
-    /* .stuff label {
-    margin: 0px 50%;
-    padding-right: 45%;
-} */
     
-    .stuff_itme {
-        width: 50%;
+    .met label {
+        margin-top: 10px;
+    }
+    
+    .stuffItem>input,
+    .met>input {
+        width: 100%;
+    }
+    /*  */
+    
+    .meterageInfor {
+        width: 10%;
+    }
+    
+    .meterageInfor>select {
+        padding: 5px 8px;
     }
     
     .stuff_button>button {
@@ -273,16 +287,16 @@
     
     #order_item {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
     }
     
     .order_title {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
+        align-items: center;
     }
-    
-    .order_title label:nth-child(1) {
+    /* .order_title label:nth-child(1) {
         margin-left: 25px;
         margin-right: 8%;
     }
@@ -294,7 +308,7 @@
     .order_title label:nth-child(3) {
         margin-left: 20%;
         margin-right: 50px;
-    }
+    } */
     
     .num {
         width: 20px;
@@ -303,16 +317,30 @@
     
     .order_list {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
+    }
+    
+    .orderInfor {
+        width: 300%;
     }
     
     #order_infor {
         border: 0;
-        width: 650px;
+        width: 300%;
         margin: 10px 0;
         padding: 5px 10px;
         border-radius: 3px;
+    }
+    
+    #file {
+        position: absolute;
+        right: 0;
+    }
+    
+    .file {
+        position: absolute;
+        display: none;
     }
     
     .order_img,
