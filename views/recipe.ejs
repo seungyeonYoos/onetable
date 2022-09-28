@@ -89,16 +89,23 @@
                 <div id="recipe_load">
                     <ul class="recipe_list">
                         <!-- count.length : count 개수 -->
-                        <% for (var i = 0 ; i < 20 ; i++) { %>
+                        <% for (var i = 0 ; i < count ; i++) { %>
                             <li class="recipeItem">
-                                <div class="recipeImg">
-                                    <img src="" alt="">
-                                </div>
-                                <div class="recipeName">
-                                    <a href="">recipeName</a>
-                                </div><br>
+                                <a href="/recipe/<%=data[i].id%>">
+                                    <div class="recipeImg">
+                                        <img src="/uploads/recipe/<%=data[i].image%>" alt="">
+                                    </div>
+                                    <div class="recipeName">
+                                        <%=data[i].title%>
+                                    </div>
+                                    <div class="recipeintro">
+                                        <%=data[i].intro%>
+                                    </div>
+                                </a>
+                                <br>
                                 <div class="cookName">
-                                    <a href=""><img src="" alt="">cookName</a>
+                                    <img src="http://localhost:8000/uploads/profileIMG/<%=data[i][" user.image "] %>" alt="">
+                                    <%=data[i]["user.name"]%>
                                 </div>
                             </li>
                             <% } %>

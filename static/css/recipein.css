@@ -193,10 +193,6 @@ div>a {
     height: 40px;
 }
 
-.name {
-    font-weight: bold;
-}
-
 .news>button {
     border: 0;
     background-color: #D7CCC8;
@@ -279,6 +275,10 @@ div>a {
     height: 50px;
 }
 
+.name {
+    font-weight: bold;
+}
+
 
 /* 댓글 part(comment) */
 
@@ -286,13 +286,20 @@ div>a {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
-#userComment div {
-    width: 95%;
+#userComment>hr {
+    border: 1px solid #3E2723;
 }
 
-.uc {
+#userComment>h5 {
+    background-color: #EFEBE9;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+.commentList {
     /* 임시 */
     background-color: #EFEBE9;
     width: 100%;
@@ -313,4 +320,93 @@ div>a {
     height: 15px;
     padding: 10px 0 30px;
     border-radius: 50px;
+}
+
+
+/* view */
+
+#view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+}
+
+.button {
+    border: 0;
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+
+/* 더보기 */
+
+.commentList {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    display: none;
+}
+
+.commentList p {
+    margin-top: 10px;
+}
+
+.uc .commentList::after {
+    display: none;
+}
+
+.commentList.active {
+    display: block;
+}
+
+
+/* 평가 */
+
+#evaluation {
+    width: 50%;
+    height: 80px;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#evaluation button {
+    background-color: #D7CCC8;
+    margin-right: 10px;
+    padding: 10px 20px;
+    color: #3E2723;
+}
+
+
+/* 댓글 */
+
+#chat {
+    display: flex;
+    justify-content: center;
+    width: 96%;
+    height: 70px;
+    margin-left: 40px;
+    padding: 0 10px;
+    align-items: center;
+    margin-top: 20px;
+    display: none;
+}
+
+.chat {
+    display: none;
+}
+
+#chat>input {
+    border: 1px solid #3E2723;
+    width: 80%;
+    height: 30px;
+}
+
+#chat>button {
+    border: 0;
+    padding: 5px 20px;
+    margin-left: 10%;
 }

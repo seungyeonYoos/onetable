@@ -23,14 +23,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <!-- 더보기 -->
-    <script src="/static/js/view.js"></script>
+    <script type="text/javascript" src="/static/js/view.js"></script>
     <!-- alert -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
     <!-- png link -->
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
-
     <title>레시피 상세페이지</title>
+    <script>
+    </script>
 </head>
 <!-- 빈 하트  : <i class="fi fi-rr-heart"></i>-->
 <!-- 채워진 하트 : <i class="fi fi-sr-heart"></i> -->
@@ -52,6 +53,7 @@
             </div>
             <hr>
             <div id="recipeImg">
+                <!-- 이미지 /uploads/recipe/data[i].image -->
                 <img id="dessertImg" class="dessert_img" src="" alt="" onerror="this.onerror=null; this.src='/static/img/hat-chef.png';">
             </div>
             <hr>
@@ -135,14 +137,31 @@
             <hr>
             <h3>댓글</h3>
             <div id="userComment">
-                <div>
+                <div id="comment_load" class="container">
                     <ul class="uc">
-                        <% for (var i = 1; i < 6 ; i++ ) { %>
-                            <li class="name">username</li>
-                            <li class="comment">very delicious</li>
-                            <hr>
+                        <% for (var i = 1; i < 9 ; i++ ) { %>
+                            <li class="commentList">
+                                <p class="name">username &#160;&#124; &#160; </p>
+                                <p class="comment">very delicious</p>
+                            </li>
                             <% } %>
                     </ul>
+
+                </div>
+                <div id="view"><a href="javascript:;" class="button commentB">더보기&#160;<i class="fi fi-rr-caret-down"></i></a></div>
+                <hr>
+
+                <h5 class="evaluation">평가를 하시면 댓글창이 나옵니다 :)</h5><br>
+                <div id="evaluation">
+                    <button type="button" id="good" name="good" onclick="good()">좋은 레시피 :)</button>
+                    <button type="button" id="bad" name="bad" onclick="bad()">별로 레시피 :(</button>
+
+                </div>
+                <h5 class="chat">댓글 & 리뷰작성<i class="fi fi-rr-caret-down"></i></h5>
+
+                <div id="chat">
+                    <input type="text" id="">
+                    <button type="button" onclick="reviewChat()">작성</button>
                 </div>
             </div>
         </div>
@@ -150,9 +169,10 @@
         <a id="top" href="#recipeItem"><i class="fi fi-rr-chevron-double-up"></i></a>
         <%=JSON.stringify(selectTargetRecipe,null,4)%>
 
-        <!--# or selectTargetRecipe.id 이런식으로 데이터를 다루면 될 것 같아요 ㅎ-->
-        <%=JSON.stringify(selectSteps,null,4)%>
-        <%-include('footer.ejs')%>
+            <!--# or selectTargetRecipe.id 이런식으로 데이터를 다루면 될 것 같아요 ㅎ-->
+            <%=JSON.stringify(selectSteps,null,4)%>
+                <%-include('footer.ejs')%>
+                    <script src="/static/js/recipein.js"></script>
 
 </body>
 

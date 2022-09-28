@@ -112,6 +112,10 @@ label i {
 
 /* 레시피 */
 
+.recipeItem {
+    position: relative;
+}
+
 #recipeList {
     margin-top: 20px;
 }
@@ -133,13 +137,18 @@ label i {
 
 .recipeImg>img {
     width: 230px;
-    height: 250px;
+    height: 230px;
 }
 
 .cookName,
-.recipeName {
+.recipeName,
+.recipeintro {
     margin-top: 10px;
     padding: 0px 10px;
+}
+
+.recipeName {
+    font-weight: bold;
 }
 
 ul a {
@@ -151,7 +160,10 @@ ul a {
 /* 레시피 cook*/
 
 .cookName {
-    text-align: end;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding-bottom: 5px;
 }
 
 .cookName img {
