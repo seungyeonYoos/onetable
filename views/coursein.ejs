@@ -27,7 +27,11 @@
   <!-- 슬라이드 라이브러리 CDN -->
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
+  <style>
+    .d-none {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
@@ -38,6 +42,10 @@
             <div class="course-name"><%=courseDetail.name%></div>
             <div class="course-intro"><%=courseDetail.intro%></div>
             <div><%=courseDetail.price%></div>
+            <% if(courseDetail.user_id == userId) { %>
+              <a href="/course/update?courseID=<%=courseDetail.id%>">수정</a>
+              <a href="/course/delete?courseID=<%=courseDetail.id%>">삭제</a>
+            <% } %>
             <hr>
             <span><i class="fa-regular fa-clock"></i>강의시간</span>
             <span><%=courseDetail.hour%></span>
@@ -52,12 +60,16 @@
             <hr>
                 <form>
                     <input type="text">
-                    <button>전송</button>
+                    <button>작성</button>
                 </form>
         </div>
     </div>
 
     <%-include("footer.ejs")%>
+
+    <script>
+      
+    </script>
 
 
 </body>
