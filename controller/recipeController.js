@@ -366,12 +366,47 @@ exports.getModifyRecipe = async(req, res) => {
 
 };
 // (method: put) (path: /recipe/:id/modify) 레시피 수정한 것을 등록하는 부분
-exports.modifyRecipe = (req, res) => {
-
+exports.modifyRecipe = async (req, res) => {
 	//req.body.data
+	const { id } = req.params;
+	const user_id = req.session.userId;
+
+	const changeColumn = {
+		title: req.body.data.title,
+		image: req.files[0],
+		intro: req.body.data.intro,
+		cookTime: req.body.data.cookTime,
+	};
+
+	const updateRecipe = await Recipe.update(changeColumn, {
+		where: { id: 2 },
+		//req.file << 파일 정보들을 콘솔로 확인 필요.
+	});
 };
 
 // (method: delete) (path: /recipe/:id/modify) 레시피 삭제
-exports.deleteRecipe = (req, res) => {
+exports.deleteRecipe = async (req, res) => {
 	//req.body.data
+	const { id } = req.params;
+	// const user_id = req.session.userId;
+
+	try {
+		//1.recipeIngredient 삭제
+		await RecipeIngredient.destroy({
+			where: { recipe_id: id },
+		});
+		//2. step 삭제
+		await Step.destroy({
+			where: { recipe_id: id },
+		});
+		//3. recipe 삭제
+		await Recipe.destroy({
+			where: { id },
+		});
+	} catch (error) {
+		console.error(error);
+		return res.send(false);
+	}
+
+	res.redirect("/recipe");
 };
