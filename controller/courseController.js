@@ -168,7 +168,7 @@ exports.course_applyPage = async (req, res) => {
     const myInfo = await getMyInfos(req.session.userId);
     console.log("myInfo:", myInfo);
     const courseApply = await getCourseInfos(req.query.courseID);
-    console.log("courseInfo:", courseApply);
+    console.log("courseApply:", courseApply);
     res.render("courseApply", { myInfo, courseApply });
   } else {
     res.send(
@@ -180,13 +180,12 @@ exports.course_applyPage = async (req, res) => {
   }
 };
 exports.course_apply = (req, res) => {
-  const data1 = {
-    user_id: req.body.userId,
-    // req.session.userId
-    course_id: req.body.courseId,
+  const data = {
+    user_id: req.session.userId,
+    course_id: req.query.courseId,
+    tel: req.body.tel,
   };
-  //?질문? course_id 어떻게 받아와야 할지 생각하고 질문
-  Application.create(data1).then((result) => {
+  Application.create(data).then((result) => {
     console.log("course_apply:", result);
   });
 };
