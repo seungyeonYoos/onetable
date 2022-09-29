@@ -55,6 +55,20 @@
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
     ></script>
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
     <style></style>
   </head>
 
@@ -86,9 +100,27 @@
           <hr />
           <div class="orderer-inform-child">
             <form>
-              <span>이메일</span><input type="text" id="orderer-input" value="<%=myInfo.email%>" disabled/><br />
-              <span>이름</span><input type="text" id="orderer-input"  value="<%=myInfo.name%>" disabled/><br />
-              <span>휴대폰 번호</span><input class="tel" type="text" id="orderer-input" placeholder="휴대폰번호를 입력해주세요."/>
+              <span>이메일</span
+              ><input
+                type="text"
+                id="orderer-input"
+                value="<%=myInfo.email%>"
+                disabled
+              /><br />
+              <span>이름</span
+              ><input
+                type="text"
+                id="orderer-input"
+                value="<%=myInfo.name%>"
+                disabled
+              /><br />
+              <span>휴대폰 번호</span
+              ><input
+                class="tel"
+                type="text"
+                id="orderer-input"
+                placeholder="휴대폰번호를 입력해주세요."
+              />
             </form>
           </div>
         </div>
@@ -154,15 +186,15 @@
             // callback
             if (rsp.success) {
               // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
-              
-              axios ({
-                url: "course/apply",
+
+              axios({
+                url: "/course/apply?courseID=<%=courseApply.id%>",
                 method: "post",
-                data: {tel: $(".tel").val()}
-              }).then(()=>{
+                data: { tel: $(".tel").val() },
+              }).then(() => {
                 alert("결제가 완료되었습니다.");
                 location.href = "/";
-              })
+              });
             } else {
               alert("결제에 실패하였습니다.");
             }

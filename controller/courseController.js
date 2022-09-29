@@ -182,11 +182,12 @@ exports.course_applyPage = async (req, res) => {
 exports.course_apply = (req, res) => {
   const data = {
     user_id: req.session.userId,
-    course_id: req.query.courseId,
+    course_id: req.query.courseID,
     tel: req.body.tel,
   };
   Application.create(data).then((result) => {
     console.log("course_apply:", result);
+    res.send(true);
   });
 };
 
