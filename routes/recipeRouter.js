@@ -15,6 +15,7 @@ const upload = multer({
 			//ext 는 확장자를 담는 변수다.
 			done(
 				null,
+				//file.fieldname === 'recipe' ? file.fieldname +'-'+ req.params + ext : file.fieldname +  + ext
 				// stepImage ? 'Date.now()' + '-' + 'userId' + '-' + 'recipe_id' +'-'+ 'stepNumber' + ext : Date.now() + '-' + 'userId' + '-' + 'recipe_id' + ext
 				path.basename(file.originalname, ext) +
 					Date.now() +
@@ -60,7 +61,10 @@ router.get("/:id(\\d+)/modify", recipeController.getModifyRecipe);
 router.put(
 	"/:id(\\d+)/modify",
 	is_login,
-	upload.array("userfile"),
+	upload.fields([
+		{ name: "recipe", maxCount: 1 },
+		{ name: "steps", maxCount: 10 },
+	]), //maxcount는 최대 파일 수.
 	recipeController.modifyRecipe
 );
 router.delete("/:id(\\d+)/modify", is_login, recipeController.deleteRecipe);
