@@ -8,6 +8,10 @@ const Application = (Sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
+      tel: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
     },
     {
       // database 모델 정의 부분. mysql은 db 생성 시 적용함.
