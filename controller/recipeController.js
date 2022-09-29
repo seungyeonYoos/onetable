@@ -95,12 +95,13 @@ exports.getRecipe = async (req, res) => {
 
 	// console.log("✅selectTargetRecipe:", selectTargetRecipe);
 	// console.log("✅selectSteps:", selectSteps);
-	console.log("✅selectReview:", selectReviews);
+	// console.log("✅selectReview:", selectReviews);
 	if (selectTargetRecipe) {
 		res.render("recipein", {
 			selectTargetRecipe,
 			selectSteps,
 			selectReviews,
+			id,
 		});
 	} else {
 		console.log("해당 레시피는 없습니다.");
@@ -308,6 +309,7 @@ exports.getModifyRecipe = async (req, res) => {
 	}
 	//1.recipe & level & category join table.
 	const selectRecipe = await Recipe.findOne({
+		raw: true,
 		attributes: { exclude: ["category_id", "user_id", "level_id"] },
 		where: { id },
 		include: [
@@ -325,7 +327,8 @@ exports.getModifyRecipe = async (req, res) => {
 	});
 	//2.recipe_ingredient & ingredient & measurement join table
 	const selectIngredient = await RecipeIngredient.findAll({
-		attributes: { exclude: ["recipe_id"] },
+		raw: true,
+		attributes: { exclude: ["recipe_id", "ingredient_id", "unit_id"] },
 		where: { recipe_id: id },
 		order: [["id", "ASC"]],
 		include: [
@@ -343,12 +346,26 @@ exports.getModifyRecipe = async (req, res) => {
 	});
 	//3 step findall
 	const selectStep = await Step.findAll({
+		raw: true,
 		where: { recipe_id: id },
 		order: [["stepNumber", "ASC"]],
 	});
+	// console.log(
+	// 	"selectRecipe",
+	// 	selectRecipe,
+	// 	"selectIngredient",
+	// 	selectIngredient,
+	// 	"selectStep",
+	// 	selectStep
+	// );
 	res.render("recipeModify", { selectRecipe, selectIngredient, selectStep });
 };
-// (method: post) (path: /recipe/:id/modify) 레시피 수정한 것을 등록하는 부분
+// (method: put) (path: /recipe/:id/modify) 레시피 수정한 것을 등록하는 부분
 exports.modifyRecipe = (req, res) => {
+	//req.body.data
+};
+
+// (method: delete) (path: /recipe/:id/modify) 레시피 삭제
+exports.deleteRecipe = (req, res) => {
 	//req.body.data
 };
