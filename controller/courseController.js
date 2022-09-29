@@ -82,7 +82,7 @@ async function getCourseDatas(q) {
             FROM course AS c INNER JOIN ${q.order} AS a
             ON c.id = a.course_id
             WHERE c.date > CURDATE()
-            AND price ${priceValue};
+            AND price ${priceValue}
             GROUP BY c.id, c.name, c.image, c.price
             ORDER BY COUNT(*) DESC;`;
   } else if (q.month && q.price) {
@@ -178,13 +178,6 @@ exports.course_updatePage = (req, res) => {
     res.render("courseUpdate", { courseDetail, userId });
   });
 };
-exports.course_delete = (req, res) => {
-  Course.destroy({
-    where: { id: req.query.courseID },
-  }).then(() => {
-    res.redirect("/");
-  });
-};
 exports.course_update = (req, res) => {
   const data = {
     name: req.body.name,
@@ -200,6 +193,14 @@ exports.course_update = (req, res) => {
     where: { id: req.query.courseID },
   }).then(() => {
     res.send("클래스 수정 성공!");
+  });
+};
+// 삭제부분
+exports.course_delete = (req, res) => {
+  Course.destroy({
+    where: { id: req.query.courseID },
+  }).then(() => {
+    res.redirect("/");
   });
 };
 

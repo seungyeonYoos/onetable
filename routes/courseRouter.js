@@ -12,7 +12,7 @@ const upload = multer({
     },
     filename(req, file, done) {
       const ext = path.extname(file.originalname);
-      done(null, req.session.id + ext);
+      done(null, req.session.id + Date.now() + ext);
       // done(nul, req.body.name + ext);
       // done(null, path.basename(file.originalname, ext) + Date.now() + ext);
     },
@@ -51,7 +51,11 @@ router.get("/detail", courseController.course_detailPage);
 
 // 강좌 수정
 router.get("/update", is_login, courseController.course_updatePage);
-router.post("/update", courseController.course_update);
+router.post(
+  "/update",
+  upload.single("courseImage"),
+  courseController.course_update
+);
 // 강좌 삭제
 router.get("/delete", courseController.course_delete);
 
