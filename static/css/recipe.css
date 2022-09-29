@@ -84,6 +84,44 @@ label i {
 }
 
 
+/* bar */
+
+#bar+h2 {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+#bar {
+    text-align: end;
+}
+
+
+/* 좋아요 순 */
+
+#bar>label,
+#newRecipe {
+    background-color: #D7CCC8;
+    text-align: center;
+    color: #3E2723;
+    padding: 6px 15px;
+    border-radius: 10px;
+}
+
+#like {
+    display: none;
+}
+
+#newRecipe {
+    text-decoration: none;
+    background-color: #D7CCC8;
+    text-align: center;
+    color: #3E2723;
+    padding: 10px 10px;
+    border-radius: 10px;
+}
+
+
 /* view */
 
 #view {
