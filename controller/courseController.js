@@ -37,76 +37,76 @@ async function getBestCourses() {
   return bestCourses;
 }
 // top 3 아래 부분
-async function getCourseDatas(query) {
+async function getCourseDatas(q) {
   // query
   let query = "";
   // priceValue
   let priceValue;
-  if (query.price == "low") priceValue = " < 50000 ";
-  else if (query.price == "middle") priceValue = " BETWEEN 50000 AND 80000 ";
+  if (q.price == "low") priceValue = " < 50000 ";
+  else if (q.price == "middle") priceValue = " BETWEEN 50000 AND 80000 ";
   else priceValue = " > 80000 ";
 
-  if (query.order && query.month && query.price) {
+  if (q.order && q.month && q.price) {
     query = `SELECT 
               c.id,
               c.name,
               c.image,
               c.price,
               COUNT(*)
-            FROM course AS c INNER JOIN ${query.order} AS a
+            FROM course AS c INNER JOIN ${q.order} AS a
             ON c.id = a.course_id
             WHERE c.date > CURDATE()
-            AND MONTH(c.date) = '${query.month}'
+            AND MONTH(c.date) = '${q.month}'
             AND price ${priceValue}
             GROUP BY c.id, c.name, c.image, c.price
             ORDER BY COUNT(*) DESC;`;
-  } else if (query.order && query.month) {
+  } else if (q.order && q.month) {
     query = `SELECT 
               c.id,
               c.name,
               c.image,
               c.price,
               COUNT(*)
-            FROM course AS c INNER JOIN ${query.order} AS a
+            FROM course AS c INNER JOIN ${q.order} AS a
             ON c.id = a.course_id
             WHERE c.date > CURDATE()
-            AND MONTH(date) = '${query.month}'
+            AND MONTH(date) = '${q.month}'
             GROUP BY c.id, c.name, c.image, c.price
             ORDER BY COUNT(*) DESC;`;
-  } else if (query.order && query.price) {
+  } else if (q.order && q.price) {
     query = `SELECT 
               c.id,
               c.name,
               c.image,
               c.price,
               COUNT(*)
-            FROM course AS c INNER JOIN ${query.order} AS a
+            FROM course AS c INNER JOIN ${q.order} AS a
             ON c.id = a.course_id
             WHERE c.date > CURDATE()
             AND price ${priceValue};
             GROUP BY c.id, c.name, c.image, c.price
             ORDER BY COUNT(*) DESC;`;
-  } else if (query.month && query.price) {
+  } else if (q.month && q.price) {
     query = `SELECT * FROM course
             WHERE date > CURDATE()
-            AND MONTH(date) = '${query.month}'
+            AND MONTH(date) = '${q.month}'
             AND price ${priceValue};`;
-  } else if (query.order) {
+  } else if (q.order) {
     query = `SELECT
               c.id,
               c.name,
               c.image,
               COUNT(*)
-            FROM course AS c INNER JOIN ${query.order} AS a
+            FROM course AS c INNER JOIN ${q.order} AS a
             ON c.id = a.course_id
             WHERE c.date > CURDATE()
             GROUP BY c.id, c.name, c.image
             ORDER BY COUNT(*) DESC;`;
-  } else if (query.month) {
+  } else if (q.month) {
     query = `SELECT * FROM course
             WHERE date > CURDATE()
-            AND MONTH(date) = '${query.month}'`;
-  } else if (query.price) {
+            AND MONTH(date) = '${q.month}'`;
+  } else if (q.price) {
     query = `SELECT * FROM course
             WHERE date > CURDATE()
             AND price ${priceValue};`;
