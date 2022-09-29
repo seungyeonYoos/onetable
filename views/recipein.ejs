@@ -45,44 +45,52 @@
             </div>
             <div id="catTag">
                 <div>
-                    <a href="">카테고리</a>
+                    <a href="">
+                        <%=selectTargetRecipe['category.list']%>
+                    </a>
                 </div>
-                <div>
-                    <a href=""><img src="" alt="">태그</a>
-                </div>
+
             </div>
             <hr>
             <div id="recipeImg">
                 <!-- 이미지 /uploads/recipe/data[i].image -->
-                <img id="dessertImg" class="dessert_img" src="" alt="" onerror="this.onerror=null; this.src='/static/img/hat-chef.png';">
+                <img id="dessertImg" class="dessert_img" src="/uploads/recipe/<%=selectTargetRecipe.image%>" alt="" onerror="this.onerror=null; this.src='/static/img/hat-chef.png';">
             </div>
             <hr>
             <div id="recipeInfor">
 
                 <div class="recipe">
-                    <h4>Dessert Name</h4>
-                    <p>Dessert Introduce</p>
+                    <h4>
+                        <%=selectTargetRecipe.title%>
+                    </h4>
+                    <p>
+                        <%=selectTargetRecipe.intro%>
+                    </p>
                 </div><br>
                 <div class="cookLevel">
                     <div>
-                        <i class="fi fi-rr-user"></i>
-                        <div class="person" name="person">인원</div>
-                    </div><br>
-                    <div>
                         <!-- <i class="fi fi-rr-time-forward"></i> -->
                         <i class="fi fi-rr-alarm-clock"></i>
-                        <div class="time" name="time">시간</div>
+                        <div class="time" name="time">
+                            <%=selectTargetRecipe.cookTime%>분
+                        </div>
                     </div><br>
                     <div>
                         <i class="fi fi-rr-star"></i>
-                        <div id="level" class="level" name="level">난이도</div>
+                        <div id="level" class="level" name="level">
+                            level
+                            <%=selectTargetRecipe["level.list"]%>
+                        </div>
                     </div><br>
                 </div>
             </div>
             <hr>
             <div id="profile">
-                <div class="userImg"><img src="" alt="" onerror="this.onerror=null; this.src='/static/img/hat-chef.png';"></div>
-                <div class="name">User Name</div>
+                <div class="userImg"><img src="http://localhost:8000/uploads/profileIMG/<%=selectTargetRecipe['user.image'] %>" alt="" onerror="this.onerror=null; this.src='/static/img/hat-chef.png';"></div>
+                <div class="name">
+
+                    <%=selectTargetRecipe["user.name"]%>
+                </div>
                 <div class="news"><button type="button">소식받기</button></div>
             </div>
             <hr>
@@ -139,7 +147,7 @@
             <div id="userComment">
                 <div id="comment_load" class="container">
                     <ul class="uc">
-                        <% for (var i = 1; i < 9 ; i++ ) { %>
+                        <% for (var i = 1; i < 6 ; i++ ) { %>
                             <li class="commentList">
                                 <p class="name">username &#160;&#124; &#160; </p>
                                 <p class="comment">very delicious</p>
@@ -153,15 +161,17 @@
 
                 <h5 class="evaluation">평가를 하시면 댓글창이 나옵니다 :)</h5><br>
                 <div id="evaluation">
-                    <button type="button" id="good" name="good" onclick="good()">좋은 레시피 :)</button>
-                    <button type="button" id="bad" name="bad" onclick="bad()">별로 레시피 :(</button>
+                    <button type="submit" id="good" name="good" value="1" onclick="good('<%=id%>')">좋은 레시피 :)</button>
+                    <button type="submit" id="bad" name="bad" value="0" onclick="bad('<%=id%>')">별로 레시피 :(</button>
 
                 </div>
                 <h5 class="chat">댓글 & 리뷰작성<i class="fi fi-rr-caret-down"></i></h5>
 
                 <div id="chat">
-                    <input type="text" id="">
-                    <button type="button" onclick="reviewChat()">작성</button>
+                    <form action="">
+                        <input type="text" id="myReview" name="myReview">
+                        <input type="button" onclick="reviewChat()" value="작성">
+                    </form>
                 </div>
             </div>
         </div>

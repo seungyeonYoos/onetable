@@ -49,6 +49,12 @@ router.post(
 // 강좌 상세페이지
 router.get("/detail", courseController.course_detailPage);
 
+// 강좌 수정
+router.get("/update", is_login, courseController.course_updatePage);
+router.post("/update", courseController.course_update);
+// 강좌 삭제
+router.get("/delete", courseController.course_delete);
+
 // 강좌 신청
 router.get("/apply", is_login, courseController.course_applyPage);
 router.post("/apply", courseController.course_apply);

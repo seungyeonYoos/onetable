@@ -139,7 +139,7 @@ function recipe(id, cnt, btn) {
 // 댓글 부분
 
 $(window).on('load', function() {
-    comment('#comment_load', '4');
+    comment('#comment_load', '2');
     $("#view .commentB").on("click", function() {
         comment('#comment_load', '2', '#view');
     });
