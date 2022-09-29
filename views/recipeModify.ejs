@@ -38,11 +38,13 @@
                         <div class="dessertPoto">
                             <div class="upload-box">
                                 <div id="drop-file" class="drag-file">
-                                    <img id="img" src="" alt="사진로드중" name="img" />
-                                    <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" />
+                                    <!-- <img id="img" src="" alt="사진로드중" name="img" /> -->
+                                    <%let src = selectRecipe.image ? `http://localhost:8000/uploads/recipe/${selectRecipe.image}`: "https://img.icons8.com/pastel-glyph/2x/image-file.png"; %>
+                                    <img src=<%=src%> alt="파일 아이콘" class="image" />
+                                    
                                 </div>
                                 <label id="imgFile" class="file-label" for="chooseFile">Choose File</label>
-                                <input class="file" name="myImage" id="chooseFile" type="file" onclick="imgChange()">
+                                <input class="file" name="myImage" id="chooseFile" type="file" onclick="imgChange()" value="<%=selectRecipe.image%>">
                             </div>
                         </div>
                         <hr>
@@ -50,32 +52,33 @@
                             <div class="recipe_name">
                                 <label for="recipe_name">&#124; 레시피 명 &#124;</label>
                                 <br>
-                                <input id="recipe_name" type="text">
+                                <input id="recipe_name" type="text" value="<%=selectRecipe.title%>">
                             </div>
                             <div>
                                 <label for="infor">&#124; 설명 &#124;</label>
                                 <br>
-                                <textarea name="" id="infor" rows="10"></textarea>
+                                <textarea name="" id="infor" rows="10"><%=selectRecipe.intro%></textarea>
                             </div>
                             <div>
                                 <label for="category">&#124; 카테고리 &#124;</label>
-                                <select name="" id="category">
-                                <option value="식빵">식빵</option>
-                                <option value="천연발효종">천연발효종</option>
-                                <option value="건강빵">건강빵</option>
-                                <option value="페스츄리">페스츄리</option>
-                                <option value="브래드">브래드</option>
-                                <option value="구움과자">구움과자</option>
-                                <option value="케이크">케이크</option>
+                                <select name="selectCategoryOption" id="category">
+                                <%const options = ['식빵','천연발효종','건강빵','페스츄리','브래드','구움과자','케이크'];%>
+                                <%for(let i =0; i < options.length; i++){%>
+                                    <%let selected = selectRecipe['category.list'] === options[i] ? 'selected':'';%>
+                                    <option value="<%=options[i]%>" <%=selected%>><%=options[i]%></option>
+                                <%}%>
                                 </select>
                                 <span id="selectCat"> #선택한 카테고리 </span>
                             </div><br>
                             <div id="difficulty">
                                 <label for="">&#124; 난이도 &#124;</label><br>
                                 <div>
-                                    <input type="radio" name="level" value="1"> 초급
-                                    <input type="radio" name="level" value="2"> 중급
-                                    <input type="radio" name="level" value="3"> 고급
+                                    <%const radioOptions = ['초급','중급','고급'];%>
+                                    <%for(let i = 0; i < radioOptions.length; i++){%>
+                                        <%let checked = selectRecipe['level.list'] === `${(i + 1)}` ? 'checked':'';%>
+                                        <input type="radio" name="level" value="<%=i+1%>" <%=checked%> > <%=radioOptions[i]%>
+                                    <%}%>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -114,20 +117,35 @@
                             <h6>&#124; 재료 &#124;</h6>
                             <form action="">
                                 <ul id="stuff">
-                                    <div class="stuffItem">
-                                        <label for="stuff_itme">재료명</label>
-                                        <li class="stuff_itme"><input id="stuff_itme" type="text" placeholder="ex : 소금 "></li>
-                                    </div>
-                                    <div class="met">
-                                        <label for="meterage">계량</label>
-                                        <li class="meterage"><input id="meterage" type="text" placeholder="ex : 39g"></li><br>
-                                    </div>
-                                    <div class="meterageInfor">
-                                        <select name="meterageInfor" id="">
-                                <option value="ml">ml</option>
-                                <option value="g">g</option>
-                                <option value="oz">oz</option>
-                            </div>
+                                    <%for(let i=0; i < selectIngredient.length; i++){%>
+                                        <div class="stuffItem">
+                                            <label for="stuff_itme">
+                                                <%if(i===0){%>
+                                                    재료명
+                                                <%}%>
+                                            </label>
+                                            <li class="stuff_itme">
+                                                <input id="stuff_itme" type="text" placeholder="ex : 소금" value="<%=selectIngredient[i]['ingredient.list']%>">
+                                            </li>
+                                        </div>
+                                        <div class="met">
+                                            <label for="meterage">
+                                                <% if(i===0){%>
+                                                    계량
+                                                <%}%>
+                                            </label>
+                                            <li class="meterage">
+                                                <input id="meterage" type="text" placeholder="ex : 39g" value="<%=selectIngredient[i].amount%>"></li><br>
+                                        </div>
+                                        <div class="meterageInfor">
+                                            <select name="meterageInfor" id="">
+                                                <%const meterageOptions = ['ml','g','oz'];%>
+                                                <%for(let j=0;j < meterageOptions.length; j++){%>
+                                                    <%const meterageSelected = selectIngredient[i]['unit.list'] === meterageOptions[i] ? 'selected' : '';%>
+                                                    <option value="<%=meterageOptions[j]%>" <%=meterageSelected%>><%=meterageOptions[j]%></option>
+                                                <%}%>
+                                        </div>
+                                    <%}%>
                             </select>
                                 </ul>
                             </form>
@@ -144,11 +162,18 @@
                                         <label class="orderInfor" for="">설명</label>
                                     </div>
                                     <div class="order_list">
-                                        <li class="order_infor"><textarea name="" id="order_infor" rows="3"></textarea></li>
-                                        <li class="order_img"><img src="" alt="">
-                                            <label id="File" for="chooseFile">poto</label>
-                                            <input class="file" id="chooseFile" type="file" name="recipeImg" onclick="imginput()">
-                                        </li>
+                                        <%for(let i=0; i < selectStep.length; i++){%>
+                                            <li class="order_infor">
+                                                <textarea name="" id="order_infor" rows="3">
+                                                    <%=selectStep[i].instruction%>
+                                                </textarea>
+                                            </li>
+                                            <li class="order_img">
+                                                <img src="/uploads/recipe/<%=selectStep[i].image%>" alt="">
+                                                <label id="File" for="chooseFile">photo</label>
+                                                <input class="file" id="chooseFile" type="file" name="recipeImg" onclick="imginput()">
+                                            </li>
+                                        <%}%>
                                     </div>
                                 </ul>
 
@@ -160,7 +185,8 @@
                     </div>
                     <hr>
                     <div class="post_button">
-                        <button type="button">작 성</button>
+                        <button type="button" onclick="edit()">수 정</button>
+                        <button type="button" onclick="remove()">삭 제</button>
                     </div>
                     <br>
                 </div>
@@ -169,8 +195,18 @@
 
             <a id="top" href="#recipeItem"><i class="fi fi-rr-chevron-double-up"></i></a>
             <%-include ('footer.ejs')%>
+            <script>
+                // const urlParams = new URL(location.href).searchParams;
+                // const recipe_id = urlParams.get('id');
+                // console.log(recipe_id);
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+                const id = urlParams.get('id')
+                console.log(id);
 
+            </script>
                 <script src="/static/js/register.js"></script>
+                <script src="/static/js/modify.js"></script>
 </body>
 
 </html>

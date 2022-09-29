@@ -94,22 +94,22 @@ exports.getRecipe = async(req, res) => {
         //가장 최근 등록된 순서로 나온다.
     });
 
-    console.log("✅selectTargetRecipe:", selectTargetRecipe);
-    console.log("✅selectSteps:", selectSteps);
-    console.log("✅selectReview:", selectReviews);
-    console.log(id)
-    if (selectTargetRecipe) {
-        res.render("recipein", {
-            selectTargetRecipe,
-            selectSteps,
-            selectReviews,
-            id: id
 
-        });
-    } else {
-        console.log("해당 레시피는 없습니다.");
-        res.render("recipein", { data: "recipe id is not found" });
-    }
+	// console.log("✅selectTargetRecipe:", selectTargetRecipe);
+	// console.log("✅selectSteps:", selectSteps);
+	// console.log("✅selectReview:", selectReviews);
+	if (selectTargetRecipe) {
+		res.render("recipein", {
+			selectTargetRecipe,
+			selectSteps,
+			selectReviews,
+			id,
+		});
+	} else {
+		console.log("해당 레시피는 없습니다.");
+		res.render("recipein", { data: "recipe id is not found" });
+	}
+
 };
 
 // 특정 카테고리로 레시피들을 보여준다.
@@ -299,62 +299,79 @@ exports.getModifyRecipe = async(req, res) => {
     const id = parseInt(req.params.id);
     const user_id = req.session.userId;
 
-    const checkUser = await Recipe.findOne({
-        raw: true,
-        attributes: ["id", "user_id"],
-        where: { id },
-    });
-    if (!(checkUser.id === id && checkUser.user_id === user_id)) {
-        return res.send(false);
-        // return res.redirect(`/recipe/${id}`, {
-        // 	data: "접속한 유저가 등록한 글이 아닙니다.",
-        // });
-    }
-    //1.recipe & level & category join table.
-    const selectRecipe = await Recipe.findOne({
-        attributes: { exclude: ["category_id", "user_id", "level_id"] },
-        where: { id },
-        include: [{
-                model: Level,
-                attributes: ["list"],
-                required: false, //left join 그냥 하면 inner join이 됨.
-            },
-            {
-                model: Category,
-                attributes: ["list"],
-                required: false, //left join 그냥 하면 inner join이 됨.
-            },
-        ],
-    });
-    //2.recipe_ingredient & ingredient & measurement join table
-    const selectIngredient = await RecipeIngredient.findAll({
-        attributes: { exclude: ["recipe_id"] },
-        where: { recipe_id: id },
-        order: [
-            ["id", "ASC"]
-        ],
-        include: [{
-                model: Ingredient,
-                attributes: ["list"],
-                required: false,
-            },
-            {
-                model: Unit,
-                attributes: ["list"],
-                required: false,
-            },
-        ],
-    });
-    //3 step findall
-    const selectStep = await Step.findAll({
-        where: { recipe_id: id },
-        order: [
-            ["stepNumber", "ASC"]
-        ],
-    });
-    res.render("recipeModify", { selectRecipe, selectIngredient, selectStep });
+
+	const checkUser = await Recipe.findOne({
+		raw: true,
+		attributes: ["id", "user_id"],
+		where: { id },
+	});
+	if (!(checkUser.id === id && checkUser.user_id === user_id)) {
+		return res.send(false);
+		// return res.redirect(`/recipe/${id}`, {
+		// 	data: "접속한 유저가 등록한 글이 아닙니다.",
+		// });
+	}
+	//1.recipe & level & category join table.
+	const selectRecipe = await Recipe.findOne({
+		raw: true,
+		attributes: { exclude: ["category_id", "user_id", "level_id"] },
+		where: { id },
+		include: [
+			{
+				model: Level,
+				attributes: ["list"],
+				required: false, //left join 그냥 하면 inner join이 됨.
+			},
+			{
+				model: Category,
+				attributes: ["list"],
+				required: false, //left join 그냥 하면 inner join이 됨.
+			},
+		],
+	});
+	//2.recipe_ingredient & ingredient & measurement join table
+	const selectIngredient = await RecipeIngredient.findAll({
+		raw: true,
+		attributes: { exclude: ["recipe_id", "ingredient_id", "unit_id"] },
+		where: { recipe_id: id },
+		order: [["id", "ASC"]],
+		include: [
+			{
+				model: Ingredient,
+				attributes: ["list"],
+				required: false,
+			},
+			{
+				model: Unit,
+				attributes: ["list"],
+				required: false,
+			},
+		],
+	});
+	//3 step findall
+	const selectStep = await Step.findAll({
+		raw: true,
+		where: { recipe_id: id },
+		order: [["stepNumber", "ASC"]],
+	});
+	// console.log(
+	// 	"selectRecipe",
+	// 	selectRecipe,
+	// 	"selectIngredient",
+	// 	selectIngredient,
+	// 	"selectStep",
+	// 	selectStep
+	// );
+	res.render("recipeModify", { selectRecipe, selectIngredient, selectStep });
+
 };
-// (method: post) (path: /recipe/:id/modify) 레시피 수정한 것을 등록하는 부분
+// (method: put) (path: /recipe/:id/modify) 레시피 수정한 것을 등록하는 부분
 exports.modifyRecipe = (req, res) => {
-    //req.body.data
+
+	//req.body.data
+};
+
+// (method: delete) (path: /recipe/:id/modify) 레시피 삭제
+exports.deleteRecipe = (req, res) => {
+	//req.body.data
 };

@@ -8,9 +8,9 @@
   },
   "product": {
     "host": "",
-    "database": "",
-    "username": "",
-    "password": "",
+    "database": "onetable",
+    "username": "six",
+    "password": "six",
     "dialect": "mysql"
   }
 }
