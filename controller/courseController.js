@@ -149,6 +149,61 @@ exports.course_register = (req, res) => {
   });
 };
 
+//* 상세페이지
+exports.course_detailPage = (req, res) => {
+  if (req.query.courseID) {
+    Course.findOne({
+      where: { id: req.query.courseID },
+    }).then((courseDetail) => {
+      console.log("course_detailPage:", courseDetail);
+      let userId = req.session.id;
+      res.render("coursein", { courseDetail, userId });
+    });
+  } else {
+    res.send(
+      `<script>
+        alert('잘못된 접근입니다.');
+        location.href='/'
+      </script>`
+    );
+  }
+};
+
+//* 수정부분
+exports.course_updatePage = (req, res) => {
+  Course.findOne({
+    where: { id: req.query.courseID },
+  }).then((courseDetail) => {
+    console.log("course_updatePage:", courseDetail);
+    let userId = req.session.id;
+    res.render("courseUpdate", { courseDetail, userId });
+  });
+};
+exports.course_delete = (req, res) => {
+  Course.destroy({
+    where: { id: req.query.courseID },
+  }).then(() => {
+    res.redirect("/");
+  });
+};
+exports.course_update = (req, res) => {
+  const data = {
+    name: req.body.name,
+    image: req.file.filename,
+    intro: req.body.intro,
+    price: req.body.price,
+    hour: req.body.hour,
+    date: req.body.date,
+    totalNumber: req.body.totalNumber,
+    user_id: req.session.userId,
+  };
+  Course.update(data, {
+    where: { id: req.query.courseID },
+  }).then(() => {
+    res.send("클래스 수정 성공!");
+  });
+};
+
 //* 신청페이지
 async function getMyInfos(userId) {
   const myInfos = await User.findOne({
@@ -189,25 +244,6 @@ exports.course_apply = (req, res) => {
     console.log("course_apply:", result);
     res.send(true);
   });
-};
-
-//* 상세페이지
-exports.course_detailPage = (req, res) => {
-  if (req.query.courseID) {
-    Course.findOne({
-      where: { id: req.query.courseID },
-    }).then((result) => {
-      console.log("course_detailPage:", result);
-      res.render("coursein", { courseDetail: result });
-    });
-  } else {
-    res.send(
-      `<script>
-        alert('잘못된 접근입니다.');
-        location.href='/'
-      </script>`
-    );
-  }
 };
 
 // exports.login_post = (req, res) => {
