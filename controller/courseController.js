@@ -1,4 +1,3 @@
-const e = require("express");
 const { query } = require("express");
 const { QueryTypes } = require("sequelize");
 const {
@@ -156,7 +155,7 @@ exports.course_detailPage = (req, res) => {
       where: { id: req.query.courseID },
     }).then((courseDetail) => {
       console.log("course_detailPage:", courseDetail);
-      let userId = req.session.id;
+      let userId = req.session.userId;
       res.render("coursein", { courseDetail, userId });
     });
   } else {

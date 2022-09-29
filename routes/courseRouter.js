@@ -53,7 +53,7 @@ router.get("/detail", courseController.course_detailPage);
 router.get("/update", is_login, courseController.course_updatePage);
 router.post("/update", courseController.course_update);
 // 강좌 삭제
-router.post("/delete", courseController.course_delete);
+router.get("/delete", courseController.course_delete);
 
 // 강좌 신청
 router.get("/apply", is_login, courseController.course_applyPage);
