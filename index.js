@@ -9,10 +9,6 @@ app.use("/uploads", express.static("uploads"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// 결제 api 관련
-const bodyParser = require("body-parser");
-app.use(bodyParser.json());
-
 // cookie & session 관련
 const cookieParser = require("cookie-parser");
 app.use(cookieParser()); // module 사용할 때 이렇게 연결 지어줘야 함
