@@ -69,8 +69,8 @@
     }
     
     #img {
-        width: 150px;
-        height: 150px;
+        width: 290px;
+        height: 290px;
         display: none;
     }
     
@@ -221,8 +221,12 @@
     #times div,
     #difficulty div {
         display: flex;
-        justify-content: flex-start;
+        justify-content: start;
         align-items: center;
+    }
+    
+    #times div {
+        flex-wrap: wrap;
     }
     
     #personnel input,
@@ -293,22 +297,9 @@
     
     .order_title {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         align-items: center;
     }
-    /* .order_title label:nth-child(1) {
-        margin-left: 25px;
-        margin-right: 8%;
-    }
-    
-    .order_title label:nth-child(2) {
-        margin-right: 50%;
-    }
-    
-    .order_title label:nth-child(3) {
-        margin-left: 20%;
-        margin-right: 50px;
-    } */
     
     .num {
         width: 20px;
@@ -317,25 +308,21 @@
     
     .order_list {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         align-items: center;
     }
     
-    .orderInfor {
-        width: 300%;
-    }
-    
-    #order_infor {
+    .order_list>#order_infor {
         border: 0;
-        width: 300%;
-        margin: 10px 0;
+        width: 200%;
+        margin: 10px 30px;
         padding: 5px 10px;
         border-radius: 3px;
     }
     
-    #file {
+    .order_img>#file {
         position: absolute;
-        right: 0;
+        display: none;
     }
     
     .file {
@@ -343,14 +330,28 @@
         display: none;
     }
     
-    .order_img,
-    .order_img>img {
+    .order_list>.order_img {
         /* 임시 */
         background-color: white;
         /* 임시 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 100px;
         height: 100px;
         border-radius: 10px;
+        flex-direction: column;
+    }
+    
+    #orderImg {
+        width: 100px;
+        height: 100px;
+        display: none;
+    }
+    
+    .order_img>.orderImg {
+        width: 50px;
+        height: 50px;
     }
     
     .order_button>button {

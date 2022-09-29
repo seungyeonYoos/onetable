@@ -38,7 +38,7 @@
                         <div class="dessertPoto">
                             <div class="upload-box">
                                 <div id="drop-file" class="drag-file">
-                                    <img id="img" src="" alt="사진로드중" name="img" />
+                                    <img id="img" src="" alt="recipeTitleImg" name="img" />
                                     <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" />
                                 </div>
                                 <label id="imgFile" class="file-label" for="chooseFile">Choose File</label>
@@ -50,16 +50,16 @@
                             <div class="recipe_name">
                                 <label for="recipe_name">&#124; 레시피 명 &#124;</label>
                                 <br>
-                                <input id="recipe_name" type="text">
+                                <input id="recipe_name" name="recipeName" type="text">
                             </div>
                             <div>
                                 <label for="infor">&#124; 설명 &#124;</label>
                                 <br>
-                                <textarea name="" id="infor" rows="10"></textarea>
+                                <textarea name="recipeInfor" id="infor" rows="10"></textarea>
                             </div>
                             <div>
                                 <label for="category">&#124; 카테고리 &#124;</label>
-                                <select name="" id="category">
+                                <select name="category" id="category">
                                 <option value="식빵">식빵</option>
                                 <option value="천연발효종">천연발효종</option>
                                 <option value="건강빵">건강빵</option>
@@ -70,6 +70,17 @@
                                 </select>
                                 <span id="selectCat"> #선택한 카테고리 </span>
                             </div><br>
+                            <div id="times">
+                                <label for="">&#124; 시간 &#124;</label><br>
+                                <div>
+                                    <input name="time" type="radio" value="15"> 15분 이내
+                                    <input name="time" type="radio" value="30"> 30분 이내
+                                    <input name="time" type="radio" value="45"> 45분 이내
+                                    <input name="time" type="radio" value="60"> 60분 이내
+                                    <input name="time" type="radio" value="75"> 75분 이내
+                                    <input name="time" type="radio" value="90"> 90분 이내
+                                </div>
+                            </div> <br>
                             <div id="difficulty">
                                 <label for="">&#124; 난이도 &#124;</label><br>
                                 <div>
@@ -95,17 +106,7 @@
                                     </div>
 
                                 </div>
-                                <div id="times">
-                                    <label for="">&#124; 시간 &#124;</label><br>
-                                    <div>
-                                        <input type="radio" value="15"> 15분 이내
-                                        <input type="radio" value="30"> 30분 이내
-                                        <input type="radio" value="45"> 45분 이내
-                                        <input type="radio" value="60"> 60분 이내
-                                        <input type="radio" value="75"> 75분 이내
-                                        <input type="radio" value="90"> 90분 이내
-                                    </div>
-                                </div> 
+                               
 
                             </div>
                         </div> -->
@@ -116,11 +117,11 @@
                                 <ul id="stuff">
                                     <div class="stuffItem">
                                         <label for="stuff_itme">재료명</label>
-                                        <li class="stuff_itme"><input id="stuff_itme" type="text" placeholder="ex : 소금 "></li>
+                                        <li class="stuff_itme"><input id="stuff_itme" name="stuff" type="text" placeholder="ex : 소금 "></li>
                                     </div>
                                     <div class="met">
                                         <label for="meterage">계량</label>
-                                        <li class="meterage"><input id="meterage" type="text" placeholder="ex : 39g"></li><br>
+                                        <li class="meterage"><input id="meterage" name="meterage" type="text" placeholder="ex : 39g"></li><br>
                                     </div>
                                     <div class="meterageInfor">
                                         <select name="meterageInfor" id="">
@@ -130,39 +131,43 @@
                             </div>
                             </select>
                                 </ul>
-                            </form>
 
-                            <div class="stuff_button">
-                                <button type="button" onclick="count_stuff()">추가 +</button>
-                            </div>
-                            </div>
-
-                            <div class="nanugi">
-                                <h6>&#124; 순서 &#124;</h6>
-                                <ul id="order_itme">
-                                    <div class="order_title">
-                                        <label class="orderInfor" for="">설명</label>
-                                    </div>
-                                    <div class="order_list">
-                                        <li class="order_infor"><textarea name="" id="order_infor" rows="3"></textarea></li>
-                                        <li class="order_img"><img src="" alt="">
-                                            <label id="File" for="chooseFile">poto</label>
-                                            <input class="file" id="chooseFile" type="file" name="recipeImg" onclick="imginput()">
-                                        </li>
-                                    </div>
-                                </ul>
-
-                                <div class="order_button">
-                                    <button type="button" onclick="count_order()">추가 +</button>
+                                <div class="stuff_button">
+                                    <button type="button" onclick="count_stuff()">추가 +</button>
                                 </div>
-                            </div>
-                    </form>
-                    </div>
-                    <hr>
-                    <div class="post_button">
-                        <button type="button">작 성</button>
-                    </div>
-                    <br>
+                                </div>
+
+                                <div class="nanugi">
+                                    <h6>&#124; 순서 &#124;</h6>
+                                    <ul id="order_itme">
+                                        <div class="order_title">
+                                            <label class="orderInfor" for="">설명</label>
+                                        </div>
+                                        <div class="order_list">
+                                            <li class="order_infor">
+
+                                                <textarea name="" id="order_infor" rows="3" cols="30"></textarea>
+                                            </li>
+                                            <li class="order_img">
+                                                <img id="orderImg" src="" alt="orderImg" name="orderImg" accept="image/*" />
+                                                <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="orderImg" />
+                                                <label id="File" for="orderFile">poto</label>
+                                                <input class="file" id="orderFile" type="file" name="recipeImg" onclick="imginput()">
+
+                                            </li>
+                                        </div>
+                                    </ul>
+                                    <div class="order_button">
+                                        <button type="button" onclick="count_order()">추가 +</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <hr>
+                        <div class="post_button">
+                            <button type="button" onclick="newRecipe_add()">작 성</button>
+                        </div>
+                        <br>
                 </div>
 
             </div>
