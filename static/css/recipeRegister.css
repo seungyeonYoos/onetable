@@ -291,14 +291,14 @@
     
     #order_item {
         display: flex;
-        justify-content: space-between;
         align-items: center;
     }
     
     .order_title {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
+        padding-left: 30px;
     }
     
     .num {
@@ -308,8 +308,12 @@
     
     .order_list {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
+    }
+    
+    .order_list>.num {
+        padding-left: 40px;
     }
     
     .order_list>#order_infor {

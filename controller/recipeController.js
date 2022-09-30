@@ -12,48 +12,46 @@ const {
 
 //프론트에서 전달 받아야되는 데이터. 예외) email은 추후 session을 통해 데이터 전달 받을 예정
 
-/*프론트에서 url parameter 확인하는 방법:
-input hidden으로 해서 전달가능해 보임... req.query로 id값을 볼 수 있다.
-const urlParams = new URL(location.href).searchParams;
-const recipe_id = urlParams.get('id');
-console.log(recipe_id)
+// 프론트에서 url parameter 확인하는 방법:
+// input hidden으로 해서 전달가능해 보임... req.query로 id값을 볼 수 있다.
+// const urlParams = new URL(location.href).searchParams;
+// const recipe_id = urlParams.get('id');
+// console.log(recipe_id)
 
-const data = {
-  recipe_id: 1,
-	title: "내가 만든 쿠키",
-	image: "asldjf.jpg",
-	//image는 axios form 전송으로 진행되어 req.files에 담겨짐.
-	intro: "소개글",
-	lv: "초급",
-	category: "구움과자",
-	email: "ddd@gmail.com",
-	//session에서 로그인 정보를 가져와서 해야한다.
-	amount: 20,
-	ingredient: [
-		{
-			ingredient_list: "고춧가루1",
-			unit_list: "g",
-		},
-		{
-			ingredient_list: "고춧가루2",
-			unit_list: "g",
-		},
-	],
-	steps: [
-		{
-			instruction: "첫번째로 고춧가루를 용기에 담아줍니다.",
-			image: "pour.jpg",
-			stepNumber: 1,
-		},
-		{
-			instruction: "그다음 식초와 물을 부어서 30분간 냉장보관합니다.",
-			image: "pour2.jpg",
-			stepNumber: 2,
-		},
-	],
+// const data = {
+//     recipe_id: 1,
+//     title: "내가 만든 쿠키",
+//     image: "asldjf.jpg",
+//     //image는 axios form 전송으로 진행되어 req.files에 담겨짐.
+//     intro: "소개글",
+//     lv: "초급",
+//     category: "구움과자",
+//     email: "ddd@gmail.com",
+//     //session에서 로그인 정보를 가져와서 해야한다.
+//     amount: 20,
+//     ingredient: [{
+//             ingredient_list: "고춧가루1",
+//             unit_list: "g",
+//         },
+//         {
+//             ingredient_list: "고춧가루2",
+//             unit_list: "g",
+//         },
+//     ],
+//     steps: [{
+//             instruction: "첫번째로 고춧가루를 용기에 담아줍니다.",
+//             image: "pour.jpg",
+//             stepNumber: 1,
+//         },
+//         {
+//             instruction: "그다음 식초와 물을 부어서 30분간 냉장보관합니다.",
+//             image: "pour2.jpg",
+//             stepNumber: 2,
+//         },
+//     ],
 
-};
-*/
+// };
+
 
 //특정 아이디의 레시피를 보여준다.
 exports.getRecipe = async(req, res) => {
@@ -95,20 +93,20 @@ exports.getRecipe = async(req, res) => {
     });
 
 
-	// console.log("✅selectTargetRecipe:", selectTargetRecipe);
-	// console.log("✅selectSteps:", selectSteps);
-	// console.log("✅selectReview:", selectReviews);
-	if (selectTargetRecipe) {
-		res.render("recipein", {
-			selectTargetRecipe,
-			selectSteps,
-			selectReviews,
-			id,
-		});
-	} else {
-		console.log("해당 레시피는 없습니다.");
-		res.render("recipein", { data: "recipe id is not found" });
-	}
+    console.log("✅selectTargetRecipe:", selectTargetRecipe);
+    console.log("✅selectSteps:", selectSteps);
+    console.log("✅selectReview:", selectReviews);
+    if (selectTargetRecipe) {
+        res.render("recipein", {
+            selectTargetRecipe,
+            selectSteps,
+            selectReviews,
+            id,
+        });
+    } else {
+        console.log("해당 레시피는 없습니다.");
+        res.render("recipein", { data: "recipe id is not found" });
+    }
 
 };
 
@@ -286,8 +284,8 @@ exports.postReview = async(req, res) => {
     const review = await Review.create({
         user_id,
         recipe_id,
-        score: score ? 0 : score,
-        comment: comment ? "" : comment,
+        score: score ? score : 0,
+        comment: comment ? comment : "",
     });
     console.log("review 등록 확인하기:", review);
     res.render("recipein");
@@ -300,113 +298,115 @@ exports.getModifyRecipe = async(req, res) => {
     const user_id = req.session.userId;
 
 
-	const checkUser = await Recipe.findOne({
-		raw: true,
-		attributes: ["id", "user_id"],
-		where: { id },
-	});
-	if (!(checkUser.id === id && checkUser.user_id === user_id)) {
-		return res.send(false);
-		// return res.redirect(`/recipe/${id}`, {
-		// 	data: "접속한 유저가 등록한 글이 아닙니다.",
-		// });
-	}
-	//1.recipe & level & category join table.
-	const selectRecipe = await Recipe.findOne({
-		raw: true,
-		attributes: { exclude: ["category_id", "user_id", "level_id"] },
-		where: { id },
-		include: [
-			{
-				model: Level,
-				attributes: ["list"],
-				required: false, //left join 그냥 하면 inner join이 됨.
-			},
-			{
-				model: Category,
-				attributes: ["list"],
-				required: false, //left join 그냥 하면 inner join이 됨.
-			},
-		],
-	});
-	//2.recipe_ingredient & ingredient & measurement join table
-	const selectIngredient = await RecipeIngredient.findAll({
-		raw: true,
-		attributes: { exclude: ["recipe_id", "ingredient_id", "unit_id"] },
-		where: { recipe_id: id },
-		order: [["id", "ASC"]],
-		include: [
-			{
-				model: Ingredient,
-				attributes: ["list"],
-				required: false,
-			},
-			{
-				model: Unit,
-				attributes: ["list"],
-				required: false,
-			},
-		],
-	});
-	//3 step findall
-	const selectStep = await Step.findAll({
-		raw: true,
-		where: { recipe_id: id },
-		order: [["stepNumber", "ASC"]],
-	});
-	// console.log(
-	// 	"selectRecipe",
-	// 	selectRecipe,
-	// 	"selectIngredient",
-	// 	selectIngredient,
-	// 	"selectStep",
-	// 	selectStep
-	// );
-	res.render("recipeModify", { selectRecipe, selectIngredient, selectStep });
+    const checkUser = await Recipe.findOne({
+        raw: true,
+        attributes: ["id", "user_id"],
+        where: { id },
+    });
+    if (!(checkUser.id === id && checkUser.user_id === user_id)) {
+        return res.send(false);
+        // return res.redirect(`/recipe/${id}`, {
+        // 	data: "접속한 유저가 등록한 글이 아닙니다.",
+        // });
+    }
+    //1.recipe & level & category join table.
+    const selectRecipe = await Recipe.findOne({
+        raw: true,
+        attributes: { exclude: ["category_id", "user_id", "level_id"] },
+        where: { id },
+        include: [{
+                model: Level,
+                attributes: ["list"],
+                required: false, //left join 그냥 하면 inner join이 됨.
+            },
+            {
+                model: Category,
+                attributes: ["list"],
+                required: false, //left join 그냥 하면 inner join이 됨.
+            },
+        ],
+    });
+    //2.recipe_ingredient & ingredient & measurement join table
+    const selectIngredient = await RecipeIngredient.findAll({
+        raw: true,
+        attributes: { exclude: ["recipe_id", "ingredient_id", "unit_id"] },
+        where: { recipe_id: id },
+        order: [
+            ["id", "ASC"]
+        ],
+        include: [{
+                model: Ingredient,
+                attributes: ["list"],
+                required: false,
+            },
+            {
+                model: Unit,
+                attributes: ["list"],
+                required: false,
+            },
+        ],
+    });
+    //3 step findall
+    const selectStep = await Step.findAll({
+        raw: true,
+        where: { recipe_id: id },
+        order: [
+            ["stepNumber", "ASC"]
+        ],
+    });
+    // console.log(
+    // 	"selectRecipe",
+    // 	selectRecipe,
+    // 	"selectIngredient",
+    // 	selectIngredient,
+    // 	"selectStep",
+    // 	selectStep
+    // );
+    res.render("recipeModify", { selectRecipe, selectIngredient, selectStep });
 
 };
 // (method: put) (path: /recipe/:id/modify) 레시피 수정한 것을 등록하는 부분
-exports.modifyRecipe = async (req, res) => {
-	//req.body.data
-	const { id } = req.params;
-	const user_id = req.session.userId;
+exports.modifyRecipe = async(req, res) => {
+    //req.body.data
+    const { id } = req.params;
+    const user_id = req.session.userId;
 
-	const changeColumn = {
-		title: req.body.data.title,
-		image: req.files[0],
-		intro: req.body.data.intro,
-		cookTime: req.body.data.cookTime,
-	};
+    const changeColumn = {
+        title: req.body.data.title,
+        image: req.files[0],
+        intro: req.body.data.intro,
+        cookTime: req.body.data.cookTime,
+    };
 
-	const updateRecipe = await Recipe.update(changeColumn, {
-		where: { id: 2 },
-		//req.file << 파일 정보들을 콘솔로 확인 필요.
-	});
+    const updateRecipe = await Recipe.update(changeColumn, {
+        where: { id: 2 },
+        //req.file << 파일 정보들을 콘솔로 확인 필요.
+    });
 };
 
 // (method: delete) (path: /recipe/:id/modify) 레시피 삭제
-exports.deleteRecipe = async (req, res) => {
-	//req.body.data
-	const { id } = req.params;
-	// const user_id = req.session.userId;
+exports.deleteRecipe = async(req, res) => {
+    //req.body.data
+    const { id } = req.params;
+    // const user_id = req.session.userId;
 
-	try {
-		//1.recipeIngredient 삭제
-		await RecipeIngredient.destroy({
-			where: { recipe_id: id },
-		});
-		//2. step 삭제
-		await Step.destroy({
-			where: { recipe_id: id },
-		});
-		//3. recipe 삭제
-		await Recipe.destroy({
-			where: { id },
-		});
-	} catch (error) {
-		console.error(error);
-		return res.send(false);
-	}
+    try {
+        //1.recipeIngredient 삭제
+        await RecipeIngredient.destroy({
+            where: { recipe_id: id },
+        });
+        //2. step 삭제
+        await Step.destroy({
+            where: { recipe_id: id },
+        });
+        //3. recipe 삭제
+        await Recipe.destroy({
+            where: { id },
+        });
+    } catch (error) {
+        console.error(error);
+        return res.send(false);
+    }
 
-	res.redirect("/recipe");
+    res.redirect("/recipe");
 };
