@@ -325,21 +325,74 @@ exports.getModifyRecipe = async (req, res) => {
 };
 // (method: put) (path: /recipe/:id/modify) 레시피 수정
 exports.modifyRecipe = async (req, res) => {
-	//req.body.data
+	// req.files['recipe'][0] -> File
+	// req.files['steps'] -> Array
+	const data = JSON.parse(req.body.data);
 	const { id } = req.params;
 	const user_id = req.session.userId;
 
 	const changeColumn = {
-		title: req.body.data.title,
-		image: req.files[0],
-		intro: req.body.data.intro,
-		cookTime: req.body.data.cookTime,
+		title: data.recipe_title,
+		image: req.files["recipe"][0],
+		intro: data.recipe_intro,
+		cookTime: data.cookTime,
 	};
 
+	//1. 레시피 수정 부분.
 	const updateRecipe = await Recipe.update(changeColumn, {
-		where: { id: 2 },
-		//req.file << 파일 정보들을 콘솔로 확인 필요.
+		where: { id },
 	});
+	console.log(updateRecipe);
+
+	//2. ingredientRecipe 수정 부분✅✅✅✅✅✅ 확인 필요하다.
+	for (let i = 0; i < data.ingredient.length; i++) {
+		ingredient = await Ingredient.findOne({
+			attributes: ["id"],
+			where: { list: data.ingredient[i].ingredient },
+		});
+		if (!ingredient) {
+			ingredient = await Ingredient.create({
+				list: data.ingredient[i].ingredient,
+			});
+		}
+		unit = await Unit.findOne({
+			attributes: ["id"],
+			where: { list: data.ingredient[i].unit },
+		});
+		if (!unit) {
+			unit = await Unit.create({
+				list: data.ingredient[i].unit,
+			});
+		}
+		if (ingredient && unit && selectRecipe) {
+			// const insertRecipeIngredient =
+			await RecipeIngredient.create({
+				recipe_id, // insertRecipe의 아이디를 recipe_id에 담은 것을 등록한다.
+				amount: data.amount,
+				ingredient_id: ingredient.id,
+				unit_id: unit.id,
+			});
+		} else {
+			console.log(
+				"ingredient & measurment & selectRecipe sql 찾기 또는 입력 오류가 있음."
+			);
+			res.send("fail to find ingredient & unit & selectRecipe");
+			break;
+		}
+	}
+
+	//3. step 업데이트
+	for (let i = 0; i < data.steps.length; i++) {
+		// const insertStep =
+		await Step.update(
+			{
+				instruction: data.steps[i],
+				image: req.files["steps"][i], //data.steps[i].image,
+				stepNumber: i + 1,
+			},
+			{ where: { recipe_id: id } }
+		);
+	}
 };
 
 // (method: delete) (path: /recipe/:id/modify) 레시피 삭제
