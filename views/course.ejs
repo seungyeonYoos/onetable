@@ -154,7 +154,7 @@
           method: "post"
         }).then((response)=>{
           for(var i = 0; i<response.data.length; i++ ){
-            $( "course-"+response.data[i].course_id).removeClass("fa-regular").addClass("fa-solid");
+            $( ".course-"+ response.data[i].course_id).removeClass("fa-regular").addClass("fa-solid");
           }
         })
 
