@@ -128,6 +128,19 @@ exports.main = async (req, res) => {
   res.render("course", { bestCourse, courseData });
 };
 
+// favorite테이블 정보 보내기
+exports.courseFavorite_main = (req, res) => {
+  if (req.session.userId) {
+    CourseFavorite.findAll({
+      where: { user_id: req.session.userId },
+    }).then((result) => {
+      res.send(result);
+    });
+  } else {
+    res.send([]);
+  }
+};
+
 //* 등록부분
 exports.course_registerPage = (req, res) => {
   res.render("courseRegister");
@@ -231,9 +244,11 @@ exports.courseFavorite_register = (req, res) => {
 };
 //* 삭제
 exports.CourseFavorite_delete = (req, res) => {
-  CourseFavorite.destroy({ where: { id: req.body.courseID } }).then(() => {
-    res.send("좋아요 취소");
-  });
+  CourseFavorite.destroy({ where: { course_id: req.body.courseID } }).then(
+    () => {
+      res.send("좋아요 취소");
+    }
+  );
 };
 // 기대평
 //* 등록

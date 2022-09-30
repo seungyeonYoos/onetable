@@ -37,6 +37,8 @@ function is_login(req, res, next) {
 
 // 강좌 메인페이지
 router.get("/", courseController.main);
+// 강좌에 좋아요 띄우기
+router.post("/", courseController.courseFavorite_main);
 
 // 강좌 등록
 router.get("/register", is_login, courseController.course_registerPage);
