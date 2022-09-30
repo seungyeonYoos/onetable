@@ -96,11 +96,10 @@
                   <div class="course-ab">
                       <%=courseData[i]['name']%><br>              
                       <%=courseData[i]['price']%>원
-                      <% if( isLogin ) { %>
-                        <a href="#" onclick="favorite();" class="heart"><i class="fa-regular fa-heart"></i></a>
-                      <% } %>
+                      
                   </div>
                 </a>
+                <a href="#" onclick="favorite();" class="heart-off heart"><i class="fa-regular fa-heart"></i></a>
                 
               </div>
 
@@ -124,12 +123,13 @@
         }
 
         function favorite(){
-          var myheart = $(".heart").children("i");
-          if($(myheart).hasClass("heart")){
-            $(myheart).removeClass("heart").html('<i class="fa-solid fa-heart"></i>');
+          if( $(".heart").hasClass("heart-on") == true){
+            // $(".heart").removeClass("heart-on");
+            console.log("성공");
+          }else {
+            // $(".heart").addClass("heart-on");
+            console.log("실패");
           }
-
-          
         }
 
       </script>

@@ -82,9 +82,11 @@
       }
 
       /* 좋아요 버튼 위치 지정 */
-      .heart {
-        
-      }
       .course-list-item {
         position: relative;
+      }
+
+      .heart {
+        position: absolute;
+        top: 0px;
       }
