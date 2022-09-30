@@ -135,6 +135,7 @@ exports.courseFavorite_main = (req, res) => {
       where: { user_id: req.session.userId },
     }).then((result) => {
       res.send(result);
+      console.log("courseFavorite_main:", result);
     });
   } else {
     res.send([]);
@@ -203,8 +204,9 @@ exports.course_update = (req, res) => {
     user_id: req.session.userId,
   };
 
-  if (req.file.filename) {
+  if (req.file) {
     data.courseImage = req.file.filename;
+    console.log(data);
   }
   Course.update(data, {
     where: { id: req.body.courseID },
@@ -251,6 +253,15 @@ exports.CourseFavorite_delete = (req, res) => {
   );
 };
 // 기대평
+//* 보여주기
+exports.courseReview_detailPage = (req, res) => {
+  CourseReview.findAll({
+    where: { course_id: req.session.userId },
+  }).then((result) => {
+    res.send(result);
+    console.log("courseReview_detailPage:", result);
+  });
+};
 //* 등록
 exports.courseReview_register = (req, res) => {
   const data = {
@@ -258,13 +269,28 @@ exports.courseReview_register = (req, res) => {
     course_id: req.body.courseID,
     comment: req.body.comment,
   };
-  Course.create(data).then((result) => {
+  CourseReview.create(data).then((result) => {
     console.log("courseReview_register:", result);
-    res.send(true);
+    res.send("기대평 등록 성공!");
   });
 };
 //* 수정
+exports.courseReview_update = (req, res) => {
+  const data = {
+    comment: req.body.comment,
+  };
+  CourseReview.update(data, {
+    where: { id: req.body.courseID },
+  }).then(() => {
+    res.send("기대평 수정 성공!");
+  });
+};
 //* 삭제
+exports.courseReview_delete = (req, res) => {
+  CourseReview.destroy({ where: { id: req.body.courseID } }).then(() => {
+    res.send("기대평 삭제 성공!");
+  });
+};
 
 //* 신청페이지
 async function getMyInfos(userId) {

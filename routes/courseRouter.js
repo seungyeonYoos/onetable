@@ -50,6 +50,7 @@ router.post(
 
 // 강좌 상세페이지
 router.get("/detail", courseController.course_detailPage);
+router.post("/detail", courseController.courseReview_detailPage);
 // 강좌 삭제
 router.post("/delete", courseController.course_delete);
 // 강좌 수정
@@ -69,7 +70,9 @@ router.post("/fdelete", courseController.CourseFavorite_delete);
 // 댓글 등록
 router.post("/rregister", courseController.courseReview_register);
 // 댓글 수정
+router.post("/rupdate", courseController.courseReview_update);
 // 댓글 삭제
+router.post("/rdelete", courseController.courseReview_delete);
 
 // 강좌 신청
 router.get("/apply", is_login, courseController.course_applyPage);

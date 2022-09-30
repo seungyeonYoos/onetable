@@ -8,10 +8,6 @@ const CourseReview = (Sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      score: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
       comment: {
         type: DataTypes.TEXT("medium"),
       },
