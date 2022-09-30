@@ -57,7 +57,15 @@ router.post(
   upload.single("courseImage"),
   courseController.course_update
 );
+//* 좋아요
+// 좋아요 등록
+router.post("/fregister", courseController.courseFavorite_register);
+// 좋아요 삭제
+router.post("/fdelete", courseController.CourseFavorite_delete);
+
+//* 기대평
 // 댓글 등록
+router.post("/rregister", courseController.courseReview_register);
 // 댓글 수정
 // 댓글 삭제
 
