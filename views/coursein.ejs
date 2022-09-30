@@ -109,10 +109,11 @@
             `<tr>
               <td>${response.data.myName.name}</td>
               <td>${response.data.courseReview.comment}</td>
-              <td><button type="button">수정</button></td>
+              <td><button type="button" onclick="load(${response.data.courseReview.id}, this)">수정</button></td>
               <td><button type="button" onclick="del(${response.data.courseReview.id}, this)">삭제</button></td>
             </tr>`
           )
+          form.reset();
         })
       }
 
