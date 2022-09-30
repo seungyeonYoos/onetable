@@ -134,7 +134,7 @@
             $(heart).addClass("fa-solid");
 
             axios({
-              url: "",
+              url: "/course/fregister",
               method: "post",
               data: { courseID: courseID }
             }).then(() => {
@@ -144,7 +144,7 @@
             $(heart).addClass("fa-regular");
             $(heart).removeClass("fa-solid");
             axios({
-              url: "",
+              url: "/course/fdelete",
               method: "post",
               data: { courseID: courseID }
             }).then(() => {
