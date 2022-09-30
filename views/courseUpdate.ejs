@@ -172,36 +172,75 @@
           <form class="register-inform-child" id="registerForm">
             <div>
               <label for="name" class="label">클래스 제목</label>
-              <input type="text" name="name" id="name" value="<%=courseDetail.name%>"/>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                value="<%=courseDetail.name%>"
+              />
             </div>
             <div>
               <label for="intro" class="label">클래스 소개</label>
-              <input type="text" name="intro" id="intro" value="<%=courseDetail.intro%>" />
+              <input
+                type="text"
+                name="intro"
+                id="intro"
+                value="<%=courseDetail.intro%>"
+              />
             </div>
             <div>
               <label for="price">클래스 가격</label>
-              <input type="text" name="price" id="price" value="<%=courseDetail.price%>"/>원
+              <input
+                type="text"
+                name="price"
+                id="price"
+                value="<%=courseDetail.price%>"
+              />원
             </div>
             <div>
               <label for="date">클래스 날짜</label>
-              <input type="date" name="date" id="date" value="<%=courseDetail.date%>"/>
+              <input
+                type="date"
+                name="date"
+                id="date"
+                value="<%=courseDetail.date%>"
+              />
             </div>
             <div class="number">
               <label for="totalNumber">클래스 정보</label>
               <div class="course-information">
                 <span>정원</span>
-                <input type="text" name="totalNumber" id="totalNumber" value="<%=courseDetail.totalNumber%>"/>
+                <input
+                  type="text"
+                  name="totalNumber"
+                  id="totalNumber"
+                  value="<%=courseDetail.totalNumber%>"
+                />
                 <span>명</span>
-                <span id="inform-hour">시간</span><input type="text" name="hour" id="hour" value="<%=courseDetail.hour%>"/>
+                <span id="inform-hour">시간</span
+                ><input
+                  type="text"
+                  name="hour"
+                  id="hour"
+                  value="<%=courseDetail.hour%>"
+                />
                 <span>분</span>
               </div>
             </div>
           </form>
           <form id="image-register">
             <label class="input-file-button" for="file">
-              <img id="preview" src="/uploads/courseIMG/<%=courseDetail.image%>"/>
+              <img
+                id="preview"
+                src="/uploads/courseIMG/<%=courseDetail.image%>"
+              />
             </label>
-            <input type="file" name="courseImage" id="file" onchange="readURL(this);"/>
+            <input
+              type="file"
+              name="courseImage"
+              id="file"
+              onchange="readURL(this);"
+            />
             <!-- <img id="preview" /> -->
           </form>
         </div>
@@ -214,17 +253,36 @@
     <%-include("footer.ejs")%>
 
     <script>
+      let image_change;
+
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            document.getElementById("preview").src = e.target.result;
+          };
+          console.log("성공");
+          reader.readAsDataURL(input.files[0]);
+          image_change = true;
+        } else {
+          document.getElementById("preview").src = "";
+        }
+      }
+
       function update() {
         let form = document.getElementById("registerForm");
         const formData = new FormData();
-        const file = document.getElementById("file");
-        formData.append("image", file.files[0]);
+        if (image_change) {
+          const file = document.getElementById("file");
+          formData.append("courseImage", file.files[0]);
+        }
         formData.append("name", form.name.value);
         formData.append("intro", form.intro.value);
         formData.append("price", form.price.value);
         formData.append("hour", form.hour.value);
         formData.append("date", form.date.value);
         formData.append("totalNumber", form.totalNumber.value);
+        formData.append("courseID", `<%=courseDetail.id%>`);
 
         axios({
           headers: {
@@ -238,20 +296,6 @@
           console.log(response.data);
         });
       }
-
-      function readURL(input){
-        if (input.files && input.files[0]) {
-          var reader = new FileReader();
-          reader.onload = function(e){
-            document.getElementById('preview').src = e.target.result;
-          };
-          console.log("성공");
-          reader.readAsDataURL(input.files[0]);
-        } else {
-          document.getElementById('preview').src = "";
-        }
-      }
-
     </script>
   </body>
 </html>

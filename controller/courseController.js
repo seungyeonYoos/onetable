@@ -25,11 +25,12 @@ async function getBestCourses() {
 					  c.id,
 					  c.name,
 					  c.image,
+            c.price,
 					  COUNT(*)
 					FROM course AS c INNER JOIN application AS a
 					ON c.id = a.course_id
 					WHERE c.date > CURDATE()
-					GROUP BY c.id, c.name, c.image
+					GROUP BY c.id, c.name, c.image, c.price
 					ORDER BY COUNT(*) DESC
 					LIMIT 3;`;
   const bestCourses = await sequelize.query(query, { type: QueryTypes.SELECT });
@@ -173,7 +174,7 @@ exports.course_updatePage = (req, res) => {
   Course.findOne({
     where: { id: req.query.courseID },
   }).then((courseDetail) => {
-    console.log("course_updatePage:", courseDetail);
+    console.log("courseDetail:", courseDetail);
     let userId = req.session.id;
     res.render("courseUpdate", { courseDetail, userId });
   });
@@ -181,7 +182,6 @@ exports.course_updatePage = (req, res) => {
 exports.course_update = (req, res) => {
   const data = {
     name: req.body.name,
-    image: req.file.filename,
     intro: req.body.intro,
     price: req.body.price,
     hour: req.body.hour,
@@ -189,6 +189,10 @@ exports.course_update = (req, res) => {
     totalNumber: req.body.totalNumber,
     user_id: req.session.userId,
   };
+
+  if (req.file.filename) {
+    data.courseImage = req.file.filename;
+  }
   Course.update(data, {
     where: { id: req.body.courseID },
   }).then(() => {
@@ -215,10 +219,8 @@ exports.course_delete = (req, res) => {
 };
 // 기대평
 //* 등록
-exports.
 //* 수정
 //* 삭제
-
 //* 신청페이지
 async function getMyInfos(userId) {
   const myInfos = await User.findOne({
