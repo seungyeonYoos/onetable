@@ -10,52 +10,7 @@ const {
 	Review,
 } = require("../model");
 
-//프론트에서 전달 받아야되는 데이터. 예외) email은 추후 session을 통해 데이터 전달 받을 예정
-
-/*프론트에서 url parameter 확인하는 방법:
-input hidden으로 해서 전달가능해 보임... req.query로 id값을 볼 수 있다.
-const urlParams = new URL(location.href).searchParams;
-const recipe_id = urlParams.get('id');
-console.log(recipe_id)
-
-const data = {
-  recipe_id: 1,
-	title: "내가 만든 쿠키",
-	image: "asldjf.jpg",
-	//image는 axios form 전송으로 진행되어 req.files에 담겨짐.
-	intro: "소개글",
-	lv: "초급",
-	category: "구움과자",
-	email: "ddd@gmail.com",
-	//session에서 로그인 정보를 가져와서 해야한다.
-	amount: 20,
-	ingredient: [
-		{
-			ingredient_list: "고춧가루1",
-			unit_list: "g",
-		},
-		{
-			ingredient_list: "고춧가루2",
-			unit_list: "g",
-		},
-	],
-	steps: [
-		{
-			instruction: "첫번째로 고춧가루를 용기에 담아줍니다.",
-			image: "pour.jpg",
-			stepNumber: 1,
-		},
-		{
-			instruction: "그다음 식초와 물을 부어서 30분간 냉장보관합니다.",
-			image: "pour2.jpg",
-			stepNumber: 2,
-		},
-	],
-
-};
-*/
-
-//특정 아이디의 레시피를 보여준다.
+//(method: get) (path: /recipe/:id) 특정 아이디의 레시피를 보여준다.
 exports.getRecipe = async (req, res) => {
 	const { id } = req.params;
 	// 해당 타겟 레시피의 연관 정보를 검색.
@@ -159,7 +114,7 @@ async function getTargetRecipes(target) {
 
 //(method: get) (path: /recipe)에서 레시피들을 보여준다.
 exports.getAllRecipe = async (req, res) => {
-	// let target = req.body.target;
+	// let target = req.body.data;
 	let target = req.query.category;
 	console.log(req.query);
 	console.log("target:", target);
@@ -183,36 +138,35 @@ exports.getAllRecipe = async (req, res) => {
 
 // (method: post) (path: /recipe/register) 레시피를 등록한다.
 exports.recipeRegister = async (req, res) => {
-	// const data = req.body; 프론트 전달 받을 데이터.
+	const data = JSON.parse(req.body.data); // 프론트에서 전달 받는 데이터.
 	// req.session.key (req.session.userID) 유저 정보를 가져올 방법.
-	// req.files에 이미지 담긴다. 추후 이미지 경로를 db에 저장하는 것으로 변경 필요.
+	// req.files['recipe'][0] -> File
+	// req.files['steps'] -> Array
 
-	//Recipe 생성 부분
 	const selectCategory = await Category.findOne({
 		attributes: ["id"],
-		where: { list: data.category },
+		where: { list: data.category_list },
 	});
 	const selectLevel = await Level.findOne({
 		attirbutes: ["id"],
-		where: { list: data.lv },
+		where: { list: data.level_list },
 	});
 	const selectUser = await User.findOne({
 		attirbutes: ["id", "email", "name"],
-		where: { email: data.email },
-		//req.session.user.email? 이런식으로 받아올 것.
+		where: { id: req.session.userId },
 	});
-
+	let recipe_id;
 	if (selectCategory && selectLevel && selectUser) {
 		//select가 다 성공하면 recipe insert하기
-		// const insertRecipe =
-		await Recipe.create({
-			title: data.title,
-			image: data.image,
-			intro: data.intro,
+		const insertRecipe = await Recipe.create({
+			title: data.recipe_title,
+			image: req.files["recipe"][0],
+			intro: data.recipe_intro,
 			level_id: selectLevel.id,
 			category_id: selectCategory.id,
 			user_id: selectUser.id,
 		});
+		recipe_id = insertRecipe.id;
 		// console.log("insertRecipe: ", insertRecipe);
 	} else {
 		console.log("failed", selectCategory, selectLevel, selectUser);
@@ -224,26 +178,26 @@ exports.recipeRegister = async (req, res) => {
 	for (let i = 0; i < data.ingredient.length; i++) {
 		ingredient = await Ingredient.findOne({
 			attributes: ["id"],
-			where: { list: data.ingredient[i].ingredient_list },
+			where: { list: data.ingredient[i].ingredient },
 		});
 		if (!ingredient) {
 			ingredient = await Ingredient.create({
-				list: data.ingredient[i].ingredient_list,
+				list: data.ingredient[i].ingredient,
 			});
 		}
 		unit = await Unit.findOne({
 			attributes: ["id"],
-			where: { list: data.ingredient[i].unit_list },
+			where: { list: data.ingredient[i].unit },
 		});
 		if (!unit) {
 			unit = await Unit.create({
-				list: data.ingredient[i].unit_list,
+				list: data.ingredient[i].unit,
 			});
 		}
 		if (ingredient && unit && selectRecipe) {
 			// const insertRecipeIngredient =
 			await RecipeIngredient.create({
-				recipe_id: insertRecipe.id, // insertRecipe의 아이디를 받아온다.
+				recipe_id, // insertRecipe의 아이디를 recipe_id에 담은 것을 등록한다.
 				amount: data.amount,
 				ingredient_id: ingredient.id,
 				unit_id: unit.id,
@@ -261,10 +215,10 @@ exports.recipeRegister = async (req, res) => {
 	for (let i = 0; i < data.steps.length; i++) {
 		// const insertStep =
 		await Step.create({
-			recipe_id: selectRecipe.id,
-			instruction: data.steps[i].instruction,
-			image: data.steps[i].image,
-			stepNumber: data.steps[i].stepNumber,
+			recipe_id,
+			instruction: data.steps[i],
+			image: req.files["steps"][i], //data.steps[i].image,
+			stepNumber: i + 1,
 		});
 	}
 	res.render("recipe");
@@ -279,20 +233,19 @@ exports.postReview = async (req, res) => {
 	const user_id = req.session.userId;
 	const recipe_id = req.params.id;
 	//req.body 에 담겨지는 데이터들 받아와서 score랑 comment 받아오기.
-	// const { score, comment } = req.body.data;
-	const score = 1;
-	const comment = "ㄴㄴ";
+	const { score, comment } = req.body.data;
+
 	const review = await Review.create({
 		user_id,
 		recipe_id,
-		score: score ? 0 : score,
-		comment: comment ? "" : comment,
+		score: score ? score : 0,
+		comment: comment ? comment : "",
 	});
-	console.log("review 등록 확인하기:", review);
+	// console.log("review 등록 확인하기:", review);
 	res.render("recipein");
 };
 
-// (method: get) (path: /recipe/:id/modify) 레시피 수정하는 부분
+// (method: get) (path: /recipe/:id/modify) 레시피 수정하는 페이지 불러옴.
 exports.getModifyRecipe = async (req, res) => {
 	//0. findone 으로 접속한 유저가 작성한 글이 맞는지 체크하기.
 	const id = parseInt(req.params.id);
@@ -362,7 +315,7 @@ exports.getModifyRecipe = async (req, res) => {
 	// );
 	res.render("recipeModify", { selectRecipe, selectIngredient, selectStep });
 };
-// (method: put) (path: /recipe/:id/modify) 레시피 수정한 것을 등록하는 부분
+// (method: put) (path: /recipe/:id/modify) 레시피 수정
 exports.modifyRecipe = async (req, res) => {
 	//req.body.data
 	const { id } = req.params;

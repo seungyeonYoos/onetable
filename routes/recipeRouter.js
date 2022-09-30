@@ -5,24 +5,42 @@ const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 
+let count = 0;
+
 const upload = multer({
 	storage: multer.diskStorage({
 		destination(req, file, done) {
 			done(null, "uploads/recipe");
 		},
 		filename(req, file, done) {
+			if (file.fieldname === "steps") {
+				count += 1;
+			} else if (file.fieldname === "recipe") {
+				count = 0;
+			}
 			const ext = path.extname(file.originalname);
 			//ext 는 확장자를 담는 변수다.
 			done(
 				null,
-				//file.fieldname === 'recipe' ? file.fieldname +'-'+ req.params + ext : file.fieldname +  + ext
-				// stepImage ? 'Date.now()' + '-' + 'userId' + '-' + 'recipe_id' +'-'+ 'stepNumber' + ext : Date.now() + '-' + 'userId' + '-' + 'recipe_id' + ext
-				path.basename(file.originalname, ext) +
-					Date.now() +
-					req.session.userId +
-					//setpNumber를 추가하자.req.body.data.stepNumber
-					//2가지로 나눠서 생각해야한다. 레시피에 대한 사진인지, 레시피의 step 요리 단계 사진인지.
-					ext
+				file.fieldname === "recipe"
+					? file.fieldname +
+							"-" +
+							req.session.userId +
+							"-" +
+							req.params.id +
+							"-" +
+							Date.now() +
+							ext
+					: file.fieldname +
+							"-" +
+							req.session.userId +
+							"-" +
+							req.params.id +
+							"-" +
+							count +
+							"-" +
+							Date.now() +
+							ext
 			);
 		},
 	}),
@@ -48,7 +66,10 @@ router.get("/register", is_login, recipeController.getRecipeRegister);
 router.post(
 	"/register",
 	is_login,
-	upload.array("userfile"),
+	upload.fields([
+		{ name: "recipe", maxCount: 1 },
+		{ name: "steps", maxCount: 10 },
+	]), //maxcount는 최대 파일 수.
 	recipeController.recipeRegister
 );
 
