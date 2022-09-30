@@ -51,8 +51,8 @@ async function getCourseDatas(q) {
               c.name,
               c.image,
               c.price,
-              COUNT(*)
-            FROM course AS c INNER JOIN ${q.order} AS a
+              COUNT(*) 
+            FROM course AS c LEFT OUTER JOIN ${q.order} AS a
             ON c.id = a.course_id
             WHERE c.date > CURDATE()
             AND MONTH(c.date) = '${q.month}'
@@ -66,7 +66,7 @@ async function getCourseDatas(q) {
               c.image,
               c.price,
               COUNT(*)
-            FROM course AS c INNER JOIN ${q.order} AS a
+            FROM course AS c LEFT OUTER JOIN ${q.order} AS a
             ON c.id = a.course_id
             WHERE c.date > CURDATE()
             AND MONTH(date) = '${q.month}'
@@ -79,7 +79,7 @@ async function getCourseDatas(q) {
               c.image,
               c.price,
               COUNT(*)
-            FROM course AS c INNER JOIN ${q.order} AS a
+            FROM course AS c LEFT OUTER JOIN ${q.order} AS a
             ON c.id = a.course_id
             WHERE c.date > CURDATE()
             AND price ${priceValue}
@@ -96,7 +96,7 @@ async function getCourseDatas(q) {
               c.name,
               c.image,
               COUNT(*)
-            FROM course AS c INNER JOIN ${q.order} AS a
+            FROM course AS c LEFT OUTER JOIN ${q.order} AS a
             ON c.id = a.course_id
             WHERE c.date > CURDATE()
             GROUP BY c.id, c.name, c.image
@@ -190,19 +190,34 @@ exports.course_update = (req, res) => {
     user_id: req.session.userId,
   };
   Course.update(data, {
-    where: { id: req.query.courseID },
+    where: { id: req.body.courseID },
   }).then(() => {
-    res.send("클래스 수정 성공!");
+    res.send(
+      `<script>
+        alert('수정 성공');
+        location.href='/';
+      </script>`
+    );
   });
 };
-// 삭제부분
+//* 삭제부분
 exports.course_delete = (req, res) => {
   Course.destroy({
-    where: { id: req.query.courseID },
+    where: { id: req.body.courseID },
   }).then(() => {
-    res.redirect("/");
+    res.send(
+      `<script>
+        alert('삭제 성공');
+        location.href='/';
+      </script>`
+    );
   });
 };
+// 기대평
+//* 등록
+exports.
+//* 수정
+//* 삭제
 
 //* 신청페이지
 async function getMyInfos(userId) {

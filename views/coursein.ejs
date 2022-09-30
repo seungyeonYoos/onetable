@@ -43,8 +43,13 @@
             <div class="course-intro"><%=courseDetail.intro%></div>
             <div><%=courseDetail.price%></div>
             <% if(courseDetail.user_id == userId) { %>
+            <div>
               <a href="/course/update?courseID=<%=courseDetail.id%>">수정</a>
-              <a href="/course/delete?courseID=<%=courseDetail.id%>">삭제</a>
+              <form action="/course/delete" method="post">
+                <input type="hidden" name="courseID" value="<%=courseDetail.id%>" />
+                <button type="submit">삭제</a>
+              </form>
+            </div>
             <% } %>
             <hr>
             <span><i class="fa-regular fa-clock"></i>강의시간</span>
