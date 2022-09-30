@@ -134,7 +134,7 @@
               type="button"
               class="aaaa choose-button"
               value="creditcard"
-              onclick="pay();"
+              onclick="payCard(this);"
             >
               <i class="fa-regular fa-credit-card"></i> 신용카드
             </button>
@@ -142,7 +142,7 @@
               type="button"
               class="aaaa choose-not-button"
               value="money"
-              onclick="payMoney();"
+              onclick="payMoney(this);"
             >
               <i class="fa-solid fa-coins"></i> 계좌이체
             </button>
@@ -150,7 +150,7 @@
         </div>
         <div class="payment">
           <button type="button" onclick="requestPay()" class="payment-button creditcard">
-            <%=courseApply.price%>원 결제하기
+            <%=courseApply.price%>원 카드결제하기
           </button>
           <button type="button" onclick="requestPayMoney()" class="payment-button money d-none">
             <%=courseApply.price%>원 결제하기
@@ -162,14 +162,18 @@
     <%-include("footer.ejs")%>
 
     <script>
-      function payMoney(){
+      function payMoney(btn){
         $(".creditcard").addClass("d-none");
         $(".money").removeClass("d-none");
         $(".aaaa").removeClass("choose-button").addClass("choose-not-button");
+        $(btn).removeClass("choose-not-button").addClass("choose-button");
       }
 
-      function pay() {
-        $(button).addClass("choose-button");
+      function payCard(btn) {
+        $(".money").addClass("d-none");
+        $(".creditcard").removeClass("d-none");
+        $(".aaaa").removeClass("choose-button").addClass("choose-not-button");;
+        $(btn).removeClass("choose-not-button").addClass("choose-button");
       }
 
 
