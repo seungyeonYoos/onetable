@@ -50,7 +50,6 @@ router.post(
 
 // 강좌 상세페이지
 router.get("/detail", courseController.course_detailPage);
-router.post("/detail", courseController.courseReview_detailPage);
 // 강좌 삭제
 router.post("/delete", courseController.course_delete);
 // 강좌 수정
@@ -60,6 +59,7 @@ router.post(
   upload.single("courseImage"),
   courseController.course_update
 );
+
 //* 좋아요
 // 좋아요 등록
 router.post("/fregister", courseController.courseFavorite_register);
@@ -69,6 +69,8 @@ router.post("/fdelete", courseController.CourseFavorite_delete);
 //* 기대평
 // 댓글 등록
 router.post("/rregister", courseController.courseReview_register);
+// 댓글 로드
+router.post("/rload", courseController.courseReview_load);
 // 댓글 수정
 router.post("/rupdate", courseController.courseReview_update);
 // 댓글 삭제

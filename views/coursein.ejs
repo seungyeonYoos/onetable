@@ -60,28 +60,111 @@
             <span><%=courseDetail.totalNumber%></span>
             <a href="/course/apply?courseID=<%=courseDetail.id%>">수강신청</a>
         </div>
-        <div>
-            <div>댓글</div>
-            <hr>
-                <form>
-                    <input type="text">
-                    <button onclick="writeComment();">작성</button>
-                </form>
-            <div class="comment"></div>
+    </div>
+
+    <div>
+      <div>기대평</div>
+      <form id="registerForm">
+        <input type="hidden" name="id">
+        <input type="text" name="comment" placeholder="기대평을 작성해주세요."><br>
+        <button type="button" id="registerBtn" onclick="register(`<%=courseDetail.id%>`);">등록</button>
+        <div class="d-none" id="loadBtn">
+          <button type="button" onclick="correct();">수정</button>
+          <button type="button" onclick="cancel();">취소</button>
         </div>
+      </form>
+      <table>
+      <% for(var i=0; i<courseReview.length; i++){ %>
+          <tr>
+            <td><%=courseReview[i].name%></td>
+            <td><%=courseReview[i].comment%></td>
+          <% if(courseReview[i].user_id == userId) { %>
+            <td><button type="button" onclick="load(`<%=courseReview[i].id%>`, this)">수정</button></td>
+            <td><button type="button" onclick="del(`<%=courseReview[i].id%>`, this)">삭제</button></td>
+          <% } %>
+          </tr>
+      <% } %>
+      </table>
     </div>
 
     <%-include("footer.ejs")%>
 
     <script>
-
-      function writeComment(){
-        $(".comment").appendChild("<p>아녕</p>");
+      function register(courseID){
+        if('<%=isLogin%>' == 'false'){
+          alert("로그인이 필요한 기능입니다.");
+          window.location = "/user/login";
+          return false;
+        }
+        let form = document.getElementById("registerForm");
+        axios({
+          url: "/course/rregister",
+          method: "post",
+          data: {
+            courseID: courseID,
+            comment: form.comment.value
+          }
+        }).then((response) => {
+          $("table").append(
+            `<tr>
+              <td>${response.data.myName.name}</td>
+              <td>${response.data.courseReview.comment}</td>
+              <td><button type="button">수정</button></td>
+              <td><button type="button" onclick="del(${response.data.courseReview.id}, this)">삭제</button></td>
+            </tr>`
+          )
+        })
       }
-      
+
+      function del(id, obj){
+        axios({
+          url: "/course/rdelete",
+          method: "post",
+          data: {id:id}
+        }).then((response) => {
+          console.log(response.data);
+          obj.parentElement.parentElement.remove();
+        })
+      }
+
+      let correct_tr;
+      function load(id, obj){
+        let form = document.getElementById("registerForm");
+        axios({
+          url: "/course/rload",
+          method: "post",
+          data: {id:id}
+        }).then((response) => {
+          form.comment.value = response.data.comment;
+          $("#registerBtn").addClass("d-none");
+          $("#loadBtn").removeClass("d-none");
+
+          form.id.value = response.data.id;
+          correct_tr = obj.parentElement.parentElement;
+        })
+      }
+
+      function cancel(){
+        let form = document.getElementById("registerForm");
+        form.reset();
+        $("#loadBtn").addClass("d-none");
+        $("#registerBtn").removeClass("d-none");
+      }
+
+      function correct(id){
+        let form = document.getElementById("registerForm");
+        axios({
+          url: "/course/rupdate",
+          method: "post",
+          data: {
+            id: form.id.value,
+            comment: form.comment.value
+          }
+        }).then((response) => {
+          correct_tr.children[1].innerText = form.comment.value;
+          cancel();
+        })
+      }
     </script>
-
-
 </body>
-
 </html>
