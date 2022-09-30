@@ -88,19 +88,19 @@
           <div class="row">
             <% for(let i=0; i <courseData.length; i++) { %>
               <div class="course-list-item col-6 col-md-4 col-xl-3">
-                
+
                 <a href="/course/detail?courseID=<%=courseData[i]['id']%>">
                   <div>
                     <img src="/uploads/courseIMG/<%=courseData[i]['image']%>">
                   </div>
                   <div class="course-ab">
-                      <%=courseData[i]['name']%><br>              
+                    <%=courseData[i]['name']%><br>
                       <%=courseData[i]['price']%>원
-                      
                   </div>
                 </a>
-                <a href="#" onclick="favorite();" class="heart-off heart"><i class="fa-regular fa-heart"></i></a>
-                
+                <a href="#" onclick="favorite(this, `<%=courseData[i]['id']%>`);" class="heart"><i
+                    class="fa-regular fa-heart"></i></a>
+
               </div>
 
               <% } %>
@@ -122,14 +122,37 @@
           window.location = `/course?order=${form.order.value}&month=${form.month.value}&price=${form.price.value}`
         }
 
-        function favorite(){
-          if( $(".heart").hasClass("heart-on") == true){
-            // $(".heart").removeClass("heart-on");
-            console.log("성공");
-          }else {
-            // $(".heart").addClass("heart-on");
-            console.log("실패");
+        function favorite(obj, courseID) {
+          if ("<%=isLogin%>" == "false") {
+            alert("로그인이 필요한 기능입니다.");
+            window.location = `http://localhost:8000/user/login`;
+            return false;
           }
+          var heart = $(obj).children();
+          if ($(heart).hasClass("fa-regular")) {
+            $(heart).removeClass("fa-regular");
+            $(heart).addClass("fa-solid");
+
+            axios({
+              url: "",
+              method: "post",
+              data: { courseID: courseID }
+            }).then(() => {
+              alert("좋아요 목록에 추가되었습니다.");
+            })
+          } else {
+            $(heart).addClass("fa-regular");
+            $(heart).removeClass("fa-solid");
+            axios({
+              url: "",
+              method: "post",
+              data: { courseID: courseID }
+            }).then(() => {
+              alert("좋아요 목록에서 삭제되었습니다.");
+            })
+          }
+
+
         }
 
       </script>
