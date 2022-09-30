@@ -53,86 +53,101 @@
  function count_order() {
      $(".order_button").before(`
      <ul id="order_itme">
-                                    <div class="order_title">
-                                        <label class="orderInfor" for="">설명</label>
-                                    </div>
-                                    <div class="order_list">
-                                        <li class="order_infor"><textarea name="" id="order_infor" rows="3"></textarea></li>
-                                        <li class="order_img">
-                                            <img id="orderImg" src="" alt="orderImg" name="orderImg" accept="image/*" />
-                                            <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="orderImg" />
-                                            <label id="File" for="orderFile">poto</label>
-                                            <input class="file" id="orderFile" type="file" name="recipeImg" onclick="imginput()">
+     <div class="order_title">
+         <label class="orderInfor" for="">설명</label>
+     </div>
+     <div class="order_list">
+         <li class="order_infor">
 
-                                        </li>
-                                    </div>
-                                </ul>
+             <textarea name="" id="order_infor" rows="3" cols="30"></textarea>
+         </li>
+         <li class="order_img">
+             <img id="orderImg" src="" alt="orderImg" name="orderImg" accept="image/*" />
+             <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="orderImg" />
+             <label id="File" for="orderFile">poto</label>
+             <input class="file" id="orderFile" type="file" name="recipeImg" onclick="imginput()">
 
+         </li>
+     </div>
+ </ul>
     `)
 
  }
- //  <input type="file" id="inputImage">
+ //   <input type="file" id="inputImage">
 
- //   <button id="sendButton">보내기</button>
+ //    <button id="sendButton">보내기</button>
 
- //   <img src="" class="uploadImage">
+ //    <img src="" class="uploadImage">
+ function readImage(input) {
 
 
- //  function imginput() {
- //      $(".orderImg").hide();
- //      $("#orderImg").show();
- //      const imgUpload = document.getElementById("orderFile")
- //      imgUpload.addEventListener("change", e => {
- //          readImage(e.target)
+     if (input.files && input.files[0]) {
+         // 이미지 파일인지 검사 (생략)
+         // FileReader 인스턴스 생성
+         const reader = new FileReader()
+             // 이미지가 로드가 된 경우
+         reader.onload = e => {
+                 const previewImage = document.getElementById("orderImg")
+                 previewImage.src = e.target.result
+             }
+             // reader가 이미지 읽도록 하기
+         reader.readAsDataURL(input.files[0])
+     }
+ }
 
- //      });
+ function imginput() {
+     const imgUpload = document.getElementById("orderFile")
+     imgUpload.addEventListener("change", e => {
+         readImage(e.target)
+         $(".orderImg").hide();
+         $("#orderImg").show();
+     });
 
- //  function newRecipe_add() {
- //      var form = document.getElementById("form");
- //      if (!form.checkValidity()) {
- //          form.reportValidity();
+ }
 
- //          return false;
- //      }
+ function newRecipe_add() {
+     var form = document.getElementById("form");
+     if (!form.checkValidity()) {
+         form.reportValidity();
 
- //      const formData = new FormData();
- //      const file = document.getElementById("chooseFile");
- //      formData.append("myImage", file.files[0]);
- //      formData.append("email", form.email.value);
- //      formData.append("pw", form.pw.value);
- //      formData.append("name", form.name.value);
+         return false;
+     }
 
- //      //  recipeName: form.recipeName.value,
- //      //  recipeInfor: form.recipeInfor.value,
- //      //  category:form.category.value,
- //      //  time : form.time.value,
- //      //  level: form.level.value,
- //      //  stuff : form.stuff.value,
- //      //  meterage : form.meterage.value
- //      axios({
- //              headers: {
- //                  "Content-Type": "multipart/form-data",
- //              },
- //              method: "post",
- //              url: `http://localhost:8000/recipe/${id}`,
- //              data: formData
- //          })
- //          .then((rep) => {
- //              return rep.data;
+     const formData = new FormData();
+     const recipefile = document.getElementById("chooseFile");
+     const orderfile = document.getElementById("orderFile");
+     formData.append("myImage", recipefile.files[0]);
+     formData.append("recipeImg", orderfile.files[0]);
+     formData.append("recipeName", form.recipeName.value);
+     formData.append("recipeInfor", form.category.value);
+     formData.append("time", form.time.value);
+     formData.append("level", form.level.value);
+     formData.append("recipe", form.time.value);
 
- //          })
- //          .then((data) => {
- //              Swal.fire(
- //                  'New Recipe 작성 완료 :)',
- //                  'success'
- //              )
- //          })
- //          .catch((error) => {
- //              Swal.fire({
- //                  icon: "error",
- //                  title: "레시피 작성이 실패하였습니다.",
- //                  text: "다시 작성해 주시기 바랍니다. :("
- //              });
- //          });
- //      }
- //  }
+     axios({
+             headers: {
+                 "Content-Type": "multipart/form-data",
+             },
+             method: "post",
+             url: `http://localhost:8000/recipe/${id}`,
+             data: formData
+         })
+         .then((rep) => {
+             return rep.data;
+
+         })
+         .then((data) => {
+             Swal.fire(
+                 'New Recipe 작성 완료 :)',
+                 'success'
+             )
+         })
+         .catch((error) => {
+             Swal.fire({
+                 icon: "error",
+                 title: "레시피 작성이 실패하였습니다.",
+                 text: "다시 작성해 주시기 바랍니다. :("
+             });
+         });
+
+ }

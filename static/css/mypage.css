@@ -170,6 +170,45 @@ hr {
 
 /* myrecipe */
 
+.myrecipeItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.myrecipeItem a {
+    text-decoration: none;
+}
+
+.myrecipeItem img {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+}
+
+.myrecipeItem span {
+    position: absolute;
+    padding-top: 90px;
+    text-align: center;
+    font-weight: bold;
+    color: #ffff;
+    width: 200px;
+    height: 200px;
+    opacity: 0;
+}
+
+.item a:hover span {
+    transform: scale(1.5);
+    transition: transform 1s;
+    opacity: 0.5;
+}
+
+.item a:hover img {
+    transition: transform 1s;
+    filter: brightness(20%);
+    background-color: #3E2723;
+}
+
 
 /* myclass */
 
@@ -198,16 +237,17 @@ hr {
 
 .item {
     display: flex;
-    justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
 }
 
 .item .itemList {
     /* 임시 */
-    width: 200px;
-    height: 100px;
     background-color: #3E2723;
     /*  */
+    position: relative;
+    width: 200px;
+    height: 200px;
     margin-top: 10px;
     margin-right: 10px;
     display: none;
