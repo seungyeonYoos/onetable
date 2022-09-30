@@ -25,8 +25,8 @@ db.Unit = require("./Unit")(sequelize, Sequelize);
 db.RecipeIngredient = require("./RecipeIngredient")(sequelize, Sequelize);
 db.Course = require("./Course")(sequelize, Sequelize);
 db.Application = require("./Application")(sequelize, Sequelize);
-db.ClassFavorite = require("./ClassFavorite")(sequelize, Sequelize);
-db.ClassReview = require("./ClassReview")(sequelize, Sequelize);
+db.CourseFavorite = require("./CourseFavorite")(sequelize, Sequelize);
+db.CourseReview = require("./CourseReview")(sequelize, Sequelize);
 
 db.Recipe.hasMany(db.Step, {
   foreignKey: "recipe_id",
@@ -211,56 +211,56 @@ db.Application.belongsTo(db.Course, {
   onUpdate: "cascade",
 });
 
-// User와 ClassFavorite
-db.User.hasMany(db.ClassFavorite, {
+// User와 CourseFavorite
+db.User.hasMany(db.CourseFavorite, {
   foreignKey: "user_id",
   sourceKey: "id",
   onDelete: "cascade",
   onUpdate: "cascade",
 });
-db.ClassFavorite.belongsTo(db.User, {
-  foreignKey: "user_id",
-  sourceKey: "id",
-  onDelete: "cascade",
-  onUpdate: "cascade",
-});
-
-// Course와 ClassFavorite
-db.Course.hasMany(db.ClassFavorite, {
-  foreignKey: "course_id",
-  sourceKey: "id",
-  onDelete: "cascade",
-  onUpdate: "cascade",
-});
-db.ClassFavorite.belongsTo(db.Course, {
-  foreignKey: "course_id",
-  sourceKey: "id",
-  onDelete: "cascade",
-  onUpdate: "cascade",
-});
-
-// User와 ClassReview
-db.User.hasMany(db.ClassReview, {
-  foreignKey: "user_id",
-  sourceKey: "id",
-  onDelete: "cascade",
-  onUpdate: "cascade",
-});
-db.ClassReview.belongsTo(db.User, {
+db.CourseFavorite.belongsTo(db.User, {
   foreignKey: "user_id",
   sourceKey: "id",
   onDelete: "cascade",
   onUpdate: "cascade",
 });
 
-// Course와 ClassReview
-db.User.hasMany(db.ClassReview, {
+// Course와 CourseFavorite
+db.Course.hasMany(db.CourseFavorite, {
   foreignKey: "course_id",
   sourceKey: "id",
   onDelete: "cascade",
   onUpdate: "cascade",
 });
-db.ClassReview.belongsTo(db.User, {
+db.CourseFavorite.belongsTo(db.Course, {
+  foreignKey: "course_id",
+  sourceKey: "id",
+  onDelete: "cascade",
+  onUpdate: "cascade",
+});
+
+// User와 CourseReview
+db.User.hasMany(db.CourseReview, {
+  foreignKey: "user_id",
+  sourceKey: "id",
+  onDelete: "cascade",
+  onUpdate: "cascade",
+});
+db.CourseReview.belongsTo(db.User, {
+  foreignKey: "user_id",
+  sourceKey: "id",
+  onDelete: "cascade",
+  onUpdate: "cascade",
+});
+
+// Course와 CourseReview
+db.User.hasMany(db.CourseReview, {
+  foreignKey: "course_id",
+  sourceKey: "id",
+  onDelete: "cascade",
+  onUpdate: "cascade",
+});
+db.CourseReview.belongsTo(db.User, {
   foreignKey: "course_id",
   sourceKey: "id",
   onDelete: "cascade",

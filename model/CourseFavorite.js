@@ -1,6 +1,6 @@
-const ClassReview = (Sequelize, DataTypes) => {
+const CourseFavorite = (Sequelize, DataTypes) => {
   const model = Sequelize.define(
-    "classReview",
+    "coursefavorite",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -8,17 +8,10 @@ const ClassReview = (Sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      score: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      comment: {
-        type: DataTypes.TEXT("medium"),
-      },
     },
     {
       // database 모델 정의 부분. mysql은 db 생성 시 적용함.
-      tableName: "classReview",
+      tableName: "coursefavorite",
       freezeTableName: true,
       timestamps: false,
     }
@@ -26,4 +19,4 @@ const ClassReview = (Sequelize, DataTypes) => {
   return model;
 };
 
-module.exports = ClassReview;
+module.exports = CourseFavorite;

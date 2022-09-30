@@ -4,8 +4,8 @@ const {
   Course,
   User,
   Application,
-  ClassFavorite,
-  ClassReview,
+  CourseFavorite,
+  CourseReview,
   sequelize,
 } = require("../model");
 
@@ -25,11 +25,12 @@ async function getBestCourses() {
 					  c.id,
 					  c.name,
 					  c.image,
+            c.price,
 					  COUNT(*)
 					FROM course AS c INNER JOIN application AS a
 					ON c.id = a.course_id
 					WHERE c.date > CURDATE()
-					GROUP BY c.id, c.name, c.image
+					GROUP BY c.id, c.name, c.image, c.price
 					ORDER BY COUNT(*) DESC
 					LIMIT 3;`;
   const bestCourses = await sequelize.query(query, { type: QueryTypes.SELECT });
@@ -51,8 +52,8 @@ async function getCourseDatas(q) {
               c.name,
               c.image,
               c.price,
-              COUNT(*)
-            FROM course AS c INNER JOIN ${q.order} AS a
+              COUNT(*) 
+            FROM course AS c LEFT OUTER JOIN ${q.order} AS a
             ON c.id = a.course_id
             WHERE c.date > CURDATE()
             AND MONTH(c.date) = '${q.month}'
@@ -66,7 +67,7 @@ async function getCourseDatas(q) {
               c.image,
               c.price,
               COUNT(*)
-            FROM course AS c INNER JOIN ${q.order} AS a
+            FROM course AS c LEFT OUTER JOIN ${q.order} AS a
             ON c.id = a.course_id
             WHERE c.date > CURDATE()
             AND MONTH(date) = '${q.month}'
@@ -79,10 +80,10 @@ async function getCourseDatas(q) {
               c.image,
               c.price,
               COUNT(*)
-            FROM course AS c INNER JOIN ${q.order} AS a
+            FROM course AS c LEFT OUTER JOIN ${q.order} AS a
             ON c.id = a.course_id
             WHERE c.date > CURDATE()
-            AND price ${priceValue};
+            AND price ${priceValue}
             GROUP BY c.id, c.name, c.image, c.price
             ORDER BY COUNT(*) DESC;`;
   } else if (q.month && q.price) {
@@ -96,7 +97,7 @@ async function getCourseDatas(q) {
               c.name,
               c.image,
               COUNT(*)
-            FROM course AS c INNER JOIN ${q.order} AS a
+            FROM course AS c LEFT OUTER JOIN ${q.order} AS a
             ON c.id = a.course_id
             WHERE c.date > CURDATE()
             GROUP BY c.id, c.name, c.image
@@ -125,6 +126,19 @@ exports.main = async (req, res) => {
   console.log("courseData:", courseData);
 
   res.render("course", { bestCourse, courseData });
+};
+
+// favorite테이블 정보 보내기
+exports.courseFavorite_main = (req, res) => {
+  if (req.session.userId) {
+    CourseFavorite.findAll({
+      where: { user_id: req.session.userId },
+    }).then((result) => {
+      res.send(result);
+    });
+  } else {
+    res.send([]);
+  }
 };
 
 //* 등록부분
@@ -173,22 +187,14 @@ exports.course_updatePage = (req, res) => {
   Course.findOne({
     where: { id: req.query.courseID },
   }).then((courseDetail) => {
-    console.log("course_updatePage:", courseDetail);
+    console.log("courseDetail:", courseDetail);
     let userId = req.session.id;
     res.render("courseUpdate", { courseDetail, userId });
-  });
-};
-exports.course_delete = (req, res) => {
-  Course.destroy({
-    where: { id: req.query.courseID },
-  }).then(() => {
-    res.redirect("/");
   });
 };
 exports.course_update = (req, res) => {
   const data = {
     name: req.body.name,
-    image: req.file.filename,
     intro: req.body.intro,
     price: req.body.price,
     hour: req.body.hour,
@@ -196,12 +202,69 @@ exports.course_update = (req, res) => {
     totalNumber: req.body.totalNumber,
     user_id: req.session.userId,
   };
+
+  if (req.file.filename) {
+    data.courseImage = req.file.filename;
+  }
   Course.update(data, {
-    where: { id: req.query.courseID },
+    where: { id: req.body.courseID },
   }).then(() => {
-    res.send("클래스 수정 성공!");
+    res.send(
+      `<script>
+        alert('수정 성공');
+        location.href='/';
+      </script>`
+    );
   });
 };
+//* 삭제부분
+exports.course_delete = (req, res) => {
+  Course.destroy({
+    where: { id: req.body.courseID },
+  }).then(() => {
+    res.send(
+      `<script>
+        alert('삭제 성공');
+        location.href='/';
+      </script>`
+    );
+  });
+};
+// 좋아요
+//* 등록
+exports.courseFavorite_register = (req, res) => {
+  const data = {
+    user_id: req.session.userId,
+    course_id: req.body.courseID,
+  };
+  CourseFavorite.create(data).then((result) => {
+    console.log("course_register:", result);
+    res.send("좋아요 확인");
+  });
+};
+//* 삭제
+exports.CourseFavorite_delete = (req, res) => {
+  CourseFavorite.destroy({ where: { course_id: req.body.courseID } }).then(
+    () => {
+      res.send("좋아요 취소");
+    }
+  );
+};
+// 기대평
+//* 등록
+exports.courseReview_register = (req, res) => {
+  const data = {
+    user_id: req.session.userId,
+    course_id: req.body.courseID,
+    comment: req.body.comment,
+  };
+  Course.create(data).then((result) => {
+    console.log("courseReview_register:", result);
+    res.send(true);
+  });
+};
+//* 수정
+//* 삭제
 
 //* 신청페이지
 async function getMyInfos(userId) {
