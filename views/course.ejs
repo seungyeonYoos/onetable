@@ -125,7 +125,7 @@
         function favorite(obj, courseID) {
           if ("<%=isLogin%>" == "false") {
             alert("로그인이 필요한 기능입니다.");
-            window.location = `http://localhost:8000/user/login`;
+            window.location = "/user/login";
             return false;
           }
           var heart = $(obj).children();

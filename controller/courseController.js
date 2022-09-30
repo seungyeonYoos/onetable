@@ -164,15 +164,33 @@ exports.course_register = (req, res) => {
 };
 
 //* 상세페이지
-exports.course_detailPage = (req, res) => {
+async function getDetailPages(courseID) {
+  const detailPages = await Course.findOne({
+    where: { id: courseID },
+  });
+  return detailPages;
+}
+// 기대평 보여주는 부분
+async function getCourseReviews(courseID) {
+  const query = `SELECT 
+                  cr.id, cr.course_id, cr.user_id, u.name, cr.comment
+                FROM user AS u INNER JOIN coursereview AS cr
+                ON u.id = cr.user_id
+                WHERE cr.course_id = ${courseID};`;
+  const courseReviews = await sequelize.query(query, {
+    type: QueryTypes.SELECT,
+  });
+  return courseReviews;
+}
+exports.course_detailPage = async (req, res) => {
   if (req.query.courseID) {
-    Course.findOne({
-      where: { id: req.query.courseID },
-    }).then((courseDetail) => {
-      console.log("course_detailPage:", courseDetail);
-      let userId = req.session.userId;
-      res.render("coursein", { courseDetail, userId });
-    });
+    const courseDetail = await getDetailPages(req.query.courseID);
+    console.log("courseDetail:", courseDetail);
+    let userId = req.session.userId;
+    console.log("userId:", userId);
+    const courseReview = await getCourseReviews(req.query.courseID);
+    console.log("courseReview:", courseReview);
+    res.render("coursein", { courseDetail, userId, courseReview });
   } else {
     res.send(
       `<script>
@@ -205,8 +223,7 @@ exports.course_update = (req, res) => {
   };
 
   if (req.file) {
-    data.courseImage = req.file.filename;
-    console.log(data);
+    data.image = req.file.filename;
   }
   Course.update(data, {
     where: { id: req.body.courseID },
@@ -232,6 +249,7 @@ exports.course_delete = (req, res) => {
     );
   });
 };
+
 // 좋아요
 //* 등록
 exports.courseFavorite_register = (req, res) => {
@@ -252,26 +270,40 @@ exports.CourseFavorite_delete = (req, res) => {
     }
   );
 };
+
 // 기대평
-//* 보여주기
-exports.courseReview_detailPage = (req, res) => {
-  CourseReview.findAll({
-    where: { course_id: req.session.userId },
-  }).then((result) => {
-    res.send(result);
-    console.log("courseReview_detailPage:", result);
-  });
-};
 //* 등록
-exports.courseReview_register = (req, res) => {
+async function registerCourseReviews(req) {
   const data = {
     user_id: req.session.userId,
     course_id: req.body.courseID,
     comment: req.body.comment,
   };
-  CourseReview.create(data).then((result) => {
-    console.log("courseReview_register:", result);
-    res.send("기대평 등록 성공!");
+  const courseReviews = await CourseReview.create(data);
+  return courseReviews;
+}
+async function getMynames(req) {
+  const myNames = await User.findOne({
+    attributes: ["id", "name"],
+    where: { id: req.session.userId },
+  });
+  return myNames;
+}
+exports.courseReview_register = async (req, res) => {
+  const courseReview = await registerCourseReviews(req);
+  console.log("courseReview:", courseReview);
+  const myName = await getMynames(req);
+  console.log("myName", myName);
+  let data = { courseReview, myName };
+  res.send(data);
+};
+//* 로드
+exports.courseReview_load = (req, res) => {
+  CourseReview.findOne({
+    where: { id: req.body.id },
+  }).then((result) => {
+    console.log("CourseReview_load", result);
+    res.send(result);
   });
 };
 //* 수정
@@ -280,14 +312,15 @@ exports.courseReview_update = (req, res) => {
     comment: req.body.comment,
   };
   CourseReview.update(data, {
-    where: { id: req.body.courseID },
-  }).then(() => {
-    res.send("기대평 수정 성공!");
+    where: { id: req.body.id },
+  }).then((result) => {
+    console.log("courseReview_update", result);
+    res.send(result);
   });
 };
 //* 삭제
 exports.courseReview_delete = (req, res) => {
-  CourseReview.destroy({ where: { id: req.body.courseID } }).then(() => {
+  CourseReview.destroy({ where: { id: req.body.id } }).then(() => {
     res.send("기대평 삭제 성공!");
   });
 };

@@ -37,7 +37,7 @@ const courseRouter = require("./routes/courseRouter");
 
 // 미들웨어로 로그인 유지
 // isLogin이라는 변수에 true를 보내는 것
-app.use("/*", function login_logout(req, res, next) {
+app.use("/*", function (req, res, next) {
   if (req.session.userId) {
     res.locals.isLogin = true;
     console.log("true");
