@@ -101,3 +101,6 @@
         .payment-method-title {
             margin: 10px 0px;
         }
+        .d-none {
+            display: none;
+        }
