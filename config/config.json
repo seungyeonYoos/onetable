@@ -7,10 +7,11 @@
     "dialect": "mysql"
   },
   "product": {
-    "host": "",
+    "host": "101.101.217.38",
     "database": "onetable",
-    "username": "six",
-    "password": "six",
-    "dialect": "mysql"
+    "username": "user2",
+    "password": "oneTable1234!",
+    "dialect": "mysql",
+    "port": "3306"
   }
 }
