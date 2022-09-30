@@ -5,6 +5,7 @@ const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 
+//steps로 등록되는 파일 수 카운트하는 변수
 let count = 0;
 
 const upload = multer({
@@ -22,6 +23,7 @@ const upload = multer({
 			//ext 는 확장자를 담는 변수다.
 			done(
 				null,
+				//recipe에 담기는 파일이면 'recipe-1-1-now.jpg', 아니면 'steps-1-1-1-now.jpg'로 저장됨.
 				file.fieldname === "recipe"
 					? file.fieldname +
 							"-" +
@@ -76,6 +78,10 @@ router.post(
 //등록된 1개의 특정 레시피를 보는 부분 (path: /recipe/'레시피 id')
 router.get("/:id(\\d+)", recipeController.getRecipe);
 router.post("/:id(\\d+)", recipeController.postReview);
+
+//해당 레시피 좋아요와 취소
+router.post("/:id(\\d+)/fav", is_login, recipeController.postFav);
+router.delete("/:id(\\d+)/fav", is_login, recipeController.deleteFav);
 
 // 등록된 레시피를 작성자가 수정을 하는 부분
 router.get("/:id(\\d+)/modify", recipeController.getModifyRecipe);
