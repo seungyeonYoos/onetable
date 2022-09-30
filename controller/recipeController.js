@@ -8,6 +8,7 @@ const {
 	RecipeIngredient,
 	Step,
 	Review,
+	Favorite,
 } = require("../model");
 
 //(method: get) (path: /recipe/:id) 특정 아이디의 레시피를 보여준다.
@@ -45,12 +46,19 @@ exports.getRecipe = async (req, res) => {
 		raw: true,
 		where: { recipe_id: id },
 		order: [["id", "DESC"]],
+		include: [
+			{
+				model: User,
+				attributes: ["name"],
+				required: false,
+			},
+		],
 		//가장 최근 등록된 순서로 나온다.
 	});
 
 	// console.log("✅selectTargetRecipe:", selectTargetRecipe);
 	// console.log("✅selectSteps:", selectSteps);
-	// console.log("✅selectReview:", selectReviews);
+	// console.log("✅selectReviews:", selectReviews);
 	if (selectTargetRecipe) {
 		res.render("recipein", {
 			selectTargetRecipe,
@@ -359,4 +367,25 @@ exports.deleteRecipe = async (req, res) => {
 	}
 
 	res.redirect("/recipe");
+};
+
+// (method: post) (path: /recipe/:id/fav) 좋아요 등록
+exports.postFav = async (req, res) => {
+	const createFavorite = await Favorite.create({
+		user_id: req.session.userId,
+		recipe_id: req.params.id,
+	});
+	console.log(createFavorite);
+	res.send("좋아요 등록 완료");
+};
+// (method: delete) (path: /recipe/:id/fav) 좋아요 취소
+exports.deleteFav = async (req, res) => {
+	const deleteFavorite = await Favorite.destroy({
+		where: {
+			user_id: req.session.userId,
+			recipe_id: req.params.id,
+		},
+	});
+	console.log(deleteFavorite);
+	res.send("좋아요 삭제 완료");
 };
