@@ -4,8 +4,8 @@ const {
   Course,
   User,
   Application,
-  ClassFavorite,
-  ClassReview,
+  CourseFavorite,
+  CourseReview,
   sequelize,
 } = require("../model");
 
@@ -217,10 +217,40 @@ exports.course_delete = (req, res) => {
     );
   });
 };
+// 좋아요
+//* 등록
+exports.courseFavorite_register = (req, res) => {
+  const data = {
+    user_id: req.session.userId,
+    course_id: req.body.courseID,
+  };
+  CourseFavorite.create(data).then((result) => {
+    console.log("course_register:", result);
+    res.send("좋아요 확인");
+  });
+};
+//* 삭제
+exports.CourseFavorite_delete = (req, res) => {
+  CourseFavorite.destroy({ where: { id: req.body.courseID } }).then(() => {
+    res.send("좋아요 취소");
+  });
+};
 // 기대평
 //* 등록
+exports.courseReview_register = (req, res) => {
+  const data = {
+    user_id: req.session.userId,
+    course_id: req.body.courseID,
+    comment: req.body.comment,
+  };
+  Course.create(data).then((result) => {
+    console.log("courseReview_register:", result);
+    res.send(true);
+  });
+};
 //* 수정
 //* 삭제
+
 //* 신청페이지
 async function getMyInfos(userId) {
   const myInfos = await User.findOne({
