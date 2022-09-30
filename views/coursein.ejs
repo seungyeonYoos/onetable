@@ -65,14 +65,19 @@
             <hr>
                 <form>
                     <input type="text">
-                    <button>작성</button>
+                    <button onclick="writeComment();">작성</button>
                 </form>
+            <div class="comment"></div>
         </div>
     </div>
 
     <%-include("footer.ejs")%>
 
     <script>
+
+      function writeComment(){
+        $(".comment").appendChild("<p>아녕</p>");
+      }
       
     </script>
 
