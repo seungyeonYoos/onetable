@@ -99,7 +99,7 @@
                   </div>
                 </a>
                 <a href="#" onclick="favorite(this, `<%=courseData[i]['id']%>`);" class="heart"><i
-                    class="fa-regular fa-heart"></i></a>
+                    class="fa-regular fa-heart course-<%=courseData[i]['id']%> "></i></a>
 
               </div>
 
@@ -137,9 +137,7 @@
               url: "/course/fregister",
               method: "post",
               data: { courseID: courseID }
-            }).then(() => {
-              alert("좋아요 목록에 추가되었습니다.");
-            })
+            }).then(() => { })
           } else {
             $(heart).addClass("fa-regular");
             $(heart).removeClass("fa-solid");
@@ -147,13 +145,18 @@
               url: "/course/fdelete",
               method: "post",
               data: { courseID: courseID }
-            }).then(() => {
-              alert("좋아요 목록에서 삭제되었습니다.");
-            })
+            }).then(() => {  })
           }
-
-
         }
+
+        axios({
+          url: "/course",
+          method: "post"
+        }).then((response)=>{
+          for(var i = 0; i<response.data.length; i++ ){
+            $( "course-"+response.data[i].course_id).removeClass("fa-regular").addClass("fa-solid");
+          }
+        })
 
       </script>
 </body>
