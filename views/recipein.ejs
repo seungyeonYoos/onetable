@@ -29,6 +29,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
     <!-- png link -->
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
     <title>레시피 상세페이지</title>
     <script>
     </script>
@@ -40,13 +41,17 @@
     <%-include('navbar.ejs')%>
         <div id="recipeItem" class="container">
             <div class="navItem">
-                <button type="button" class="good" name="good"> <i class="fi fi-rr-heart"></i></button>
-                <a href="#userComment" class="comment" name="comment"><i class="fi fi-rr-comment"></i></a>
+                <button type="button" id="Heart" class="Heart" name="Heart" value="1" onclick="heart()"><i class=" xi-heart-o xi-x"></i>
+                    <div id="heartCount" class="heartCount"></div>
+                </button>
+
+                <a href="#userComment" id="comment" name="comment"><i class="fi fi-rr-comment"></i></a>
             </div>
             <div id="catTag">
+
                 <div>
                     <a href="">
-                        <%=selectTargetRecipe['category.list']%>
+                        <%=selectTargetRecipe["category.list"]%>
                     </a>
                 </div>
 
@@ -88,7 +93,6 @@
             <div id="profile">
                 <div class="userImg"><img src="http://localhost:8000/uploads/profileIMG/<%=selectTargetRecipe['user.image'] %>" alt="" onerror="this.onerror=null; this.src='/static/img/hat-chef.png';"></div>
                 <div class="name">
-
                     <%=selectTargetRecipe["user.name"]%>
                 </div>
                 <div class="news"><button type="button">소식받기</button></div>
@@ -124,7 +128,7 @@
             <h3>조리 순서</h3>
             <div id="order">
                 <div class="order_item">
-                    <% for (var i = 1; i < 6 ; i++ ) { %>
+                    <% for (var i = 1; i < selectSteps.length ; i++ ) { %>
 
                         <div>
                             <ul>
@@ -147,42 +151,38 @@
             <div id="userComment">
                 <div id="comment_load" class="container">
                     <ul class="uc">
-                        <% for (var i = 1; i < 6 ; i++ ) { %>
+                        <% for (var i = 1; i < selectReviews.length ; i++ ) { %>
                             <li class="commentList">
-                                <p class="name">username &#160;&#124; &#160; </p>
-                                <p class="comment">very delicious</p>
+                                <p class="name">
+                                    <%=selectReviews[i]["user.name"]%> &#160;&#124; &#160; </p>
+                                <p class="comment">
+                                    <%=selectReviews[i].comment%>
+                                </p>
                             </li>
                             <% } %>
                     </ul>
-
-                </div>
-                <div id="view"><a href="javascript:;" class="button commentB">더보기&#160;<i class="fi fi-rr-caret-down"></i></a></div>
-                <hr>
-
-                <h5 class="evaluation">평가를 하시면 댓글창이 나옵니다 :)</h5><br>
-                <div id="evaluation">
-                    <button type="submit" id="good" name="good" value="1" onclick="good('<%=id%>')">좋은 레시피 :)</button>
-                    <button type="submit" id="bad" name="bad" value="0" onclick="bad('<%=id%>')">별로 레시피 :(</button>
-
-                </div>
-                <h5 class="chat">댓글 & 리뷰작성<i class="fi fi-rr-caret-down"></i></h5>
-
-                <div id="chat">
-                    <form action="">
-                        <input type="text" id="myReview" name="myReview">
-                        <input type="button" onclick="reviewChat()" value="작성">
-                    </form>
                 </div>
             </div>
-        </div>
-        <br>
-        <a id="top" href="#recipeItem"><i class="fi fi-rr-chevron-double-up"></i></a>
-        <%=JSON.stringify(selectTargetRecipe,null,4)%>
+            <div id="view"><a href="javascript:;" class="button commentB">더보기&#160;<i class="fi fi-rr-caret-down"></i></a></div>
+            <hr>
+            <br>
+            <h5 class="chat">댓글 & 리뷰작성<i class="fi fi-rr-caret-down"></i></h5>
+            <div id="chat">
+                <form action="" id="chatInput" name="chatInput">
+                    <div id="goodbad">
+                        <button type="button" id="goodrecipe" class="goodrecipe" name="goodrecipe" value="1" onclick="goodRecipe()"><i class="xi-emoticon-smiley-o xi-2x"></i>
+                        <button type="button" id="badrecipe" class="badrecipe" name="badrecipe" value="-1" onclick="badRecipe()"><i class="xi-emoticon-sad-o xi-2x"></i>
+                    </div>
+                    <input type="text" id="myReview" name="myReview">
+                    <input type="button" class="reviewpush" onclick="reviewChat('<%=id%>')" value="작성">
+                </form>
+            </div>
 
-            <!--# or selectTargetRecipe.id 이런식으로 데이터를 다루면 될 것 같아요 ㅎ-->
-            <%=JSON.stringify(selectSteps,null,4)%>
-                <%-include('footer.ejs')%>
-                    <script src="/static/js/recipein.js"></script>
+            <br>
+            <a id="top" href="#recipeItem"><i clbass="fi fi-rr-chevron-double-up"></i></a>
+
+            <%-include('footer.ejs')%>
+                <script src="/static/js/recipein.js"></script>
 
 </body>
 
