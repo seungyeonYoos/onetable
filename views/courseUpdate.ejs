@@ -153,6 +153,11 @@
       #inform-hour {
         padding-left: 20px;
       }
+      .input-file-button > img {
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+      }
     </style>
   </head>
 
@@ -161,25 +166,25 @@
 
     <div class="register-all">
       <div class="register">
-        <h3>클래스 등록</h3>
+        <h3>클래스 수정</h3>
         <hr />
         <div class="register-inform">
           <form class="register-inform-child" id="registerForm">
             <div>
-              <label for="name" class="label"><%=courseDetail.name%></label>
-              <input type="text" name="name" id="name" />
+              <label for="name" class="label">클래스 제목</label>
+              <input type="text" name="name" id="name" value="<%=courseDetail.name%>"/>
             </div>
             <div>
-              <label for="intro" class="label"><%=courseDetail.intro%></label>
-              <input type="text" name="intro" id="intro" />
+              <label for="intro" class="label">클래스 소개</label>
+              <input type="text" name="intro" id="intro" value="<%=courseDetail.intro%>" />
             </div>
             <div>
-              <label for="price"><%=courseDetail.price%></label>
-              <input type="text" name="price" id="price"/>원
+              <label for="price">클래스 가격</label>
+              <input type="text" name="price" id="price" value="<%=courseDetail.price%>"/>원
             </div>
             <div>
-              <label for="date"><%=courseDetail.date%></label>
-              <input type="date" name="date" id="date"/>
+              <label for="date">클래스 날짜</label>
+              <input type="date" name="date" id="date" value="<%=courseDetail.date%>"/>
             </div>
             <div class="number">
               <label for="totalNumber">클래스 정보</label>
@@ -195,8 +200,6 @@
           <form id="image-register">
             <label class="input-file-button" for="file">
               <img id="preview" src="/uploads/courseIMG/<%=courseDetail.image%>"/>
-              <i class="fa-solid fa-camera"></i> <br>
-              클래스 대표사진을 <br />선택하세요.
             </label>
             <input type="file" name="courseImage" id="file" onchange="readURL(this);"/>
             <!-- <img id="preview" /> -->
@@ -204,18 +207,18 @@
         </div>
       </div>
       <div class="register-button">
-        <button onclick="register();">등록</button>
+        <button onclick="update();">수정</button>
         <button>취소</button>
       </div>
     </div>
     <%-include("footer.ejs")%>
 
     <script>
-      function register() {
+      function update() {
         let form = document.getElementById("registerForm");
         const formData = new FormData();
         const file = document.getElementById("file");
-        formData.append("courseImage", file.files[0]);
+        formData.append("image", file.files[0]);
         formData.append("name", form.name.value);
         formData.append("intro", form.intro.value);
         formData.append("price", form.price.value);
@@ -228,7 +231,7 @@
             "Content-Type": "multipart/form-data",
           },
           method: "post",
-          url: "http://localhost:8000/course/register",
+          url: "http://localhost:8000/course/update",
           data: formData,
         }).then((response) => {
           document.location.href = "/course";

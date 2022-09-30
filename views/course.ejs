@@ -39,16 +39,17 @@
       <hr>
       <!-- 슬라이더 -->
       <div class="bestCourse">
-          <% for(let i=0; i <bestCourse.length; i++) { %>
-            <div class="post">
-              <a href="/course/detail?courseID=<%=bestCourse[i]['id']%>">
-                <img src="/uploads/courseIMG/<%=bestCourse[i]['image']%>" />
-                <div>
-                  <%=bestCourse[i]['name']%>
-                </div>
-              </a>
-            </div>
-            <% } %>
+        <% for(let i=0; i <bestCourse.length; i++) { %>
+          <div class="post">
+            <img src="../static/img/ico_best1.png" class="score">
+            <a href="/course/detail?courseID=<%=bestCourse[i]['id']%>">
+              <img src="/uploads/courseIMG/<%=bestCourse[i]['image']%>" />
+              <div class="bestcourseName">
+                <%=bestCourse[i]['name']%>
+              </div>
+            </a>
+          </div>
+          <% } %>
       </div>
 
       <div class="course-list container">
@@ -80,28 +81,30 @@
               <option value="middle">5만원 ~ 8만원</option>
               <option value="high">8만원 이상</option>
             </select>
-            <button type="button" onclick="apply();">적용</button>
+            <button type="button" onclick="apply();" id="apply-button">적용</button>
           </form>
         </div>
         <div class="container">
           <div class="row">
             <% for(let i=0; i <courseData.length; i++) { %>
               <div class="course-list-item col-6 col-md-4 col-xl-3">
+                
                 <a href="/course/detail?courseID=<%=courseData[i]['id']%>">
-                  <img src="/uploads/courseIMG/<%=courseData[i]['image']%>">
-                  <p>
-                    <%=courseData[i]['name']%>
-                  </p>
-                  <p>
-                    <%=courseData[i]['price']%>원
-                  </p>
+                  <div>
+                    <img src="/uploads/courseIMG/<%=courseData[i]['image']%>">
+                  </div>
+                  <div class="course-ab">
+                      <%=courseData[i]['name']%><br>              
+                      <%=courseData[i]['price']%>원
+                      <% if( isLogin ) { %>
+                        <a href="#" onclick="favorite();" class="heart"><i class="fa-regular fa-heart"></i></a>
+                      <% } %>
+                  </div>
                 </a>
-                <p>
-                  <i class="fa-regular fa-heart"></i>
-                </p>
+                
               </div>
 
-            <% } %>
+              <% } %>
 
           </div>
         </div>
@@ -118,7 +121,15 @@
           console.log(form.month.value);
           console.log(form.price.value);
           window.location = `/course?order=${form.order.value}&month=${form.month.value}&price=${form.price.value}`
+        }
 
+        function favorite(){
+          var myheart = $(".heart").children("i");
+          if($(myheart).hasClass("heart")){
+            $(myheart).removeClass("heart").html('<i class="fa-solid fa-heart"></i>');
+          }
+
+          
         }
 
       </script>
