@@ -34,6 +34,7 @@ const globalRouter = require("./routes/globalRouter");
 const recipeRouter = require("./routes/recipeRouter");
 const userRouter = require("./routes/userRouter");
 const courseRouter = require("./routes/courseRouter");
+const searchRouter = require("./routes/searchRouter");
 
 // 미들웨어로 로그인 유지
 // isLogin이라는 변수에 true를 보내는 것
@@ -52,6 +53,7 @@ app.use("/", globalRouter);
 app.use("/recipe", recipeRouter);
 app.use("/user", userRouter);
 app.use("/course", courseRouter);
+app.use("/search", searchRouter);
 
 app.listen(port, () => {
   console.log("Server Port : ", port);

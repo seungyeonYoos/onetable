@@ -72,6 +72,6 @@ router.post(
   upload.single("myImage"),
   userController.myPage_edit
 );
-// router.post("/mypage/delete", userController.myPage_delete);
+router.post("/mypage/delete", userController.myPage_delete);
 
 module.exports = router;

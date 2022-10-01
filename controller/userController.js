@@ -46,7 +46,6 @@ exports.logout = (req, res) => {
     req.session.destroy(function () {
       res.send(
         `<script>
-          alert('로그아웃 성공');
           location.href='/';
         </script>`
       );
@@ -154,26 +153,29 @@ exports.myPage = async (req, res) => {
 
 // 마이페이지 내 정보 수정하기
 exports.myPage_edit = (req, res) => {
-  let data1 = {
+  const data = {
     email: req.body.email,
     pw: req.body.pw,
     name: req.body.name,
-    image: req.file.filename,
   };
-  User.update(data1, {
+  if (req.file) {
+    data.image = req.file.filename;
+  }
+  User.update(data, {
     where: { id: req.session.userId },
   }).then((result) => {
-    console.log("update:", result);
-    res.send("회원정보 수정 성공!");
+    console.log("myPage_edit:", result);
+    res.send(result);
   });
 };
 
 // 마이페이지 내 정보 삭제하기(탈퇴기능)
-// exports.myPage_delete = (req, res) => {
-//   User.destroy({
-//     where: { id: req.session.userId },
-//   }).then((result) => {
-// 	   console.log("myInfo destroy:", result)
-//     res.redirect("/");
-//   });
-// };
+exports.myPage_delete = (req, res) => {
+  User.destroy({
+    where: { id: req.session.userId },
+  }).then((result) => {
+    console.log("myInfo destroy:", result);
+    res.redirect("/");
+    //? 로그아웃 기능도 같이 넣어줘야 하는지 확인 필요!
+  });
+};
