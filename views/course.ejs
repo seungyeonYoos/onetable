@@ -41,11 +41,12 @@
       <div class="bestCourse">
         <% for(let i=0; i <bestCourse.length; i++) { %>
           <div class="post">
-            <img src="../static/img/ico_best1.png" class="score">
+            <img src="../static/img/ico_best<%=bestCourse[i]['id']%>.png" class="score">
             <a href="/course/detail?courseID=<%=bestCourse[i]['id']%>">
               <img src="/uploads/courseIMG/<%=bestCourse[i]['image']%>" />
               <div class="bestcourseName">
                 <%=bestCourse[i]['name']%>
+                <%=bestCourse[i]['price']%>
               </div>
             </a>
           </div>
@@ -100,7 +101,7 @@
                 </a>
                 <div onclick="favorite(this, `<%=courseData[i]['id']%>`);" class="heart">
                   <i class="fa-regular fa-heart course-<%=courseData[i]['id']%> "></i>
-                  <span id="result" class="courseCount-<%=courseData[i]['id']%>">0</span>
+                  <span id="result" class="courseCount-<%=courseData[i]['id']%>"></span>
                 </div>
 
               </div>
