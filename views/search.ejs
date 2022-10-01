@@ -15,10 +15,174 @@
     />
     <link rel="stylesheet" href="/static/css/navbar.css" />
     <link rel="stylesheet" href="/static/css/footer.css" />
+    <!-- 부트스트랩 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      .container > div {
+        padding: 40px 14px;
+      }
+      .container > div > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        /* text-align: center; */
+      }
+      #search_input {
+        width: 100%;
+        max-width: 480px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #search_input input {
+        width: 100%;
+        height: 48px;
+        padding: 16px 42px 16px 8px;
+        box-sizing: border-box;
+        border-radius: 4px;
+        border: 1px solid rgb(189, 189, 189);
+        background: rgb(255, 255, 255);
+        font-weight: normal;
+        font-size: 13px;
+        line-height: 19px;
+        letter-spacing: -0.5px;
+        text-indent: 5px;
+      }
+      #search_input i {
+        position: absolute;
+        right: 0px;
+        cursor: pointer;
+        padding: 8px 16px 8px 8px;
+      }
+
+      #search_category {
+        width: 100%;
+        max-width: 480px;
+        margin: 24px 0px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 46px;
+      }
+      #search_category button:nth-child() {
+        background-color: rgb(117, 87, 75);
+        color: rgb(255, 255, 255);
+      }
+      #search_category .category {
+        height: 48px;
+        border: 1px solid rgb(117, 87, 75);
+        background-color: rgb(255, 255, 255);
+        font-weight: normal;
+        font-size: 13px;
+        line-height: 20px;
+        text-align: center;
+        letter-spacing: 0px;
+        width: 100%;
+        max-width: 332px;
+        cursor: pointer;
+      }
+      #search_category .category:hover {
+        background-color: rgb(244, 240, 239);
+      }
+
+      #search_contents {
+        width: 100%;
+        max-width: 988px;
+        border-top: 1px solid rgb(224, 224, 244);
+        padding-top: 16px;
+      }
+      #search_contents section {
+        margin-top: 24px;
+      }
+      #search_contents section > p {
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: rgb(117, 87, 75);
+      }
+      #search_contents section > p::before,
+      #search_contents section > p:after {
+        display: inline-block;
+        content: "";
+        margin: 0px 16px;
+        width: 4px;
+        height: 4px;
+        background-color: rgb(147, 112, 98);
+        border-radius: 50%;
+      }
+      #search_contents div {
+        margin-top: 24px;
+      }
+    </style>
   </head>
   <body>
     <%-include("navbar.ejs")%>
-    <div>searchPage</div>
+    <main class="container">
+      <div>
+        <div>
+          <form action="/search/get" method="get" id="search_input">
+            <input
+              type="search"
+              id="searchWord"
+              name="search"
+              placeholder="검색어를 입력하세요."
+            />
+            <div style="display: contents" class="search_icon">
+              <i onclick="search();" class="fa-solid fa-magnifying-glass"></i>
+            </div>
+          </form>
+          <div id="search_category">
+            <button class="category">레시피</button>
+            <button class="category">클래스</button>
+          </div>
+          <div id="search_contents">
+            <section>
+              <p>맞춤 추천</p>
+              <div class="row">
+                <a class="col">
+                  <div>
+                    <div class="image">
+                      <img src="" />
+                    </div>
+                    <div class="desc">
+                      <p class="name"></p>
+                      <div class="price_info">
+                        <div class="price">
+                          <p></p>
+                          <span>원</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
     <%-include("footer.ejs")%>
   </body>
+
+  <script>
+    function search() {
+      let form = document.querySelector("form");
+      form.submit();
+    }
+  </script>
 </html>
