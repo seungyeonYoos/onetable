@@ -98,8 +98,10 @@
                       <%=courseData[i]['price']%>원
                   </div>
                 </a>
-                <a href="#" onclick="favorite(this, `<%=courseData[i]['id']%>`);" class="heart"><i
-                    class="fa-regular fa-heart course-<%=courseData[i]['id']%> "></i></a>
+                <div onclick="favorite(this, `<%=courseData[i]['id']%>`);" class="heart">
+                  <i class="fa-regular fa-heart course-<%=courseData[i]['id']%> "></i>
+                  <span id="result" class="courseCount-<%=courseData[i]['id']%>">0</span>
+                </div>
 
               </div>
 
@@ -128,10 +130,17 @@
             window.location = "/user/login";
             return false;
           }
-          var heart = $(obj).children();
+
+          var heart = $(obj).children().first();
+          // 좋아요 숫자 관련
+          const resultElement = $(obj).children().last()[0];
+          let number = resultElement.innerText;
+
           if ($(heart).hasClass("fa-regular")) {
             $(heart).removeClass("fa-regular");
             $(heart).addClass("fa-solid");
+            // 좋아요 숫자 +1
+            number = parseInt(number) + 1;
 
             axios({
               url: "/course/fregister",
@@ -141,23 +150,30 @@
           } else {
             $(heart).addClass("fa-regular");
             $(heart).removeClass("fa-solid");
+
+            number = parseInt(number) - 1;
+
             axios({
               url: "/course/fdelete",
               method: "post",
               data: { courseID: courseID }
             }).then(() => {  })
           }
+
+          resultElement.innerText = number;
         }
 
         axios({
           url: "/course",
           method: "post"
         }).then((response)=>{
-          for(var i = 0; i<response.data.length; i++ ){
-            $( ".course-"+ response.data[i].course_id).removeClass("fa-regular").addClass("fa-solid");
+          for(let i = 0; i<response.data.myCourseFavorite.length; i++ ){
+            $( ".course-"+ response.data.myCourseFavorite[i].course_id).removeClass("fa-regular").addClass("fa-solid");
+          }
+          for(let i = 0; i<response.data.countCourseFavorite.length; i++){
+            $(".courseCount-" + response.data.countCourseFavorite[i].course_id ).html(parseInt(response.data.countCourseFavorite[i].count));
           }
         })
-
       </script>
 </body>
 

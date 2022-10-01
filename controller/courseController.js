@@ -96,6 +96,7 @@ async function getCourseDatas(q) {
               c.id,
               c.name,
               c.image,
+              c.price,
               COUNT(*)
             FROM course AS c LEFT OUTER JOIN ${q.order} AS a
             ON c.id = a.course_id
@@ -128,18 +129,35 @@ exports.main = async (req, res) => {
   res.render("course", { bestCourse, courseData });
 };
 
-// favorite테이블 정보 보내기
-exports.courseFavorite_main = (req, res) => {
+// coursefavorite테이블에서 user_id로 본인이 누른 coursefavorite정보 보내기
+async function getMyCourseFavorites(userId) {
+  const myCourseFavorites = await CourseFavorite.findAll({
+    where: { user_id: userId },
+  });
+  return myCourseFavorites;
+}
+// coursefavorite테이블로 좋아요수 보내기
+async function countCourseFavorites() {
+  const query = `SELECT *, COUNT(*) AS count
+                FROM coursefavorite 
+                GROUP BY course_id;`;
+  const courseFavorites = await sequelize.query(query, {
+    type: QueryTypes.SELECT,
+  });
+  return courseFavorites;
+}
+exports.courseFavorite_main = async (req, res) => {
+  let myCourseFavorite;
   if (req.session.userId) {
-    CourseFavorite.findAll({
-      where: { user_id: req.session.userId },
-    }).then((result) => {
-      res.send(result);
-      console.log("courseFavorite_main:", result);
-    });
+    myCourseFavorite = await getMyCourseFavorites(req.session.userId);
   } else {
-    res.send([]);
+    myCourseFavorite = [];
   }
+  console.log("myCourseFavorite:", myCourseFavorite);
+  const countCourseFavorite = await countCourseFavorites();
+  console.log("countCourseFavorite:", countCourseFavorite);
+  let data = { myCourseFavorite, countCourseFavorite };
+  res.send(data);
 };
 
 //* 등록부분
