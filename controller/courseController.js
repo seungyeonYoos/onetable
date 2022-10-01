@@ -188,6 +188,17 @@ async function getDetailPages(courseID) {
   });
   return detailPages;
 }
+// 신청자수 보내자
+async function getCountApplications(courseID) {
+  const query = `SELECT *, COUNT(*) AS count
+                FROM Application
+                WHERE application.course_id = ${courseID}
+                GROUP BY course_id;`;
+  const countApplications = await sequelize.query(query, {
+    type: QueryTypes.SELECT,
+  });
+  return countApplications;
+}
 // 기대평 보여주는 부분
 async function getCourseReviews(courseID) {
   const query = `SELECT 
@@ -206,9 +217,16 @@ exports.course_detailPage = async (req, res) => {
     console.log("courseDetail:", courseDetail);
     let userId = req.session.userId;
     console.log("userId:", userId);
+    const countApplication = await getCountApplications(req.query.courseID);
+    console.log("countApplication:", countApplication);
     const courseReview = await getCourseReviews(req.query.courseID);
     console.log("courseReview:", courseReview);
-    res.render("coursein", { courseDetail, userId, courseReview });
+    res.render("coursein", {
+      courseDetail,
+      userId,
+      countApplication,
+      courseReview,
+    });
   } else {
     res.send(
       `<script>
