@@ -83,7 +83,7 @@ body {
     text-align: center;
 }
 .nav-link {
-    font-size: calc(0.26em + 1vw);
+    font-size: calc(0.1em + 0.9vw);
 }
 body a:hover {
     color: brown;
