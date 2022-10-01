@@ -30,7 +30,7 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
   <style>
-    
+
   </style>
 </head>
 
@@ -46,8 +46,7 @@
           <%=courseDetail.intro%>
         </div>
         <div>
-          <%=courseDetail.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
-          ",");%>
+          <%=courseDetail.price.toString().replace( /\B(?=(\d{3})+(?!\d))/g, "," );%>원
         </div>
         <% if(courseDetail.user_id==userId) { %>
           <div>
@@ -61,61 +60,65 @@
             <hr>
             <span><i class="fa-regular fa-clock"></i>강의시간</span>
             <span>
-              <%=courseDetail.hour%>
+              <%=courseDetail.hour%> 분
             </span>
             <span><i class="fa-regular fa-calendar-days"></i>수강기간</span>
             <span>
               <%=courseDetail.date%>
-            </span>
+            </span><br />
             <span><i class="fa-solid fa-user"></i>수강정원</span>
             <span>
               <%=courseDetail.totalNumber%>
             </span>
-             
-            <% if(countApplication.length == 0){ %>
+
+            <% if(countApplication.length==0){ %>
               <span><i class="fa-regular fa-user"></i>현재신청자 수 0 </span>
               <a href="/course/apply?courseID=<%=courseDetail.id%>">수강신청</a>
-            <% } else if(courseDetail.totalNumber == countApplication[0].count){ %>
-              <div>수강신청 마감</div>
-            <% } else { %>
-              <span><i class="fa-regular fa-user"></i>현재신청자 수
-              <%=countApplication[0].count%></span>
-              <a href="/course/apply?courseID=<%=courseDetail.id%>">수강신청</a>
-            <% } %>  
-           
-           
-      </div>
+              <% } else if(courseDetail.totalNumber==countApplication[0].count){ %>
+                <div>수강신청 마감</div>
+                <% } else { %>
+                  <span><i class="fa-regular fa-user"></i>현재신청자 수
+                    <%=countApplication[0].count%>
+                  </span><br />
+                  <button onclick="location.href='/course/apply?courseID=<%=courseDetail.id%>'" class="course-apply">수강신청</button>
+                
+                  <% } %>
 
 
-      <div>
-        <div>기대평</div>
-        <form id="registerForm">
-          <input type="hidden" name="id">
-          <input type="text" name="comment" placeholder="기대평을 작성해주세요."><br>
-          <button type="button" id="registerBtn" onclick="register(`<%=courseDetail.id%>`);">등록</button>
-          <div class="d-none" id="loadBtn">
-            <button type="button" onclick="correct();">수정</button>
-            <button type="button" onclick="cancel();">취소</button>
-          </div>
-        </form>
-        <table>
-          <% for(var i=0; i<courseReview.length; i++){ %>
-            <tr>
-              <td>
-                <%=courseReview[i].name%>
-              </td>
-              <td>
-                <%=courseReview[i].comment%>
-              </td>
-              <% if(courseReview[i].user_id==userId) { %>
-                <td><button type="button" onclick="load(`<%=courseReview[i].id%>`, this)">수정</button></td>
-                <td><button type="button" onclick="del(`<%=courseReview[i].id%>`, this)">삭제</button></td>
-                <% } %>
-            </tr>
-            <% } %>
-        </table>
       </div>
     </div>
+
+
+    <div class="expect">
+      <div>기대평</div>
+      <hr />
+      <form id="registerForm">
+        <input type="hidden" name="id">
+        <input type="text" name="comment" placeholder="기대평을 작성해주세요."><br>
+        <button type="button" id="registerBtn" onclick="register(`<%=courseDetail.id%>`);">등록</button>
+        <div class="d-none" id="loadBtn">
+          <button type="button" onclick="correct();">수정</button>
+          <button type="button" onclick="cancel();">취소</button>
+        </div>
+      </form>
+      <table>
+        <% for(var i=0; i<courseReview.length; i++){ %>
+          <tr>
+            <td>
+              <%=courseReview[i].name%>
+            </td>
+            <td>
+              <%=courseReview[i].comment%>
+            </td>
+            <% if(courseReview[i].user_id==userId) { %>
+              <td><button type="button" onclick="load(`<%=courseReview[i].id%>`, this)">수정</button></td>
+              <td><button type="button" onclick="del(`<%=courseReview[i].id%>`, this)">삭제</button></td>
+              <% } %>
+          </tr>
+          <% } %>
+      </table>
+    </div>
+
 
     <%-include("footer.ejs")%>
 

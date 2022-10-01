@@ -33,24 +33,25 @@
 
 <body>
   <%-include("navbar.ejs")%>
-
-    <div class="cooking-class">
-      <div class="cooking-class-title">쿠킹 클래스</div>
-      <hr>
-      <!-- 슬라이더 -->
-      <div class="bestCourse">
-        <% for(let i=0; i <bestCourse.length; i++) { %>
-          <div class="post">
-            <img src="../static/img/ico_best<%=bestCourse[i]['id']%>.png" class="score">
-            <a href="/course/detail?courseID=<%=bestCourse[i]['id']%>">
-              <img src="/uploads/courseIMG/<%=bestCourse[i]['image']%>" />
-              <div class="bestcourseName">
-                <%=bestCourse[i]['name']%>
-                <%=bestCourse[i]['price']%>
-              </div>
-            </a>
-          </div>
-          <% } %>
+    <div class="cooking-class-top">
+      <div class="cooking-class">
+        <div class="cooking-class-title">BEST 클래스</div>
+        <hr>
+        <!-- 슬라이더 -->
+        <div class="bestCourse">
+          <% for(let i=0; i <bestCourse.length; i++) { %>
+            <div class="post">
+              <img src="../static/img/ico_best<%=bestCourse[i]['id']%>.png" class="score">
+              <a href="/course/detail?courseID=<%=bestCourse[i]['id']%>">
+                <img src="/uploads/courseIMG/<%=bestCourse[i]['image']%>" class="bestCourseImage" />
+                <div class="bestcourseName">
+                  <%=bestCourse[i]['name']%>
+                    <%=bestCourse[i]['price']%>
+                </div>
+              </a>
+            </div>
+            <% } %>
+        </div>
       </div>
 
       <div class="course-list container">
@@ -158,7 +159,7 @@
               url: "/course/fdelete",
               method: "post",
               data: { courseID: courseID }
-            }).then(() => {  })
+            }).then(() => { })
           }
 
           resultElement.innerText = number;
@@ -167,12 +168,12 @@
         axios({
           url: "/course",
           method: "post"
-        }).then((response)=>{
-          for(let i = 0; i<response.data.myCourseFavorite.length; i++ ){
-            $( ".course-"+ response.data.myCourseFavorite[i].course_id).removeClass("fa-regular").addClass("fa-solid");
+        }).then((response) => {
+          for (let i = 0; i < response.data.myCourseFavorite.length; i++) {
+            $(".course-" + response.data.myCourseFavorite[i].course_id).removeClass("fa-regular").addClass("fa-solid");
           }
-          for(let i = 0; i<response.data.countCourseFavorite.length; i++){
-            $(".courseCount-" + response.data.countCourseFavorite[i].course_id ).html(parseInt(response.data.countCourseFavorite[i].count));
+          for (let i = 0; i < response.data.countCourseFavorite.length; i++) {
+            $(".courseCount-" + response.data.countCourseFavorite[i].course_id).html(parseInt(response.data.countCourseFavorite[i].count));
           }
         })
       </script>
