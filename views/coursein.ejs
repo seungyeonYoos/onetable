@@ -18,6 +18,8 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/static/css/navbar.css" />
   <link rel="stylesheet" href="/static/css/footer.css" />
+  <link rel="stylesheet" href="/static/css/coursein.css" />
+
   <!-- 부트스트랩 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
@@ -28,144 +30,161 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
   <style>
-    .d-none {
-      display: none;
-    }
+    
   </style>
 </head>
 
 <body>
-    <%-include("navbar.ejs")%>
+  <%-include("navbar.ejs")%>
     <div class="coursein-main">
+      <div class="coursein">
+        <img src="/uploads/courseIMG/<%=courseDetail.image%>" alt="요리이미지">
+        <div class="course-name">
+          <%=courseDetail.name%>
+        </div>
+        <div class="course-intro">
+          <%=courseDetail.intro%>
+        </div>
         <div>
-            <img src="/uploads/courseIMG/<%=courseDetail.image%>" alt="요리이미지">
-            <div class="course-name"><%=courseDetail.name%></div>
-            <div class="course-intro"><%=courseDetail.intro%></div>
-            <div><%=courseDetail.price%></div>
-            <% if(courseDetail.user_id == userId) { %>
-            <div>
-              <a href="/course/update?courseID=<%=courseDetail.id%>">수정</a>
-              <form action="/course/delete" method="post">
-                <input type="hidden" name="courseID" value="<%=courseDetail.id%>" />
-                <button type="submit">삭제</a>
-              </form>
-            </div>
-            <% } %>
+          <%=courseDetail.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
+          ",");%>
+        </div>
+        <% if(courseDetail.user_id==userId) { %>
+          <div>
+            <a href="/course/update?courseID=<%=courseDetail.id%>">수정</a>
+            <form action="/course/delete" method="post">
+              <input type="hidden" name="courseID" value="<%=courseDetail.id%>" />
+              <button type="submit">삭제</a>
+            </form>
+          </div>
+          <% } %>
             <hr>
             <span><i class="fa-regular fa-clock"></i>강의시간</span>
-            <span><%=courseDetail.hour%></span>
+            <span>
+              <%=courseDetail.hour%>
+            </span>
             <span><i class="fa-regular fa-calendar-days"></i>수강기간</span>
-            <span><%=courseDetail.date%></span>
+            <span>
+              <%=courseDetail.date%>
+            </span>
             <span><i class="fa-regular fa-calendar-days"></i>수강정원</span>
-            <span><%=courseDetail.totalNumber%></span>
+            <span>
+              <%=courseDetail.totalNumber%>
+            </span>
             <a href="/course/apply?courseID=<%=courseDetail.id%>">수강신청</a>
-        </div>
-    </div>
+      </div>
 
-    <div>
-      <div>기대평</div>
-      <form id="registerForm">
-        <input type="hidden" name="id">
-        <input type="text" name="comment" placeholder="기대평을 작성해주세요."><br>
-        <button type="button" id="registerBtn" onclick="register(`<%=courseDetail.id%>`);">등록</button>
-        <div class="d-none" id="loadBtn">
-          <button type="button" onclick="correct();">수정</button>
-          <button type="button" onclick="cancel();">취소</button>
-        </div>
-      </form>
-      <table>
-      <% for(var i=0; i<courseReview.length; i++){ %>
-          <tr>
-            <td><%=courseReview[i].name%></td>
-            <td><%=courseReview[i].comment%></td>
-          <% if(courseReview[i].user_id == userId) { %>
-            <td><button type="button" onclick="load(`<%=courseReview[i].id%>`, this)">수정</button></td>
-            <td><button type="button" onclick="del(`<%=courseReview[i].id%>`, this)">삭제</button></td>
-          <% } %>
-          </tr>
-      <% } %>
-      </table>
+
+      <div>
+        <div>기대평</div>
+        <form id="registerForm">
+          <input type="hidden" name="id">
+          <input type="text" name="comment" placeholder="기대평을 작성해주세요."><br>
+          <button type="button" id="registerBtn" onclick="register(`<%=courseDetail.id%>`);">등록</button>
+          <div class="d-none" id="loadBtn">
+            <button type="button" onclick="correct();">수정</button>
+            <button type="button" onclick="cancel();">취소</button>
+          </div>
+        </form>
+        <table>
+          <% for(var i=0; i<courseReview.length; i++){ %>
+            <tr>
+              <td>
+                <%=courseReview[i].name%>
+              </td>
+              <td>
+                <%=courseReview[i].comment%>
+              </td>
+              <% if(courseReview[i].user_id==userId) { %>
+                <td><button type="button" onclick="load(`<%=courseReview[i].id%>`, this)">수정</button></td>
+                <td><button type="button" onclick="del(`<%=courseReview[i].id%>`, this)">삭제</button></td>
+                <% } %>
+            </tr>
+            <% } %>
+        </table>
+      </div>
     </div>
 
     <%-include("footer.ejs")%>
 
-    <script>
-      function register(courseID){
-        if('<%=isLogin%>' == 'false'){
-          alert("로그인이 필요한 기능입니다.");
-          window.location = "/user/login";
-          return false;
-        }
-        let form = document.getElementById("registerForm");
-        axios({
-          url: "/course/rregister",
-          method: "post",
-          data: {
-            courseID: courseID,
-            comment: form.comment.value
+      <script>
+        function register(courseID) {
+          if ('<%=isLogin%>' == 'false') {
+            alert("로그인이 필요한 기능입니다.");
+            window.location = "/user/login";
+            return false;
           }
-        }).then((response) => {
-          $("table").append(
-            `<tr>
+          let form = document.getElementById("registerForm");
+          axios({
+            url: "/course/rregister",
+            method: "post",
+            data: {
+              courseID: courseID,
+              comment: form.comment.value
+            }
+          }).then((response) => {
+            $("table").append(
+              `<tr>
               <td>${response.data.myName.name}</td>
               <td>${response.data.courseReview.comment}</td>
               <td><button type="button" onclick="load(${response.data.courseReview.id}, this)">수정</button></td>
               <td><button type="button" onclick="del(${response.data.courseReview.id}, this)">삭제</button></td>
             </tr>`
-          )
+            )
+            form.reset();
+          })
+        }
+
+        function del(id, obj) {
+          axios({
+            url: "/course/rdelete",
+            method: "post",
+            data: { id: id }
+          }).then((response) => {
+            console.log(response.data);
+            obj.parentElement.parentElement.remove();
+          })
+        }
+
+        let correct_tr;
+        function load(id, obj) {
+          let form = document.getElementById("registerForm");
+          axios({
+            url: "/course/rload",
+            method: "post",
+            data: { id: id }
+          }).then((response) => {
+            form.comment.value = response.data.comment;
+            $("#registerBtn").addClass("d-none");
+            $("#loadBtn").removeClass("d-none");
+
+            form.id.value = response.data.id;
+            correct_tr = obj.parentElement.parentElement;
+          })
+        }
+
+        function cancel() {
+          let form = document.getElementById("registerForm");
           form.reset();
-        })
-      }
+          $("#loadBtn").addClass("d-none");
+          $("#registerBtn").removeClass("d-none");
+        }
 
-      function del(id, obj){
-        axios({
-          url: "/course/rdelete",
-          method: "post",
-          data: {id:id}
-        }).then((response) => {
-          console.log(response.data);
-          obj.parentElement.parentElement.remove();
-        })
-      }
-
-      let correct_tr;
-      function load(id, obj){
-        let form = document.getElementById("registerForm");
-        axios({
-          url: "/course/rload",
-          method: "post",
-          data: {id:id}
-        }).then((response) => {
-          form.comment.value = response.data.comment;
-          $("#registerBtn").addClass("d-none");
-          $("#loadBtn").removeClass("d-none");
-
-          form.id.value = response.data.id;
-          correct_tr = obj.parentElement.parentElement;
-        })
-      }
-
-      function cancel(){
-        let form = document.getElementById("registerForm");
-        form.reset();
-        $("#loadBtn").addClass("d-none");
-        $("#registerBtn").removeClass("d-none");
-      }
-
-      function correct(id){
-        let form = document.getElementById("registerForm");
-        axios({
-          url: "/course/rupdate",
-          method: "post",
-          data: {
-            id: form.id.value,
-            comment: form.comment.value
-          }
-        }).then((response) => {
-          correct_tr.children[1].innerText = form.comment.value;
-          cancel();
-        })
-      }
-    </script>
+        function correct(id) {
+          let form = document.getElementById("registerForm");
+          axios({
+            url: "/course/rupdate",
+            method: "post",
+            data: {
+              id: form.id.value,
+              comment: form.comment.value
+            }
+          }).then((response) => {
+            correct_tr.children[1].innerText = form.comment.value;
+            cancel();
+          })
+        }
+      </script>
 </body>
+
 </html>
