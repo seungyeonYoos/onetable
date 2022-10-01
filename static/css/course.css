@@ -47,8 +47,8 @@
         left: 0px;
         bottom: 30px;
       }
-      .course-list {
-        /* border: 1px dotted red; */
+      .course-list-item a {
+        color: black;
       }
       .course-list-item {
         position: relative;
