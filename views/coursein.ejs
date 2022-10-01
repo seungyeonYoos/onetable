@@ -67,11 +67,23 @@
             <span>
               <%=courseDetail.date%>
             </span>
-            <span><i class="fa-regular fa-calendar-days"></i>수강정원</span>
+            <span><i class="fa-solid fa-user"></i>수강정원</span>
             <span>
               <%=courseDetail.totalNumber%>
             </span>
-            <a href="/course/apply?courseID=<%=courseDetail.id%>">수강신청</a>
+             
+            <% if(countApplication.length == 0){ %>
+              <span><i class="fa-regular fa-user"></i>현재신청자 수 0 </span>
+              <a href="/course/apply?courseID=<%=courseDetail.id%>">수강신청</a>
+            <% } else if(courseDetail.totalNumber == countApplication[0].count){ %>
+              <div>수강신청 마감</div>
+            <% } else { %>
+              <span><i class="fa-regular fa-user"></i>현재신청자 수
+              <%=countApplication[0].count%></span>
+              <a href="/course/apply?courseID=<%=courseDetail.id%>">수강신청</a>
+            <% } %>  
+           
+           
       </div>
 
 
