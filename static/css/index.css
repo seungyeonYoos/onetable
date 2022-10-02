@@ -171,6 +171,7 @@
   width: 100%;
   position: relative;
   object-fit: cover;
+  max-height: 255px;
 }
 /* .main-third-floor-contents {
     display: flex;

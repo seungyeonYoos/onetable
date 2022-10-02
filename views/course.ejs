@@ -84,6 +84,7 @@
               <option value="high">8만원 이상</option>
             </select>
             <button type="button" onclick="apply();" id="apply-button">적용</button>
+            <button type="button" onclick="courseRegister();">등록</button>
           </form>
         </div>
         <div class="container">
@@ -102,7 +103,7 @@
                 </a>
                 <div onclick="favorite(this, `<%=courseData[i]['id']%>`);" class="heart">
                   <i class="fa-regular fa-heart course-<%=courseData[i]['id']%> "></i>
-                  <span id="result" class="courseCount-<%=courseData[i]['id']%>"></span>
+                  <span id="result" class="courseCount-<%=courseData[i]['id']%>">0</span>
                 </div>
 
               </div>
@@ -176,6 +177,16 @@
             $(".courseCount-" + response.data.countCourseFavorite[i].course_id).html(parseInt(response.data.countCourseFavorite[i].count));
           }
         })
+
+        function courseRegister(){
+          if ('<%=isLogin%>' == 'false') {
+            alert("로그인이 필요한 기능입니다.");
+            window.location = "/user/login";
+            return false;
+          }else {
+            window.location = "/course/register";
+          }
+        }
       </script>
 </body>
 

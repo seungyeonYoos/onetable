@@ -49,11 +49,11 @@
           <%=courseDetail.price.toString().replace( /\B(?=(\d{3})+(?!\d))/g, "," );%>원
         </div>
         <% if(courseDetail.user_id==userId) { %>
-          <div>
-            <a href="/course/update?courseID=<%=courseDetail.id%>">수정</a>
+          <div class="course-modify-delete">
+            <button onclick="location.href='/course/update?courseID=<%=courseDetail.id%>'" class="course-modify">수정</button>
             <form action="/course/delete" method="post">
               <input type="hidden" name="courseID" value="<%=courseDetail.id%>" />
-              <button type="submit">삭제</a>
+              <button type="submit">삭제</button>
             </form>
           </div>
           <% } %>
@@ -72,8 +72,8 @@
             </span>
 
             <% if(countApplication.length==0){ %>
-              <span><i class="fa-regular fa-user"></i>현재신청자 수 0 </span>
-              <a href="/course/apply?courseID=<%=courseDetail.id%>">수강신청</a>
+              <span><i class="fa-regular fa-user"></i>현재신청자 수 0 </span><br />
+              <button onclick="location.href='/course/apply?courseID=<%=courseDetail.id%>'" class="course-apply">수강신청</button>
               <% } else if(courseDetail.totalNumber==countApplication[0].count){ %>
                 <div>수강신청 마감</div>
                 <% } else { %>
