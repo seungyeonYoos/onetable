@@ -45,19 +45,20 @@
         <div class="course-intro">
           <%=courseDetail.intro%>
         </div>
-        <div>
+        <div class="course-price">
           <%=courseDetail.price.toString().replace( /\B(?=(\d{3})+(?!\d))/g, "," );%>원
         </div>
         <% if(courseDetail.user_id==userId) { %>
           <div class="course-modify-delete">
-            <button onclick="location.href='/course/update?courseID=<%=courseDetail.id%>'" class="course-modify">수정</button>
+            <button onclick="location.href='/course/update?courseID=<%=courseDetail.id%>'"
+              class="course-modify">수정</button>
             <form action="/course/delete" method="post">
               <input type="hidden" name="courseID" value="<%=courseDetail.id%>" />
-              <button type="submit">삭제</button>
+              <button type="submit" class="course-delete">삭제</button>
             </form>
           </div>
           <% } %>
-            <hr>
+            <hr class="hihr">
             <span><i class="fa-regular fa-clock"></i>강의시간</span>
             <span>
               <%=courseDetail.hour%> 분
@@ -73,15 +74,17 @@
 
             <% if(countApplication.length==0){ %>
               <span><i class="fa-regular fa-user"></i>현재신청자 수 0 </span><br />
-              <button onclick="location.href='/course/apply?courseID=<%=courseDetail.id%>'" class="course-apply">수강신청</button>
+              <button onclick="location.href='/course/apply?courseID=<%=courseDetail.id%>'"
+                class="course-apply">수강신청</button>
               <% } else if(courseDetail.totalNumber==countApplication[0].count){ %>
                 <div>수강신청 마감</div>
                 <% } else { %>
                   <span><i class="fa-regular fa-user"></i>현재신청자 수
                     <%=countApplication[0].count%>
                   </span><br />
-                  <button onclick="location.href='/course/apply?courseID=<%=courseDetail.id%>'" class="course-apply">수강신청</button>
-                
+                  <button onclick="location.href='/course/apply?courseID=<%=courseDetail.id%>'"
+                    class="course-apply">수강신청</button>
+
                   <% } %>
 
 
@@ -90,33 +93,37 @@
 
 
     <div class="expect">
-      <div>기대평</div>
-      <hr />
-      <form id="registerForm">
-        <input type="hidden" name="id">
-        <input type="text" name="comment" placeholder="기대평을 작성해주세요."><br>
-        <button type="button" id="registerBtn" onclick="register(`<%=courseDetail.id%>`);">등록</button>
-        <div class="d-none" id="loadBtn">
-          <button type="button" onclick="correct();">수정</button>
-          <button type="button" onclick="cancel();">취소</button>
-        </div>
-      </form>
-      <table>
-        <% for(var i=0; i<courseReview.length; i++){ %>
-          <tr>
-            <td>
-              <%=courseReview[i].name%>
-            </td>
-            <td>
-              <%=courseReview[i].comment%>
-            </td>
-            <% if(courseReview[i].user_id==userId) { %>
-              <td><button type="button" onclick="load(`<%=courseReview[i].id%>`, this)">수정</button></td>
-              <td><button type="button" onclick="del(`<%=courseReview[i].id%>`, this)">삭제</button></td>
-              <% } %>
-          </tr>
-          <% } %>
-      </table>
+      <div class="expect-in">
+        <div>기대평</div>
+        <hr />
+        <form id="registerForm">
+          <input type="hidden" name="id">
+          <div class="expect-comment">
+            <input type="text" name="comment" placeholder="기대평을 작성해주세요." id="expect"><br>
+            <button type="button" id="registerBtn" onclick="register(`<%=courseDetail.id%>`);">등록</button>
+          </div>
+          <div class="d-none" id="loadBtn">
+            <button type="button" onclick="correct();">수정</button>
+            <button type="button" onclick="cancel();">취소</button>
+          </div>
+        </form>
+        <table class="expect-table">
+          <% for(var i=0; i<courseReview.length; i++){ %>
+            <tr>
+              <td>
+                <%=courseReview[i].name%>
+              </td>
+              <td>
+                <%=courseReview[i].comment%>
+              </td>
+              <% if(courseReview[i].user_id==userId) { %>
+                <td><button type="button" onclick="load(`<%=courseReview[i].id%>`, this)">수정</button></td>
+                <td><button type="button" onclick="del(`<%=courseReview[i].id%>`, this)">삭제</button></td>
+                <% } %>
+            </tr>
+            <% } %>
+        </table>
+      </div>
     </div>
 
 
