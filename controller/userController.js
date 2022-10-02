@@ -127,6 +127,16 @@ async function getApplyCourses(userId) {
   });
   return applyCourses;
 }
+async function getCourseReviews(userId) {
+  const query = `SELECT cr.course_id, c.name, cr.comment
+                FROM coursereview AS cr INNER JOIN course AS c
+                ON cr.course_id = c.id
+                WHERE cr.user_id = ${userId};`;
+  const courseReviews = await sequelize.query(query, {
+    type: QueryTypes.SELECT,
+  });
+  return courseReviews;
+}
 
 exports.myPage = async (req, res) => {
   const myInfo = await getMyInfos(req.session.userId);
@@ -141,6 +151,8 @@ exports.myPage = async (req, res) => {
   console.log("favCourse:", favCourse);
   const applyCourse = await getApplyCourses(req.session.userId);
   console.log("applyCourse:", applyCourse);
+  const courseReview = await getCourseReviews(req.session.userId);
+  console.log("courseReview:", courseReview);
   res.render("mypage", {
     myInfo,
     myRecipe,
@@ -148,6 +160,7 @@ exports.myPage = async (req, res) => {
     myCourse,
     favCourse,
     applyCourse,
+    courseReview,
   });
 };
 
