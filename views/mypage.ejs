@@ -95,7 +95,7 @@
                             <% for (var i = 0; i < favRecipe.length ; i++ ) { %>
                                 <li class="itemList userLikesItem">
                                     <a href='/recipe/<%=favRecipe[i].recipe_id%>'>
-                                        <img src='http://localhost:8000/uploads/recipe/<%=favRecipe[i][recipe.image]%>' alt="">
+                                        <img src='http://localhost:8000/uploads/recipe/<%=favRecipe[i]["recipe.image"]%>' alt="">
                                         <span><%= favRecipe[i]['recipe.title'] %></span>  
                                     </a>
                                 </li>
