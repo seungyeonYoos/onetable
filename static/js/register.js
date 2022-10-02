@@ -1,4 +1,6 @@
  // image upload
+
+
  function readImage(input) {
 
 
@@ -27,58 +29,21 @@
      });
  }
 
- function count_stuff() {
+ var stuff_count = 1;
 
-     $(".stuff_button").before(`
-    <ul id="stuff">
-    <div class="stuffItem">
-        <label for="stuff_itme"></label>
-        <li class="stuff_itme"><input id="stuff_itme" type="text" placeholder="ex : 소금 "></li>
-    </div>
-    <div class="met">
-        <label for="meterage"></label>
-        <li class="meterage"><input id="meterage" type="text" placeholder="ex : 39g"></li><br>
-    </div>
-    <div class="meterageInfor">
-        <select name="meterageInfor" id="">
-    <option value="ml">ml</option>
-    <option value="g">g</option>
-    <option value="oz">oz</option>
-    </div>
-    </select>
-    </ul>
-    `)
+ function count_stuff() {
+     stuff_count += 1;
+     console.log(stuff_count)
  }
+
+
+ var order_count = 1;
 
  function count_order() {
-     $(".order_button").before(`
-     <ul id="order_itme">
-     <div class="order_title">
-         <label class="orderInfor" for="">설명</label>
-     </div>
-     <div class="order_list">
-         <li class="order_infor">
-
-             <textarea name="" id="order_infor" rows="3" cols="30"></textarea>
-         </li>
-         <li class="order_img">
-             <img id="orderImg" src="" alt="orderImg" name="orderImg" accept="image/*" />
-             <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="orderImg" />
-             <label id="File" for="orderFile">poto</label>
-             <input class="file" id="orderFile" type="file" name="recipeImg" onclick="imginput()">
-
-         </li>
-     </div>
- </ul>
-    `)
-
+     order_count += 1;
  }
- //   <input type="file" id="inputImage">
 
- //    <button id="sendButton">보내기</button>
-
- //    <img src="" class="uploadImage">
- function readImage(input) {
+ function readOrderImage(input) {
 
 
      if (input.files && input.files[0]) {
@@ -98,7 +63,7 @@
  function imginput() {
      const imgUpload = document.getElementById("orderFile")
      imgUpload.addEventListener("change", e => {
-         readImage(e.target)
+         readOrderImage(e.target)
          $(".orderImg").hide();
          $("#orderImg").show();
      });
@@ -106,31 +71,46 @@
  }
 
  function newRecipe_add() {
-     var form = document.getElementById("form");
-     if (!form.checkValidity()) {
-         form.reportValidity();
+     //  if (!form.checkValidity()) {
+     //      form.reportValidity();
 
-         return false;
-     }
-
-     const formData = new FormData();
+     //      return false;
+     //  }
+     //  let form = document.getElementById("form");
+     //  const formData = new FormData();
+     const formData = $("#form").serializeObject();
      const recipefile = document.getElementById("chooseFile");
      const orderfile = document.getElementById("orderFile");
+     var data = {
+         recipeName: form.recipeName.value,
+         recipeInfor: form.recipeInfor.value,
+         category: form.category.value,
+         time: form.time.value,
+         level: form.level.value,
+         stuff: form.stuff.value,
+         meterage: form.meterage.value,
+         meterageInfor: form.meterageInfor.value,
+         orderInfor: form.order_infor.value
+     }
+
      formData.append("myImage", recipefile.files[0]);
      formData.append("recipeImg", orderfile.files[0]);
-     formData.append("recipeName", form.recipeName.value);
-     formData.append("recipeInfor", form.category.value);
-     formData.append("time", form.time.value);
-     formData.append("level", form.level.value);
-     formData.append("recipe", form.time.value);
+     formData.append("title", data.recipeName);
+     formData.append("intro", data.recipeInfor);
+     formData.append("category_id", data.category);
+     formData.append("level_id", data.level);
+     formData.append("amount", data.stuff);
+     formData.append("ingredient_id", data.meterage);
+     formData.append("unit_id", data.meterageInfor);
+
 
      axios({
              headers: {
-                 "Content-Type": "multipart/form-data",
+                 "Content-Type": `application/json`,
              },
              method: "post",
-             url: `http://localhost:8000/recipe/${id}`,
-             data: formData
+             url: `http://localhost:8000/recipe/register`,
+             data: JSON.stringify(formData)
          })
          .then((rep) => {
              return rep.data;
