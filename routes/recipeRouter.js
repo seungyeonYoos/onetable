@@ -52,10 +52,10 @@ const upload = multer({
 
 function is_login(req, res, next) {
 	if (res.locals.isLogin) {
-		console.log("YES LOGIN");
+		// console.log("YES LOGIN");
 		next();
 	} else {
-		console.log("NO LOGIN");
+		// console.log("NO LOGIN");
 		res.redirect("/user/login");
 	}
 }
