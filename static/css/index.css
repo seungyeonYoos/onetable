@@ -36,10 +36,10 @@
   
   /* first floor slide button */
   .post-slider {
-    border: 1px dotted red;
+    /* border: 1px dotted red; */
   }
   .post-wrapper {
-    border: 1px dotted blue;
+    /* border: 1px dotted blue; */
   }
   .post {
     border: 1px dotted blueviolet;
@@ -153,6 +153,24 @@
 /* 3.third-floor */
 .main-third-floor {
     margin: 50px auto;
+}
+
+.post-1 a {
+  text-decoration: none;
+  color: white;
+}
+.post-1 span {
+  position: absolute;
+  bottom: 0px;
+  padding: 10px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.post-1 a img{
+  height: 100%;
+  width: 100%;
+  position: relative;
+  object-fit: cover;
 }
 /* .main-third-floor-contents {
     display: flex;
