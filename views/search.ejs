@@ -5,7 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    
     <!-- 네브바 fontawesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
@@ -27,7 +29,23 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <style>
+      a{
+        color: inherit;
+        text-decoration: none;
+      }
+      p{
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+      }
+      img{
+        width: 100%;
+      }
       .container > div {
         padding: 40px 14px;
       }
@@ -38,7 +56,7 @@
         justify-content: center;
         /* text-align: center; */
       }
-      #search_input {
+      .search_input {
         width: 100%;
         max-width: 480px;
         position: relative;
@@ -46,7 +64,7 @@
         justify-content: center;
         align-items: center;
       }
-      #search_input input {
+      .search_input input {
         width: 100%;
         height: 48px;
         padding: 16px 42px 16px 8px;
@@ -60,14 +78,14 @@
         letter-spacing: -0.5px;
         text-indent: 5px;
       }
-      #search_input i {
+      .search_input i {
         position: absolute;
         right: 0px;
         cursor: pointer;
         padding: 8px 16px 8px 8px;
       }
 
-      #search_category {
+      .search_category {
         width: 100%;
         max-width: 480px;
         margin: 24px 0px;
@@ -75,11 +93,11 @@
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: 46px;
       }
-      #search_category button:nth-child() {
-        background-color: rgb(117, 87, 75);
-        color: rgb(255, 255, 255);
+      .bold {
+        background-color: rgb(117, 87, 75) !important;
+        color: rgb(255, 255, 255) !important;
       }
-      #search_category .category {
+      .search_category .category {
         height: 48px;
         border: 1px solid rgb(117, 87, 75);
         background-color: rgb(255, 255, 255);
@@ -92,41 +110,108 @@
         max-width: 332px;
         cursor: pointer;
       }
-      #search_category .category:hover {
+      .category:hover {
         background-color: rgb(244, 240, 239);
       }
+      .category:active{
+        border: 1px solid rgb(117, 87, 75);
+        background-color: rgb(191, 145, 126);
+      }
+      .category:first-of-type{
+        border-radius: 4px 0px 0px 4px;
+      }
+      .category:last-of-type{
+        border-radius: 0px 4px 4px 0px;
+      }
 
-      #search_contents {
+      .search_contents {
         width: 100%;
         max-width: 988px;
         border-top: 1px solid rgb(224, 224, 244);
-        padding-top: 16px;
+        text-align: center;
       }
-      #search_contents section {
+      .search_contents > section {
         margin-top: 24px;
       }
-      #search_contents section > p {
-        font-size: 16px;
-        line-height: 24px;
-        letter-spacing: 0px;
+      .search_contents > section > div > a {
+        margin-top: 24px;
+        margin-bottom: 30px;
+      }
+
+      .intro{
+        width: 100%;
+        margin-top: 8px;
+        margin-bottom: 0px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: rgb(97, 97, 97);
+        font-weight: normal;
+        font-size: 13.5px;
+        line-height: 20px;
+        letter-spacing: -0.5px;
+      }
+      .name{
+        width: 100%;
+        margin-top: 2px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 15px;
+        line-height: 22px;
+        letter-spacing: 0.25px;
+        font-weight: 700;
+
+        margin-bottom:0px;
+      }
+      .addInfos{
+        width: 100%;
+        margin-top: 8px;
+        display: inline-grid;
+        -webkit-box-pack: center;
+        justify-content: center;
+        column-gap: 12px;
+        grid-template-columns: auto auto;
+        
+      }
+      
+      .addInfo{
+        color: rgb(158, 158, 158);
+      }
+      .addInfo{
         display: flex;
+        -webkit-box-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        align-items: center;
+      }
+      .addInfo span{
+        margin-left: 3px;
+        font-weight: normal;
+        font-size: 13.5px;
+        line-height: 20px;
+        letter-spacing: -0.5px;
+      }
+
+      .price{
+        margin-top: 2px;
+        display: flex;
+        -webkit-box-align: center;
         align-items: center;
         justify-content: center;
+      }
+      .price div{
         font-weight: bold;
-        color: rgb(117, 87, 75);
+        font-size: 20px;
+        line-height: 29px;
+        letter-spacing: -0.5px;
+        color: rgb(0,0,0);
       }
-      #search_contents section > p::before,
-      #search_contents section > p:after {
-        display: inline-block;
-        content: "";
-        margin: 0px 16px;
-        width: 4px;
-        height: 4px;
-        background-color: rgb(147, 112, 98);
-        border-radius: 50%;
-      }
-      #search_contents div {
-        margin-top: 24px;
+      .price span{
+        font-size: 13px;
+        line-height: 19px;
+        letter-spacing: -0.5px;
+        margin: 8px 0px 3px;
       }
     </style>
   </head>
@@ -135,7 +220,7 @@
     <main class="container">
       <div>
         <div>
-          <form action="/search/get" method="get" id="search_input">
+          <form action="/search/get" method="get" class="search_input">
             <input
               type="search"
               id="searchWord"
@@ -146,30 +231,55 @@
               <i onclick="search();" class="fa-solid fa-magnifying-glass"></i>
             </div>
           </form>
-          <div id="search_category">
-            <button class="category">레시피</button>
-            <button class="category">클래스</button>
+          <div class="search_category">
+            <button class="category recipe_cg bold" onclick="recipe();">레시피(<%=recipeData.length%>)</button>
+            <button class="category course_cg" onclick="course();">클래스(<%=courseData.length%>)</button>
           </div>
-          <div id="search_contents">
+          <div class="search_contents">
             <section>
-              <p>맞춤 추천</p>
-              <div class="row">
-                <a class="col">
+              <div class="row search_recipe">
+                <% for(let i=0; i < recipeData.length; i++) { %>
+                <a class="col col-sm-6 col-md-4 col-lg-3" href="/recipe/<%=recipeData[i]['id']%>">
                   <div>
-                    <div class="image">
-                      <img src="" />
-                    </div>
-                    <div class="desc">
-                      <p class="name"></p>
-                      <div class="price_info">
-                        <div class="price">
-                          <p></p>
-                          <span>원</span>
+                    <div>
+                      <img src="/uploads/recipe/<%=recipeData[i]['image']%>.jpg" />
+                      <p class="intro"><%=recipeData[i]['intro']%></p> 
+                      <p class="name"><%=recipeData[i]['title']%></p>
+                      <div class="addInfos">
+                        <div class="addInfo">
+                          <i class="fal fa-stars fa-xs"></i>
+                          <span><%=recipeData[i]['list']%></span>
+                        </div>
+                        <div class="addInfo">
+                          <i class="fal fa-clock fa-xs"></i>
+                          <span>90분</span>
+                          <!-- <span>분</span> -->
+                          <!-- <span><%=recipeData[i]['cookTime']%></span> -->
                         </div>
                       </div>
                     </div>
                   </div>
                 </a>
+                <% } %>
+              </div>
+              <div class="row search_course d-none">
+                <% for(let i=0; i <courseData.length; i++) { %>
+                <a class="col col-sm-6 col-md-4 col-lg-3" href="/course/detail?courseID=<%=courseData[i]['id']%>">
+                  <div>
+                    <div class="image">
+                      <img src="/uploads/courseIMG/<%=courseData[i]['image']%>" />
+                    </div>
+                    <div class="desc">
+                      <p class="intro"><%=courseData[i]['intro']%></p> 
+                      <p class="name"><%=courseData[i]['name']%></p>
+                      <div class="price">
+                        <div><%=courseData[i]['price']%></div>
+                        <span>원</span>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <% } %>
               </div>
             </section>
           </div>
@@ -183,6 +293,22 @@
     function search() {
       let form = document.querySelector("form");
       form.submit();
+    }
+
+    function recipe(){
+      $(".recipe_cg").addClass("bold");
+      $(".course_cg").removeClass("bold");
+  
+      $(".search_recipe").removeClass("d-none");
+      $(".search_course").addClass("d-none");
+    }
+
+    function course(){
+      $(".recipe_cg").removeClass("bold");
+      $(".course_cg").addClass("bold");
+
+      $(".search_course").removeClass("d-none");
+      $(".search_recipe").addClass("d-none")
     }
   </script>
 </html>
