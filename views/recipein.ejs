@@ -41,7 +41,7 @@
     <%-include('navbar.ejs')%>
         <div id="recipeItem" class="container">
             <div class="navItem">
-                <button type="button" id="Heart" class="Heart" name="Heart" value="1" onclick="heart()"><i class=" xi-heart-o xi-x"></i>
+                <button type="button" id="Heart" class="Heart" name="Heart" value="1" onclick="heart('<%=id%>')"><i class=" xi-heart-o xi-x"></i>
                     <div id="heartCount" class="heartCount"></div>
                 </button>
 
@@ -154,7 +154,7 @@
                         <% for (var i = 1; i < selectReviews.length ; i++ ) { %>
                             <li class="commentList">
                                 <p class="name">
-                                    <%=selectReviews[i]["user.name"]%> &#160;&#124; &#160; </p>
+                                    <%=selectReviews[i].user_id%> &#160;&#124; &#160; </p>
                                 <p class="comment">
                                     <%=selectReviews[i].comment%>
                                 </p>
@@ -180,7 +180,7 @@
 
             <br>
             <a id="top" href="#recipeItem"><i clbass="fi fi-rr-chevron-double-up"></i></a>
-
+<br>
             <%-include('footer.ejs')%>
                 <script src="/static/js/recipein.js"></script>
 
