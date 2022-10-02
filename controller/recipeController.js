@@ -9,6 +9,7 @@ const {
 	Step,
 	Review,
 	Favorite,
+	sequelize,
 } = require("../model");
 
 //(method: get) (path: /recipe/:id) 특정 아이디의 레시피를 보여준다.
@@ -75,8 +76,55 @@ exports.getRecipe = async (req, res) => {
 // 특정 카테고리로 레시피들을 보여준다.
 async function getTargetRecipes(target) {
 	//category로 선택해서 볼때.
-	if (target) {
-		const { count, rows } = await Recipe.findAndCountAll({
+	console.log("target in function: ", target);
+
+	if (target === "1") {
+		const rowChange = [];
+		const result = await Favorite.findAll({
+			raw: true,
+			attributes: [
+				[sequelize.fn("COUNT", sequelize.col("recipe_id")), "favCount"],
+			],
+			group: ["recipe_id"],
+			order: [["favCount", "DESC"]],
+			include: [
+				{
+					model: Recipe,
+					attributes: ["id", "title", "image", "intro", "cookTime"],
+					required: false, //left join 그냥 하면 inner join이 됨.
+					include: [
+						{
+							model: User,
+							attributes: { exclude: ["pw", "id"] },
+							required: false,
+						},
+						{
+							model: Level,
+							attributes: { exclude: ["id"] },
+							required: false,
+						},
+						{
+							model: Category,
+							attributes: ["list"],
+							required: false,
+						},
+					],
+				},
+			],
+			limit: 20,
+		});
+		for (const element of result) {
+			const obj = new Object();
+			for (const keys in element) {
+				let key = keys === "favCount" ? keys : keys.slice(7);
+				obj[key] = element[keys];
+			}
+			rowChange.push(obj);
+		}
+		console.log("복사 성공인가??💖", rowChange);
+		return rowChange;
+	} else if (target) {
+		const result = await Recipe.findAll({
 			raw: true,
 			attributes: { exclude: ["category_id", "level_id", "user_id"] },
 			include: [
@@ -95,10 +143,11 @@ async function getTargetRecipes(target) {
 				},
 			],
 		});
-		return { count, rows };
+
+		return result;
 	} else {
 		//선택값이 없을 때 전부 보여준다.
-		const { count, rows } = await Recipe.findAndCountAll({
+		const result = await Recipe.findAll({
 			raw: true,
 			attributes: { exclude: ["category_id", "level_id", "user_id"] },
 			include: [
@@ -116,31 +165,35 @@ async function getTargetRecipes(target) {
 				},
 			],
 		});
-		return { count, rows };
+
+		return result;
 	}
 }
 
 //(method: get) (path: /recipe)에서 레시피들을 보여준다.
 exports.getAllRecipe = async (req, res) => {
 	// let target = req.body.data;
-	let target = req.query.category;
-	console.log(req.query);
-	console.log("target:", target);
-	//const {target} = req.query;
+	const { category, like } = req.query;
 	let data;
-	if (target) {
-		data = await getTargetRecipes(target);
-	} else {
-		data = await getTargetRecipes();
-	}
-	console.log(data);
 
-	if (data.rows) {
+	if (!category && !like) {
+		data = await getTargetRecipes();
+		console.log("1");
+	} else if (like) {
+		data = await getTargetRecipes(like);
+		console.log("2");
+	} else {
+		data = await getTargetRecipes(category);
+		console.log("3");
+	}
+	console.log("this is 데이터", data);
+
+	if (data) {
 		// console.log(typeof rows, typeof count);
-		res.render("recipe", { data: data.rows, count: data.count });
+		return res.render("recipe", { data });
 	} else {
 		console.log("레시피가 찾아지지 않았습니다.");
-		res.render("recipe", { data: false });
+		return res.render("recipe", { data: false });
 	}
 };
 

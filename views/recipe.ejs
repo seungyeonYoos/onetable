@@ -85,16 +85,19 @@
             </div>
             <hr>
             <div id="recipeList">
-                <div id="bar">
-                    <label for="like">좋아요 순</label>
-                    <input type="button" id="like" name="like">
-                    <a href="/recipe/register" id="newRecipe">New Recipe</a>
-                </div>
+                <form action="/recipe" method="get">
+                    <div id="bar">
+                        <label for="like">좋아요 순</label>
+                        <input type="submit" id="like" name="like" value="1">
+                        
+                        <a href="/recipe/register" id="newRecipe">New Recipe</a>
+                    </div>
+                </form>
                 <h2 class="catName">Category Name</h2>
                 <div id="recipe_load">
                     <ul class="recipe_list">
                         <!-- count.length : count 개수 -->
-                        <% for (var i = 0 ; i < count ; i++) { %>
+                        <% for (var i = 0 ; i < data.length ; i++) { %>
                             <li class="recipeItem">
                                 <a href="/recipe/<%=data[i].id%>">
                                     <div class="recipeImg">
