@@ -82,7 +82,31 @@
                                 <% } %>
                         </ul>
                     </div>
-
+                    <div id="view">
+                        <a href="javascript:;" class="button reviewB">더보기<i class="fi fi-rr-caret-down"></i></a>
+                    </div>
+                </div>
+                <hr>
+                <div class="courseReview">
+                    <h6>클래스 기대평</h6>
+                    <div id="courseReview_load">
+                        <ul class="item courseReviewList">
+                            <% for (var i = 0; i < courseReview.length ; i++ ) { %>
+                                <li class="itemList courseReviewItem">
+                                    <a href="/course/detail?courseID=<%=courseReview[i]['course_id']%>">
+                                        <div>
+                                            <span>클래스 이름:</span>
+                                            <span><%= courseReview[i]['name'] %></span>  
+                                        </div>
+                                        <div>
+                                            <span>기대평:</span>
+                                            <span><%= courseReview[i]['comment'] %></span> 
+                                        </div> 
+                                    </a>
+                                </li>
+                            <% } %>
+                        </ul>
+                    </div>
                     <div id="view">
                         <a href="javascript:;" class="button reviewB">더보기<i class="fi fi-rr-caret-down"></i></a>
                     </div>
@@ -113,11 +137,14 @@
                     <div id="likeClass_load">
 
                         <ul class="item likeClassList">
-                            <% for (var i = 0; i < 20 ; i++ ) { %>
-                                <li class="itemList likeClassItem"></li>
-
-                                <% } %>
-
+                            <% for (var i = 0; i < favCourse.length ; i++ ) { %>
+                                <li class="itemList likeClassItem">
+                                    <a href="/course/detail?courseID=<%=favCourse[i]['id']%>">
+                                        <img src="/uploads/courseIMG/<%=favCourse[i]['image']%>" alt="">
+                                        <span><%= favCourse[i]['name'] %></span>  
+                                    </a>
+                                </li>
+                            <% } %>
                         </ul>
                     </div>
 
@@ -152,10 +179,14 @@
                     <h6>나의 클래스</h6>
                     <div id="myClass_load">
                         <ul class="item myClassList">
-                            <% for (var i = 0; i < 20 ; i++ ) { %>
-                                <li class="itemList myClassItem"></li>
-
-                                <% } %>
+                            <% for (var i = 0; i < myCourse.length ; i++ ) { %>
+                                <li class="itemList myClassItem">
+                                    <a href="/course/detail?courseID=<%=myCourse[i]['id']%>">
+                                        <img src="/uploads/courseIMG/<%=myCourse[i]['image']%>" alt="">
+                                        <span><%= myCourse[i]['name'] %></span>  
+                                    </a>
+                                </li>
+                            <% } %>
                         </ul>
                     </div>
 
@@ -168,9 +199,14 @@
                     <h6>신청한 클래스</h6>
                     <div id="appClass_load">
                         <ul class="item appClassList">
-                            <% for (var i = 0; i < 20 ; i++ ) { %>
-                                <li class="itemList appClassItem"></li>
-                                <% } %>
+                            <% for (var i = 0; i < applyCourse.length ; i++ ) { %>
+                                <li class="itemList appClassItem">
+                                    <a href="/course/detail?courseID=<%=applyCourse[i]['id']%>">
+                                        <img src="/uploads/courseIMG/<%=applyCourse[i]['image']%>" alt="">
+                                        <span><%= applyCourse[i]['name'] %></span>  
+                                    </a>
+                                </li>
+                            <% } %>
                         </ul>
                     </div>
 

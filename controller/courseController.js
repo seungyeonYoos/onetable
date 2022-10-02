@@ -202,7 +202,7 @@ async function getCountApplications(courseID) {
 // 기대평 보여주는 부분
 async function getCourseReviews(courseID) {
   const query = `SELECT 
-                  cr.id, cr.course_id, cr.user_id, u.name, cr.comment
+                  cr.id, cr.course_id, cr.user_id, u.name, u.image, cr.comment
                 FROM user AS u INNER JOIN coursereview AS cr
                 ON u.id = cr.user_id
                 WHERE cr.course_id = ${courseID};`;
