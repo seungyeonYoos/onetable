@@ -26,26 +26,84 @@
     width: 30vw;
   }
   .course-name {
-    font-size: 35px;
+    font-size: 30px;
+    font-weight: 600;
   }
   .course-intro {
     color: rgb(159, 159, 159);
+  }
+  .course-price {
+    font-size: 22px;
+    font-weight: 600;
+    color: #71523b;
+    margin: 5px 0px;
   }
   .course-apply {
     background-color: #aa8a72;
     width: 60%;
     padding: 15px 0px;
-    margin: 15px auto;
+    margin: 25px auto;
     border-radius: 20px;
     border: 0px;
     color: white;
   }
+/* 구분선 */
+  .hihr {
+    width: 90%;
+    margin: 20px auto;
+  }
+  .coursein > span {
+    margin: 10px 3px;
+  }
 
+  
+
+  /* 수정 삭제 버튼 */
+  .course-modify-delete {
+    display: flex;
+    justify-content: center;
+  }
+  .course-modify , .course-delete {
+    border: 1px solid #aa8a72;
+    background-color: white;
+    margin: 10px;
+    color: #aa8a72;
+    width: 70px;
+    height: 30px;
+  }
+  .course-modify:hover , .course-delete:hover {
+    background-color: #aa8a72;
+    color: white;
+  }
+  
+  /* 기대평 */
   .expect {
     width: 80vw;
     margin: 20px auto;
     background-color: white;
   }
+  .expect-in {
+    width: 80%;
+    margin: 10px auto;
 
-  /* 수정 삭제 버튼 */
-  
+  }
+  .expect-in div:first-child {
+    padding-top: 10px;
+    font-size: 25px;
+    font-weight: 600;
+  }
+  /* input 창 */
+  #expect {
+    width: 85%;
+    height: 100px;
+    border: 1px solid rgb(158, 158, 158);
+  }
+  #registerBtn {
+    width: 15%;
+    border: 1px solid rgb(140, 140, 140);
+    background-color: white;
+  }
+
+  .expect-comment {
+    display: flex;
+  }
