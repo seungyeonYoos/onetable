@@ -156,6 +156,20 @@
       #inform-hour {
         padding-left: 20px;
       }
+      .represent > i {
+        font-size: 50px;
+      }
+
+      /* 이미지 업로드된 후 add class */
+      .d-none {
+        display: none;
+      }
+      .afterImg {
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+      }
+      
     </style>
   </head>
 
@@ -198,8 +212,10 @@
           <form id="image-register">
             <label class="input-file-button" for="file">
               <img id="preview" />
-              <i class="fa-solid fa-camera"></i> <br>
-              클래스 대표사진을 <br />선택하세요.
+              <div class="represent">
+                <i class="fa-solid fa-camera"></i> <br />
+              클래스 대표사진을 <br />선택하세요.</div>
+              
             </label>
             <input type="file" name="courseImage" id="file" onchange="readURL(this);"/>
             <!-- <img id="preview" /> -->
@@ -239,6 +255,8 @@
         });
       }
 
+      let image_change;
+
       function readURL(input){
         if (input.files && input.files[0]) {
           var reader = new FileReader();
@@ -247,6 +265,9 @@
           };
           console.log("성공");
           reader.readAsDataURL(input.files[0]);
+          $(".represent").addClass("d-none");
+          $(".input-file-button > img").addClass("afterImg");
+          image_change = true;
         } else {
           document.getElementById('preview').src = "";
         }

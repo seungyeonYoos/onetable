@@ -106,6 +106,7 @@
             <button type="button" onclick="correct();">수정</button>
             <button type="button" onclick="cancel();">취소</button>
           </div>
+
         </form>
         <table class="expect-table">
           <% for(var i=0; i<courseReview.length; i++){ %>
@@ -117,8 +118,8 @@
                 <%=courseReview[i].comment%>
               </td>
               <% if(courseReview[i].user_id==userId) { %>
-                <td><button type="button" onclick="load(`<%=courseReview[i].id%>`, this)">수정</button></td>
-                <td><button type="button" onclick="del(`<%=courseReview[i].id%>`, this)">삭제</button></td>
+                <td><button type="button" onclick="load(`<%=courseReview[i].id%>`, this)" class="comment-mod">수정</button></td>
+                <td><button type="button" onclick="del(`<%=courseReview[i].id%>`, this)" class="comment-del">삭제</button></td>
                 <% } %>
             </tr>
             <% } %>
@@ -147,11 +148,11 @@
           }).then((response) => {
             $("table").append(
               `<tr>
-              <td>${response.data.myName.image}</td>
+              <td><img src="/uploads/profileIMG/${response.data.courseReview.image}"></td>
               <td>${response.data.myName.name}</td>
               <td>${response.data.courseReview.comment}</td>
-              <td><button type="button" onclick="load(${response.data.courseReview.id}, this)">수정</button></td>
-              <td><button type="button" onclick="del(${response.data.courseReview.id}, this)">삭제</button></td>
+              <td><button type="button" onclick="load(${response.data.courseReview.id}, this)" class="comment-mod">수정</button></td>
+              <td><button type="button" onclick="del(${response.data.courseReview.id}, this)" class="comment-del">삭제</button></td>
             </tr>`
             )
             form.reset();

@@ -37,7 +37,7 @@
       <div class="cooking-class">
         <div class="cooking-class-title">BEST 클래스</div>
         <hr>
-        <!-- 슬라이더 -->
+        <!-- best class -->
         <div class="bestCourse">
           <% for(let i=0; i <bestCourse.length; i++) { %>
             <div class="post">
@@ -46,7 +46,9 @@
                 <img src="/uploads/courseIMG/<%=bestCourse[i]['image']%>" class="bestCourseImage" />
                 <div class="bestcourseName">
                   <%=bestCourse[i]['name']%>
-                    <%=bestCourse[i]['price']%>
+                </div>
+                <div class="bestcoursePrice">
+                  <%=bestCourse[i]['price'].toString().replace( /\B(?=(\d{3})+(?!\d))/g, "," );%> <span>원</span>
                 </div>
               </a>
             </div>
@@ -54,9 +56,9 @@
         </div>
       </div>
 
-      <!-- all 클래스 -->
+      <!-- 모든 클래스 -->
       <div class="course-list container">
-        <div>
+        <div class="course-select">
           <form id="course-form">
             <select name="order">
               <option value="">최신순</option>
@@ -85,7 +87,7 @@
               <option value="high">8만원 이상</option>
             </select>
             <button type="button" onclick="apply();" id="apply-button">적용</button>
-            <button type="button" onclick="courseRegister();">등록</button>
+            <button type="button" onclick="courseRegister();" id="course-register-btn"><i class="fa-regular fa-pen-to-square"></i> 등록</button>
           </form>
         </div>
 
@@ -93,14 +95,14 @@
           <div class="row">
             <% for(let i=0; i <courseData.length; i++) { %>
               <div class="course-list-item col-6 col-md-4 col-xl-3">
-
                 <a href="/course/detail?courseID=<%=courseData[i]['id']%>">
                   <div>
                     <img src="/uploads/courseIMG/<%=courseData[i]['image']%>">
                   </div>
                   <div class="course-ab">
-                    <%=courseData[i]['name']%><br>
-                      <%=courseData[i]['price']%>원
+                    <div><%=courseData[i]['name']%></div>
+                    <div><%=courseData[i]['price'].toString().replace( /\B(?=(\d{3})+(?!\d))/g, "," );%>원</div>
+                    
                   </div>
                 </a>
                 <div onclick="favorite(this, `<%=courseData[i]['id']%>`);" class="heart">
@@ -143,7 +145,7 @@
 
           if ($(heart).hasClass("fa-regular")) {
             $(heart).removeClass("fa-regular");
-            $(heart).addClass("fa-solid");
+            $(heart).addClass("fa-solid heartSolid");
             // 좋아요 숫자 +1
             number = parseInt(number) + 1;
 
@@ -154,7 +156,7 @@
             }).then(() => { })
           } else {
             $(heart).addClass("fa-regular");
-            $(heart).removeClass("fa-solid");
+            $(heart).removeClass("fa-solid heartSolid");
 
             number = parseInt(number) - 1;
 
@@ -173,19 +175,19 @@
           method: "post"
         }).then((response) => {
           for (let i = 0; i < response.data.myCourseFavorite.length; i++) {
-            $(".course-" + response.data.myCourseFavorite[i].course_id).removeClass("fa-regular").addClass("fa-solid");
+            $(".course-" + response.data.myCourseFavorite[i].course_id).removeClass("fa-regular").addClass("fa-solid heartSolid");
           }
           for (let i = 0; i < response.data.countCourseFavorite.length; i++) {
             $(".courseCount-" + response.data.countCourseFavorite[i].course_id).html(parseInt(response.data.countCourseFavorite[i].count));
           }
         })
 
-        function courseRegister(){
+        function courseRegister() {
           if ('<%=isLogin%>' == 'false') {
             alert("로그인이 필요한 기능입니다.");
             window.location = "/user/login";
             return false;
-          }else {
+          } else {
             window.location = "/course/register";
           }
         }
