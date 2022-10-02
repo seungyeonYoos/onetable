@@ -224,6 +224,10 @@
     background-color: rgb(146, 206, 152);
     margin: 10px;
 }
+/* 메인푸터는 경계선 */
+.footer-all {
+  border-top: 1px solid gray;
+}
 @media (max-width: 970px) { 
   #carouselExampleIndicators {
     width: 100%;
