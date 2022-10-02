@@ -10,10 +10,31 @@ const {
 } = require("../model");
 
 exports.main = async (req, res) => {
-  res.render("search");
+  let courseData = [];
+  let recipeData = [];
+  let countRecipe = [];
+  let countCourse = [];
+  let count;
+  res.render("search", {
+    courseData,
+    recipeData,
+    countRecipe,
+    countCourse,
+    count,
+  });
 };
 
 // 검색
+async function getRecipes(searchWord) {
+  const query = `SELECT *
+                FROM recipe LEFT OUTER JOIN level
+                ON recipe.level_id = level.id
+                WHERE title LIKE '%${searchWord}%';`;
+  const recipes = await sequelize.query(query, {
+    type: QueryTypes.SELECT,
+  });
+  return recipes;
+}
 async function getCourses(searchWord) {
   const query = `SELECT * FROM course 
                 WHERE name LIKE '%${searchWord}%';`;
@@ -22,19 +43,11 @@ async function getCourses(searchWord) {
   });
   return courses;
 }
-async function getRecipes(searchWord) {
-  const query = `SELECT * FROM recipe
-                WHERE title LIKE '%${searchWord}%';`;
-  const recipes = await sequelize.query(query, {
-    type: QueryTypes.SELECT,
-  });
-  return recipes;
-}
 exports.search = async (req, res) => {
-  const courseData = await getCourses(req.query.search);
-  console.log("search_courseData:", courseData);
+  const searchWord = req.query.search;
   const recipeData = await getRecipes(req.query.search);
   console.log("search_recipeData:", recipeData);
-  const searchWord = req.query.search;
-  res.render("search", { searchWord, courseData, recipeData });
+  const courseData = await getCourses(req.query.search);
+  console.log("search_courseData:", courseData);
+  res.render("search", { searchWord, recipeData, courseData });
 };

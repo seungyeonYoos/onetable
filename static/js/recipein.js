@@ -1,17 +1,38 @@
 // 좋아요 기능
 var heartcount = 0;
 
-function heart() {
-    const pushHeartBtn = document.querySelector(".heart");
+function heart(id) {
+    const pushHeartBtn = document.querySelector(".Heart");
     console.log(pushHeartBtn)
     if (pushHeartBtn.innerHTML !== '<i class="xi-heart xi-x"></i>') {
         pushHeartBtn.innerHTML = '<i class="xi-heart xi-x"></i>';
         pushHeartBtn.style.color = 'red';
+        heartcount += 1;
+        axios({
+            method: 'post',
+            url: `/recipe/${id}/fav`,
+            data: data = {
+                heartcount: heartcount
+            }
+        }).then((rep) => {
+            return rep.data;
+        })
     } else {
         pushHeartBtn.innerHTML = '<i class=" xi-heart-o xi-x"></i>';
         pushHeartBtn.style.color = 'black';
+        heartcount -= 1;
+        axios({
+            method: 'delete',
+            url: `/recipe/${id}/fav`,
+            data: data = {
+                heartcount: heartcount
+            }
+        }).then((rep) => {
+            return rep.data;
+        })
     }
     console.log(heartcount)
+
 }
 
 var evaluation = 0;
@@ -51,15 +72,13 @@ function reviewChat(id) {
     var myReview = document.getElementById("myReview").value;
     axios({
         method: 'post',
-        url: `http://localhost:8000/recipe/${id}`,
+        url: `/recipe/${id}`,
         data: data = {
-            review: myReview,
-            evaluation: evaluation
+            score: evaluation,
+            comment: myReview,
         }
     }).then((rep) => {
         return rep.data;
     })
-
-    console.log(data)
 
 }
