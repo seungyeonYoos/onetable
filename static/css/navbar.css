@@ -91,11 +91,13 @@ body {
     text-align: center;
     font-weight: bold;
 }
-.nav-link {
-    font-size: calc(0.1em + 0.9vw);
-}
 body a:hover {
     color: brown;
+}
+
+/* alert 창 */
+.alert {
+    font-family: 'Pretendard-Regular';
 }
 
 /* 로그인 로그아웃  */

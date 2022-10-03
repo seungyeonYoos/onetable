@@ -52,14 +52,15 @@
   }
   .slick-prev {
     position: absolute;
-    left: -50px;
+    left: -40px;
     top: 45%;
   }
   .slick-next {
     position: absolute;
-    right: -50px;
+    right: -40px;
     top: 45%;
   }
+
 .main-best-recipe {
     font-family: 'Chosunilbo_myungjo';
     text-align: center;
@@ -261,4 +262,16 @@
   .main-best-class-more {
     margin-bottom: 10px;
   }
+  .main-event {
+    font-size: var(--midium-font-size);
+    width: 100%;
+    text-align: center;
+  }
+  .main-event-more > div {
+    display: none;
+  }
+  .second-slider {
+    margin: 0 auto;
+  }
+
 }
