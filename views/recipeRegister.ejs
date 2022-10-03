@@ -119,15 +119,19 @@
                             <div id="append1">
                                 <ul id="stuff">
                                     <div class="stuffItem" style="padding-top: 10px;">
-                                        <label for="stuff_itme">재료명</label>
-                                        <li class="stuff_itme"><input id="stuff_itme" name="stuff" type="text" placeholder="ex : 소금 "></li>
+                                        <label for="stuff_item">재료명</label>
+                                        <li class="stuff_item">
+                                            <input id="stuff_item" name="stuff" type="text" placeholder="ex : 소금 ">
+                                        </li>
                                     </div>
                                     <div class="met">
                                         <label for="meterage">계량</label>
-                                        <li class="meterage"><input id="meterage" name="meterage" type="text" placeholder="ex : 39g"></li>
+                                        <li class="meterage">
+                                            <input id="meterage" name="meterage" type="text" placeholder="ex : 39g">
+                                        </li>
                                     </div>
                                     <div class="meterageInfor">
-                                        <select name="meterageInfor" id="">
+                                        <select name="meterageInfor" id="unit">
                                 <option value="ml">ml</option>
                                 <option value="g">g</option>
                                 <option value="oz">oz</option>
@@ -146,7 +150,7 @@
                             <div class="nanugi order">
                                 <h6>&#124; 순서 &#124;</h6>
                                 <div id="append2">
-                                    <ul id="order_itme">
+                                    <ul id="order_item">
                                         <div class="order_title">
                                             <label class="orderInfor" for="">설명</label>
                                         </div>
@@ -161,7 +165,6 @@
                                                 <input class="file" id="orderFile" type="file" name="recipeImg" onclick="imginput()">
                                             </li>
                                         </div>
-
                                     </ul>
                                 </div>
                             </div>
