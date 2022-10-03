@@ -32,7 +32,7 @@
 </head>
 
 <body>
-    <%-include ('navbar.ejs')%>
+    <%-include('navbar.ejs')%>
         <h1>Recipe Registration</h1><br>
         <div id="recipe_register" class="container">
             <div id="register">
@@ -71,7 +71,7 @@
                                 <option value="구움과자">구움과자</option>
                                 <option value="케이크">케이크</option>
                                 </select>
-                                <span id="selectCat"> #선택한 카테고리 </span>
+                                <span id="selectCat"></span>
                             </div><br>
                             <div id="times">
                                 <label for="">&#124; 시간 &#124;</label><br>
@@ -117,18 +117,19 @@
                         <div class="nanugi stuff">
                             <h6>&#124; 재료 &#124;</h6>
                             <div id="append1">
-                                <ul id="stuff">
-                                    <div class="stuffItem" style="padding-top: 10px;">
-                                        <label for="stuff_item">재료명</label>
-                                        <li class="stuff_item">
-                                            <input id="stuff_item" name="stuff" type="text" placeholder="ex : 소금 ">
-                                        </li>
+
+                                <div class="onlytitle"><label for="stuff_itme">재료명</label> <label for="meterage">계량</label></div>
+                                <ul id="stuff" class="only">
+
+                                    <div class="stuffItem">
+                                        <li class="stuff_itme"><input id="stuff_itme" name="stuff" type="text" placeholder="ex : 소금 "></li>
+
                                     </div>
+
                                     <div class="met">
-                                        <label for="meterage">계량</label>
-                                        <li class="meterage">
-                                            <input id="meterage" name="meterage" type="text" placeholder="ex : 39g">
-                                        </li>
+
+                                        <li class="meterage"><input id="meterage" name="meterage" type="text" placeholder="ex : 39g"></li>
+
                                     </div>
                                     <div class="meterageInfor">
                                         <select name="meterageInfor" id="unit">

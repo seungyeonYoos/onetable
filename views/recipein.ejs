@@ -155,7 +155,7 @@
                         <% for (var i = 1; i < selectReviews.length ; i++ ) { %>
                             <li class="commentList">
                                 <p class="name">
-                                    <%=selectReviews[i].user_id%> &#160;&#124; &#160; </p>
+                                    <%=selectReviews[i].score%> &#160;&#124; &#160; </p>
                                 <p class="comment">
                                     <%=selectReviews[i].comment%>
                                 </p>
@@ -171,17 +171,19 @@
             <div id="chat">
                 <form action="" id="chatInput" name="chatInput">
                     <div id="goodbad">
-                        <button type="button" id="goodrecipe" class="goodrecipe" name="goodrecipe" value="1" onclick="goodRecipe()"><i class="xi-emoticon-smiley-o xi-2x"></i>
-                        <button type="button" id="badrecipe" class="badrecipe" name="badrecipe" value="-1" onclick="badRecipe()"><i class="xi-emoticon-sad-o xi-2x"></i>
+                        <label for="goodrecipe" class="goodrecipe"><i class="xi-emoticon-smiley-o xi-2x"></i></label>
+                        <label for="badrecipe" class="badrecipe"><i class="xi-emoticon-sad-o xi-2x"></i></label>
+                        <input type="button" id="goodrecipe" class="goodrecipe" name="goodrecipe" value="1" onclick="goodRecipe()">
+                        <input type="button" id="badrecipe" class="badrecipe" name="badrecipe" value="-1" onclick="badRecipe()">
                     </div>
                     <input type="text" id="myReview" name="myReview">
-                    <input type="submit" class="reviewpush" onclick="reviewChat('<%=id%>')" value="작성">
+                    <input type="button" class="reviewpush" onclick="reviewChat('<%=id%>')">작성</button>
                 </form>
             </div>
 
             <br>
             <a id="top" href="#recipeItem"><i clbass="fi fi-rr-chevron-double-up"></i></a>
-<br>
+            <br>
             <%-include('footer.ejs')%>
                 <script src="/static/js/recipein.js"></script>
 

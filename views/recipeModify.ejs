@@ -17,6 +17,8 @@
     <link rel="stylesheet" type="text/css" href="/static/css/footer.css">
     <!-- recipeRegister css -->
     <link rel="stylesheet" type="text/css" href="/static/css/recipeRegister.css">
+    <!-- modufy css -->
+    <link rel="stylesheet" type="text/css" href="/static/css/modify.css">
     <!-- 네브바 fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <!-- 부트스트랩 -->
@@ -30,7 +32,7 @@
 
 <body>
     <%-include ('navbar.ejs')%>
-        <h1>Recipe Registration</h1><br>
+        <h1>Recipe Revise</h1><br>
         <div id="recipe_register" class="container">
             <div id="register">
                 <div>
@@ -40,8 +42,8 @@
                                 <div id="drop-file" class="drag-file">
                                     <!-- <img id="img" src="" alt="사진로드중" name="img" /> -->
                                     <%let src = selectRecipe.image ? `http://localhost:8000/uploads/recipe/${selectRecipe.image}`: "https://img.icons8.com/pastel-glyph/2x/image-file.png"; %>
-                                    <img src=<%=src%> alt="파일 아이콘" class="image" />
-                                    
+                                        <img id="modifyimg" src=<%=src%> alt="파일 아이콘" class="image" />
+
                                 </div>
                                 <label id="imgFile" class="file-label" for="chooseFile">Choose File</label>
                                 <input class="file" name="myImage" id="chooseFile" type="file" onclick="imgChange()" value="<%=selectRecipe.image%>">
@@ -70,15 +72,27 @@
                                 </select>
                                 <span id="selectCat"> #선택한 카테고리 </span>
                             </div><br>
+                            <div id="times">
+                                <label for="">&#124; 시간 &#124;</label><br>
+                                <div>
+                                    <input name="time" type="radio" value="15"> 15분 이내
+                                    <input name="time" type="radio" value="30"> 30분 이내
+                                    <input name="time" type="radio" value="45"> 45분 이내
+                                    <input name="time" type="radio" value="60"> 60분 이내
+                                    <input name="time" type="radio" value="75"> 75분 이내
+                                    <input name="time" type="radio" value="90"> 90분 이내
+                                </div>
+                            </div> <br>
                             <div id="difficulty">
                                 <label for="">&#124; 난이도 &#124;</label><br>
                                 <div>
                                     <%const radioOptions = ['초급','중급','고급'];%>
-                                    <%for(let i = 0; i < radioOptions.length; i++){%>
-                                        <%let checked = selectRecipe['level.list'] === `${(i + 1)}` ? 'checked':'';%>
-                                        <input type="radio" name="level" value="<%=i+1%>" <%=checked%> > <%=radioOptions[i]%>
-                                    <%}%>
-                                    
+                                        <%for(let i = 0; i < radioOptions.length; i++){%>
+                                            <%let checked = selectRecipe['level.list'] === `${(i + 1)}` ? 'checked':'';%>
+                                                <input type="radio" name="level" value="<%=i+1%>" <%=checked%> >
+                                                <%=radioOptions[i]%>
+                                                    <%}%>
+
                                 </div>
                             </div>
                         </div>
@@ -98,24 +112,12 @@
                                     </div>
 
                                 </div>
-                                <div id="times">
-                                    <label for="">&#124; 시간 &#124;</label><br>
-                                    <div>
-                                        <input type="radio" value="15"> 15분 이내
-                                        <input type="radio" value="30"> 30분 이내
-                                        <input type="radio" value="45"> 45분 이내
-                                        <input type="radio" value="60"> 60분 이내
-                                        <input type="radio" value="75"> 75분 이내
-                                        <input type="radio" value="90"> 90분 이내
-                                    </div>
-                                </div> 
-
-                            </div>
+                               
                         </div> -->
 
                         <div class="nanugi stuff">
                             <h6>&#124; 재료 &#124;</h6>
-                            <form action="">
+                            <div id="append1">
                                 <ul id="stuff">
                                     <%for(let i=0; i < selectIngredient.length; i++){%>
                                         <div class="stuffItem">
@@ -148,39 +150,44 @@
                                     <%}%>
                             </select>
                                 </ul>
-                            </form>
+                                </div>
 
+
+                            </div>
+                            <hr>
                             <div class="stuff_button">
                                 <button type="button" onclick="count_stuff()">추가 +</button>
                             </div>
-                            </div>
-
+                            <hr>
                             <div class="nanugi">
                                 <h6>&#124; 순서 &#124;</h6>
-                                <ul id="order_itme">
-                                    <div class="order_title">
-                                        <label class="orderInfor" for="">설명</label>
-                                    </div>
-                                    <div class="order_list">
-                                        <%for(let i=0; i < selectStep.length; i++){%>
-                                            <li class="order_infor">
-                                                <textarea name="" id="order_infor" rows="3">
+                                <div id="append2">
+                                    <ul id="order_itme">
+                                        <div class="order_title">
+                                            <label class="orderInfor" for="">설명</label>
+                                        </div>
+                                        <div class="order_list">
+                                            <%for(let i=0; i < selectStep.length; i++){%>
+                                                <li class="order_infor">
+                                                    <textarea name="" id="order_infor" rows="3">
                                                     <%=selectStep[i].instruction%>
                                                 </textarea>
-                                            </li>
-                                            <li class="order_img">
-                                                <img src="/uploads/recipe/<%=selectStep[i].image%>" alt="">
-                                                <label id="File" for="chooseFile">photo</label>
-                                                <input class="file" id="chooseFile" type="file" name="recipeImg" onclick="imginput()">
-                                            </li>
-                                        <%}%>
-                                    </div>
-                                </ul>
-
-                                <div class="order_button">
-                                    <button type="button" onclick="count_order()">추가 +</button>
+                                                </li>
+                                                <li class="order_img">
+                                                    <img src="/uploads/recipe/<%=selectStep[i].image%>" alt="">
+                                                    <label id="File" for="chooseFile">photo</label>
+                                                    <input class="file" id="chooseFile" type="file" name="recipeImg" onclick="imginput()">
+                                                </li>
+                                                <%}%>
+                                        </div>
+                                    </ul>
                                 </div>
                             </div>
+                            <hr>
+                            <div class="order_button">
+                                <button type="button" onclick="count_order()">추가 +</button>
+                            </div>
+
                     </form>
                     </div>
                     <hr>
@@ -188,23 +195,22 @@
                         <button type="button" onclick="edit()">수 정</button>
                         <button type="button" onclick="remove()">삭 제</button>
                     </div>
-                    <br>
                 </div>
+
 
             </div>
 
             <a id="top" href="#recipeItem"><i class="fi fi-rr-chevron-double-up"></i></a>
             <%-include ('footer.ejs')%>
-            <script>
-                // const urlParams = new URL(location.href).searchParams;
-                // const recipe_id = urlParams.get('id');
-                // console.log(recipe_id);
-                const queryString = window.location.search;
-                const urlParams = new URLSearchParams(queryString);
-                const id = urlParams.get('id')
-                console.log(id);
-
-            </script>
+                <script>
+                    // const urlParams = new URL(location.href).searchParams;
+                    // const recipe_id = urlParams.get('id');
+                    // console.log(recipe_id);
+                    const queryString = window.location.search;
+                    const urlParams = new URLSearchParams(queryString);
+                    const id = urlParams.get('id')
+                    console.log(id);
+                </script>
                 <script src="/static/js/register.js"></script>
                 <script src="/static/js/modify.js"></script>
 </body>

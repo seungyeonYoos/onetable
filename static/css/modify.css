@@ -1,0 +1,15 @@
+#modifyimg {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* 전송버튼 */
+
+.post_button {
+    margin-bottom: 5px;
+}
+
+.post_button button:nth-child(1) {
+    margin-right: 10px;
+}

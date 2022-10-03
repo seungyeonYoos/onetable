@@ -125,12 +125,20 @@ hr {
 }
 
 .button button,
-.button label {
+.upload-box label {
     background-color: #D7CCC8;
     width: 45%;
     border: 0;
     margin-top: 20px;
     font-weight: bold;
+}
+
+.upload-box label {
+    display: inline-block;
+    text-align: center;
+    width: 70%;
+    margin-left: 30px;
+    padding: 0 10px;
 }
 
 
@@ -207,7 +215,7 @@ hr {
 .myrecipeItem,
 .userLikesItem,
 .likeClassItem,
-.myClassList,
+.myClassItem,
 .appClassItem {
     display: flex;
     justify-content: center;
@@ -217,7 +225,7 @@ hr {
 .myrecipeItem a,
 .userLikesItem a,
 .likeClassItem a,
-.myClassList a,
+.myClassItem a,
 .appClassItem a {
     text-decoration: none;
 }
@@ -225,7 +233,7 @@ hr {
 .myrecipeItem img,
 .userLikesItem img,
 .likeClassItem img,
-.myClassList img,
+.myClassItem img,
 .appClassItem img {
     position: absolute;
     width: 200px;
@@ -235,7 +243,7 @@ hr {
 .myrecipeItem span,
 .userLikesItem span,
 .likeClassItem span,
-.myClassList span,
+.myClassItem span,
 .appClassItem span {
     position: absolute;
     padding-top: 90px;
