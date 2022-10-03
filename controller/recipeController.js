@@ -225,6 +225,7 @@ exports.recipeRegister = async(req, res) => {
         attirbutes: ["id", "email", "name"],
         where: { id: req.session.userId },
     });
+    console.log("확인", selectUser)
     let recipe_id;
     let insertRecipe;
     if (selectCategory && selectLevel && selectUser) {

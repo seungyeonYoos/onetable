@@ -58,7 +58,7 @@ function courseReview(id, cnt, btn) {
         courseReview_total_cnt = cnt;
     } else {
         review_total_cnt = courseReview_length;
-        $('.reviewB').hide()
+        $('.courseReviewB').hide()
     }
     $(courseReview_list + ":lt(" + courseReview_total_cnt + ")").addClass("active");
 }
