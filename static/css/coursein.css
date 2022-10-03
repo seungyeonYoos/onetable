@@ -85,13 +85,37 @@
   .expect-in {
     width: 80%;
     margin: 10px auto;
-
+    padding: 15px 0px;
   }
   .expect-in div:first-child {
     padding-top: 10px;
     font-size: 25px;
     font-weight: 600;
   }
+
+  /* 기대평 테이블 */
+  .expect-table {
+    width: 100%;
+    padding: 15px;
+    font-size: 14px;
+    margin: 10px 0px;
+
+  }
+  .expect-table td {
+    padding: 40px 5px;
+    border-top: 1px solid gray ;
+    border-bottom: 1px solid gray ;
+  }
+  .expect-table td:last-child , .expect-table td:nth-child(3) {
+    width: 10%;
+  }
+  .comment-mod , .comment-del {
+    border: 0px;
+  }
+
+
+
+
   /* input 창 */
   #expect {
     width: 85%;

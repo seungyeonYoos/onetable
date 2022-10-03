@@ -51,13 +51,15 @@ const upload = multer({
 });
 
 function is_login(req, res, next) {
-    if (res.locals.isLogin) {
-        console.log("YES LOGIN");
-        next();
-    } else {
-        console.log("NO LOGIN");
-        res.redirect("/user/login");
-    }
+
+	if (res.locals.isLogin) {
+		// console.log("YES LOGIN");
+		next();
+	} else {
+		// console.log("NO LOGIN");
+		res.redirect("/user/login");
+	}
+
 }
 
 //전체 레시피 보는 부분 (path: /recipe)

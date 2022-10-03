@@ -14,17 +14,21 @@
         width: 80vw;
         margin: 20px auto;
         background-color: white;
+        padding: 18px 20px;
       }
       .cooking-class-title {
         font-size: 30px;
+        font-weight: 600;
       }
   
       .bestCourse {
         width: 85%;
         margin: 0 auto;
+        height: 450px;
         /* border: 1px solid red; */
         overflow: hidden;
         display: flex;
+        justify-content: center;
       }
       .score {
         width: 40px;
@@ -34,8 +38,12 @@
 
       .post {
         width: 20vw;
-        height: 300px;
         text-align: center;
+        overflow: hidden;
+      }
+      .post a {
+        text-decoration: none;
+        color: black;
       }
 
       .post .bestCourseImage {
@@ -43,9 +51,23 @@
         height: 300px;
       }
 
+      /* select box */
+      .course-select {
+        padding: 17px 0px;
+      }
+      select {
+        padding: 5px 8px;
+        border-radius: 10px;
+      }
+
 
   
       /* first floor slide button */ 
+      .course-list {
+        background-color: white;
+        width: 80vw !important;
+        margin: 15px auto;
+      }
       .course-list-item a {
         color: black;
       }
@@ -64,14 +86,33 @@
         background-color: rgb(255, 255, 255);
         width: 100%;
         text-align: left;
+        padding-left: 5px;
+      }
+      .bestcoursePrice {
+        background-color: rgb(255, 255, 255);
+        width: 100%;
+        text-align: left;
         padding: 5px;
+        font-size: 20px;
+        font-weight: 600;
+      }
+      .bestcoursePrice > span {
+        font-weight: 400;
+        font-size: 16px;
       }
       .course-list > div:first-child {
         text-align: right;
       }
       #apply-button {
-        border: 0px;
-        padding: 2px 20px;
+        border: 1px solid gray;
+        background-color: white;
+        padding: 4px 20px;
+        border-radius: 10px;
+      }
+      #course-register-btn {
+        border: 1px solid gray;
+        background-color: white;
+        padding: 4px 20px;
         border-radius: 10px;
       }
 
@@ -79,13 +120,29 @@
       .course-ab {
         position: absolute;
       }
+      .course-ab div:first-child {
+        padding: 5px;
+      }
+      .course-ab div:last-child {
+        padding: 5px;
+        font-size: 18px;
+        font-weight: 600;
+      }
 
       /* 좋아요 버튼 위치 지정 */
       .course-list-item {
         position: relative;
+        height: 400px;
       }
 
       .heart {
         position: absolute;
-        top: 0px;
+        top: 2px;
+        left: 13px;
+        padding: 5px 10px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 15px;
+      }
+      .heartSolid {
+        color: red !important;
       }

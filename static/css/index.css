@@ -9,11 +9,6 @@
     margin: 0 auto;
 }
 /* 슬라이드 height값 지정해서 overflow hidden */
-.slick-list {
-    height: 250px;
-    /* width: 100%;
-    overflow: hidden; */
-}
 
 /* first-floor */
 .main-first-floor {
@@ -31,19 +26,21 @@
     display:inline-block;
   }
   .post a {
-    height: 100%;
+    text-decoration: none;
+    color: black;
   }
-  
-  /* first floor slide button */
-  .post-slider {
-    /* border: 1px dotted red; */
+  .post a div img {
+    width: 100%;
   }
-  .post-wrapper {
-    /* border: 1px dotted blue; */
+  .post a p {
+    font-size: 18px;
+    font-weight: 500;
   }
+
   .post {
-    border: 1px dotted blueviolet;
+    overflow: hidden;
   }
+  /* first floor button */
   .slick-prev , .slick-next {
     border: 0px;
     background-color: rgb(255, 255, 255);
@@ -100,12 +97,18 @@
     /* height:350px; */
     display: inline-block;
   }
-  .second > a , .second > a > img {
+  .second > a , .second a div img {
     width: 100%;
-    height: 100%;
+    height: 270px;
   }
-  .second > a > img {
-    padding: 4px;
+  .second a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .second a p {
+    padding: 5px;
   }
 /* .main-second-floor > div , {
     width: 25%;
@@ -218,11 +221,12 @@
 .main-event-more {
     margin-top: 10px;
 }
-
-.main-fourth-floor > a:nth-child(2) , .main-fourth-floor > a:nth-child(3) , .main-fourth-floor > a:nth-child(4)  {
-    border-radius: 60%;
-    background-color: rgb(146, 206, 152);
-    margin: 10px;
+.second-1 a img {
+  width: 100%;
+}
+/* 메인푸터는 경계선 */
+.footer-all {
+  border-top: 1px solid gray;
 }
 @media (max-width: 970px) { 
   #carouselExampleIndicators {
