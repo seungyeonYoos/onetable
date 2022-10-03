@@ -79,7 +79,6 @@
      const recipefile = document.getElementById("chooseFile");
      const orderfile = document.getElementById("orderFile");
      const data = {
-
          title: form.recipeName.value,
          intro: form.recipeInfor.value,
          category_id: form.category.value,
@@ -91,15 +90,17 @@
              unit_id: form.meterageInfor.value,
 
          },
-         instruction: [form.order_infor.value]
+         instruction: form.order_infor.value
      }
      json = JSON.stringify(data);
-     //  const json = JSON.serializeObject({ formData });
-     //  const blob = new Blob([json], {
-     //      type: 'application/json'
-     //  });
+     console.log
+         //  const json = JSON.serializeObject({ formData });
+         //  const blob = new Blob([json], {
+         //      type: 'application/json'
+         //  });
      for (let i = 0; i < Object.values(orderfile.files).length; i++) {
          formData.append("steps", orderfile.files[i]);
+
      }
      formData.append("recipe", recipefile.files[0]);
      formData.append("data", JSON.stringify(data));

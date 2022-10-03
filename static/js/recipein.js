@@ -10,7 +10,7 @@ function heart(id) {
         heartcount += 1;
         axios({
             method: 'post',
-            url: `/recipe/${id}/fav`,
+            url: `http://localhost:8000/recipe/${id}/fav`,
             data: data = {
                 heartcount: heartcount
             }
@@ -23,7 +23,7 @@ function heart(id) {
         heartcount -= 1;
         axios({
             method: 'delete',
-            url: `/recipe/${id}/fav`,
+            url: `http://localhost:8000/recipe/${id}/fav`,
             data: data = {
                 heartcount: heartcount
             }
@@ -72,13 +72,18 @@ function reviewChat(id) {
     var myReview = document.getElementById("myReview").value;
     axios({
         method: 'post',
-        url: `/recipe/${id}`,
+        url: `http://localhost:8000/recipe/${id}`,
         data: data = {
             score: evaluation,
             comment: myReview,
         }
     }).then((rep) => {
         return rep.data;
+    }).then((data) => {
+        return ture;
+
+    }).catch((err) => {
+        return false;
     })
 
-}
+};
