@@ -75,9 +75,21 @@
                 <div class="review">
                     <h6>댓글 리뷰</h6>
                     <div id="review_load">
-                        <ul class="item reviewList">
+                        <ul id="Review" class="item reviewList">
                             <% for (var i = 0; i < 20 ; i++ ) { %>
-                                <li class="itemList reviewItem"></li>
+                                <li class="itemList reviewItem">
+                                    <div id="ReviewComment">
+                                        <!-- 임시 값 -->
+                                        <a href="">
+
+                                            <span class="reviewTitle">recipe name&#160;&#124; &#160;</span>
+                                            <span class="reviewName">recipe name</span>
+                                            <hr class="reviewHr">
+                                            <span class="myReview">my Comment&#160;&#124; &#160;</span>
+                                            <div class="reviewComment">comment</div>
+                                        </a>
+                                    </div>
+                                </li>
 
                                 <% } %>
                         </ul>
@@ -90,7 +102,7 @@
                 <div class="courseReview">
                     <h6>클래스 기대평</h6>
                     <div id="courseReview_load">
-                        <ul class="item courseReviewList">
+                        <ul id="Review" class="item courseReviewList">
                             <% for (var i = 0; i < courseReview.length ; i++ ) { %>
                                 <li class="itemList courseReviewItem">
                                     <a href="/course/detail?courseID=<%=courseReview[i]['course_id']%>">

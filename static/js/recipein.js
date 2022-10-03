@@ -12,7 +12,7 @@ function heart(id) {
             method: 'post',
             url: `http://localhost:8000/recipe/${id}/fav`,
             data: data = {
-                heartcount: heartcount
+                favorite: pushHeartBtn
             }
         }).then((rep) => {
             return rep.data;
@@ -25,7 +25,7 @@ function heart(id) {
             method: 'delete',
             url: `http://localhost:8000/recipe/${id}/fav`,
             data: data = {
-                heartcount: heartcount
+                favorite: pushHeartBtn
             }
         }).then((rep) => {
             return rep.data;
@@ -44,11 +44,10 @@ function goodRecipe() {
         goodrecipe.innerHTML = '<i class="xi-emoticon-smiley xi-2x"></i>';
         goodrecipe.style.color = "red";
 
-        evaluation += 1;
+        evaluation = true;
     } else {
         goodrecipe.innerHTML = '<i class="xi-emoticon-smiley-o xi-2x"></i>';
         goodrecipe.style.color = "black";
-        evaluation -= 1;
 
     }
     console.log(evaluation)
@@ -60,11 +59,11 @@ function badRecipe() {
     if (badrecipe.innerHTML !== '<i class="xi-emoticon-sad xi-2x"></i>') {
         badrecipe.innerHTML = '<i class="xi-emoticon-sad xi-2x"></i>';
         badrecipe.style.color = "red";
-        evaluation -= 1;
+        evaluation = false;
     } else {
         badrecipe.innerHTML = '<i class="xi-emoticon-sad-o xi-2x"></i>';
         badrecipe.style.color = "black";
-        evaluation += 1;
+
     }
 }
 
