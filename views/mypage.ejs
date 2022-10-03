@@ -101,17 +101,16 @@
                 <div class="courseReview">
                     <h6>클래스 기대평</h6>
                     <div id="courseReview_load">
-                        <ul id="Review" class="item courseReviewList">
+                        <ul id="classReview" class="item courseReviewList">
                             <% for (var i = 0; i < courseReview.length ; i++ ) { %>
                                 <li class="itemList courseReviewItem">
                                     <a href="/course/detail?courseID=<%=courseReview[i]['course_id']%>">
-                                        <div>
-                                            <span>클래스 이름:</span>
-                                            <span><%= courseReview[i]['name'] %></span>
-                                        </div>
-                                        <div>
-                                            <span>기대평:</span>
-                                            <span><%= courseReview[i]['comment'] %></span>
+                                        <div id="classReviewComment">
+                                            <span class="reviewTitle">클래스 이름:</span>
+                                            <span class="reviewName"><%= courseReview[i]['name'] %></span>
+                                            <hr class="reviewHr">
+                                            <span class="myReview">기대평:</span>
+                                            <span class="reviewComment"><%= courseReview[i]['comment'] %></span>
                                         </div>
                                     </a>
                                 </li>

@@ -156,7 +156,7 @@ hr {
 }
 
 #Review>.reviewItem,
-#Review>.courseReviewItem {
+#classReview>.courseReviewItem {
     background-color: #D7CCC8;
     height: 100px;
     width: 100%;
@@ -167,7 +167,8 @@ hr {
     font-weight: bold;
 }
 
-#ReviewComment {
+#ReviewComment,
+#classReviewComment {
     margin: 10px 20px;
 }
 

@@ -141,8 +141,7 @@ function newRecipe_add() {
                 "Content-Type": "multipart/form-data",
             },
             method: "post",
-            url: `
-        http: //localhost:8000/recipe/register`,
+            url: `http: //localhost:8000/recipe/register`,
             data: formData,
         })
         .then((rep) => {
@@ -150,7 +149,7 @@ function newRecipe_add() {
         })
         .then((data) => {
             Swal.fire("New Recipe 작성 완료 :)", "success");
-            document.location.href = `http://localhost:8000/recipe/${id}`;
+            document.location.href = `/recipe/${id}`;
         })
         .catch((error) => {
             Swal.fire({
