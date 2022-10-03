@@ -93,7 +93,7 @@
             <div id="profile">
                 <div class="userImg"><img src="http://localhost:8000/uploads/profileIMG/<%=selectTargetRecipe['user.image'] %>" alt="" onerror="this.onerror=null; this.src='/static/img/hat-chef.png';"></div>
                 <div class="name">
-                    <%=selectTargetRecipe.userId%>
+                    <%=selectTargetRecipe["user.name"]%>
                 </div>
                 <div class="news"><button type="button">소식받기</button></div>
             </div>
@@ -101,12 +101,12 @@
             <h3>재료</h3>
             <div id="ready">
                 <div class="matter">
-                    <div>
+                    <div class="mat">
                         <h6>&#124; 재료 &#124;</h6>
                         <ul class="stuff">
-                            <% for (var i = 1; i <  selectSteps.ingredient ; i++ ) { %>
+                            <% for (var i = 1; i <  selectTargetRecipe.length ; i++ ) { %>
                                 <li>
-                                    <%=selectSteps[i].ingredient%>
+                                    <%=selectTargetRecipe[i].ingredient_id%>
                                 </li>
                                 <% } %>
                         </ul>
@@ -115,10 +115,10 @@
                     <div>
                         <h6>&#124; 계량 &#124;</h6>
                         <ul class="mass">
-                            <% for (var i = 1; i <  selectSteps.length ; i++ ) { %>
+                            <% for (var i = 1; i <  selectTargetRecipe.length ; i++ ) { %>
                                 <li>
-                                    <%=selectSteps[i].amount%>
-                                        <%=selectSteps[i].unit%>
+                                    <%=selectTargetRecipe[i].amount%>
+                                        <%=selectTargetRecipe[i].unit_id%>
                                 </li>
                                 <% } %>
                         </ul>
@@ -129,18 +129,18 @@
             <h3>조리 순서</h3>
             <div id="order">
                 <div class="order_item">
-                    <% for (var i = 1; i < selectSteps.steps ; i++ ) { %>
+                    <% for (var i = 1; i < selectSteps.length ; i++ ) { %>
 
                         <div>
                             <ul>
-                                <%=i%>.
-                                    <li class="ex">
+                                <li class="ex">
+                                    <%=selectSteps[i].stepNumber%>.
                                         <%=selectSteps[i].instruction%>
-                                    </li>
+                                </li>
                             </ul>
 
                             <ul>
-                                <li class="exImg"><img src="/uploads/recipe/<%=steps[i].image%>" alt="" onerror="this.onerror=null; this.src='/static/img/hat-chef.png';"></li>
+                                <li class="exImg"><img src="/uploads/recipe/<%=selectSteps[i].image%>" alt="" onerror="this.onerror=null; this.src='/static/img/hat-chef.png';"></li>
                             </ul>
                         </div>
                         <hr>
@@ -155,7 +155,7 @@
                         <% for (var i = 1; i < selectReviews.length ; i++ ) { %>
                             <li class="commentList">
                                 <p class="name">
-                                    <%=selectReviews[i]["user.name"]%> &#160;&#124; &#160; </p>
+                                    <%=selectReviews[i].user_id%> &#160;&#124; &#160; </p>
                                 <p class="comment">
                                     <%=selectReviews[i].comment%>
                                 </p>

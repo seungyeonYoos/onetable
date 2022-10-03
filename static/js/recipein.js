@@ -7,12 +7,12 @@ function heart(id) {
     if (pushHeartBtn.innerHTML !== '<i class="xi-heart xi-x"></i>') {
         pushHeartBtn.innerHTML = '<i class="xi-heart xi-x"></i>';
         pushHeartBtn.style.color = 'red';
-        heartcount += 1;
+        heartcount = true;
         axios({
             method: 'post',
             url: `http://localhost:8000/recipe/${id}/fav`,
             data: data = {
-                favorite: pushHeartBtn
+                favorite: heartcount
             }
         }).then((rep) => {
             return rep.data;
@@ -20,12 +20,13 @@ function heart(id) {
     } else {
         pushHeartBtn.innerHTML = '<i class=" xi-heart-o xi-x"></i>';
         pushHeartBtn.style.color = 'black';
-        heartcount -= 1;
+        heartcount = ture;
+
         axios({
             method: 'delete',
             url: `http://localhost:8000/recipe/${id}/fav`,
             data: data = {
-                favorite: pushHeartBtn
+                favorite: heartcount
             }
         }).then((rep) => {
             return rep.data;
@@ -43,14 +44,14 @@ function goodRecipe() {
     if (goodrecipe.innerHTML !== '<i class="xi-emoticon-smiley xi-2x"></i>') {
         goodrecipe.innerHTML = '<i class="xi-emoticon-smiley xi-2x"></i>';
         goodrecipe.style.color = "red";
+        evaluation += 1;
 
-        evaluation = true;
     } else {
         goodrecipe.innerHTML = '<i class="xi-emoticon-smiley-o xi-2x"></i>';
         goodrecipe.style.color = "black";
 
+        evaluation -= 1;
     }
-    console.log(evaluation)
 
 }
 
@@ -59,10 +60,11 @@ function badRecipe() {
     if (badrecipe.innerHTML !== '<i class="xi-emoticon-sad xi-2x"></i>') {
         badrecipe.innerHTML = '<i class="xi-emoticon-sad xi-2x"></i>';
         badrecipe.style.color = "red";
-        evaluation = false;
+        evaluation -= 1;
     } else {
         badrecipe.innerHTML = '<i class="xi-emoticon-sad-o xi-2x"></i>';
         badrecipe.style.color = "black";
+        evaluation += 1;
 
     }
 }
@@ -80,6 +82,7 @@ function reviewChat(id) {
         return rep.data;
     }).then((data) => {
         return ture;
+
 
     }).catch((err) => {
         return false;

@@ -121,6 +121,7 @@
     
     #form {
         padding: 20px;
+        padding-bottom: 0;
         flex-direction: column;
     }
     
@@ -166,6 +167,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+    
+    .stuff_button>.add,
+    .order_button>#orderadd {
+        margin-right: 10px;
     }
     
     .post_button>button {
@@ -239,7 +245,6 @@
     #stuff {
         display: flex;
         justify-content: center;
-        align-items: center;
         flex-wrap: wrap;
         height: 100px;
         margin: 0;
