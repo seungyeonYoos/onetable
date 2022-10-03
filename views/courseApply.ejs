@@ -114,6 +114,13 @@
                 value="<%=myInfo.name%>"
                 disabled
               /><br />
+              <span>결제 금액</span>
+              <input
+                type="text"
+                id="orderer-input"
+                value="<%=courseApply.price%>원"
+                disabled
+              /><br />
               <span>휴대폰 번호</span
               ><input
                 class="tel"
@@ -149,11 +156,19 @@
           </div>
         </div>
         <div class="payment">
-          <button type="button" onclick="requestPay()" class="payment-button creditcard">
-            <%=courseApply.price%>원 카드결제하기
+          <button
+            type="button"
+            onclick="requestPay()"
+            class="payment-button creditcard"
+          >
+            결제하기
           </button>
-          <button type="button" onclick="requestPayMoney()" class="payment-button money d-none">
-            <%=courseApply.price%>원 결제하기
+          <button
+            type="button"
+            onclick="requestPayMoney()"
+            class="payment-button money d-none"
+          >
+            결제하기
           </button>
         </div>
       </div>
@@ -162,7 +177,7 @@
     <%-include("footer.ejs")%>
 
     <script>
-      function payMoney(btn){
+      function payMoney(btn) {
         $(".creditcard").addClass("d-none");
         $(".money").removeClass("d-none");
         $(".aaaa").removeClass("choose-button").addClass("choose-not-button");
@@ -172,10 +187,9 @@
       function payCard(btn) {
         $(".money").addClass("d-none");
         $(".creditcard").removeClass("d-none");
-        $(".aaaa").removeClass("choose-button").addClass("choose-not-button");;
+        $(".aaaa").removeClass("choose-button").addClass("choose-not-button");
         $(btn).removeClass("choose-not-button").addClass("choose-button");
       }
-
 
       // 결제 API 관련 코드
       function requestPay() {
@@ -215,6 +229,41 @@
         );
       }
 
+      function requestPayMoney() {
+        IMP.init("imp35171536");
+        IMP.request_pay(
+          {
+            pg: "html5_inicis",
+            pay_method: "trans",
+            merchant_uid: "course_" + new Date().getTime(),
+            name: "<%=courseApply.name%>",
+            // amount: "<%=courseApply.price%>",
+            amount: "100",
+            buyer_email: "<%=myInfo.email%>",
+            buyer_name: "<%=myInfo.name%>",
+            buyer_tel: $(".tel").val(),
+            // buyer_addr: "서울특별시 강남구 삼성동",
+            // buyer_postcode: "123-456",
+          },
+          function (rsp) {
+            // callback
+            if (rsp.success) {
+              // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+
+              axios({
+                url: "/course/apply?courseID=<%=courseApply.id%>",
+                method: "post",
+                data: { tel: $(".tel").val() },
+              }).then(() => {
+                alert("결제가 완료되었습니다.");
+                location.href = "/";
+              });
+            } else {
+              alert("결제에 실패하였습니다.");
+            }
+          }
+        );
+      }
     </script>
   </body>
 </html>
