@@ -1,15 +1,15 @@
 const {
-    Recipe,
-    User,
-    Level,
-    Category,
-    Ingredient,
-    Unit,
-    RecipeIngredient,
-    Step,
-    Review,
-    Favorite,
-    sequelize,
+	Recipe,
+	User,
+	Level,
+	Category,
+	Ingredient,
+	Unit,
+	RecipeIngredient,
+	Step,
+	Review,
+	Favorite,
+	sequelize,
 } = require("../model");
 
 //(method: get) (path: /recipe/:id) 특정 아이디의 레시피를 보여준다.
@@ -86,7 +86,6 @@ exports.getRecipe = async (req, res) => {
 
 // 특정 카테고리와 좋아요 정렬로 레시피들을 보여준다.
 async function getTargetRecipes(target) {
-
 	if (target === "1") {
 		const rowChange = [];
 		const result = await Favorite.findAll({
@@ -153,57 +152,57 @@ async function getTargetRecipes(target) {
 			],
 		});
 
+		return result;
+	} else {
+		//선택값이 없을 때 전부 보여준다.
+		const result = await Recipe.findAll({
+			raw: true,
+			attributes: { exclude: ["category_id", "level_id", "user_id"] },
+			include: [
+				{
+					model: User,
+					attributes: { exclude: ["pw", "id"] },
+				},
+				{
+					model: Level,
+					attributes: { exclude: ["id"] },
+				},
+				{
+					model: Category,
+					attributes: { exclude: ["id"] },
+				},
+			],
+		});
 
-        return result;
-    } else {
-        //선택값이 없을 때 전부 보여준다.
-        const result = await Recipe.findAll({
-            raw: true,
-            attributes: { exclude: ["category_id", "level_id", "user_id"] },
-            include: [{
-                    model: User,
-                    attributes: { exclude: ["pw", "id"] },
-                },
-                {
-                    model: Level,
-                    attributes: { exclude: ["id"] },
-                },
-                {
-                    model: Category,
-                    attributes: { exclude: ["id"] },
-                },
-            ],
-        });
-
-        return result;
-    }
+		return result;
+	}
 }
 
 //(method: get) (path: /recipe)에서 레시피들을 보여준다.
-exports.getAllRecipe = async(req, res) => {
-    // let target = req.body.data;
-    const { category, like } = req.query;
-    let data;
+exports.getAllRecipe = async (req, res) => {
+	// let target = req.body.data;
+	const { category, like } = req.query;
+	let data;
 
-    if (!category && !like) {
-        data = await getTargetRecipes();
-        console.log("1");
-    } else if (like) {
-        data = await getTargetRecipes(like);
-        console.log("2");
-    } else {
-        data = await getTargetRecipes(category);
-        console.log("3");
-    }
-    console.log("this is 데이터", data);
+	if (!category && !like) {
+		data = await getTargetRecipes();
+		console.log("1");
+	} else if (like) {
+		data = await getTargetRecipes(like);
+		console.log("2");
+	} else {
+		data = await getTargetRecipes(category);
+		console.log("3");
+	}
+	console.log("this is 데이터", data);
 
-    if (data) {
-        // console.log(typeof rows, typeof count);
-        return res.render("recipe", { data });
-    } else {
-        console.log("레시피가 찾아지지 않았습니다.");
-        return res.render("recipe", { data: false });
-    }
+	if (data) {
+		// console.log(typeof rows, typeof count);
+		return res.render("recipe", { data });
+	} else {
+		console.log("레시피가 찾아지지 않았습니다.");
+		return res.render("recipe", { data: false });
+	}
 };
 
 // (method: post) (path: /recipe/register) 레시피를 등록한다.
@@ -213,7 +212,8 @@ exports.recipeRegister = async (req, res) => {
 	// req.files['recipe'][0] -> File
 	// req.files['steps'] -> Array
 
-
+	console.log(data);
+	console.log(req.files);
 	const selectCategory = await Category.findOne({
 		attributes: ["id"],
 		where: { list: data.category_list },
@@ -227,23 +227,26 @@ exports.recipeRegister = async (req, res) => {
 		where: { id: req.session.userId },
 	});
 	let recipe_id;
+	let insertRecipe;
 	if (selectCategory && selectLevel && selectUser) {
 		//select가 다 성공하면 recipe insert하기
-		const insertRecipe = await Recipe.create({
+		insertRecipe = await Recipe.create({
 			title: data.recipe_title,
-			image: req.files["recipe"][0],
+			image: req.files["recipe"][0].filename,
 			intro: data.recipe_intro,
 			level_id: selectLevel.id,
 			category_id: selectCategory.id,
 			user_id: selectUser.id,
+			cookTime: data.cookTime,
 		});
 		recipe_id = insertRecipe.id;
 		// console.log("insertRecipe: ", insertRecipe);
+		req.params.recipe_id = recipe_id;
+		console.log(req.params);
 	} else {
 		console.log("failed", selectCategory, selectLevel, selectUser);
 		res.send("fail to find category & level & user");
 	}
-
 
 	let ingredient, unit;
 
@@ -266,11 +269,11 @@ exports.recipeRegister = async (req, res) => {
 				list: data.ingredient[i].unit,
 			});
 		}
-		if (ingredient && unit && selectRecipe) {
+		if (ingredient && unit && insertRecipe) {
 			// const insertRecipeIngredient =
 			await RecipeIngredient.create({
 				recipe_id, // insertRecipe의 아이디를 recipe_id에 담은 것을 등록한다.
-				amount: data.amount,
+				amount: data.ingredient[i].amount,
 				ingredient_id: ingredient.id,
 				unit_id: unit.id,
 			});
@@ -289,11 +292,11 @@ exports.recipeRegister = async (req, res) => {
 		await Step.create({
 			recipe_id,
 			instruction: data.steps[i],
-			image: req.files["steps"][i], //data.steps[i].image,
+			image: req.files["steps"][i].filename, //data.steps[i].image,
 			stepNumber: i + 1,
 		});
 	}
-	res.render("recipe");
+	res.send("recipe 등록 완료");
 };
 
 // (method: get) (path: /recipe/register) 레시피 등록 view 페이지 불러오기.
@@ -387,7 +390,6 @@ exports.getModifyRecipe = async (req, res) => {
 	// 	selectStep
 	// );
 	res.render("recipeModify", { selectRecipe, selectIngredient, selectStep });
-
 };
 // (method: put) (path: /recipe/:id/modify) 레시피 수정
 exports.modifyRecipe = async (req, res) => {
