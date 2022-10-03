@@ -39,7 +39,7 @@ const upload = multer({
 					: file.fieldname +
 							"-" +
 							req.session.userId +
-							"-recipe steps-" +
+							"-recipe_steps-" +
 							// req.params.id + 등록할 때는 params에는 안담겨서 undefined 뜬다.
 							// "-" +
 							count +
