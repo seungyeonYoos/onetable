@@ -224,7 +224,7 @@
       </div>
       <div class="register-button">
         <button onclick="register();">등록</button>
-        <button>취소</button>
+        <button onclick="registerCancel();">취소</button>
       </div>
     </div>
     <%-include("footer.ejs")%>
@@ -271,6 +271,9 @@
         } else {
           document.getElementById('preview').src = "";
         }
+      }
+      function registerCancel(){
+        document.location.href = "/course";
       }
 
     </script>

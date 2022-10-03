@@ -86,11 +86,8 @@
                     class="course-apply">수강신청</button>
 
                   <% } %>
-
-
       </div>
     </div>
-
 
     <div class="expect">
       <div class="expect-in">
@@ -103,8 +100,8 @@
             <button type="button" id="registerBtn" onclick="register(`<%=courseDetail.id%>`);">등록</button>
           </div>
           <div class="d-none" id="loadBtn">
-            <button type="button" onclick="correct();">수정</button>
-            <button type="button" onclick="cancel();">취소</button>
+            <button type="button" onclick="correct();" class="correct-btn">수정</button>
+            <button type="button" onclick="cancel();" class="cancel-btn">취소</button>
           </div>
 
         </form>
@@ -112,7 +109,9 @@
           <% for(var i=0; i<courseReview.length; i++){ %>
             <tr>
               <td>
-                <img src="/uploads/profileIMG/<%=courseReview[i].image%>">
+                <div class="profileImg">
+                  <img src="/uploads/profileIMG/<%=courseReview[i].image%>">
+                </div>
               </td>
               <td>
                 <%=courseReview[i].name%>
@@ -121,8 +120,18 @@
                 <%=courseReview[i].comment%>
               </td>
               <% if(courseReview[i].user_id==userId) { %>
-                <td><button type="button" onclick="load(`<%=courseReview[i].id%>`, this)" class="comment-mod">수정</button></td>
-                <td><button type="button" onclick="del(`<%=courseReview[i].id%>`, this)" class="comment-del">삭제</button></td>
+                <td>
+                  <button type="button" onclick="ellipsisVertical(this); " class="start">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                  </button>
+                </td>
+                <td>
+                  <div class="ellipsis-vertical d-none">
+                    <button type="button" onclick="load(`<%=courseReview[i].id%>`, this)"
+                      class="comment-mod">수정</button>
+                    <button type="button" onclick="del(`<%=courseReview[i].id%>`, this)" class="comment-del">삭제</button>
+                  </div>
+                </td>
                 <% } %>
             </tr>
             <% } %>
@@ -151,11 +160,20 @@
           }).then((response) => {
             $("table").append(
               `<tr>
-              <td><img src="/uploads/profileIMG/${response.data.myName.image}"></td>
+              <td><div class="profileImg"><img src="/uploads/profileIMG/${response.data.myName.image}"></div></td>
               <td>${response.data.myName.name}</td>
               <td>${response.data.courseReview.comment}</td>
-              <td><button type="button" onclick="load(${response.data.courseReview.id}, this)" class="comment-mod">수정</button></td>
-              <td><button type="button" onclick="del(${response.data.courseReview.id}, this)" class="comment-del">삭제</button></td>
+              <td>
+                <button type="button" onclick="ellipsisVertical();" class="start">
+                  <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
+              </td>
+              <td>
+                <div class="ellipsis-vertical d-none">
+                <button type="button" onclick="load(${response.data.courseReview.id}, this)" class="comment-mod">수정</button>
+                <button type="button" onclick="del(${response.data.courseReview.id}, this)" class="comment-del">삭제</button>
+                </div>
+              </td>
             </tr>`
             )
             form.reset();
@@ -210,6 +228,14 @@
             correct_tr.children[1].innerText = form.comment.value;
             cancel();
           })
+        }
+        function ellipsisVertical(obj) {
+          if ($(".ellipsis-vertical").hasClass("d-none")) {
+            $(".ellipsis-vertical").removeClass("d-none");
+          } else {
+            $(".ellipsis-vertical").addClass("d-none");
+          }
+
         }
       </script>
 </body>
