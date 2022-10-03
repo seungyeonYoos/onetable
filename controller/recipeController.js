@@ -13,79 +13,79 @@ const {
 } = require("../model");
 
 //(method: get) (path: /recipe/:id) 특정 아이디의 레시피를 보여준다.
-exports.getRecipe = async (req, res) => {
-	const { id } = req.params;
-	// 해당 타겟 레시피의 연관 정보를 검색.
-	// join table 해서 하면 편할것 같은데... 좀더 알아보고 변경 진행할 예정
-	const selectTargetRecipe = await Recipe.findOne({
-		raw: true,
-		attributes: { exclude: ["category_id", "level_id", "user_id"] },
-		where: { id },
-		include: [
-			{
-				model: User,
-				attributes: { exclude: ["pw", "id"] },
-			},
-			{
-				model: Level,
-				attributes: { exclude: ["id"] },
-			},
-			{
-				model: Category,
-				attributes: { exclude: ["id"] },
-			},
-		],
-	});
+exports.getRecipe = async(req, res) => {
+    const { id } = req.params;
+    // 해당 타겟 레시피의 연관 정보를 검색.
+    // join table 해서 하면 편할것 같은데... 좀더 알아보고 변경 진행할 예정
+    const selectTargetRecipe = await Recipe.findOne({
+        raw: true,
+        attributes: { exclude: ["category_id", "level_id", "user_id"] },
+        where: { id },
+        include: [{
+                model: User,
+                attributes: { exclude: ["pw", "id"] },
+            },
+            {
+                model: Level,
+                attributes: { exclude: ["id"] },
+            },
+            {
+                model: Category,
+                attributes: { exclude: ["id"] },
+            },
+        ],
+    });
 
-	// 해당 레시피의 요리 단계(step)을 검색.
-	const selectSteps = await Step.findAll({
-		raw: true,
-		where: { recipe_id: id },
-	});
+    // 해당 레시피의 요리 단계(step)을 검색.
+    const selectSteps = await Step.findAll({
+        raw: true,
+        where: { recipe_id: id },
+    });
 
-	const selectReviews = await Review.findAll({
-		raw: true,
-		where: { recipe_id: id },
-		order: [["id", "DESC"]],
-		include: [
-			{
-				model: User,
-				attributes: ["name"],
-				required: false,
-			},
-		],
-		//가장 최근 등록된 순서로 나온다.
-	});
+    const selectReviews = await Review.findAll({
+        raw: true,
+        where: { recipe_id: id },
+        order: [
+            ["id", "DESC"]
+        ],
+        include: [{
+            model: User,
+            attributes: ["name"],
+            required: false,
+        }, ],
+        //가장 최근 등록된 순서로 나온다.
+    });
 
-	// console.log("✅selectTargetRecipe:", selectTargetRecipe);
-	// console.log("✅selectSteps:", selectSteps);
-	// console.log("✅selectReviews:", selectReviews);
+    // console.log("✅selectTargetRecipe:", selectTargetRecipe);
+    // console.log("✅selectSteps:", selectSteps);
+    // console.log("✅selectReviews:", selectReviews);
 
-	//selectFavorite: 로그인한 유저가 해당 레시피를 좋아요 유무 확인.
-	let selectFavorite;
-	if (req.session.userId) {
-		selectFavorite = await Favorite.findOne({
-			raw: true,
-			where: { user_id: req.session.userId, recipe_id: id },
-		});
-	}
-	console.log("✅selectFavorite:", selectFavorite);
-	if (selectTargetRecipe) {
-		res.render("recipein", {
-			selectTargetRecipe,
-			selectSteps,
-			selectReviews,
-			selectFavorite: selectFavorite ? true : false,
-			id,
-		});
-	} else {
-		console.log("해당 레시피는 없습니다.");
-		res.render("recipein", { data: "recipe id is not found" });
-	}
+    //selectFavorite: 로그인한 유저가 해당 레시피를 좋아요 유무 확인.
+    let selectFavorite;
+    if (req.session.userId) {
+        selectFavorite = await Favorite.findOne({
+            raw: true,
+            where: { user_id: req.session.userId, recipe_id: id },
+        });
+    }
+    console.log("✅selectFavorite:", selectFavorite);
+    if (selectTargetRecipe) {
+        res.render("recipein", {
+            selectTargetRecipe,
+            selectSteps,
+            selectReviews,
+            selectFavorite: selectFavorite ? true : false,
+            id,
+        });
+    } else {
+        console.log("해당 레시피는 없습니다.");
+        res.render("recipein", { data: "recipe id is not found" });
+    }
 };
 
 // 특정 카테고리와 좋아요 정렬로 레시피들을 보여준다.
 async function getTargetRecipes(target) {
+
 	if (target === "1") {
 		const rowChange = [];
 		const result = await Favorite.findAll({
@@ -152,6 +152,7 @@ async function getTargetRecipes(target) {
 			],
 		});
 
+
 		return result;
 	} else {
 		//선택값이 없을 때 전부 보여준다.
@@ -206,6 +207,7 @@ exports.getAllRecipe = async (req, res) => {
 };
 
 // (method: post) (path: /recipe/register) 레시피를 등록한다.
+
 exports.recipeRegister = async (req, res) => {
 	const data = JSON.parse(req.body.data); // 프론트에서 전달 받는 데이터.
 	// req.session.key (req.session.userID) 유저 정보를 가져올 방법.
@@ -297,31 +299,35 @@ exports.recipeRegister = async (req, res) => {
 		});
 	}
 	res.send("recipe 등록 완료");
+
 };
 
 // (method: get) (path: /recipe/register) 레시피 등록 view 페이지 불러오기.
 exports.getRecipeRegister = (req, res) => {
-	res.render("recipeRegister");
+    res.render("recipeRegister");
 };
 
 //(method: post) (path: /recipe/:id) 리뷰 등록할 때 axios로 페이지 전환없이 등록 예정.
-exports.postReview = async (req, res) => {
-	const user_id = req.session.userId;
-	const recipe_id = req.params.id;
-	//req.body 에 담겨지는 데이터들 받아와서 score랑 comment 받아오기.
-	const { score, comment } = req.body;
-	// console.log(req.body.score);
-	const review = await Review.create({
-		user_id,
-		recipe_id,
-		score: score ? score : 0,
-		comment: comment ? comment : "",
-	});
-	// console.log("review 등록 확인하기:", review);
-	res.send("리뷰 등록 완료");
+exports.postReview = async(req, res) => {
+    const user_id = req.session.userId;
+    const recipe_id = req.params.id;
+    //req.body 에 담겨지는 데이터들 받아와서 score랑 comment 받아오기.
+    const { score, comment } = req.body;
+    // console.log(req.body.score);
+    const review = await Review.create({
+        user_id,
+        recipe_id,
+        score: score ? score : 0,
+        comment: comment ? comment : "",
+    });
+    console.log("review 등록 확인하기:", review);
+    console.log("score", score);
+    console.log("commet", comment);
+    res.send("리뷰 등록 완료");
 };
 
 // (method: get) (path: /recipe/:id/modify) 레시피 수정하는 페이지 불러옴.
+
 exports.getModifyRecipe = async (req, res) => {
 	//0. findone 으로 접속한 유저가 작성한 글이 맞는지 체크하기.
 	const id = parseInt(req.params.id);
@@ -390,125 +396,123 @@ exports.getModifyRecipe = async (req, res) => {
 	// 	selectStep
 	// );
 	res.render("recipeModify", { selectRecipe, selectIngredient, selectStep });
+
 };
 // (method: put) (path: /recipe/:id/modify) 레시피 수정
-exports.modifyRecipe = async (req, res) => {
-	// req.files['recipe'][0] -> File
-	// req.files['steps'] -> Array
-	const data = JSON.parse(req.body.data);
-	const { id } = req.params;
-	const user_id = req.session.userId;
+exports.modifyRecipe = async(req, res) => {
+    // req.files['recipe'][0] -> File
+    // req.files['steps'] -> Array
+    const data = JSON.parse(req.body.data);
+    const { id } = req.params;
+    const user_id = req.session.userId;
 
-	const changeColumn = {
-		title: data.recipe_title,
-		image: req.files["recipe"][0],
-		intro: data.recipe_intro,
-		cookTime: data.cookTime,
-	};
+    const changeColumn = {
+        title: data.recipe_title,
+        image: req.files["recipe"][0],
+        intro: data.recipe_intro,
+        cookTime: data.cookTime,
+    };
 
-	//1. 레시피 수정 부분.
-	const updateRecipe = await Recipe.update(changeColumn, {
-		where: { id },
-	});
-	console.log(updateRecipe);
+    //1. 레시피 수정 부분.
+    const updateRecipe = await Recipe.update(changeColumn, {
+        where: { id },
+    });
+    console.log(updateRecipe);
 
-	//2. ingredientRecipe 수정 부분✅✅✅✅✅✅ 확인 필요하다.
-	// for (let i = 0; i < data.ingredient.length; i++) {
-	// 	ingredient = await Ingredient.findOne({
-	// 		attributes: ["id"],
-	// 		where: { list: data.ingredient[i].ingredient },
-	// 	});
-	// 	if (!ingredient) {
-	// 		ingredient = await Ingredient.create({
-	// 			list: data.ingredient[i].ingredient,
-	// 		});
-	// 	}
-	// 	unit = await Unit.findOne({
-	// 		attributes: ["id"],
-	// 		where: { list: data.ingredient[i].unit },
-	// 	});
-	// 	if (!unit) {
-	// 		unit = await Unit.create({
-	// 			list: data.ingredient[i].unit,
-	// 		});
-	// 	}
-	// 	if (ingredient && unit && selectRecipe) {
-	// 		// const insertRecipeIngredient =
-	// 		await RecipeIngredient.create({
-	// 			recipe_id, // insertRecipe의 아이디를 recipe_id에 담은 것을 등록한다.
-	// 			amount: data.amount,
-	// 			ingredient_id: ingredient.id,
-	// 			unit_id: unit.id,
-	// 		});
-	// 	} else {
-	// 		console.log(
-	// 			"ingredient & measurment & selectRecipe sql 찾기 또는 입력 오류가 있음."
-	// 		);
-	// 		res.send("fail to find ingredient & unit & selectRecipe");
-	// 		break;
-	// 	}
-	// }
+    //2. ingredientRecipe 수정 부분✅✅✅✅✅✅ 확인 필요하다.
+    // for (let i = 0; i < data.ingredient.length; i++) {
+    // 	ingredient = await Ingredient.findOne({
+    // 		attributes: ["id"],
+    // 		where: { list: data.ingredient[i].ingredient },
+    // 	});
+    // 	if (!ingredient) {
+    // 		ingredient = await Ingredient.create({
+    // 			list: data.ingredient[i].ingredient,
+    // 		});
+    // 	}
+    // 	unit = await Unit.findOne({
+    // 		attributes: ["id"],
+    // 		where: { list: data.ingredient[i].unit },
+    // 	});
+    // 	if (!unit) {
+    // 		unit = await Unit.create({
+    // 			list: data.ingredient[i].unit,
+    // 		});
+    // 	}
+    // 	if (ingredient && unit && selectRecipe) {
+    // 		// const insertRecipeIngredient =
+    // 		await RecipeIngredient.create({
+    // 			recipe_id, // insertRecipe의 아이디를 recipe_id에 담은 것을 등록한다.
+    // 			amount: data.amount,
+    // 			ingredient_id: ingredient.id,
+    // 			unit_id: unit.id,
+    // 		});
+    // 	} else {
+    // 		console.log(
+    // 			"ingredient & measurment & selectRecipe sql 찾기 또는 입력 오류가 있음."
+    // 		);
+    // 		res.send("fail to find ingredient & unit & selectRecipe");
+    // 		break;
+    // 	}
+    // }
 
-	//3. step 업데이트
-	for (let i = 0; i < data.steps.length; i++) {
-		// const insertStep =
-		await Step.update(
-			{
-				instruction: data.steps[i],
-				image: req.files["steps"][i], //data.steps[i].image,
-				stepNumber: i + 1,
-			},
-			{ where: { recipe_id: id } }
-		);
-	}
+    //3. step 업데이트
+    for (let i = 0; i < data.steps.length; i++) {
+        // const insertStep =
+        await Step.update({
+            instruction: data.steps[i],
+            image: req.files["steps"][i], //data.steps[i].image,
+            stepNumber: i + 1,
+        }, { where: { recipe_id: id } });
+    }
 };
 
 // (method: delete) (path: /recipe/:id/modify) 레시피 삭제
-exports.deleteRecipe = async (req, res) => {
-	//req.body.data
-	const { id } = req.params;
-	// const user_id = req.session.userId;
+exports.deleteRecipe = async(req, res) => {
+    //req.body.data
+    const { id } = req.params;
+    // const user_id = req.session.userId;
 
-	try {
-		// //1.recipeIngredient 삭제
-		// await RecipeIngredient.destroy({
-		// 	where: { recipe_id: id },
-		// });
-		// //2. step 삭제
-		// await Step.destroy({
-		// 	where: { recipe_id: id },
-		// });
-		//3. recipe 삭제 -> recipe만 삭제되면 나머지 스텝이랑 recipeIngredient도 삭제가 될텐데, 실제로 그런지 확인 필요.
-		await Recipe.destroy({
-			where: { id },
-		});
-	} catch (error) {
-		console.error(error);
-		return res.send(false);
-	}
+    try {
+        // //1.recipeIngredient 삭제
+        // await RecipeIngredient.destroy({
+        // 	where: { recipe_id: id },
+        // });
+        // //2. step 삭제
+        // await Step.destroy({
+        // 	where: { recipe_id: id },
+        // });
+        //3. recipe 삭제 -> recipe만 삭제되면 나머지 스텝이랑 recipeIngredient도 삭제가 될텐데, 실제로 그런지 확인 필요.
+        await Recipe.destroy({
+            where: { id },
+        });
+    } catch (error) {
+        console.error(error);
+        return res.send(false);
+    }
 
-	res.redirect("/recipe");
+    res.redirect("/recipe");
 };
 
 // (method: post) (path: /recipe/:id/fav) 좋아요 등록
-exports.postFav = async (req, res) => {
-	console.log(req.body);
-	const createFavorite = await Favorite.create({
-		user_id: req.session.userId,
-		recipe_id: req.params.id,
-	});
-	console.log(createFavorite);
-	res.send("좋아요 등록 완료");
+exports.postFav = async(req, res) => {
+    console.log(req.body);
+    const createFavorite = await Favorite.create({
+        user_id: req.session.userId,
+        recipe_id: req.params.id,
+    });
+    console.log(createFavorite);
+    res.send("좋아요 등록 완료");
 };
 // (method: delete) (path: /recipe/:id/fav) 좋아요 취소
-exports.deleteFav = async (req, res) => {
-	console.log(req.body);
-	const deleteFavorite = await Favorite.destroy({
-		where: {
-			user_id: req.session.userId,
-			recipe_id: req.params.id,
-		},
-	});
-	console.log(deleteFavorite);
-	res.send("좋아요 삭제 완료");
+exports.deleteFav = async(req, res) => {
+    console.log(req.body);
+    const deleteFavorite = await Favorite.destroy({
+        where: {
+            user_id: req.session.userId,
+            recipe_id: req.params.id,
+        },
+    });
+    console.log(deleteFavorite);
+    res.send("좋아요 삭제 완료");
 };
