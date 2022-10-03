@@ -320,7 +320,7 @@ async function registerCourseReviews(req) {
 }
 async function getMynames(req) {
   const myNames = await User.findOne({
-    attributes: ["id", "name"],
+    attributes: ["id", "name", "image"],
     where: { id: req.session.userId },
   });
   return myNames;
