@@ -88,7 +88,6 @@
     padding: 15px 0px;
   }
   .expect-in div:first-child {
-    padding-top: 10px;
     font-size: 25px;
     font-weight: 600;
   }
@@ -106,13 +105,63 @@
     border-top: 1px solid gray ;
     border-bottom: 1px solid gray ;
   }
-  .expect-table td:last-child , .expect-table td:nth-child(3) {
+  .expect-table td:last-child {
+    position: relative;
+  }
+  .expect-table td:first-child {
+    width: 15%;
+  }
+  .expect-table td:nth-child(2) {
     width: 10%;
+    font-size: 20px;
+    font-weight: 600;
+    color: gray;
+  }
+  .expect-table td:nth-child(3) {
+    width: 65%;
+    font-weight: 600;
+
+  }
+  .profileImg {
+    width: 120px;
+    height: 120px;
+
+  }
+  .profileImg > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+  
+  .start {
+    border: 0;
+    background-color: white;
+  }
+  .ellipsis-vertical {
+    position: absolute;
+    background-color: white;
+    border: 1px solid rgb(210, 210, 210);
+    width: 100px;
+    text-align: center;
+    padding-bottom: 10px;
   }
   .comment-mod , .comment-del {
-    border: 0px;
+    color: rgb(156, 156, 156);
+    background-color: white;
+    font-size: 12px;
+    padding: 5px 10px;
+    width: 100%;
+    border: 0;
   }
+  .comment-mod:hover {
+    background-color: rgb(210, 210, 210);
+    color: black;
+  }
+  .comment-del:hover {
+    background-color: rgb(210, 210, 210);
+    color: black;
 
+  }
 
 
 
