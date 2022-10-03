@@ -3,7 +3,7 @@ const { User, Recipe, Favorite, Course, sequelize } = require("../model");
 
 // 회원가입 페이지
 exports.signup = (req, res) => {
-  res.render("signup");
+  res.render("signup", { popup: req.cookies.popup });
 };
 exports.signup_post = (req, res) => {
   console.log(req.file);
@@ -21,7 +21,7 @@ exports.signup_post = (req, res) => {
 
 // 로그인 페이지(로그아웃은 아마 session에서 session.userId만 빼주면 될듯)
 exports.login = (req, res) => {
-  res.render("login");
+  res.render("login", { popup: req.cookies.popup });
 };
 exports.login_post = (req, res) => {
   User.findOne({
@@ -161,6 +161,7 @@ exports.myPage = async (req, res) => {
     favCourse,
     applyCourse,
     courseReview,
+    popup: req.cookies.popup,
   });
 };
 

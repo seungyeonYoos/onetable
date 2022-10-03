@@ -126,7 +126,7 @@ exports.main = async (req, res) => {
   const courseData = await getCourseDatas(req.query);
   console.log("courseData:", courseData);
 
-  res.render("course", { bestCourse, courseData });
+  res.render("course", { bestCourse, courseData, popup: req.cookies.popup });
 };
 
 // coursefavorite테이블에서 user_id로 본인이 누른 coursefavorite정보 보내기
@@ -162,7 +162,7 @@ exports.courseFavorite_main = async (req, res) => {
 
 //* 등록부분
 exports.course_registerPage = (req, res) => {
-  res.render("courseRegister");
+  res.render("courseRegister", { popup: req.cookies.popup });
 };
 exports.course_register = (req, res) => {
   const data = {
@@ -226,6 +226,7 @@ exports.course_detailPage = async (req, res) => {
       userId,
       countApplication,
       courseReview,
+      popup: req.cookies.popup,
     });
   } else {
     res.send(
@@ -244,7 +245,11 @@ exports.course_updatePage = (req, res) => {
   }).then((courseDetail) => {
     console.log("courseDetail:", courseDetail);
     let userId = req.session.id;
-    res.render("courseUpdate", { courseDetail, userId });
+    res.render("courseUpdate", {
+      courseDetail,
+      userId,
+      popup: req.cookies.popup,
+    });
   });
 };
 exports.course_update = (req, res) => {
@@ -381,7 +386,11 @@ exports.course_applyPage = async (req, res) => {
     console.log("myInfo:", myInfo);
     const courseApply = await getCourseInfos(req.query.courseID);
     console.log("courseApply:", courseApply);
-    res.render("courseApply", { myInfo, courseApply });
+    res.render("courseApply", {
+      myInfo,
+      courseApply,
+      popup: req.cookies.popup,
+    });
   } else {
     res.send(
       `<script>

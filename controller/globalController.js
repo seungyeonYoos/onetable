@@ -51,5 +51,5 @@ exports.main = async (req, res) => {
   const bestCourse = await getBestCourses();
   console.log("bestCourse:", bestCourse);
 
-  res.render("index", { bestRecipe, bestCourse });
+  res.render("index", { bestRecipe, bestCourse, popup: req.cookies.popup });
 };

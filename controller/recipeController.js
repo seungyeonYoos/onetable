@@ -76,16 +76,16 @@ exports.getRecipe = async(req, res) => {
             selectReviews,
             selectFavorite: selectFavorite ? true : false,
             id,
+            popup: req.cookies.popup,
         });
     } else {
         console.log("해당 레시피는 없습니다.");
-        res.render("recipein", { data: "recipe id is not found" });
+        res.render("recipein", { data: "recipe id is not found", popup: req.cookies.popup, });
     }
 };
 
 // 특정 카테고리와 좋아요 정렬로 레시피들을 보여준다.
 async function getTargetRecipes(target) {
-
     if (target === "1") {
         const rowChange = [];
         const result = await Favorite.findAll({
@@ -196,10 +196,10 @@ exports.getAllRecipe = async(req, res) => {
 
     if (data) {
         // console.log(typeof rows, typeof count);
-        return res.render("recipe", { data });
+        return res.render("recipe", { data, popup: req.cookies.popup, });
     } else {
         console.log("레시피가 찾아지지 않았습니다.");
-        return res.render("recipe", { data: false });
+        return res.render("recipe", { data: false, popup: req.cookies.popup, });
     }
 };
 
@@ -296,12 +296,11 @@ exports.recipeRegister = async(req, res) => {
         });
     }
     res.send("recipe 등록 완료");
-
 };
 
 // (method: get) (path: /recipe/register) 레시피 등록 view 페이지 불러오기.
 exports.getRecipeRegister = (req, res) => {
-    res.render("recipeRegister");
+    res.render("recipeRegister", {popup: req.cookies.popup,});
 };
 
 //(method: post) (path: /recipe/:id) 리뷰 등록할 때 axios로 페이지 전환없이 등록 예정.
@@ -394,7 +393,7 @@ exports.getModifyRecipe = async(req, res) => {
     // 	"selectStep",
     // 	selectStep
     // );
-    res.render("recipeModify", { selectRecipe, selectIngredient, selectStep });
+    res.render("recipeModify", { selectRecipe, selectIngredient, selectStep, popup: req.cookies.popup, });
 
 };
 // (method: put) (path: /recipe/:id/modify) 레시피 수정

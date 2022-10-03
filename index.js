@@ -29,11 +29,13 @@ app.use(
   })
 );
 
-// cookie 확인
-app.get("/cookie/get", (req, res) => {
-  // 쿠키는 브라우저에 저장됨
-  // 브라우저에 저장된 쿠키 확인이니까 req
-  console.log(req.cookies);
+// cookie
+app.post("/cookie", (req, res) => {
+  res.cookie("popup", "oneMinute", {
+    maxAge: 10000,
+    httpOnly: false,
+  });
+  res.send("쿠키 생성");
 });
 
 const globalRouter = require("./routes/globalRouter");
@@ -54,6 +56,11 @@ app.use("/*", function (req, res, next) {
   }
   next();
 });
+
+// 그냥 노가다하자
+// app.use("/*", function (req, res, next) {
+//   req.cookies.popup = "";
+// });
 
 app.use("/", globalRouter);
 app.use("/recipe", recipeRouter);
