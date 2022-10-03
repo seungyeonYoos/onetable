@@ -1,58 +1,54 @@
 // 좋아요 기능
-var heartcount = 0;
+var heartcount;
 
-function heart(id) {
-    const pushHeartBtn = document.querySelector(".Heart");
-    console.log(pushHeartBtn)
+const pushHeartBtn = document.querySelector(".Heart");
+pushHeartBtn.addEventListener('click', () => {
+
     if (pushHeartBtn.innerHTML !== '<i class="xi-heart xi-x"></i>') {
         pushHeartBtn.innerHTML = '<i class="xi-heart xi-x"></i>';
         pushHeartBtn.style.color = 'red';
-        heartcount = true;
-        axios({
-            method: 'post',
-            url: `http://localhost:8000/recipe/${id}/fav`,
-            data: data = {
-                favorite: heartcount
-            }
-        }).then((rep) => {
-            return rep.data;
-        })
+        heartcount = pushHeartBtn;
+
     } else {
         pushHeartBtn.innerHTML = '<i class=" xi-heart-o xi-x"></i>';
         pushHeartBtn.style.color = 'black';
-        heartcount = ture;
-
-        axios({
-            method: 'delete',
-            url: `http://localhost:8000/recipe/${id}/fav`,
-            data: data = {
-                favorite: heartcount
-            }
-        }).then((rep) => {
-            return rep.data;
-        })
     }
-    console.log(heartcount)
+});
+
+function heart(id) {
+
+    axios({
+        method: 'post',
+        url: `http://localhost:8000/recipe/${id}/fav`,
+        data: data = {
+            heartcount: heartcount
+        }
+    }).then((rep) => {
+        return rep.data;
+    });
+    axios({
+        method: 'delete',
+        url: `http://localhost:8000/recipe/${id}/fav`,
+        data: data = {
+            deleteFavorite: heartcount
+        }
+    }).then((rep) => {
+        return rep.data;
+    });
 
 }
 
-var evaluation = 0;
+
 
 function goodRecipe() {
-
     const goodrecipe = document.querySelector(".goodrecipe");
     if (goodrecipe.innerHTML !== '<i class="xi-emoticon-smiley xi-2x"></i>') {
         goodrecipe.innerHTML = '<i class="xi-emoticon-smiley xi-2x"></i>';
         goodrecipe.style.color = "red";
-        evaluation += 1;
-
     } else {
         goodrecipe.innerHTML = '<i class="xi-emoticon-smiley-o xi-2x"></i>';
         goodrecipe.style.color = "black";
-
-        evaluation -= 1;
     }
-
 }
 
 function badRecipe() {
@@ -60,32 +56,44 @@ function badRecipe() {
     if (badrecipe.innerHTML !== '<i class="xi-emoticon-sad xi-2x"></i>') {
         badrecipe.innerHTML = '<i class="xi-emoticon-sad xi-2x"></i>';
         badrecipe.style.color = "red";
-        evaluation -= 1;
+
     } else {
         badrecipe.innerHTML = '<i class="xi-emoticon-sad-o xi-2x"></i>';
         badrecipe.style.color = "black";
-        evaluation += 1;
-
     }
 }
 
+let good = document.getElementById("goodrecipe").value;
+let bad = document.getElementById("badrecipe").value;
+console.log("good", good)
+console.log("bad", bad)
+var score = 0;
+$("#goodrecipe").on("click", () => {
+    score = good;
+    console.log(score)
+})
+
+$("#badrecipe").on("click", () => {
+    score = bad;
+    console.log(score)
+})
+
 function reviewChat(id) {
     var myReview = document.getElementById("myReview").value;
+
     axios({
         method: 'post',
         url: `http://localhost:8000/recipe/${id}`,
         data: data = {
-            score: evaluation,
+            score: score,
             comment: myReview,
         }
     }).then((rep) => {
         return rep.data;
     }).then((data) => {
-        return ture;
-
+        document.location.href = `/recipe/${id}`;
 
     }).catch((err) => {
         return false;
     })
-
 };

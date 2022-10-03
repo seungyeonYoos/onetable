@@ -379,14 +379,17 @@
         flex-wrap: wrap;
     }
     
+    #goodbad input {
+        display: none;
+    }
+    
     #chatInput {
         display: flex;
         justify-content: center;
         align-items: center;
     }
     
-    .goodrecipe,
-    .badrecipe {
+    #goodbad label {
         background-color: #D7CCC8;
         padding: 5px;
     }
