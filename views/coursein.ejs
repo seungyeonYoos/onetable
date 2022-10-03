@@ -124,18 +124,18 @@
               </td>
               <% if(courseReview[i].user_id==userId) { %>
                 <td>
-                  <button type="button" onclick="ellipsisVertical(this); " class="start">
+                  <button type="button" onclick="ellipsisVertical(`<%=courseReview[i].id%>`, this); " class="start" >
                     <i class="fa-solid fa-ellipsis-vertical"></i>
                   </button>
                 </td>
                 <td>
-                  <div class="ellipsis-vertical d-none">
+                  <div class="ellipsis-vertical d-none" id="<%=courseReview[i].id%>">
                     <button type="button" onclick="load(`<%=courseReview[i].id%>`, this)"
                       class="comment-mod">수정</button>
                     <button type="button" onclick="del(`<%=courseReview[i].id%>`, this)" 
                       class="comment-del">삭제</button>
                   </div>
-                </td>
+                </td> 
                 <% } %>
             </tr>
             <% } %>
@@ -235,13 +235,23 @@
             cancel();
           })
         }
-        let correct_td;
-        function ellipsisVertical(obj) {
-          correct_td = obj.parentElement;
-          if ($(".ellipsis-vertical").hasClass("d-none")) {
-            $(".ellipsis-vertical").removeClass("d-none");
+        // let correct_td;
+        let num;
+        function ellipsisVertical(id, obj) {
+          // correct_td = obj.parentElement;
+          // // num = obj.getElementById();
+          // console.log(id);
+          // console.log(correct_td + td);
+          // if( correct_td + td > ".ellipsis-vertical" ){
+          //   $( correct_td + td > ".ellipsis-vertical" ).removeClass("d-none");
+          // } else {
+          //   $( correct_td + td > ".ellipsis-vertical" ).addClass("d-none");
+
+          // }
+          if ($(`#${id}`).hasClass("d-none")) {
+            $(`#${id}`).removeClass("d-none");
           } else {
-            $(".ellipsis-vertical").addClass("d-none");
+            $(`#${id}`).addClass("d-none");
           }
 
         }

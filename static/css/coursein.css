@@ -193,3 +193,10 @@
   .expect-comment {
     display: flex;
   }
+
+  @media (max-width: 935px) { 
+    .profileImg {
+      width: auto;
+      height: auto;
+    }
+  }

@@ -17,7 +17,7 @@
         padding: 18px 20px;
       }
       .cooking-class-title {
-        font-size: 30px;
+        font-size: calc(0.75em + 2vw);
         font-weight: 600;
       }
   
@@ -40,6 +40,7 @@
         width: 20vw;
         text-align: center;
         overflow: hidden;
+        margin: 0px 5px;
       }
       .post a {
         text-decoration: none;
@@ -146,3 +147,29 @@
       .heartSolid {
         color: red !important;
       }
+
+      @media (max-width: 640px) { 
+        .course-list-item {
+          height: 300px;
+        }
+      }
+      @media (max-width: 420px) { 
+        .course-list-item {
+          height: 220px;
+        }
+      }
+
+      /* best course image */
+      @media (max-width: 900px) { 
+        .bestCourse {
+          width: 100%;
+          height: auto;
+        }
+        .post .bestCourseImage {
+          height: 200px;
+        }
+        .cooking-class {
+          width: 100%;
+        }
+      }
+      
