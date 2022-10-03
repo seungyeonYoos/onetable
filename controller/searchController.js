@@ -21,6 +21,7 @@ exports.main = async (req, res) => {
     countRecipe,
     countCourse,
     count,
+    popup: req.cookies.popup,
   });
 };
 
@@ -49,5 +50,10 @@ exports.search = async (req, res) => {
   console.log("search_recipeData:", recipeData);
   const courseData = await getCourses(req.query.search);
   console.log("search_courseData:", courseData);
-  res.render("search", { searchWord, recipeData, courseData });
+  res.render("search", {
+    searchWord,
+    recipeData,
+    courseData,
+    popup: req.cookies.popup,
+  });
 };

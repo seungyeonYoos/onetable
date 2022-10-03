@@ -47,4 +47,79 @@
   </div>
 </div>
 
-<script></script>
+<!-- cookie -->
+<div
+  class="alert alert-warning alert-dismissible fade show d-none"
+  id="myAlert"
+  role="alert"
+  style="padding: 16px 170px 16px 16px"
+>
+  <i
+    style="position: relative; top: -1px"
+    class="far fa-exclamation-circle"
+  ></i>
+  <strong>비밀번호 변경 안내!</strong> 개인정보보호를 위해 6개월 마다 비밀번호
+  변경을 권장하고 있사오니 비밀번호를 변경해 주시기 바랍니다.
+  <span
+    style="
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      padding: 18px 40px 18px 0px;
+      font-size: 13px;
+    "
+    >3일 동안 보지 않기</span
+  >
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+    onclick="cancel();"
+  ></button>
+</div>
+
+<script>
+  const bsAlert = document.getElementById("myAlert");
+  console.log(bsAlert);
+
+  // 이건 backend에서 res.render로 변수 넘겨줘서 검사해서 처리
+  // 까꿍 안 함
+  function cancel() {
+    axios({
+      url: "/cookie",
+      method: "post",
+    }).then((response) => {
+      console.log("cookie:", response.data);
+    });
+    if (bsAlert.classList.contains("d-none") == false) {
+      bsAlert.classList.add("d-none");
+    }
+  }
+
+  if ("<%=popup%>" == "") {
+    if (bsAlert.classList.contains("d-none")) {
+      bsAlert.classList.remove("d-none");
+    }
+  }
+
+  // 프론트엔드 단에서 cookie접근
+  // 이 방식은 로드가 느려서 까꿍하게 됨.
+  // $(document).ready(function () {
+  //   if (document.cookie == "popup=oneMinute") {
+  //     bsAlert.classList.add("d-none");
+  //   }
+  // });
+
+  // function cancel() {
+  //   axios({
+  //     url: "/cookie",
+  //     method: "post",
+  //   }).then((response) => {
+  //     console.log("cookie:", response.data);
+  //   });
+  //   if (bsAlert.classList.contains("d-none") == false) {
+  //     bsAlert.classList.add("d-none");
+  //   }
+  // }
+</script>
