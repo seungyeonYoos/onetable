@@ -93,7 +93,7 @@
             <div id="profile">
                 <div class="userImg"><img src="http://localhost:8000/uploads/profileIMG/<%=selectTargetRecipe['user.image'] %>" alt="" onerror="this.onerror=null; this.src='/static/img/hat-chef.png';"></div>
                 <div class="name">
-                    <%=selectTargetRecipe["user.name"]%>
+                    <%=selectTargetRecipe.userId%>
                 </div>
                 <div class="news"><button type="button">소식받기</button></div>
             </div>
@@ -104,9 +104,9 @@
                     <div>
                         <h6>&#124; 재료 &#124;</h6>
                         <ul class="stuff">
-                            <% for (var i = 1; i < 6 ; i++ ) { %>
+                            <% for (var i = 1; i <  selectSteps.ingredient ; i++ ) { %>
                                 <li>
-                                    <%=i%>
+                                    <%=selectSteps[i].ingredient%>
                                 </li>
                                 <% } %>
                         </ul>
@@ -115,9 +115,10 @@
                     <div>
                         <h6>&#124; 계량 &#124;</h6>
                         <ul class="mass">
-                            <% for (var i = 1; i < 6 ; i++ ) { %>
+                            <% for (var i = 1; i <  selectSteps.length ; i++ ) { %>
                                 <li>
-                                    <%=i%>g
+                                    <%=selectSteps[i].amount%>
+                                        <%=selectSteps[i].unit%>
                                 </li>
                                 <% } %>
                         </ul>
@@ -128,18 +129,18 @@
             <h3>조리 순서</h3>
             <div id="order">
                 <div class="order_item">
-                    <% for (var i = 1; i < selectSteps.length ; i++ ) { %>
+                    <% for (var i = 1; i < selectSteps.steps ; i++ ) { %>
 
                         <div>
                             <ul>
                                 <%=i%>.
                                     <li class="ex">
-                                        조리하는 순서
+                                        <%=selectSteps[i].instruction%>
                                     </li>
                             </ul>
 
                             <ul>
-                                <li class="exImg"><img src="" alt="" onerror="this.onerror=null; this.src='/static/img/hat-chef.png';"></li>
+                                <li class="exImg"><img src="/uploads/recipe/<%=steps[i].image%>" alt="" onerror="this.onerror=null; this.src='/static/img/hat-chef.png';"></li>
                             </ul>
                         </div>
                         <hr>
@@ -154,7 +155,7 @@
                         <% for (var i = 1; i < selectReviews.length ; i++ ) { %>
                             <li class="commentList">
                                 <p class="name">
-                                    <%=selectReviews[i].user_id%> &#160;&#124; &#160; </p>
+                                    <%=selectReviews[i]["user.name"]%> &#160;&#124; &#160; </p>
                                 <p class="comment">
                                     <%=selectReviews[i].comment%>
                                 </p>
@@ -174,7 +175,7 @@
                         <button type="button" id="badrecipe" class="badrecipe" name="badrecipe" value="-1" onclick="badRecipe()"><i class="xi-emoticon-sad-o xi-2x"></i>
                     </div>
                     <input type="text" id="myReview" name="myReview">
-                    <input type="button" class="reviewpush" onclick="reviewChat('<%=id%>')" value="작성">
+                    <input type="submit" class="reviewpush" onclick="reviewChat('<%=id%>')" value="작성">
                 </form>
             </div>
 

@@ -1,6 +1,7 @@
 // 더보기
 $(window).on('load', function() {
-    review('#review_load', '4');
+    review('#review_load', '2');
+    courseReview('#courseReview_load', '2');
     userLikes('#userLikes_load', '4');
     likeClass('#likeClass_load', '4');
     myrecipe('#myrecipe_load', '4');
@@ -10,7 +11,10 @@ $(window).on('load', function() {
 
 
     $("#view .reviewB").on("click", function() {
-        review('#review_load', '4', '#view');
+        review('#review_load', '2', '#view');
+    })
+    $("#view .courseReviewB").on("click", function() {
+        courseReview('#courseReview_load', '2', '#view');
     })
     $("#view .userLikesB").on("click", function() {
         userLikes('#userLikes_load', '4', '#view');
@@ -44,6 +48,19 @@ function review(id, cnt, btn) {
         $('.reviewB').hide()
     }
     $(review_list + ":lt(" + review_total_cnt + ")").addClass("active");
+}
+
+function courseReview(id, cnt, btn) {
+    var courseReview_list = id + " .courseReviewItem:not(.active)";
+    var courseReview_length = $(courseReview_list).length;
+    var courseReview_total_cnt;
+    if (cnt < courseReview_length) {
+        courseReview_total_cnt = cnt;
+    } else {
+        review_total_cnt = courseReview_length;
+        $('.reviewB').hide()
+    }
+    $(courseReview_list + ":lt(" + courseReview_total_cnt + ")").addClass("active");
 }
 
 function userLikes(id, cnt, btn) {

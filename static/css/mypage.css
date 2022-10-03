@@ -147,14 +147,53 @@ hr {
     color: brown;
 }
 
-ㅎ
-/* review */
+
+/* review item */
+
+#Review {
+    display: flex;
+    flex-direction: column;
+}
+
+#Review>.reviewItem,
+#Review>.courseReviewItem {
+    background-color: #D7CCC8;
+    height: 100px;
+    width: 100%;
+}
+
+.reviewTitle,
+.myReview {
+    font-weight: bold;
+}
+
+#ReviewComment {
+    margin: 10px 20px;
+}
+
+#ReviewComment>a {
+    text-decoration: none;
+    color: black;
+}
+
+.reviewComment {
+    padding-bottom: 10px;
+    overflow-y: scroll;
+}
+
+.reviewHr {
+    border: 1px solid #3E2723;
+    margin: 1px 0;
+}
 
 
-/* userlike */
+/* 모든 페이지 css 조정 */
 
 .userLikes li,
-.likeClass li {
+.likeClass li,
+.myrecipe li,
+.myClass li,
+.appClass li {
     /* 임시 */
     background-color: #EFEBE9;
     /*  */
@@ -164,29 +203,39 @@ hr {
     margin-top: 20px;
 }
 
-
-/* likeclass */
-
-
-/* myrecipe */
-
-.myrecipeItem {
+.myrecipeItem,
+.userLikesItem,
+.likeClassItem,
+.myClassList,
+.appClassItem {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.myrecipeItem a {
+.myrecipeItem a,
+.userLikesItem a,
+.likeClassItem a,
+.myClassList a,
+.appClassItem a {
     text-decoration: none;
 }
 
-.myrecipeItem img {
+.myrecipeItem img,
+.userLikesItem img,
+.likeClassItem img,
+.myClassList img,
+.appClassItem img {
     position: absolute;
     width: 200px;
     height: 200px;
 }
 
-.myrecipeItem span {
+.myrecipeItem span,
+.userLikesItem span,
+.likeClassItem span,
+.myClassList span,
+.appClassItem span {
     position: absolute;
     padding-top: 90px;
     text-align: center;
@@ -208,12 +257,6 @@ hr {
     filter: brightness(20%);
     background-color: #3E2723;
 }
-
-
-/* myclass */
-
-
-/* appClass */
 
 
 /* top button */

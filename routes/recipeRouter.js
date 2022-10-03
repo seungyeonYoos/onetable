@@ -21,6 +21,9 @@ const upload = multer({
 			}
 			const ext = path.extname(file.originalname);
 			//ext 는 확장자를 담는 변수다.
+			// const data = JSON.parse(req.body.data);
+			// console.log(data);
+			// console.log(data.recipe_title);
 			done(
 				null,
 				//recipe에 담기는 파일이면 'recipe-1-1-now.jpg', 아니면 'steps-1-1-1-now.jpg'로 저장됨.
@@ -29,16 +32,16 @@ const upload = multer({
 							"-" +
 							req.session.userId +
 							"-" +
-							req.params.id +
+							"1" +
 							"-" +
 							Date.now() +
 							ext
 					: file.fieldname +
 							"-" +
 							req.session.userId +
-							"-" +
-							req.params.id +
-							"-" +
+							"-recipe steps-" +
+							// req.params.id + 등록할 때는 params에는 안담겨서 undefined 뜬다.
+							// "-" +
 							count +
 							"-" +
 							Date.now() +
