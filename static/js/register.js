@@ -71,46 +71,46 @@
  }
 
  function newRecipe_add() {
-     //  if (!form.checkValidity()) {
-     //      form.reportValidity();
 
-     //      return false;
-     //  }
-     //  let form = document.getElementById("form");
-     //  const formData = new FormData();
-     const formData = $("#form").serializeObject();
+     let form = document.getElementById("form");
+
+     //  const form = $('form').serializeArray();
+     const formData = new FormData();
      const recipefile = document.getElementById("chooseFile");
      const orderfile = document.getElementById("orderFile");
-     var data = {
-         recipeName: form.recipeName.value,
-         recipeInfor: form.recipeInfor.value,
-         category: form.category.value,
-         time: form.time.value,
-         level: form.level.value,
-         stuff: form.stuff.value,
-         meterage: form.meterage.value,
-         meterageInfor: form.meterageInfor.value,
-         orderInfor: form.order_infor.value
+     const data = {
+
+         title: form.recipeName.value,
+         intro: form.recipeInfor.value,
+         category_id: form.category.value,
+         cookTime: form.time.value,
+         level_id: form.level.value,
+         ingredient: {
+             ingredient_id: form.stuff.value,
+             amount: form.meterage.value,
+             unit_id: form.meterageInfor.value,
+
+         },
+         instruction: [form.order_infor.value]
      }
-
-     formData.append("myImage", recipefile.files[0]);
-     formData.append("recipeImg", orderfile.files[0]);
-     formData.append("title", data.recipeName);
-     formData.append("intro", data.recipeInfor);
-     formData.append("category_id", data.category);
-     formData.append("level_id", data.level);
-     formData.append("amount", data.stuff);
-     formData.append("ingredient_id", data.meterage);
-     formData.append("unit_id", data.meterageInfor);
-
+     json = JSON.stringify(data);
+     //  const json = JSON.serializeObject({ formData });
+     //  const blob = new Blob([json], {
+     //      type: 'application/json'
+     //  });
+     for (let i = 0; i < Object.values(orderfile.files).length; i++) {
+         formData.append("steps", orderfile.files[i]);
+     }
+     formData.append("recipe", recipefile.files[0]);
+     formData.append("data", JSON.stringify(data));
 
      axios({
              headers: {
-                 "Content-Type": `application/json`,
+                 "Content-Type": 'multipart/form-data',
              },
              method: "post",
              url: `http://localhost:8000/recipe/register`,
-             data: JSON.stringify(formData)
+             data: formData,
          })
          .then((rep) => {
              return rep.data;
@@ -130,4 +130,5 @@
              });
          });
 
- }
+
+ };

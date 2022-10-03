@@ -1,15 +1,15 @@
 const {
-	Recipe,
-	User,
-	Level,
-	Category,
-	Ingredient,
-	Unit,
-	RecipeIngredient,
-	Step,
-	Review,
-	Favorite,
-	sequelize,
+    Recipe,
+    User,
+    Level,
+    Category,
+    Ingredient,
+    Unit,
+    RecipeIngredient,
+    Step,
+    Review,
+    Favorite,
+    sequelize,
 } = require("../model");
 
 //(method: get) (path: /recipe/:id) 특정 아이디의 레시피를 보여준다.
@@ -74,123 +74,120 @@ exports.getRecipe = async(req, res) => {
 
 // 특정 카테고리와 좋아요 정렬로 레시피들을 보여준다.
 async function getTargetRecipes(target) {
-	if (target === "1") {
-		const rowChange = [];
-		const result = await Favorite.findAll({
-			raw: true,
-			attributes: [
-				[sequelize.fn("COUNT", sequelize.col("recipe_id")), "favCount"],
-			],
-			group: ["recipe_id"],
-			order: [["favCount", "DESC"]],
-			include: [
-				{
-					model: Recipe,
-					attributes: ["id", "title", "image", "intro", "cookTime"],
-					required: false, //left join 그냥 하면 inner join이 됨.
-					include: [
-						{
-							model: User,
-							attributes: { exclude: ["pw", "id"] },
-							required: false,
-						},
-						{
-							model: Level,
-							attributes: { exclude: ["id"] },
-							required: false,
-						},
-						{
-							model: Category,
-							attributes: ["list"],
-							required: false,
-						},
-					],
-				},
-			],
-			limit: 20,
-		});
-		for (const element of result) {
-			const obj = new Object();
-			for (const keys in element) {
-				let key = keys === "favCount" ? keys : keys.slice(7);
-				obj[key] = element[keys];
-			}
-			rowChange.push(obj);
-		}
-		console.log("복사 성공인가??💖", rowChange);
-		return rowChange;
-	} else if (target) {
-		const result = await Recipe.findAll({
-			raw: true,
-			attributes: { exclude: ["category_id", "level_id", "user_id"] },
-			include: [
-				{
-					model: User,
-					attributes: { exclude: ["pw", "id"] },
-				},
-				{
-					model: Level,
-					attributes: { exclude: ["id"] },
-				},
-				{
-					model: Category,
-					attributes: { exclude: ["id"] },
-					where: { list: target },
-				},
-			],
-		});
+    if (target === "1") {
+        const rowChange = [];
+        const result = await Favorite.findAll({
+            raw: true,
+            attributes: [
+                [sequelize.fn("COUNT", sequelize.col("recipe_id")), "favCount"],
+            ],
+            group: ["recipe_id"],
+            order: [
+                ["favCount", "DESC"]
+            ],
+            include: [{
+                model: Recipe,
+                attributes: ["id", "title", "image", "intro", "cookTime"],
+                required: false, //left join 그냥 하면 inner join이 됨.
+                include: [{
+                        model: User,
+                        attributes: { exclude: ["pw", "id"] },
+                        required: false,
+                    },
+                    {
+                        model: Level,
+                        attributes: { exclude: ["id"] },
+                        required: false,
+                    },
+                    {
+                        model: Category,
+                        attributes: ["list"],
+                        required: false,
+                    },
+                ],
+            }, ],
+            limit: 20,
+        });
+        for (const element of result) {
+            const obj = new Object();
+            for (const keys in element) {
+                let key = keys === "favCount" ? keys : keys.slice(7);
+                obj[key] = element[keys];
+            }
+            rowChange.push(obj);
+        }
+        console.log("복사 성공인가??💖", rowChange);
+        return rowChange;
+    } else if (target) {
+        const result = await Recipe.findAll({
+            raw: true,
+            attributes: { exclude: ["category_id", "level_id", "user_id"] },
+            include: [{
+                    model: User,
+                    attributes: { exclude: ["pw", "id"] },
+                },
+                {
+                    model: Level,
+                    attributes: { exclude: ["id"] },
+                },
+                {
+                    model: Category,
+                    attributes: { exclude: ["id"] },
+                    where: { list: target },
+                },
+            ],
+        });
 
-		return result;
-	} else {
-		//선택값이 없을 때 전부 보여준다.
-		const result = await Recipe.findAll({
-			raw: true,
-			attributes: { exclude: ["category_id", "level_id", "user_id"] },
-			include: [
-				{
-					model: User,
-					attributes: { exclude: ["pw", "id"] },
-				},
-				{
-					model: Level,
-					attributes: { exclude: ["id"] },
-				},
-				{
-					model: Category,
-					attributes: { exclude: ["id"] },
-				},
-			],
-		});
+        return result;
+    } else {
+        //선택값이 없을 때 전부 보여준다.
+        const result = await Recipe.findAll({
+            raw: true,
+            attributes: { exclude: ["category_id", "level_id", "user_id"] },
+            include: [{
+                    model: User,
+                    attributes: { exclude: ["pw", "id"] },
+                },
+                {
+                    model: Level,
+                    attributes: { exclude: ["id"] },
+                },
+                {
+                    model: Category,
+                    attributes: { exclude: ["id"] },
+                },
+            ],
+        });
 
-		return result;
-	}
+        return result;
+    }
 }
 
 //(method: get) (path: /recipe)에서 레시피들을 보여준다.
-exports.getAllRecipe = async (req, res) => {
-	// let target = req.body.data;
-	const { category, like } = req.query;
-	let data;
+exports.getAllRecipe = async(req, res) => {
+    // let target = req.body.data;
+    const { category, like } = req.query;
+    let data;
 
-	if (!category && !like) {
-		data = await getTargetRecipes();
-		console.log("1");
-	} else if (like) {
-		data = await getTargetRecipes(like);
-		console.log("2");
-	} else {
-		data = await getTargetRecipes(category);
-		console.log("3");
-	}
-	console.log("this is 데이터", data);
+    if (!category && !like) {
+        data = await getTargetRecipes();
+        console.log("1");
+    } else if (like) {
+        data = await getTargetRecipes(like);
+        console.log("2");
+    } else {
+        data = await getTargetRecipes(category);
+        console.log("3");
+    }
+    console.log("this is 데이터", data);
 
-	if (data) {
-		// console.log(typeof rows, typeof count);
-		return res.render("recipe", { data });
-	} else {
-		console.log("레시피가 찾아지지 않았습니다.");
-		return res.render("recipe", { data: false });
-	}
+    if (data) {
+        // console.log(typeof rows, typeof count);
+        return res.render("recipe", { data });
+    } else {
+        console.log("레시피가 찾아지지 않았습니다.");
+        return res.render("recipe", { data: false });
+    }
 };
 
 // (method: post) (path: /recipe/register) 레시피를 등록한다.
@@ -223,6 +220,7 @@ exports.recipeRegister = async(req, res) => {
             category_id: selectCategory.id,
             user_id: selectUser.id,
         });
+        console.log(data)
         recipe_id = insertRecipe.id;
         // console.log("insertRecipe: ", insertRecipe);
     } else {
@@ -365,12 +363,12 @@ exports.getModifyRecipe = async(req, res) => {
         ],
     });
     // console.log(
-    // 	"selectRecipe",
-    // 	selectRecipe,
-    // 	"selectIngredient",
-    // 	selectIngredient,
-    // 	"selectStep",
-    // 	selectStep
+    //     "selectRecipe",
+    //     selectRecipe,
+    //     "selectIngredient",
+    //     selectIngredient,
+    //     "selectStep",
+    //     selectStep
     // );
     res.render("recipeModify", { selectRecipe, selectIngredient, selectStep });
 };
