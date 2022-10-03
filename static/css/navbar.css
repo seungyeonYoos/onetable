@@ -10,17 +10,16 @@
     font-weight: 400;
     font-style: normal;
 }
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
-
-
 :root {
     --main-font-size: calc(0.75em + 4vw);
     --midium-font-size: calc(0.75em + 3vw);
     --main-font-family: 'Chosunilbo_myungjo';
     --sub-font-family: 'Noto Sans KR';
 }
+
 body {
     padding-top: 154px !important;
+
 }
 
 .navbar {
@@ -32,6 +31,8 @@ body {
     z-index: 20;
     top: 0;
     width: 100%;
+    font-family: var(--main-font-family);
+
 }
 .nav-first-floor {
     width: 80%;
@@ -64,6 +65,7 @@ body {
 }
 .logo {
     width: 100px;
+    font-weight: bold;
 }
 .empty {
     width: 70%;
@@ -87,6 +89,7 @@ body {
     justify-content: center;
     margin: 0 auto;
     text-align: center;
+    font-weight: bold;
 }
 .nav-link {
     font-size: calc(0.1em + 0.9vw);
@@ -100,9 +103,22 @@ body a:hover {
     display: none;
 }
 
-@media (max-width: 790px) { 
+@media (max-width: 840px) { 
     .nav > li {
         margin: 0px;
+    }
+
+}
+@media (max-width: 580px) { 
+    .nav-link {
+        font-size: 12px;
+    }
+    .nav > li > a {
+        margin: 0px;
+        font-size: 12px;
+    }
+    .nav-third-floor {
+        width: 100%;
     }
 
 }

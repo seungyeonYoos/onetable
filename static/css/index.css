@@ -228,7 +228,7 @@
 .footer-all {
   border-top: 1px solid gray;
 }
-@media (max-width: 970px) { 
+@media (max-width: 1280px) { 
   #carouselExampleIndicators {
     width: 100%;
   }
@@ -237,4 +237,28 @@
   .main-second-floor {
     display: block;
 }
+  .main-fourth-floor {
+    display: block;
+  }
+  .main-best-class {
+    display: flex;
+    width: 230px;
+    margin: 0 auto;
+  }
+  .main-best-class-more {
+    text-align: right;
+  }
+  .main-event-more {
+    margin-bottom: 10px;
+  }
+  .main-best-class {
+    display: flex;
+  }
+  .main-best-class > div {
+    margin-right: 10px;
+    font-size: var(--main-font-size);
+  }
+  .main-best-class-more {
+    margin-bottom: 10px;
+  }
 }
