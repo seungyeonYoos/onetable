@@ -41,7 +41,7 @@
                             <div class="upload-box">
                                 <div id="drop-file" class="drag-file">
                                     <!-- <img id="img" src="" alt="사진로드중" name="img" /> -->
-                                    <%let src = selectRecipe.image ? `http://localhost:8000/uploads/recipe/${selectRecipe.image}`: "https://img.icons8.com/pastel-glyph/2x/image-file.png"; %>
+                                    <%let src = selectRecipe.image ? `/uploads/recipe/${selectRecipe.image}`: "https://img.icons8.com/pastel-glyph/2x/image-file.png"; %>
                                         <img id="modifyimg" src=<%=src%> alt="파일 아이콘" class="image" />
 
                                 </div>

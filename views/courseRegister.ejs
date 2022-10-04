@@ -279,31 +279,32 @@
     </div>
     <%-include("footer.ejs")%>
 
-      <script>
-        function register() {
-          let form = document.getElementById("registerForm");
-          const formData = new FormData();
-          const file = document.getElementById("file");
-          formData.append("courseImage", file.files[0]);
-          formData.append("name", form.name.value);
-          formData.append("intro", form.intro.value);
-          formData.append("price", form.price.value);
-          formData.append("hour", form.hour.value);
-          formData.append("date", form.date.value);
-          formData.append("totalNumber", form.totalNumber.value);
+    <script>
+      function register() {
+        let form = document.getElementById("registerForm");
+        const formData = new FormData();
+        const file = document.getElementById("file");
+        formData.append("courseImage", file.files[0]);
+        formData.append("name", form.name.value);
+        formData.append("intro", form.intro.value);
+        formData.append("price", form.price.value);
+        formData.append("hour", form.hour.value);
+        formData.append("date", form.date.value);
+        formData.append("totalNumber", form.totalNumber.value);
 
-          axios({
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-            method: "post",
-            url: "http://localhost:8000/course/register",
-            data: formData,
-          }).then((response) => {
-            document.location.href = "/course";
-            console.log(response.data);
-          });
-        }
+        axios({
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          method: "post",
+          url: "/course/register",
+          data: formData,
+        }).then((response) => {
+          document.location.href = "/course";
+          console.log(response.data);
+        });
+      }
+
 
         let image_change;
 
