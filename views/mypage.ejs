@@ -30,6 +30,8 @@
     <!-- alert -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css" />
+    
     <title>마이페이지</title>
 </head>
 
@@ -49,7 +51,7 @@
                     <form id="form" action="">
                         <div class="upload-box">
                             <div id="drop-file" class="drag-file">
-                                <img id="img" src="http://localhost:8000/uploads/profileIMG/<%=myInfo.image%>" alt="사진로드중" name="img" type="image/*">
+                                <img id="img" src="/uploads/profileIMG/<%=myInfo.image%>" alt="사진로드중" name="img" type="image/*">
                                 <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image">
                             </div>
                             <label id="imgFile" class="file-label" for="chooseFile">profilePoto</label>
@@ -130,7 +132,7 @@
                             <% for (var i = 0; i < favRecipe.length ; i++ ) { %>
                                 <li class="itemList userLikesItem">
                                     <a href='/recipe/<%=favRecipe[i].recipe_id%>'>
-                                        <img src='http://localhost:8000/uploads/recipe/<%=favRecipe[i]["recipe.image"]%>' alt="">
+                                        <img src='/uploads/recipe/<%=favRecipe[i]["recipe.image"]%>' alt="">
                                         <span><%= favRecipe[i]['recipe.title'] %></span>  
                                     </a>
                                 </li>

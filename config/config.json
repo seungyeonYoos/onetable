@@ -6,12 +6,11 @@
     "password": "oneTable1234!",
     "dialect": "mysql"
   },
-  "product": {
-    "host": "101.101.217.38",
+  "production": {
+    "host": "101.101.210.181",
     "database": "onetable",
     "username": "user2",
     "password": "oneTable1234!",
-    "dialect": "mysql",
-    "port": "3306"
+    "dialect": "mysql"
   }
 }

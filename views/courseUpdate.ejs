@@ -175,6 +175,11 @@
           display: block;
         }
       }
+      @media (max-width: 580px) { 
+        .number {
+          display:  block !important;
+        }
+      }
       
     </style>
   </head>
@@ -307,7 +312,7 @@
             "Content-Type": "multipart/form-data",
           },
           method: "post",
-          url: "http://localhost:8000/course/update",
+          url: "/course/update",
           data: formData,
         }).then((response) => {
           document.location.href = "/course";
