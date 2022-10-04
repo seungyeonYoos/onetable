@@ -210,7 +210,7 @@
             }
             axios({
                 method: 'post',
-                url: 'http://localhost:8000/user/login',
+                url: '/user/login',
                 data: user
             }).then((rep) => {
                 return rep.data;
