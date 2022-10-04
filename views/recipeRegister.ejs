@@ -116,23 +116,23 @@
                         <!-- <form action="/upload" method="POST" encType="multipart/form-data"> -->
                         <div class="nanugi stuff">
                             <h6>&#124; 재료 &#124;</h6>
-                            <div id="append[maxAppend]">
+                            <div id="append1">
 
                                 <div class="onlytitle"><label for="stuff_itme">재료명</label> <label for="meterage">계량</label></div>
                                 <ul id="stuff" class="only">
 
                                     <div class="stuffItem">
-                                        <li class="stuff_itme"><input id="stuff_itme" name="stuff" type="text" placeholder="ex : 소금 "></li>
+                                        <li class="stuff_itme"><input id="stuff_itme " name="stuff" type="text" placeholder="ex : 소금 "></li>
 
                                     </div>
 
                                     <div class="met">
 
-                                        <li class="meterage"><input id="meterage" name="meterage" type="text" placeholder="ex : 39g"></li>
+                                        <li class="meterage"><input id="meterage " name="meterage" type="text" placeholder="ex : 39g"></li>
 
                                     </div>
                                     <div class="meterageInfor">
-                                        <select name="meterageInfor" id="unit">
+                                        <select name="meterageInfor" id="unit ">
                                 <option value="ml">ml</option>
                                 <option value="g">g</option>
                                 <option value="oz">oz</option>
@@ -144,26 +144,26 @@
 
                             <hr>
                             <div class="stuff_button">
-                                <button type="button" class="add" onclick=count_stuff()>추가 +</button>
+                                <button type="button" class="add">추가 +</button>
                                 <button type="button" class="remove" onclick=remote_stuff()>제거 -</button>
                             </div>
                             <hr>
                             <div class="nanugi order">
                                 <h6>&#124; 순서 &#124;</h6>
                                 <div id="append2">
+                                    <div class="order_title">
+                                        <label class="orderInfor" for="">설명</label>
+                                    </div>
                                     <ul id="order_item">
-                                        <div class="order_title">
-                                            <label class="orderInfor" for="">설명</label>
-                                        </div>
-                                        <div class="order_list">
+                                        <div class="order_list container">
                                             <li class="order_infor">
-                                                <textarea name="orderInfor" id="order_infor" rows="3" cols="30"></textarea>
+                                                <textarea name="orderInfor" id="order_infor " rows="3" cols="30"></textarea>
                                             </li>
                                             <li class="order_img">
-                                                <img id="orderImg" src="" alt="orderImg" name="steps" accept="image/*" />
+                                                <img id="orderImg " src="" alt="orderImg" name="steps" accept="image/*" />
                                                 <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="orderImg" />
-                                                <label id="File" for="orderFile">poto</label>
-                                                <input class="file" id="orderFile" type="file" name="recipeImg" onclick="imginput()">
+                                                <label id="File" for="orderFile ">poto</label>
+                                                <input class="file " id="orderFile  " type="file" name="recipeImg" onclick="imginput()">
                                             </li>
                                         </div>
                                     </ul>

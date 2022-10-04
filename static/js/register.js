@@ -28,8 +28,8 @@ function imgChange() {
 var stuff_count = 0;
 var maxAppend = 0;
 
-function count_stuff() {
-    maxAppend += 1;
+$(".add").on("click", function() {
+
     $("#append1").append(`
     <ul id="stuff">
         <div class="stuffItem">
@@ -52,7 +52,7 @@ function count_stuff() {
     </ul><br>
 `);
     stuff_count += 1;
-}
+});
 
 function remote_stuff() {
     $("#append1:last-child ").empty()
@@ -65,18 +65,15 @@ $(function() {
         $("#orderadd").on("click", function() {
             $("#append2").append(`
     <ul id="order_item">
-        <div class="order_title">
-            <label class="orderInfor" for=""></label>
-        </div>
-        <div class="order_list">
+        <div class="order_list container">
             <li class="order_infor">
-                <textarea name="orderInfor" id="order_infor${order_count}" rows="3" cols="30"></textarea>
+                <textarea name="orderInfor" id="order_infor order_infor${order_count}" rows="3" cols="30"></textarea>
             </li>
             <li class="order_img">
                 <img id="orderImg" src="" alt="orderImg" name="steps" accept="image/*" />
                 <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="orderImg" />
                 <label id="File" for="orderFile${order_count}">poto</label>
-                <input class="file" id="orderFile${order_count}" type="file" name="recipeImg" onclick="imginput()">
+                <input class="file" id="orderFile orderFile${order_count}" type="file" name="recipeImg" onclick="imginput()">
             </li>
         </div>
     </ul>

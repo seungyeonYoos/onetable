@@ -18,8 +18,8 @@
 //     }
 // });
 
-function heart(id, userId) {
-    const pushHeartBtn = document.localStorage(".Heart");
+function heart(id) {
+    const pushHeartBtn = document.querySelector(".Heart");
     pushHeartBtn.addEventListener('click', () => {
 
         if (pushHeartBtn.innerHTML !== '<i class="xi-heart xi-x"></i>') {
@@ -28,12 +28,12 @@ function heart(id, userId) {
             axios({
                 method: 'post',
                 url: `http://localhost:8000/recipe/${id}/fav`,
-                data: data = {
-                    user_id: userId
-                }
+
             }).then((rep) => {
                 return rep.data;
-            });
+            }).then((data) => {
+                return true;
+            })
 
         } else {
             pushHeartBtn.innerHTML = '<i class=" xi-heart-o xi-x"></i>';
@@ -41,12 +41,13 @@ function heart(id, userId) {
             axios({
                 method: 'delete',
                 url: `http://localhost:8000/recipe/${id}/fav`,
-                data: data = {
-                    user_id: userId
-                }
+
             }).then((rep) => {
                 return rep.data;
-            });
+            }).then((data) => {
+                return false;
+
+            })
         }
     });
 
