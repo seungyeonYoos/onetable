@@ -191,7 +191,7 @@ async function getDetailPages(courseID) {
 // 신청자수 보내자
 async function getCountApplications(courseID) {
   const query = `SELECT course_id, COUNT(*) AS count
-                FROM Application
+                FROM application
                 WHERE application.course_id = ${courseID}
                 GROUP BY course_id;`;
   const countApplications = await sequelize.query(query, {
