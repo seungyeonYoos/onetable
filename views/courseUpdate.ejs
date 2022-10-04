@@ -184,6 +184,9 @@
       .register-button>button {
         margin: 4px 0px;
       }
+      label[for="file"] {
+        margin: 4px 0px;
+      }
     }
 
     @media (max-width: 444px) {
@@ -254,7 +257,7 @@
                   value="<%=courseDetail.totalNumber%>"
                 />
                 <span>명</span>
-                <span id="inform-hour">시간</span
+                <div id="inform-hour">시간</div
                 ><input
                   type="text"
                   name="hour"
