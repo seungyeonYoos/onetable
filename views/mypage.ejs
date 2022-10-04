@@ -76,19 +76,19 @@
                 </div>
                 <hr>
                 <div class="review">
-                    <h6>댓글 리뷰</h6>
+                    <h6>클래스 기대평</h6>
                     <div id="review_load">
                         <ul id="Review" class="item reviewList">
-                            <% for (var i = 0; i < 1 ; i++ ) { %>
+                            <% for (var i = 0; i < courseReview.length ; i++ ) { %>
                                 <li class="itemList reviewItem">
-                                    <a href="">
+                                    <a href="/course/detail?courseID=<%=courseReview[i]['course_id']%>">
                                         <div id="ReviewComment">
                                             <!-- 임시 값 -->
                                             <span class="reviewTitle">recipe name&#160;&#124; &#160;</span>
-                                            <span class="reviewName">recipe name</span>
+                                            <span class="reviewName"><%= courseReview[i]['name'] %></span>
                                             <hr class="reviewHr">
                                             <span class="myReview">my Comment&#160;&#124; &#160;</span>
-                                            <div class="reviewComment">comment</div>
+                                            <div class="reviewComment"><%= courseReview[i]['comment'] %></div>
                                         </div>
                                     </a>
                                 </li>
@@ -98,30 +98,6 @@
                     </div>
                     <div id="view">
                         <a href="javascript:;" class="button reviewB">더보기<i class="fi fi-rr-caret-down"></i></a>
-                    </div>
-                </div>
-                <hr>
-                <div class="courseReview">
-                    <h6>클래스 기대평</h6>
-                    <div id="courseReview_load">
-                        <ul id="classReview" class="item courseReviewList">
-                            <% for (var i = 0; i < courseReview.length ; i++ ) { %>
-                                <li class="itemList courseReviewItem">
-                                    <a href="/course/detail?courseID=<%=courseReview[i]['course_id']%>">
-                                        <div id="classReviewComment">
-                                            <span class="reviewTitle">클래스 이름:</span>
-                                            <span class="reviewName"><%= courseReview[i]['name'] %></span>
-                                            <hr class="reviewHr">
-                                            <span class="myReview">기대평:</span>
-                                            <span class="reviewComment"><%= courseReview[i]['comment'] %></span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <% } %>
-                        </ul>
-                    </div>
-                    <div id="view">
-                        <a href="javascript:;" class="button courseReviewB">더보기<i class="fi fi-rr-caret-down"></i></a>
                     </div>
                 </div>
                 <hr>
