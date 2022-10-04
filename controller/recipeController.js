@@ -42,7 +42,7 @@ exports.getRecipe = async (req, res) => {
 		raw: true,
 		where: { recipe_id: id },
 	});
-	console.log("🚀🚀🚀🚀🚀", selectSteps);
+	// console.log("🚀🚀🚀🚀🚀", selectSteps);
 	const selectReviews = await Review.findAll({
 		raw: true,
 		where: { recipe_id: id },
@@ -56,10 +56,25 @@ exports.getRecipe = async (req, res) => {
 		],
 		//가장 최근 등록된 순서로 나온다.
 	});
+	const selectRecipeIngredient = await RecipeIngredient.findAll({
+		raw: true,
+		where: { recipe_id: id },
+		include: [
+			{
+				model: Unit,
+				attributes: { exclude: ["id"] },
+			},
+			{
+				model: Ingredient,
+				attributes: { exclude: ["id"] },
+			},
+		],
+	});
 
 	console.log("✅selectTargetRecipe:", selectTargetRecipe);
 	console.log("✅selectSteps:", selectSteps);
 	console.log("✅selectReviews:", selectReviews);
+	console.log("✅selectRecipeIngredient:", selectRecipeIngredient);
 
 	//selectFavorite: 로그인한 유저가 해당 레시피를 좋아요 유무 확인.
 	let selectFavorite;
@@ -75,6 +90,7 @@ exports.getRecipe = async (req, res) => {
 			selectTargetRecipe,
 			selectSteps,
 			selectReviews,
+			selectRecipeIngredient,
 			selectFavorite: selectFavorite ? true : false,
 			id,
 			popup: req.cookies.popup,
