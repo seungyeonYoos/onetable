@@ -101,7 +101,7 @@ async function getCourseDatas(q) {
             FROM course AS c LEFT OUTER JOIN ${q.order} AS a
             ON c.id = a.course_id
             WHERE c.date > CURDATE()
-            GROUP BY c.id, c.name, c.image
+            GROUP BY c.id, c.name, c.image, c.price
             ORDER BY COUNT(*) DESC;`;
   } else if (q.month) {
     query = `SELECT * FROM course
@@ -138,7 +138,7 @@ async function getMyCourseFavorites(userId) {
 }
 // coursefavorite테이블로 좋아요수 보내기
 async function countCourseFavorites() {
-  const query = `SELECT *, COUNT(*) AS count
+  const query = `SELECT course_id, COUNT(*) AS count
                 FROM coursefavorite 
                 GROUP BY course_id;`;
   const courseFavorites = await sequelize.query(query, {
@@ -190,7 +190,7 @@ async function getDetailPages(courseID) {
 }
 // 신청자수 보내자
 async function getCountApplications(courseID) {
-  const query = `SELECT *, COUNT(*) AS count
+  const query = `SELECT course_id, COUNT(*) AS count
                 FROM Application
                 WHERE application.course_id = ${courseID}
                 GROUP BY course_id;`;
