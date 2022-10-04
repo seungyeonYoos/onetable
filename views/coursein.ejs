@@ -150,7 +150,6 @@
         function register(courseID) {
           if ('<%=isLogin%>' == 'false') {
             alert("로그인이 필요한 기능입니다.");
-            window.location = "/user/login";
             return false;
           }
           let form = document.getElementById("registerForm");
