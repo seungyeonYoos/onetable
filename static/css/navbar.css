@@ -124,3 +124,11 @@ body a:hover {
     }
 
 }
+@media (max-width: 377px) { 
+    .nav > li > a {
+        margin: 0px;
+        font-size: 12px;
+        padding: 8px;
+    }
+
+}
