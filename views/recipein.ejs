@@ -101,28 +101,30 @@
             <h3>재료</h3>
             <div id="ready">
                 <div class="matter">
-                    <% for (var i =0 ; i <  selectTargetRecipe ; i++ ) { %>
-                        <div class="mat">
-                            <h6>&#124; 재료 &#124;</h6>
-                            <ul class="stuff">
+                    <div class="mat">
+                        <h6>&#124; 재료 &#124;</h6>
+                        <ul class="stuff">
+                            <% for (var i =0 ; i < selectRecipeIngredient.length ; i++ ) { %>
                                 <li>
-                                    <%=selectTargetRecipe.ingredient_id%>
+                                    <%=selectRecipeIngredient[i]["ingredient.list"]%>
                                 </li>
 
-                            </ul>
-                        </div>
-                        <hr class="vertical">
-                        <div>
-                            <h6>&#124; 계량 &#124;</h6>
-                            <ul class="mass">
+                                <% } %>
+                        </ul>
+                    </div>
+                    <hr class="vertical">
+                    <div>
+                        <h6>&#124; 계량 &#124;</h6>
+                        <ul class="mass">
+                            <% for (var i =0 ; i <  selectRecipeIngredient.length ; i++ ) { %>
 
                                 <li>
-                                    <%=selectTargetRecipe.amount%>
-                                        <%=selectTargetRecipe.unit_id%>
+                                    <%=selectRecipeIngredient[i].amount%>
+                                        <%=selectRecipeIngredient[i]["unit.list"]%>
                                 </li>
-                            </ul>
-                        </div>
-                        <% } %>
+                                <% } %>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <hr>
@@ -134,7 +136,8 @@
                         <div>
                             <ul>
                                 <li class="ex">
-                                    <%=selectSteps[i].stepNumber%>.
+                                    <%=selectSteps[i].stepNumber%>.&#160;
+
                                         <%=selectSteps[i].instruction%>
                                 </li>
                             </ul>
