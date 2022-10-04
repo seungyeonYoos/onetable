@@ -1,132 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- jquery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
+      integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0="
+      crossorigin="anonymous"
+    ></script>
     <!-- axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css"
+    />
     <!-- navbar css -->
-    <link rel="stylesheet" type="text/css" href="/static/css/navbar.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/navbar.css" />
     <!-- footer css -->
-    <link rel="stylesheet" type="text/css" href="/static/css/footer.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/footer.css" />
     <!-- recipe css -->
-    <link rel="stylesheet" type="text/css" href="/static/css/recipe.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/recipe.css" />
     <!-- 네브바 fontawesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css"
+    />
+
     <!-- 부트스트랩 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
     <!-- icon -->
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css'>
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css"
+    />
     <title>레시피 mainpage</title>
-    <style>
+    <style></style>
+    <script type="text/javascript" src="/static/js/view.js"></script>
+  </head>
 
-    </style>
-    <script type="text/javascript" src="/static/js/view.js">
-    </script>
-
-</head>
-
-<body>
+  <body>
     <%-include ('navbar.ejs')%>
-        <div id="recipe" class="container">
-            <div id="page_title">
-                <h1>Dessert Recipe</h1>
-            </div>
-            <div id="recipeCategory">
-                <ul class="category_list">
-                    <form action="/recipe" method="get" id="categoryList">
-                        <li>
+    <div id="recipe" class="container">
+      <div id="page_title">
+        <h1>Dessert Recipe</h1>
+      </div>
+      <div id="recipeCategory">
+        <ul class="category_list">
+          <form action="/recipe" method="get" id="categoryList">
+            <li>
+              <label for="breadSlice"
+                ><i class="fi fi-rs-bread-slice"></i>식빵</label
+              >
+              <input
+                type="submit"
+                id="breadSlice"
+                class="category"
+                value="식빵"
+                name="category"
+              />
+            </li>
 
-                            <label for="breadSlice"><i class="fi fi-rs-bread-slice"></i>식빵</label>
-                            <input type="submit" id="breadSlice" class="category" value="식빵" name="category">
-                        </li>
+            <li>
+              <label for="wheat"
+                ><i class="fi fi-rr-wheat"></i>천연 발효종</label
+              >
+              <input
+                type="submit"
+                id="wheat"
+                class="category"
+                value="천연 발효종"
+                name="category"
+              />
+            </li>
+            <li>
+              <label for="health"> <i class="fi fi-rr-hotdog"></i>건강빵</label>
+              <input
+                type="submit"
+                id="health"
+                class="category"
+                value="건강빵"
+                name="category"
+              />
+            </li>
+            <li>
+              <label for="pastry"
+                ><i class="fi fi-rr-croissant"></i>페스츄리</label
+              >
+              <input
+                type="submit"
+                id="pastry"
+                class="category"
+                value="페스츄리"
+                name="category"
+              />
+            </li>
+            <li>
+              <label for="bread"><i class="fi fi-rr-bread"></i>브레드</label>
+              <input
+                type="submit"
+                id="bread"
+                class="category"
+                value="브레드"
+                name="category"
+              />
+            </li>
+            <li>
+              <label for="cookie"
+                ><i class="fi fi-rr-cookie"></i>구움과자</label
+              >
+              <input
+                type="submit"
+                id="cookie"
+                class="category"
+                value="구움과자"
+                name="category"
+              />
+            </li>
+            <li>
+              <label for="cake"
+                ><i class="fi fi-rs-cake-wedding"></i>케이크</label
+              >
+              <input
+                type="submit"
+                id="cake"
+                class="category"
+                value="케이크"
+                name="category"
+              />
+            </li>
+          </form>
+        </ul>
+      </div>
+      <hr />
+      <div id="recipeList">
+        <form action="/recipe" method="get">
+          <div id="bar">
+            <label for="like">좋아요 순</label>
+            <input type="submit" id="like" name="like" value="1" />
 
-
-                        <li>
-                            <label for="wheat"><i class="fi fi-rr-wheat"></i>천연 발효종</label>
-                            <input type="submit" id="wheat" class="category" value="천연 발효종" name="category">
-
-                        </li>
-                        <li>
-                            <label for="health"> <i class="fi fi-rr-hotdog"></i>건강빵</label>
-                            <input type="submit" id="health" class="category" value="건강빵" name="category">
-
-                        </li>
-                        <li>
-                            <label for="pastry"><i class="fi fi-rr-croissant"></i>페스츄리</label>
-                            <input type="submit" id="pastry" class="category" value="페스츄리" name="category">
-
-                        </li>
-                        <li>
-                            <label for="bread"><i class="fi fi-rr-bread"></i>브레드</label>
-                            <input type="submit" id="bread" class="category" value="브레드" name="category">
-
-                        </li>
-                        <li>
-                            <label for="cookie"><i class="fi fi-rr-cookie"></i>구움과자</label>
-                            <input type="submit" id="cookie" class="category" value="구움과자" name="category">
-
-                        </li>
-                        <li>
-                            <label for="cake"><i class="fi fi-rs-cake-wedding"></i>케이크</label>
-                            <input type="submit" id="cake" class="category" value="케이크" name="category">
-
-                        </li>
-
-                    </form>
-                </ul>
-            </div>
-            <hr>
-            <div id="recipeList">
-                <form action="/recipe" method="get">
-                    <div id="bar">
-                        <label for="like">좋아요 순</label>
-                        <input type="submit" id="like" name="like" value="1">
-
-                        <a href="/recipe/register" id="newRecipe">New Recipe</a>
-                    </div>
-                </form>
-                <div id="recipe_load">
-                    <ul class="recipe_list">
-                        <!-- count.length : count 개수 -->
-                        <% for (var i = 0 ; i < data.length ; i++) { %>
-                            <li class="recipeItem">
-                                <a href="/recipe/<%=data[i].id%>">
-                                    <div class="recipeImg">
-                                        <img src="/uploads/recipe/<%=data[i].image%>" alt="">
-                                    </div>
-                                    <div class="recipeName">
-                                        <%=data[i].title%>
-                                    </div>
-                                    <div class="recipeintro">
-                                        <%=data[i].intro%>
-                                    </div>
-                                </a>
-                                <br>
-                                <div class="cookName">
-                                    <img src="/uploads/profileIMG/<%=data[i]['user.image'] %>" alt="">
-                                    <%=data[i]["user.name"]%>
-                                </div>
-                            </li>
-                            <% } %>
-                    </ul>
+            <a href="/recipe/register" id="newRecipe">New Recipe</a>
+          </div>
+        </form>
+        <div id="recipe_load">
+          <ul class="recipe_list">
+            <!-- count.length : count 개수 -->
+            <% for (var i = 0 ; i < data.length ; i++) { %>
+            <li class="recipeItem">
+              <a href="/recipe/<%=data[i].id%>">
+                <div class="recipeImg">
+                  <img src="/uploads/recipe/<%=data[i].image%>" alt="" />
                 </div>
-                <div id="view"><a href="javascript:;" class="button recipeB">더보기<i class="fi fi-rr-caret-down"></i></a></div>
-
-            </div>
+                <div class="recipeName"><%=data[i].title%></div>
+                <div class="recipeintro"><%=data[i].intro%></div>
+              </a>
+              <br />
+              <div class="cookName">
+                <img
+                  src="/uploads/profileIMG/<%=data[i]['user.image'] %>"
+                  alt=""
+                />
+                <%=data[i]["user.name"]%>
+              </div>
+            </li>
+            <% } %>
+          </ul>
         </div>
-        <a id="top" href="#recipe"><i class="fi fi-rr-chevron-double-up"></i></a>
-        <%-include ('footer.ejs')%>
-            <script type="text/javascript" src="/static/js/recipe.js"></script>
-
-
-</body>
-
+        <div id="view">
+          <a href="javascript:;" class="button recipeB"
+            >더보기<i class="fi fi-rr-caret-down"></i
+          ></a>
+        </div>
+      </div>
+    </div>
+    <a id="top" href="#recipe"><i class="fi fi-rr-chevron-double-up"></i></a>
+    <%-include ('footer.ejs')%>
+    <script type="text/javascript" src="/static/js/recipe.js"></script>
+  </body>
 </html>
