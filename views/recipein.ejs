@@ -101,35 +101,35 @@
             <h3>재료</h3>
             <div id="ready">
                 <div class="matter">
-                    <div class="mat">
-                        <h6>&#124; 재료 &#124;</h6>
-                        <ul class="stuff">
-                            <% for (var i = 1; i <  selectTargetRecipe.length ; i++ ) { %>
+                    <% for (var i =0 ; i <  selectTargetRecipe ; i++ ) { %>
+                        <div class="mat">
+                            <h6>&#124; 재료 &#124;</h6>
+                            <ul class="stuff">
                                 <li>
-                                    <%=selectTargetRecipe[i].ingredient_id%>
+                                    <%=selectTargetRecipe.ingredient_id%>
                                 </li>
-                                <% } %>
-                        </ul>
-                    </div>
-                    <hr class="vertical">
-                    <div>
-                        <h6>&#124; 계량 &#124;</h6>
-                        <ul class="mass">
-                            <% for (var i = 1; i <  selectTargetRecipe.length ; i++ ) { %>
+
+                            </ul>
+                        </div>
+                        <hr class="vertical">
+                        <div>
+                            <h6>&#124; 계량 &#124;</h6>
+                            <ul class="mass">
+
                                 <li>
-                                    <%=selectTargetRecipe[i].amount%>
-                                        <%=selectTargetRecipe[i].unit_id%>
+                                    <%=selectTargetRecipe.amount%>
+                                        <%=selectTargetRecipe.unit_id%>
                                 </li>
-                                <% } %>
-                        </ul>
-                    </div>
+                            </ul>
+                        </div>
+                        <% } %>
                 </div>
             </div>
             <hr>
             <h3>조리 순서</h3>
             <div id="order">
                 <div class="order_item">
-                    <% for (var i = 1; i < selectSteps.length ; i++ ) { %>
+                    <% for (var i = 0; i < selectSteps.length ; i++ ) { %>
 
                         <div>
                             <ul>
@@ -149,10 +149,11 @@
             </div>
             <hr>
             <h3>댓글</h3>
+            <p>좋아요 1 | 선택안함 0 | 싫어요 -1 </p>
             <div id="userComment">
                 <div id="comment_load" class="container">
                     <ul class="uc">
-                        <% for (var i = 1; i < selectReviews.length ; i++ ) { %>
+                        <% for (var i = 0; i < selectReviews.length ; i++ ) { %>
                             <li class="commentList">
                                 <p class="name">
                                     <%=selectReviews[i].score%> &#160;&#124; &#160; </p>

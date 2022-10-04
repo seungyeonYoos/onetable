@@ -17,35 +17,41 @@
 //     }
 // });
 
-function heart(id, userId) {
-	const pushHeartBtn = document.localStorage(".Heart");
-	pushHeartBtn.addEventListener("click", () => {
-		if (pushHeartBtn.innerHTML !== '<i class="xi-heart xi-x"></i>') {
-			pushHeartBtn.innerHTML = '<i class="xi-heart xi-x"></i>';
-			pushHeartBtn.style.color = "red";
-			axios({
-				method: "post",
-				url: `/recipe/${id}/fav`,
-				data: (data = {
-					user_id: userId,
-				}),
-			}).then((rep) => {
-				return rep.data;
-			});
-		} else {
-			pushHeartBtn.innerHTML = '<i class=" xi-heart-o xi-x"></i>';
-			pushHeartBtn.style.color = "black";
-			axios({
-				method: "delete",
-				url: `/recipe/${id}/fav`,
-				data: (data = {
-					user_id: userId,
-				}),
-			}).then((rep) => {
-				return rep.data;
-			});
-		}
-	});
+
+function heart(id) {
+    const pushHeartBtn = document.querySelector(".Heart");
+    pushHeartBtn.addEventListener('click', () => {
+
+        if (pushHeartBtn.innerHTML !== '<i class="xi-heart xi-x"></i>') {
+            pushHeartBtn.innerHTML = '<i class="xi-heart xi-x"></i>';
+            pushHeartBtn.style.color = 'red';
+            axios({
+                method: 'post',
+                url: `http://localhost:8000/recipe/${id}/fav`,
+
+            }).then((rep) => {
+                return rep.data;
+            }).then((data) => {
+                return true;
+            })
+
+        } else {
+            pushHeartBtn.innerHTML = '<i class=" xi-heart-o xi-x"></i>';
+            pushHeartBtn.style.color = 'black';
+            axios({
+                method: 'delete',
+                url: `http://localhost:8000/recipe/${id}/fav`,
+
+            }).then((rep) => {
+                return rep.data;
+            }).then((data) => {
+                return false;
+
+            })
+        }
+    });
+
+
 }
 // 수정
 function modify(id) {
