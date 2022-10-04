@@ -13,3 +13,8 @@
 .post_button button:nth-child(1) {
     margin-right: 10px;
 }
+
+.order_img img {
+    width: 60px;
+    height: 60px;
+}

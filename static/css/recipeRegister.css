@@ -315,7 +315,7 @@
     
     .order_title {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         align-items: center;
         padding-left: 30px;
     }
@@ -327,7 +327,7 @@
     
     .order_list {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         align-items: center;
     }
     

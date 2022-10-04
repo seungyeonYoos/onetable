@@ -1,43 +1,67 @@
 // 좋아요 기능
-var heartcount;
+// var heart;
+// var heartdelete;
 
-const pushHeartBtn = document.querySelector(".Heart");
-pushHeartBtn.addEventListener('click', () => {
 
-    if (pushHeartBtn.innerHTML !== '<i class="xi-heart xi-x"></i>') {
-        pushHeartBtn.innerHTML = '<i class="xi-heart xi-x"></i>';
-        pushHeartBtn.style.color = 'red';
-        heartcount = pushHeartBtn;
+// const pushHeartBtn = document.querySelector(".Heart");
+// pushHeartBtn.addEventListener('click', () => {
 
-    } else {
-        pushHeartBtn.innerHTML = '<i class=" xi-heart-o xi-x"></i>';
-        pushHeartBtn.style.color = 'black';
-    }
-});
+//     if (pushHeartBtn.innerHTML !== '<i class="xi-heart xi-x"></i>') {
+//         pushHeartBtn.innerHTML = '<i class="xi-heart xi-x"></i>';
+//         pushHeartBtn.style.color = 'red';
+//         heartcount = pushHeartBtn;
 
-function heart(id) {
+//     } else {
+//         pushHeartBtn.innerHTML = '<i class=" xi-heart-o xi-x"></i>';
+//         pushHeartBtn.style.color = 'black';
 
-    axios({
-        method: 'post',
-        url: `http://localhost:8000/recipe/${id}/fav`,
-        data: data = {
-            heartcount: heartcount
+//     }
+// });
+
+function heart(id, userId) {
+    const pushHeartBtn = document.localStorage(".Heart");
+    pushHeartBtn.addEventListener('click', () => {
+
+        if (pushHeartBtn.innerHTML !== '<i class="xi-heart xi-x"></i>') {
+            pushHeartBtn.innerHTML = '<i class="xi-heart xi-x"></i>';
+            pushHeartBtn.style.color = 'red';
+            axios({
+                method: 'post',
+                url: `http://localhost:8000/recipe/${id}/fav`,
+                data: data = {
+                    user_id: userId
+                }
+            }).then((rep) => {
+                return rep.data;
+            });
+
+        } else {
+            pushHeartBtn.innerHTML = '<i class=" xi-heart-o xi-x"></i>';
+            pushHeartBtn.style.color = 'black';
+            axios({
+                method: 'delete',
+                url: `http://localhost:8000/recipe/${id}/fav`,
+                data: data = {
+                    user_id: userId
+                }
+            }).then((rep) => {
+                return rep.data;
+            });
         }
-    }).then((rep) => {
-        return rep.data;
-    });
-    axios({
-        method: 'delete',
-        url: `http://localhost:8000/recipe/${id}/fav`,
-        data: data = {
-            deleteFavorite: heartcount
-        }
-    }).then((rep) => {
-        return rep.data;
     });
 
 }
+// 수정
+function modify(id) {
 
+    axios({
+        method: 'put',
+        url: `/recipe/${id}/modify`
+
+    }).then((rep) => {
+        return true;
+    })
+}
 
 
 function goodRecipe() {
@@ -90,8 +114,7 @@ function reviewChat(id) {
         }
     }).then((rep) => {
         return rep.data;
-    }).then((data) => {
-        document.location.href = `/recipe/${id}`;
+
 
     }).catch((err) => {
         return false;
