@@ -132,17 +132,12 @@ function signUp() {
 		$("#pw").val("").focus();
 		return false;
 	} else if (pw.search(/\s/) != -1) {
-		$("#alert").html("<div비밀번호는 공백 없이 입력해주세요.</div>");
+		$("#alert").html("<div>비밀번호는 공백 없이 입력해주세요.</div>");
 		$("#pw").val("").focus();
-		return false;
-	} else if (number < 0 || english < 0 || spece < 0) {
-		$("#alert").html(
-			"<div>영문,숫자,특수문자를 혼합하여 입력해주세요.</div>"
-		);
-		$("#pw").val("").focus();
+		console.log()
 		return false;
 	} else if (
-		(number < 0 && english < 0) ||
+		(number.length < 0 && english.length < 0) ||
 		(english < 0 && spece < 0) ||
 		(spece < 0 && number < 0)
 	) {
