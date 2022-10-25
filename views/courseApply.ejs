@@ -201,7 +201,7 @@
             merchant_uid: "course_" + new Date().getTime(),
             name: "<%=courseApply.name%>",
             // amount: "<%=courseApply.price%>",
-            amount: "100",
+            amount: "<%=courseApply.price%>",
             buyer_email: "<%=myInfo.email%>",
             buyer_name: "<%=myInfo.name%>",
             buyer_tel: $(".tel").val(),
