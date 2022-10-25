@@ -7,7 +7,6 @@
     <title>Document</title>
     
     <!-- 네브바 fontawesome -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
@@ -15,6 +14,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    
     <link rel="stylesheet" href="/static/css/navbar.css" />
     <link rel="stylesheet" href="/static/css/footer.css" />
     <!-- 부트스트랩 -->
@@ -242,7 +242,7 @@
                 <a class="col col-sm-6 col-md-4 col-lg-3" href="/recipe/<%=recipeData[i]['id']%>">
                   <div>
                     <div>
-                      <img src="/uploads/recipe/<%=recipeData[i]['image']%>.jpg" />
+                      <img src="/uploads/recipe/<%=recipeData[i]['image']%>" />
                       <p class="intro"><%=recipeData[i]['intro']%></p> 
                       <p class="name"><%=recipeData[i]['title']%></p>
                       <div class="addInfos">
