@@ -77,7 +77,10 @@ function edit() {
 			return rep.data;
 		})
 		.then((data) => {
-			alert("수정 성공");
+			Swal.fire(
+				'수정 성공',
+				'success'
+			  )
 		})
 		.catch((error) => {
 			Swal.fire({

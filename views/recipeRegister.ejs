@@ -42,7 +42,6 @@
                             <div class="upload-box">
                                 <div id="drop-file" class="drag-file">
                                     <img id="img" src="" alt="recipeTitleImg" name="recipe" />
-                                    <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" />
                                 </div>
                                 <label id="imgFile" class="file-label" for="chooseFile">Choose</label>
                                 <input class="file" name="myImage" id="chooseFile" type="file" onclick="imgChange()">
@@ -161,7 +160,6 @@
                                             </li>
                                             <li class="order_img">
                                                 <img id="orderImg" src="" alt="orderImg" name="steps" accept="image/*" />
-                                                <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="orderImg" />
                                                 <input class="file" id="orderFile" type="file" name="recipeImg" onclick="imginput()">
                                             </li>
                                             <label id="File" for="orderFile">poto</label>
@@ -189,16 +187,9 @@
             <a id="top" href="#recipeItem"><i class="fi fi-rr-chevron-double-up"></i></a>
             <%-include ('footer.ejs')%>
 
-                <script src="/static/js/register.js"></script>
-                <script>
-                    var order_count = 1;
 
-                    function count_order() {
-                        order_count += 1;
-
-                        console.log(order_count)
-                    }
-                </script>
+            <script src="/static/js/register.js"></script>
+              
 </body>
 
 </html>

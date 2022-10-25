@@ -71,7 +71,6 @@
     #img {
         width: 290px;
         height: 290px;
-        display: none;
     }
     
     .upload-box .drag-file {
@@ -376,7 +375,6 @@
     #orderImg {
         width: 100px;
         height: 100px;
-        display: none;
     }
     
     .order_img>.orderImg {

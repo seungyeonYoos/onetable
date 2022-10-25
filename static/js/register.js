@@ -72,9 +72,8 @@ $(function() {
                 <textarea name="orderInfor" id="order_infor${order_count}" rows="3" cols="30"></textarea>
             </li>
             <li class="order_img">
-                <img id="orderImg" src="" alt="orderImg" name="steps" accept="image/*" />
-                <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="orderImg" />
-                <input class="file" id="orderFile${order_count}" type="file" name="recipeImg" onclick="imginput()">
+                <img id="orderImg${order_count}" src="" alt="orderImg" name="steps" accept="image/*" />
+                <input class="file" id="orderFile${order_count}" type="file" name="recipeImg"  multiple>
                 </li>
                 <label id="File" for="orderFile${order_count}">poto</label>
         </div>
@@ -87,6 +86,7 @@ $(function() {
     });
 });
 // function count_order() {}
+
 
 function readOrderImage(input) {
     if (input.files && input.files[0]) {
@@ -107,11 +107,34 @@ function imginput() {
     const imgUpload = document.getElementById("orderFile");
     imgUpload.addEventListener("change", (e) => {
         readOrderImage(e.target);
-        $(".orderImg").hide();
-        $("#orderImg").show();
     });
+
+}  
+
+function readOrderImage2(input) {
+    if (input.files && input.files[0]) {
+        // 이미지 파일인지 검사 (생략)
+        // FileReader 인스턴스 생성
+        const reader = new FileReader();
+        // 이미지가 로드가 된 경우
+        reader.onload = (e) => {
+            const previewImage = document.getElementById(`orderImg${order_count}`);
+            previewImage.src = e.target.result;
+        };
+        // reader가 이미지 읽도록 하기
+        reader.readAsDataURL(input.files[0]);
+    }
 }
 
+
+
+function imginput() {
+    const imgUpload = document.getElementById(`orderImg${order_count}`);
+    imgUpload.addEventListener("change",   e => {
+        readOrderImage2(e.target);
+    });
+
+}  
 /* 재료 부분:
 
 .stuff_item > input → 재료명
