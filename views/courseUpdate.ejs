@@ -27,6 +27,11 @@
     />
     <link rel="stylesheet" href="/static/css/navbar.css" />
     <link rel="stylesheet" href="/static/css/footer.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css"
+    />
+
     <!-- 부트스트랩 -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -62,7 +67,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <style>
       @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
@@ -159,45 +164,47 @@
         height: 100%;
         border-radius: 20px;
       }
-      @media (max-width: 963px) { 
+      @media (max-width: 963px) {
         .register-inform {
           display: block;
         }
         #image-register {
           text-align: center;
         }
-        #name , #intro , #price , #date  {
+        #name,
+        #intro,
+        #price,
+        #date {
           width: 70%;
         }
       }
-      @media (max-width: 576px) { 
+      @media (max-width: 576px) {
         .course-information {
           display: block;
         }
       }
-      @media (max-width: 580px) { 
+      @media (max-width: 580px) {
         .number {
-          display:  block;
+          display: block;
         }
       }
       @media (max-width: 529px) {
-      .register-button>button {
-        margin: 4px 0px;
+        .register-button > button {
+          margin: 4px 0px;
+        }
+        label[for="file"] {
+          margin: 4px 0px;
+        }
       }
-      label[for="file"] {
-        margin: 4px 0px;
-      }
-    }
 
-    @media (max-width: 444px) {
-      .course-information {
-        display: block;
+      @media (max-width: 444px) {
+        .course-information {
+          display: block;
+        }
+        #inform-hour {
+          padding-left: 0px;
+        }
       }
-      #inform-hour {
-        padding-left: 0px;
-      }
-    }
-      
     </style>
   </head>
 
@@ -257,8 +264,8 @@
                   value="<%=courseDetail.totalNumber%>"
                 />
                 <span>명</span>
-                <div id="inform-hour">시간</div
-                ><input
+                <div id="inform-hour">시간</div>
+                <input
                   type="text"
                   name="hour"
                   id="hour"

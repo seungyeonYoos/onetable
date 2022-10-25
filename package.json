@@ -1,7 +1,7 @@
 {
     "name": "final-project",
     "version": "1.0.0",
-    "description": "onetable project",
+    "description": "This project is a web site for finding baking recipes. We named the site as 'onetable' for which we provide special recipe for only you.😉",
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
