@@ -161,13 +161,16 @@ label {
     display: flex;
     align-content: center;
     flex-wrap: wrap;
+    margin-left: 50px;
 }
-
+.recipe_list.active{
+    margin-right: 20px;
+}
 .recipe_list li {
     width: 230px;
     height: 350px;
     margin: 10px 0;
-    margin-right: 30px;
+    margin-right: 100px;
     /*  */
     background-color: #D7CCC8;
 }
