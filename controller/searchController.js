@@ -27,7 +27,7 @@ exports.main = async (req, res) => {
 
 // 검색
 async function getRecipes(searchWord) {
-  const query = `SELECT *
+  const query = `SELECT recipe.id, recipe.title, recipe.image, recipe.intro, recipe.cookTime, level.list
                 FROM recipe LEFT OUTER JOIN level
                 ON recipe.level_id = level.id
                 WHERE title LIKE '%${searchWord}%';`;
