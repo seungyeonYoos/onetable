@@ -11,7 +11,6 @@
 ## ERM
 <img src="https://user-images.githubusercontent.com/26360179/196043616-ac2ee3b7-500b-40cf-be25-4c3dcf0ac424.png" width="600"/>
 <hr />
-(아래 개인별 추가 작성이 필요함)
 
 ## 💁🏻 팀원 - 개발담당
 
