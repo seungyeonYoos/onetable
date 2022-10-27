@@ -189,6 +189,7 @@ exports.myPage_delete = (req, res) => {
     where: { id: req.session.userId },
   }).then((result) => {
     console.log("myInfo destroy:", result);
+    req.session.destroy();
     res.redirect("/");
     //? 로그아웃 기능도 같이 넣어줘야 하는지 확인 필요!
   });
