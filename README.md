@@ -54,5 +54,13 @@
 - 레시피 좋아요 및 취소 기능
 - 특정 레시피에서의 댓글 기능
 
+&nbsp;
+## :movie_camera: 시현영상
+
+https://user-images.githubusercontent.com/110958704/198197790-766c7f9a-c3d2-4ae3-bbed-c8f19034d1df.mov
+
+&nbsp;
+## :link: Link
+[Onetable](http://3.37.87.185:8002/)
 
 
