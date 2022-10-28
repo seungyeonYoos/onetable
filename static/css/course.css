@@ -15,12 +15,13 @@
         margin: 20px auto;
         background-color: white;
         padding: 18px 20px;
+        position: relative;
       }
       .cooking-class-title {
         font-size: calc(0.75em + 2vw);
         font-weight: 600;
       }
-  
+
       .bestCourse {
         width: 85%;
         margin: 0 auto;
@@ -33,7 +34,7 @@
       .score {
         width: 40px;
         height: 30px;
-        margin: 10px;
+        margin: 7px auto;
       }
 
       .post {
@@ -50,6 +51,21 @@
       .post .bestCourseImage {
         width: 300px;
         height: 300px;
+      }
+      .left-button , .right-button {
+        border: 0px;
+        border-radius: 50%;
+        padding: 20px;
+      }
+      .left-button {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+      }
+      .right-button {
+        position: absolute;
+        top: 50%;
+        right: 10px;
       }
 
       /* select box */
@@ -86,13 +102,13 @@
       .bestcourseName {
         background-color: rgb(255, 255, 255);
         width: 100%;
-        text-align: left;
+        /* text-align: left; */
         padding-left: 5px;
       }
       .bestcoursePrice {
         background-color: rgb(255, 255, 255);
         width: 100%;
-        text-align: left;
+        /* text-align: left; */
         padding: 5px;
         font-size: 20px;
         font-weight: 600;
@@ -115,6 +131,7 @@
         background-color: white;
         padding: 4px 20px;
         border-radius: 10px;
+        margin: 5px;
       }
 
       /* course list  */
@@ -148,22 +165,26 @@
         color: red !important;
       }
 
+
+
       @media (max-width: 640px) { 
         .course-list-item {
-          height: 300px;
+          height: 323px;
         }
       }
       @media (max-width: 420px) { 
         .course-list-item {
-          height: 220px;
+          height: 250px;
         }
       }
 
       /* best course image */
       @media (max-width: 900px) { 
         .bestCourse {
-          width: 100%;
           height: auto;
+        }
+        .container {
+          width: 100% !important;
         }
         .post .bestCourseImage {
           height: 200px;
@@ -171,5 +192,28 @@
         .cooking-class {
           width: 100%;
         }
+      }
+      @media (max-width: 500px) { 
+      .post .bestCourseImage {
+          height: 40vh;
+      }
+      .post .bestCourseImage {
+        width: 300px;
+        height: 300px;
+      }
+      .bestCourse {
+        display: block;
+        height: 400px;
+      }
+      .score {
+        display: block;
+      }
+      .post {
+        text-align: center;
+        width: auto;
+      }
+      .post > img {
+        text-align: center;
+      }
       }
       
