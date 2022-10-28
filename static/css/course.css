@@ -53,9 +53,12 @@
         height: 300px;
       }
       .left-button , .right-button {
-        border: 0px;
+        border: 0.8px solid gray;
         border-radius: 50%;
-        padding: 20px;
+        padding: 15px;
+        background-color: white;
+        color: gray;
+        display: none;
       }
       .left-button {
         position: absolute;
@@ -193,7 +196,7 @@
           width: 100%;
         }
       }
-      @media (max-width: 500px) { 
+      @media (max-width: 500px) {
       .post .bestCourseImage {
           height: 40vh;
       }
