@@ -65,7 +65,7 @@
 - 특정 레시피에서의 댓글 기능
 
 &nbsp;
-## :movie_camera: 시현영상
+## :movie_camera: 시연영상
 
 https://user-images.githubusercontent.com/110958704/198197790-766c7f9a-c3d2-4ae3-bbed-c8f19034d1df.mov
 
