@@ -7,10 +7,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "host": "101.101.210.181",
+    "host": "101.101.219.234",
     "database": "onetable",
-    "username": "user2",
-    "password": "oneTable1234!",
+    "username": "admin",
+    "password": "qwer1595",
     "dialect": "mysql"
   }
 }
