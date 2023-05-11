@@ -22,7 +22,6 @@
 - Main page (carousel bootstrap, slick library)
 - 클래스 / 리스트 / 등록 / 상세 / 결제 페이지
 
-- 
 #### 이미경
 - 로그인 페이지
 - 회원가입 페이지 (sweetAlert library)
